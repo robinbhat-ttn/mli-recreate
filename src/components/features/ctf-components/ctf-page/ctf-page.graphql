@@ -1,15 +1,6 @@
-fragment PageTopSectionFields on PageTopSectionItem {
+fragment PageContentFields on PageContentItem {
   __typename
 }
-
-fragment PageContentFields on PagePageContent {
-  __typename
-}
-
-fragment PageExtraSectionItemFields on PageExtraSectionItem {
-  __typename
-}
-
 
 fragment CtfPageFields on Page {
   __typename
@@ -28,7 +19,7 @@ fragment CtfPageFields on Page {
     noIndex
     noFollow
   }
-  topSectionCollection(limit: 20) {
+  contentCollection(limit: 20) {
     items {
       ... on Entry {
         __typename
@@ -36,27 +27,7 @@ fragment CtfPageFields on Page {
           id
         }
       }
-      ...PageTopSectionFields
-    }
-  }
-  pageContent {
-    ... on Entry {
-      __typename
-      sys {
-        id
-      }
-    }
-    ...PageContentFields
-  }
-  extraSectionCollection(limit: 20) {
-    items {
-      ... on Entry {
-        __typename
-        sys {
-          id
-        }
-      }
-      ...PageExtraSectionItemFields
+      ...PageContentFields
     }
   }
 }

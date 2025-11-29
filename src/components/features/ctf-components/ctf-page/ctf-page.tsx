@@ -6,11 +6,8 @@ import { PageContainer } from '@src/components/templates/page-container';
 import LayoutContext, { defaultLayout } from '@src/layout-context';
 
 const CtfPage = (props: CtfPageFieldsFragment) => {
-  const topSection =
-    props.topSectionCollection && props.topSectionCollection.items.filter(it => !!it);
-  const content = props.pageContent;
-  const extraSection =
-    props.extraSectionCollection && props.extraSectionCollection.items.filter(it => !!it);
+  const content =
+    props.contentCollection && props.contentCollection.items.filter(it => !!it);
 
   const layoutConfig = {
     ...defaultLayout,
@@ -19,21 +16,8 @@ const CtfPage = (props: CtfPageFieldsFragment) => {
 
   return (
     <PageContainer>
-      {topSection &&
-        topSection.map(entry => (
-          <LayoutContext.Provider value={layoutConfig} key={entry!.sys.id}>
-            <ComponentResolver componentProps={entry!} />
-          </LayoutContext.Provider>
-        ))}
-
-      {content && (
-        <LayoutContext.Provider value={defaultLayout} key={content.sys.id}>
-          <ComponentResolver componentProps={content} />
-        </LayoutContext.Provider>
-      )}
-
-      {extraSection &&
-        extraSection.map(entry => (
+      {content &&
+        content.map(entry => (
           <LayoutContext.Provider value={layoutConfig} key={entry!.sys.id}>
             <ComponentResolver componentProps={entry!} />
           </LayoutContext.Provider>

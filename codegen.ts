@@ -34,6 +34,7 @@ export const config: CodegenConfig = {
         'typescript-react-query',
       ],
       config: {
+        reactQueryVersion: 5,
         exposeQueryKeys: true,
         exposeFetcher: true,
         rawRequest: false,

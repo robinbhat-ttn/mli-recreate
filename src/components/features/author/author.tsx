@@ -2,7 +2,7 @@ import { Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 import { Avatar } from '@src/components/features/avatar';
-import { PersonFieldsFragment } from '@src/components/features/ctf-components/ctf-person/__generated/ctf-person.generated';
+//import { PersonFieldsFragment } from '@src/components/features/ctf-components/ctf-person/__generated/ctf-person.generated';
 
 const useStyles = makeStyles((theme: Theme) => ({
   avatar: {
@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(3),
   },
 }));
-
+/*
 interface AuthorPropsInterface extends PersonFieldsFragment {}
 
 export const Author = (props: AuthorPropsInterface) => {
@@ -35,3 +35,4 @@ export const Author = (props: AuthorPropsInterface) => {
     </div>
   );
 };
+*/

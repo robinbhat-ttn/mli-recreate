@@ -2,8 +2,8 @@ import { Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 import { Avatar } from '@src/components/features/avatar';
-import { PersonFieldsFragment } from '@src/components/features/ctf-components/ctf-person/__generated/ctf-person.generated';
-import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtext/ctf-richtext';
+//import { PersonFieldsFragment } from '@src/components/features/ctf-components/ctf-person/__generated/ctf-person.generated';
+//import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtext/ctf-richtext';
 import LayoutContext, { defaultLayout } from '@src/layout-context';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
   },
 }));
-
+/*
 export const CardPerson = ({ name, bio, avatar }: PersonFieldsFragment) => {
   const classes = useStyles();
 
@@ -53,3 +53,4 @@ export const CardPerson = ({ name, bio, avatar }: PersonFieldsFragment) => {
     </div>
   );
 };
+*/

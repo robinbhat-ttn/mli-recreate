@@ -5,8 +5,8 @@ import clsx from 'clsx';
 import React from 'react';
 
 import { CtfAsset } from '@src/components/features/ctf-components/ctf-asset/ctf-asset';
-import { PersonFieldsFragment } from '@src/components/features/ctf-components/ctf-person/__generated/ctf-person.generated';
-import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtext/ctf-richtext';
+//import { PersonFieldsFragment } from '@src/components/features/ctf-components/ctf-person/__generated/ctf-person.generated';
+//import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtext/ctf-richtext';
 import LayoutContext, { defaultLayout } from '@src/layout-context';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -60,6 +60,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
+/*
 interface CardLeadershipPropsInterface extends PersonFieldsFragment {
   previousComponent: string | null;
 }
@@ -107,3 +108,4 @@ export const CardLeadership = (props: CardLeadershipPropsInterface) => {
     </div>
   );
 };
+*/

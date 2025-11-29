@@ -131,10 +131,8 @@ export const Link = (props: Props) => {
 
   if (withoutMaterial === true) {
     return (
-      <NextLink href={href} as={as} passHref>
-        <a className={clsx(classes.baseAnchor, className)} title={title}>
-          {children}
-        </a>
+      <NextLink href={href} as={as} passHref className={clsx(classes.baseAnchor, className)} title={title}>
+        {children}
       </NextLink>
     );
   }
