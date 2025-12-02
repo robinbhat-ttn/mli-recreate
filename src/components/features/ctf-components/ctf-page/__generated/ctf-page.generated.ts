@@ -1,7 +1,9 @@
 import * as Types from '../../../../../lib/__generated/graphql.types';
 
 import { AssetFieldsFragment } from '../../ctf-asset/__generated/ctf-asset.generated';
+import { FooterFieldsFragment } from '../../ctf-footer/__generated/ctf-footer.generated';
 import { AssetFieldsFragmentDoc } from '../../ctf-asset/__generated/ctf-asset.generated';
+import { FooterFieldsFragmentDoc } from '../../ctf-footer/__generated/ctf-footer.generated';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { customFetcher } from '@src/lib/fetchConfig';
 export type PageContentFields_Banner_Fragment = { __typename: 'Banner' };
@@ -46,7 +48,10 @@ export type CtfPageFieldsFragment = { __typename: 'Page', pageName?: string | nu
         { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
         & PageContentFields_VideoSection_Fragment
       )
-     | null> } | null };
+     | null> } | null, footer?: (
+    { __typename?: 'Footer' }
+    & FooterFieldsFragment
+  ) | null };
 
 export type CtfPageQueryVariables = Types.Exact<{
   slug: Types.Scalars['String']['input'];
@@ -95,6 +100,9 @@ export const CtfPageFieldsFragmentDoc = `
       ...PageContentFields
     }
   }
+  footer {
+    ...FooterFields
+  }
 }
     `;
 export const CtfPageDocument = `
@@ -112,7 +120,8 @@ export const CtfPageDocument = `
 }
     ${CtfPageFieldsFragmentDoc}
 ${AssetFieldsFragmentDoc}
-${PageContentFieldsFragmentDoc}`;
+${PageContentFieldsFragmentDoc}
+${FooterFieldsFragmentDoc}`;
 
 export const useCtfPageQuery = <
       TData = CtfPageQuery,

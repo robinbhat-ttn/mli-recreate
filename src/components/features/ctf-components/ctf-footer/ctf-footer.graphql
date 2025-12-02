@@ -1,0 +1,87 @@
+fragment FooterFields on Footer {
+  __typename
+  sys {
+    id
+  }
+  footerLinksCollection (limit : 20) {
+    items {
+      __typename
+      sys {
+        id
+      }
+      subNavigationItemTitle
+      mainLink {
+        __typename
+        sys {
+          id
+        }
+        linkHeading
+        linkUrl
+      }
+      secondaryLinksCollection (limit : 20) {
+        items {
+          __typename
+          sys {
+            id
+          }
+          linkHeading
+          linkUrl
+        }
+      }
+    }
+  }
+  buttonsCollection (limit : 20) {
+    items {
+      __typename
+      sys {
+        id
+      }
+      buttonText
+      buttonLink
+    }
+  }
+  linksCollection (limit : 20) {
+    items {
+      __typename
+      sys {
+        id
+      }
+      linkHeading
+      linkUrl
+    }
+  }
+  footerInformation {
+    __typename
+    json
+    links {
+      entries {
+        block {
+          __typename
+          sys {
+            id
+          }
+        }
+      }
+      assets {
+        block {
+          __typename
+          sys {
+            id
+          }
+          contentType
+          title
+          description
+          width
+          height
+          url
+        }
+      }
+    }
+  }
+}
+
+query CtfFooter($id: String!, $locale: String, $preview: Boolean) {
+  footer(id: $id, locale: $locale, preview: $preview) {
+    ...FooterFields
+  }
+}

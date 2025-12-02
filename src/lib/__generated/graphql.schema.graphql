@@ -1630,9 +1630,9 @@ type Page implements Entry & _Node {
   contentCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: PageContentFilter): PageContentCollection
   contentfulMetadata: ContentfulMetadata!
   footer(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: FooterFilter): Footer
+  header(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: HeaderFilter): Header
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): PageLinkingCollections
-  navigationMenu(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: HeaderFilter): Header
   pageName(locale: String, useFallbackLocale: Boolean): String
   seo(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: SeoFilter): Seo
   slug(locale: String, useFallbackLocale: Boolean): String
@@ -1677,6 +1677,8 @@ input PageFilter {
   contentfulMetadata: ContentfulMetadataFilter
   footer: cfFooterNestedFilter
   footer_exists: Boolean
+  header: cfHeaderNestedFilter
+  header_exists: Boolean
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean
@@ -1684,8 +1686,6 @@ input PageFilter {
   internalName_not: String
   internalName_not_contains: String
   internalName_not_in: [String]
-  navigationMenu: cfHeaderNestedFilter
-  navigationMenu_exists: Boolean
   pageName: String
   pageName_contains: String
   pageName_exists: Boolean

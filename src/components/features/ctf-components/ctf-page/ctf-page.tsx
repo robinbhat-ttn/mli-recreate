@@ -5,9 +5,10 @@ import { ComponentResolver } from '@src/components/shared/component-resolver';
 import { PageContainer } from '@src/components/templates/page-container';
 import LayoutContext, { defaultLayout } from '@src/layout-context';
 
+import { CtfFooter } from '../ctf-footer/ctf-footer';
+
 const CtfPage = (props: CtfPageFieldsFragment) => {
-  const content =
-    props.contentCollection && props.contentCollection.items.filter(it => !!it);
+  const content = props.contentCollection && props.contentCollection.items.filter(it => !!it);
 
   const layoutConfig = {
     ...defaultLayout,
@@ -22,6 +23,7 @@ const CtfPage = (props: CtfPageFieldsFragment) => {
             <ComponentResolver componentProps={entry!} />
           </LayoutContext.Provider>
         ))}
+      {props.footer && <CtfFooter {...props.footer} />}
     </PageContainer>
   );
 };

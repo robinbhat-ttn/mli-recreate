@@ -30,6 +30,9 @@ fragment CtfPageFields on Page {
       ...PageContentFields
     }
   }
+  footer {
+    ...FooterFields
+  }
 }
 
 query CtfPage($slug: String!, $locale: String, $preview: Boolean) {
