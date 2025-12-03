@@ -1,8 +1,12 @@
 import * as Types from '../../../../../lib/__generated/graphql.types';
 
 import { AssetFieldsFragment } from '../../ctf-asset/__generated/ctf-asset.generated';
+import { HeaderFieldsFragment } from '../../ctf-header/__generated/ctf-header.generated';
+import { NavigationFieldsFragment } from '../../ctf-navigation/__generated/ctf-navigation.generated';
 import { FooterFieldsFragment } from '../../ctf-footer/__generated/ctf-footer.generated';
 import { AssetFieldsFragmentDoc } from '../../ctf-asset/__generated/ctf-asset.generated';
+import { HeaderFieldsFragmentDoc } from '../../ctf-header/__generated/ctf-header.generated';
+import { NavigationFieldsFragmentDoc } from '../../ctf-navigation/__generated/ctf-navigation.generated';
 import { FooterFieldsFragmentDoc } from '../../ctf-footer/__generated/ctf-footer.generated';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { customFetcher } from '@src/lib/fetchConfig';
@@ -48,7 +52,10 @@ export type CtfPageFieldsFragment = { __typename: 'Page', pageName?: string | nu
         { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
         & PageContentFields_VideoSection_Fragment
       )
-     | null> } | null, footer?: (
+     | null> } | null, header?: (
+    { __typename?: 'Header' }
+    & HeaderFieldsFragment
+  ) | null, footer?: (
     { __typename?: 'Footer' }
     & FooterFieldsFragment
   ) | null };
@@ -100,6 +107,9 @@ export const CtfPageFieldsFragmentDoc = `
       ...PageContentFields
     }
   }
+  header {
+    ...HeaderFields
+  }
   footer {
     ...FooterFields
   }
@@ -121,6 +131,8 @@ export const CtfPageDocument = `
     ${CtfPageFieldsFragmentDoc}
 ${AssetFieldsFragmentDoc}
 ${PageContentFieldsFragmentDoc}
+${HeaderFieldsFragmentDoc}
+${NavigationFieldsFragmentDoc}
 ${FooterFieldsFragmentDoc}`;
 
 export const useCtfPageQuery = <

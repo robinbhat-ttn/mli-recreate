@@ -1,0 +1,90 @@
+fragment HeaderFields on Header {
+  __typename
+  logo {
+    ...AssetFields
+  }
+  navigationItemsCollection (limit : 20) {
+    ...NavigationFields
+  }
+  buttonCollection (limit : 20) {
+    items {
+      __typename
+      ... on ButtonWithLinks {
+        __typename
+        sys {
+          id
+        }
+        buttonText
+        buttonDropDownLinksCollection (limit : 20) {
+          items {
+            __typename
+            sys {
+              id
+            }
+            linkHeading
+            linkUrl
+          }
+        }
+      }
+      ... on Button {
+        __typename
+        sys {
+          id
+        }
+        buttonText
+        buttonLink
+      }
+    }
+  }
+  hamburgerMenu {
+    __typename
+    sys {
+      id
+    }
+    menuTitle
+    menuItemsCollection (limit : 20) {
+      items {
+        __typename
+        ... on Link {
+          __typename
+          sys {
+            id
+          }
+          linkHeading
+          linkUrl
+        }
+        ... on SubNavigationItem {
+          __typename
+          sys {
+            id
+          }
+          subNavigationItemTitle
+          mainLink {
+            __typename
+            sys {
+              id
+            }
+            linkHeading
+            linkUrl
+          }
+          secondaryLinksCollection (limit : 20) {
+            items {
+              __typename
+              sys {
+                id
+              }
+              linkHeading
+              linkUrl
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+query CtfHeader($id: String!, $locale: String, $preview: Boolean) {
+  header(id: $id, locale: $locale, preview: $preview) {
+    ...HeaderFields
+  }
+}

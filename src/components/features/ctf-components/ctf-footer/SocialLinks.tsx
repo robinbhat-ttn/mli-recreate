@@ -4,7 +4,6 @@ import Link from 'next/link';
 import styles from './ctf-footer.module.css';
 
 export const SocialLinks = props => {
-  console.log('SocialLinks props:', props);
   return (
     <>
       <div

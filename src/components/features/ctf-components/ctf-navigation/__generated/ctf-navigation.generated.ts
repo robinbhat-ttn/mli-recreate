@@ -1,0 +1,34 @@
+import * as Types from '../../../../../lib/__generated/graphql.types';
+
+export type NavigationFieldsFragment = { __typename?: 'HeaderNavigationItemsCollection', items: Array<{ __typename: 'NavigationItems', navigationTitle?: string | null, navigationLink?: string | null, sys: { __typename?: 'Sys', id: string }, subNavigationMenuCollection?: { __typename?: 'NavigationItemsSubNavigationMenuCollection', items: Array<{ __typename: 'SubNavigationItem', subNavigationItemTitle?: string | null, sys: { __typename?: 'Sys', id: string }, mainLink?: { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null } | null> };
+
+
+export const NavigationFieldsFragmentDoc = `
+    fragment NavigationFields on HeaderNavigationItemsCollection {
+  items {
+    __typename
+    sys {
+      id
+    }
+    navigationTitle
+    navigationLink
+    subNavigationMenuCollection {
+      items {
+        __typename
+        sys {
+          id
+        }
+        subNavigationItemTitle
+        mainLink {
+          __typename
+          sys {
+            id
+          }
+          linkHeading
+          linkUrl
+        }
+      }
+    }
+  }
+}
+    `;

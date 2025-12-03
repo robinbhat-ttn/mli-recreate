@@ -30,6 +30,9 @@ fragment CtfPageFields on Page {
       ...PageContentFields
     }
   }
+  header {
+    ...HeaderFields
+  }
   footer {
     ...FooterFields
   }

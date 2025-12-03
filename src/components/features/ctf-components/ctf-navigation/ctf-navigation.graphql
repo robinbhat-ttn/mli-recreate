@@ -1,0 +1,27 @@
+fragment NavigationFields on HeaderNavigationItemsCollection {
+  items {
+    __typename
+    sys {
+      id
+    }
+    navigationTitle
+    navigationLink
+    subNavigationMenuCollection {
+      items {
+        __typename
+        sys {
+          id
+        }
+        subNavigationItemTitle
+        mainLink {
+          __typename
+          sys {
+            id
+          }
+          linkHeading
+          linkUrl
+        }
+      }
+    }
+  }
+}
