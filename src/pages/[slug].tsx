@@ -6,9 +6,9 @@ import { useRouter } from 'next/router';
 //import { useCtfNavigationQuery } from '@src/components/features/ctf-components/ctf-navigation/__generated/ctf-navigation.generated';
 import { useCtfPageQuery } from '@src/components/features/ctf-components/ctf-page/__generated/ctf-page.generated';
 import CtfPageGgl from '@src/components/features/ctf-components/ctf-page/ctf-page-gql';
-import { ComponentReferenceFieldsFragment } from '@src/lib/__generated/graphql.types';
+// import { ComponentReferenceFieldsFragment } from '@src/lib/__generated/graphql.types';
 import { getServerSideTranslations } from '@src/lib/get-serverside-translations';
-import { prefetchMap, /* PrefetchMappingTypeFetcher */ } from '@src/lib/prefetch-mappings';
+// import { prefetchMap, /* PrefetchMappingTypeFetcher */ } from '@src/lib/prefetch-mappings';
 import { prefetchPromiseArr } from '@src/lib/prefetch-promise-array';
 
 const SlugPage: NextPage = () => {

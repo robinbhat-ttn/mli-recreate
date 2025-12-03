@@ -98,6 +98,7 @@ type AssetLinkingCollections {
   cardCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): CardCollection
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
   headerCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): HeaderCollection
+  linkCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): LinkCollection
   policyCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): PolicyCollection
   seoCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): SeoCollection
   videoSectionCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): VideoSectionCollection
@@ -255,22 +256,8 @@ input ButtonFilter {
 
 type ButtonLinkingCollections {
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
-  footerCollection(limit: Int = 100, locale: String, order: [ButtonLinkingCollectionsFooterCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): FooterCollection
   headerCollection(limit: Int = 100, locale: String, order: [ButtonLinkingCollectionsHeaderCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): HeaderCollection
   pageCollection(limit: Int = 100, locale: String, order: [ButtonLinkingCollectionsPageCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): PageCollection
-}
-
-enum ButtonLinkingCollectionsFooterCollectionOrder {
-  internalName_ASC
-  internalName_DESC
-  sys_firstPublishedAt_ASC
-  sys_firstPublishedAt_DESC
-  sys_id_ASC
-  sys_id_DESC
-  sys_publishedAt_ASC
-  sys_publishedAt_DESC
-  sys_publishedVersion_ASC
-  sys_publishedVersion_DESC
 }
 
 enum ButtonLinkingCollectionsHeaderCollectionOrder {
@@ -347,6 +334,8 @@ enum ButtonWithLinksButtonDropDownLinksCollectionOrder {
   linkHeading_DESC
   linkUrl_ASC
   linkUrl_DESC
+  slug_ASC
+  slug_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -795,6 +784,123 @@ The 'Dimension' type represents dimensions as whole numeric values between `1` a
 """
 scalar Dimension
 
+"""
+Disclaimer Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/disclaimer)
+"""
+type Disclaimer implements Entry & _Node {
+  _id: ID!
+  content(locale: String, useFallbackLocale: Boolean): DisclaimerContent
+  contentfulMetadata: ContentfulMetadata!
+  heading(locale: String, useFallbackLocale: Boolean): String
+  internalName(locale: String, useFallbackLocale: Boolean): String
+  linkedFrom(allowedLocales: [String]): DisclaimerLinkingCollections
+  sys: Sys!
+}
+
+type DisclaimerCollection {
+  items: [Disclaimer]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+type DisclaimerContent {
+  json: JSON!
+  links: DisclaimerContentLinks!
+}
+
+type DisclaimerContentAssets {
+  block: [Asset]!
+  hyperlink: [Asset]!
+}
+
+type DisclaimerContentEntries {
+  block: [Entry]!
+  hyperlink: [Entry]!
+  inline: [Entry]!
+}
+
+type DisclaimerContentLinks {
+  assets: DisclaimerContentAssets!
+  entries: DisclaimerContentEntries!
+  resources: DisclaimerContentResources!
+}
+
+type DisclaimerContentResources {
+  block: [DisclaimerContentResourcesBlock!]!
+  hyperlink: [DisclaimerContentResourcesHyperlink!]!
+  inline: [DisclaimerContentResourcesInline!]!
+}
+
+type DisclaimerContentResourcesBlock implements ResourceLink {
+  sys: ResourceSys!
+}
+
+type DisclaimerContentResourcesHyperlink implements ResourceLink {
+  sys: ResourceSys!
+}
+
+type DisclaimerContentResourcesInline implements ResourceLink {
+  sys: ResourceSys!
+}
+
+input DisclaimerFilter {
+  AND: [DisclaimerFilter]
+  OR: [DisclaimerFilter]
+  content_contains: String
+  content_exists: Boolean
+  content_not_contains: String
+  contentfulMetadata: ContentfulMetadataFilter
+  heading: String
+  heading_contains: String
+  heading_exists: Boolean
+  heading_in: [String]
+  heading_not: String
+  heading_not_contains: String
+  heading_not_in: [String]
+  internalName: String
+  internalName_contains: String
+  internalName_exists: Boolean
+  internalName_in: [String]
+  internalName_not: String
+  internalName_not_contains: String
+  internalName_not_in: [String]
+  sys: SysFilter
+}
+
+type DisclaimerLinkingCollections {
+  entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
+  footerCollection(limit: Int = 100, locale: String, order: [DisclaimerLinkingCollectionsFooterCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): FooterCollection
+}
+
+enum DisclaimerLinkingCollectionsFooterCollectionOrder {
+  internalName_ASC
+  internalName_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+}
+
+enum DisclaimerOrder {
+  heading_ASC
+  heading_DESC
+  internalName_ASC
+  internalName_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+}
+
 interface Entry {
   contentfulMetadata: ContentfulMetadata!
   sys: Sys!
@@ -830,30 +936,34 @@ Footer for a page [See type definition](https://app.contentful.com/spaces/t6kvuf
 """
 type Footer implements Entry & _Node {
   _id: ID!
-  buttonsCollection(limit: Int = 100, locale: String, order: [FooterButtonsCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: ButtonFilter): FooterButtonsCollection
+  buttonsCollection(limit: Int = 100, locale: String, order: [FooterButtonsCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: LinkFilter): FooterButtonsCollection
   contentfulMetadata: ContentfulMetadata!
+  disclaimerSection(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: DisclaimerFilter): Disclaimer
   footerInformation(locale: String, useFallbackLocale: Boolean): FooterFooterInformation
   footerLinksCollection(limit: Int = 100, locale: String, order: [FooterFooterLinksCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: SubNavigationItemFilter): FooterFooterLinksCollection
+  groupSitesLinksCollection(limit: Int = 100, locale: String, order: [FooterGroupSitesLinksCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: LinkFilter): FooterGroupSitesLinksCollection
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): FooterLinkingCollections
-  linksCollection(limit: Int = 100, locale: String, order: [FooterLinksCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: LinkFilter): FooterLinksCollection
+  socialLinksCollection(limit: Int = 100, locale: String, order: [FooterSocialLinksCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: LinkFilter): FooterSocialLinksCollection
   sys: Sys!
 }
 
 type FooterButtonsCollection {
-  items: [Button]!
+  items: [Link]!
   limit: Int!
   skip: Int!
   total: Int!
 }
 
 enum FooterButtonsCollectionOrder {
-  buttonLink_ASC
-  buttonLink_DESC
-  buttonText_ASC
-  buttonText_DESC
   internalName_ASC
   internalName_DESC
+  linkHeading_ASC
+  linkHeading_DESC
+  linkUrl_ASC
+  linkUrl_DESC
+  slug_ASC
+  slug_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -874,14 +984,18 @@ type FooterCollection {
 input FooterFilter {
   AND: [FooterFilter]
   OR: [FooterFilter]
-  buttons: cfButtonNestedFilter
+  buttons: cfLinkNestedFilter
   buttonsCollection_exists: Boolean
   contentfulMetadata: ContentfulMetadataFilter
+  disclaimerSection: cfDisclaimerNestedFilter
+  disclaimerSection_exists: Boolean
   footerInformation_contains: String
   footerInformation_exists: Boolean
   footerInformation_not_contains: String
   footerLinks: cfSubNavigationItemNestedFilter
   footerLinksCollection_exists: Boolean
+  groupSitesLinks: cfLinkNestedFilter
+  groupSitesLinksCollection_exists: Boolean
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean
@@ -889,8 +1003,8 @@ input FooterFilter {
   internalName_not: String
   internalName_not_contains: String
   internalName_not_in: [String]
-  links: cfLinkNestedFilter
-  linksCollection_exists: Boolean
+  socialLinks: cfLinkNestedFilter
+  socialLinksCollection_exists: Boolean
   sys: SysFilter
 }
 
@@ -956,6 +1070,32 @@ enum FooterFooterLinksCollectionOrder {
   sys_publishedVersion_DESC
 }
 
+type FooterGroupSitesLinksCollection {
+  items: [Link]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+enum FooterGroupSitesLinksCollectionOrder {
+  internalName_ASC
+  internalName_DESC
+  linkHeading_ASC
+  linkHeading_DESC
+  linkUrl_ASC
+  linkUrl_DESC
+  slug_ASC
+  slug_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+}
+
 type FooterLinkingCollections {
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
   pageCollection(limit: Int = 100, locale: String, order: [FooterLinkingCollectionsPageCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): PageCollection
@@ -978,20 +1118,9 @@ enum FooterLinkingCollectionsPageCollectionOrder {
   sys_publishedVersion_DESC
 }
 
-type FooterLinksCollection {
-  items: [Link]!
-  limit: Int!
-  skip: Int!
-  total: Int!
-}
-
-enum FooterLinksCollectionOrder {
+enum FooterOrder {
   internalName_ASC
   internalName_DESC
-  linkHeading_ASC
-  linkHeading_DESC
-  linkUrl_ASC
-  linkUrl_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -1002,9 +1131,22 @@ enum FooterLinksCollectionOrder {
   sys_publishedVersion_DESC
 }
 
-enum FooterOrder {
+type FooterSocialLinksCollection {
+  items: [Link]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+enum FooterSocialLinksCollectionOrder {
   internalName_ASC
   internalName_DESC
+  linkHeading_ASC
+  linkHeading_DESC
+  linkUrl_ASC
+  linkUrl_DESC
+  slug_ASC
+  slug_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -1389,10 +1531,12 @@ Content Type for Link [See type definition](https://app.contentful.com/spaces/t6
 type Link implements Entry & _Node {
   _id: ID!
   contentfulMetadata: ContentfulMetadata!
+  icon(locale: String, preview: Boolean, useFallbackLocale: Boolean): Asset
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkHeading(locale: String, useFallbackLocale: Boolean): String
   linkUrl(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): LinkLinkingCollections
+  slug(locale: String, useFallbackLocale: Boolean): String
   sys: Sys!
 }
 
@@ -1407,6 +1551,7 @@ input LinkFilter {
   AND: [LinkFilter]
   OR: [LinkFilter]
   contentfulMetadata: ContentfulMetadataFilter
+  icon_exists: Boolean
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean
@@ -1428,6 +1573,13 @@ input LinkFilter {
   linkUrl_not: String
   linkUrl_not_contains: String
   linkUrl_not_in: [String]
+  slug: String
+  slug_contains: String
+  slug_exists: Boolean
+  slug_in: [String]
+  slug_not: String
+  slug_not_contains: String
+  slug_not_in: [String]
   sys: SysFilter
 }
 
@@ -1504,6 +1656,8 @@ enum LinkOrder {
   linkHeading_DESC
   linkUrl_ASC
   linkUrl_DESC
+  slug_ASC
+  slug_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -1973,6 +2127,8 @@ type Query {
   carouselCollection(limit: Int = 100, locale: String, order: [CarouselOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: CarouselFilter): CarouselCollection
   componentTextBlock(id: String!, locale: String, preview: Boolean, useFallbackLocale: Boolean): ComponentTextBlock
   componentTextBlockCollection(limit: Int = 100, locale: String, order: [ComponentTextBlockOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: ComponentTextBlockFilter): ComponentTextBlockCollection
+  disclaimer(id: String!, locale: String, preview: Boolean, useFallbackLocale: Boolean): Disclaimer
+  disclaimerCollection(limit: Int = 100, locale: String, order: [DisclaimerOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: DisclaimerFilter): DisclaimerCollection
   entryCollection(limit: Int = 100, locale: String, order: [EntryOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: EntryFilter): EntryCollection
   footer(id: String!, locale: String, preview: Boolean, useFallbackLocale: Boolean): Footer
   footerCollection(limit: Int = 100, locale: String, order: [FooterOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: FooterFilter): FooterCollection
@@ -2340,6 +2496,8 @@ enum SubNavigationItemSecondaryLinksCollectionOrder {
   linkHeading_DESC
   linkUrl_ASC
   linkUrl_DESC
+  slug_ASC
+  slug_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -2488,34 +2646,6 @@ interface _Node {
   _id: ID!
 }
 
-input cfButtonNestedFilter {
-  AND: [cfButtonNestedFilter]
-  OR: [cfButtonNestedFilter]
-  buttonLink: String
-  buttonLink_contains: String
-  buttonLink_exists: Boolean
-  buttonLink_in: [String]
-  buttonLink_not: String
-  buttonLink_not_contains: String
-  buttonLink_not_in: [String]
-  buttonText: String
-  buttonText_contains: String
-  buttonText_exists: Boolean
-  buttonText_in: [String]
-  buttonText_not: String
-  buttonText_not_contains: String
-  buttonText_not_in: [String]
-  contentfulMetadata: ContentfulMetadataFilter
-  internalName: String
-  internalName_contains: String
-  internalName_exists: Boolean
-  internalName_in: [String]
-  internalName_not: String
-  internalName_not_contains: String
-  internalName_not_in: [String]
-  sys: SysFilter
-}
-
 input cfCardNestedFilter {
   AND: [cfCardNestedFilter]
   OR: [cfCardNestedFilter]
@@ -2541,15 +2671,20 @@ input cfCardNestedFilter {
   sys: SysFilter
 }
 
-input cfFooterNestedFilter {
-  AND: [cfFooterNestedFilter]
-  OR: [cfFooterNestedFilter]
-  buttonsCollection_exists: Boolean
+input cfDisclaimerNestedFilter {
+  AND: [cfDisclaimerNestedFilter]
+  OR: [cfDisclaimerNestedFilter]
+  content_contains: String
+  content_exists: Boolean
+  content_not_contains: String
   contentfulMetadata: ContentfulMetadataFilter
-  footerInformation_contains: String
-  footerInformation_exists: Boolean
-  footerInformation_not_contains: String
-  footerLinksCollection_exists: Boolean
+  heading: String
+  heading_contains: String
+  heading_exists: Boolean
+  heading_in: [String]
+  heading_not: String
+  heading_not_contains: String
+  heading_not_in: [String]
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean
@@ -2557,7 +2692,28 @@ input cfFooterNestedFilter {
   internalName_not: String
   internalName_not_contains: String
   internalName_not_in: [String]
-  linksCollection_exists: Boolean
+  sys: SysFilter
+}
+
+input cfFooterNestedFilter {
+  AND: [cfFooterNestedFilter]
+  OR: [cfFooterNestedFilter]
+  buttonsCollection_exists: Boolean
+  contentfulMetadata: ContentfulMetadataFilter
+  disclaimerSection_exists: Boolean
+  footerInformation_contains: String
+  footerInformation_exists: Boolean
+  footerInformation_not_contains: String
+  footerLinksCollection_exists: Boolean
+  groupSitesLinksCollection_exists: Boolean
+  internalName: String
+  internalName_contains: String
+  internalName_exists: Boolean
+  internalName_in: [String]
+  internalName_not: String
+  internalName_not_contains: String
+  internalName_not_in: [String]
+  socialLinksCollection_exists: Boolean
   sys: SysFilter
 }
 
@@ -2605,6 +2761,7 @@ input cfLinkNestedFilter {
   AND: [cfLinkNestedFilter]
   OR: [cfLinkNestedFilter]
   contentfulMetadata: ContentfulMetadataFilter
+  icon_exists: Boolean
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean
@@ -2626,6 +2783,13 @@ input cfLinkNestedFilter {
   linkUrl_not: String
   linkUrl_not_contains: String
   linkUrl_not_in: [String]
+  slug: String
+  slug_contains: String
+  slug_exists: Boolean
+  slug_in: [String]
+  slug_not: String
+  slug_not_contains: String
+  slug_not_in: [String]
   sys: SysFilter
 }
 

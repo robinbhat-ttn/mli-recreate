@@ -1,11 +1,11 @@
 import React from 'react';
 
+import { CtfFooter } from '../ctf-footer/ctf-footer';
+
 import { CtfPageFieldsFragment } from '@src/components/features/ctf-components/ctf-page/__generated/ctf-page.generated';
 import { ComponentResolver } from '@src/components/shared/component-resolver';
 import { PageContainer } from '@src/components/templates/page-container';
 import LayoutContext, { defaultLayout } from '@src/layout-context';
-
-import { CtfFooter } from '../ctf-footer/ctf-footer';
 
 const CtfPage = (props: CtfPageFieldsFragment) => {
   const content = props.contentCollection && props.contentCollection.items.filter(it => !!it);

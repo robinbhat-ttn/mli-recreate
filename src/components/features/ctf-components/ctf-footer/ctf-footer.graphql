@@ -3,7 +3,7 @@ fragment FooterFields on Footer {
   sys {
     id
   }
-  footerLinksCollection (limit : 20) {
+  footerLinksCollection(limit: 20) {
     items {
       __typename
       sys {
@@ -17,8 +17,22 @@ fragment FooterFields on Footer {
         }
         linkHeading
         linkUrl
+        slug
+        icon {
+          __typename
+          sys {
+            id
+          }
+          contentType
+          title
+          description
+          width
+          height
+          url
+        }
       }
-      secondaryLinksCollection (limit : 20) {
+
+      secondaryLinksCollection(limit: 20) {
         items {
           __typename
           sys {
@@ -26,21 +40,13 @@ fragment FooterFields on Footer {
           }
           linkHeading
           linkUrl
+          slug
         }
       }
     }
   }
-  buttonsCollection (limit : 20) {
-    items {
-      __typename
-      sys {
-        id
-      }
-      buttonText
-      buttonLink
-    }
-  }
-  linksCollection (limit : 20) {
+
+  buttonsCollection(limit: 20) {
     items {
       __typename
       sys {
@@ -48,8 +54,70 @@ fragment FooterFields on Footer {
       }
       linkHeading
       linkUrl
+      slug
+      icon {
+        __typename
+        sys {
+          id
+        }
+        contentType
+        title
+        description
+        width
+        height
+        url
+      }
     }
   }
+
+  socialLinksCollection(limit: 20) {
+    items {
+      __typename
+      sys {
+        id
+      }
+      linkHeading
+      linkUrl
+      slug
+      icon {
+        __typename
+        sys {
+          id
+        }
+        contentType
+        title
+        description
+        width
+        height
+        url
+      }
+    }
+  }
+
+  groupSitesLinksCollection {
+    items {
+      __typename
+      sys {
+        id
+      }
+      linkHeading
+      linkUrl
+      slug
+      icon {
+        __typename
+        sys {
+          id
+        }
+        contentType
+        title
+        description
+        width
+        height
+        url
+      }
+    }
+  }
+
   footerInformation {
     __typename
     json
@@ -74,6 +142,38 @@ fragment FooterFields on Footer {
           width
           height
           url
+        }
+      }
+    }
+  }
+
+  disclaimerSection {
+    __typename
+    heading
+    content {
+      json
+      links {
+        entries {
+          block {
+            __typename
+            sys {
+              id
+            }
+          }
+        }
+        assets {
+          block {
+            __typename
+            sys {
+              id
+            }
+            contentType
+            title
+            description
+            width
+            height
+            url
+          }
         }
       }
     }

@@ -4,7 +4,7 @@ import { makeStyles } from '@mui/styles';
 import { TextBlockFieldsFragment } from './__generated/ctf-text-block.generated';
 
 import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtext/ctf-richtext';
-import { getColorConfigFromPalette } from '@src/theme';
+// import { getColorConfigFromPalette } from '@src/theme';
 
 const useStyles = makeStyles((theme: Theme) => ({
   innerContainer: {
@@ -18,14 +18,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const CtfTextBlock = ({
-  body,
-}: TextBlockFieldsFragment) => {
+export const CtfTextBlock = ({ body }: TextBlockFieldsFragment) => {
   const classes = useStyles();
 
   return (
-    <Container
-      maxWidth={false}>
+    <Container maxWidth={false}>
       <div className={classes.innerContainer}>
         {body && (
           <div>

@@ -1,0 +1,100 @@
+/*****Footer Links Section*****/
+.footerContainer{
+    background-color: #f4f6fa;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+.footerLinks{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    display: flex;
+    justify-content: space-evenly;
+}
+.mainLink{
+    color: black;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: smaller;
+}
+.secondaryLinks{
+    list-style: none;
+    padding-left: 0;
+}
+.secondaryLink{
+    text-decoration: none;
+    color: #505662;
+    font-size: smaller;
+}
+.footerDivider{
+    margin:1rem 4rem;
+}
+
+/*******Social Media Section******/
+
+.socialLinksContainer{
+    padding: 2rem 4rem;
+    display: flex;
+    justify-content: end;
+    gap: 2rem;
+}
+.socialLinksContainer a{
+    text-decoration: none;
+    color: #5c6370;
+}
+
+/*******Button Section*******/
+.buttonContainer{
+    display: flex;
+    gap: 2rem;
+    padding: 4rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.buttonContainer a{
+    text-decoration: none;
+    padding: 1rem;
+    color: #5c6370;
+    font-size: small;
+    border: 1px solid #bcc1cb;
+    border-radius: 2rem;
+    font-weight: 600;
+}
+
+/******Group Sites Links Section******/
+.groupSitesLinks{
+    padding: 0rem 4rem 2rem 4rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.groupSitesLinks span{
+    font-size: smaller;
+    font-weight: 500;
+}
+.groupSitesLinks a{
+    text-decoration: none;
+    font-size: smaller;
+    color: #505662;
+    font-weight: 900;
+}
+
+/*******Footer Information Section*******/
+.footerInformation{
+    padding: 0 10rem;
+    font-size: small;
+    background-color: #d0d8e3;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/******Disclaimer Section******/
+.disclaimerSectionHeading{
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    font-size: large;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    width: 100%;
+}

@@ -12,6 +12,8 @@ export type ComponentReferenceFields_Carousel_Fragment = { __typename: 'Carousel
 
 export type ComponentReferenceFields_ComponentTextBlock_Fragment = { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } };
 
+export type ComponentReferenceFields_Disclaimer_Fragment = { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } };
+
 export type ComponentReferenceFields_Footer_Fragment = { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } };
 
 export type ComponentReferenceFields_HamburgerMenu_Fragment = { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } };
@@ -43,6 +45,7 @@ export type ComponentReferenceFieldsFragment =
   | ComponentReferenceFields_Card_Fragment
   | ComponentReferenceFields_Carousel_Fragment
   | ComponentReferenceFields_ComponentTextBlock_Fragment
+  | ComponentReferenceFields_Disclaimer_Fragment
   | ComponentReferenceFields_Footer_Fragment
   | ComponentReferenceFields_HamburgerMenu_Fragment
   | ComponentReferenceFields_Header_Fragment
