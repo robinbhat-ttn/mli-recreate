@@ -2,13 +2,14 @@ import * as Types from '../../../../../lib/__generated/graphql.types';
 
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { customFetcher } from '@src/lib/fetchConfig';
-export type FooterFieldsFragment = { __typename: 'Footer', sys: { __typename?: 'Sys', id: string }, footerLinksCollection?: { __typename?: 'FooterFooterLinksCollection', items: Array<{ __typename: 'SubNavigationItem', subNavigationItemTitle?: string | null, sys: { __typename?: 'Sys', id: string }, mainLink?: { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string } } | null, secondaryLinksCollection?: { __typename?: 'SubNavigationItemSecondaryLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null } | null> } | null, buttonsCollection?: { __typename?: 'FooterButtonsCollection', items: Array<{ __typename: 'Button', buttonText?: string | null, buttonLink?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null, linksCollection?: { __typename?: 'FooterLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null, footerInformation?: { __typename: 'FooterFooterInformation', json: any, links: { __typename?: 'FooterFooterInformationLinks', entries: { __typename?: 'FooterFooterInformationEntries', block: Array<
+export type FooterFieldsFragment = { __typename: 'Footer', sys: { __typename?: 'Sys', id: string }, footerLinksCollection?: { __typename?: 'FooterFooterLinksCollection', items: Array<{ __typename: 'SubNavigationItem', subNavigationItemTitle?: string | null, sys: { __typename?: 'Sys', id: string }, mainLink?: { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null, secondaryLinksCollection?: { __typename?: 'SubNavigationItemSecondaryLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null } | null> } | null, buttonsCollection?: { __typename?: 'FooterButtonsCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, socialLinksCollection?: { __typename?: 'FooterSocialLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, groupSitesLinksCollection?: { __typename?: 'FooterGroupSitesLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, footerInformation?: { __typename: 'FooterFooterInformation', json: any, links: { __typename?: 'FooterFooterInformationLinks', entries: { __typename?: 'FooterFooterInformationEntries', block: Array<
           | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
@@ -21,7 +22,27 @@ export type FooterFieldsFragment = { __typename: 'Footer', sys: { __typename?: '
           | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
-         | null> }, assets: { __typename?: 'FooterFooterInformationAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null };
+         | null> }, assets: { __typename?: 'FooterFooterInformationAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, disclaimerSection?: { __typename: 'Disclaimer', heading?: string | null, content?: { __typename?: 'DisclaimerContent', json: any, links: { __typename?: 'DisclaimerContentLinks', entries: { __typename?: 'DisclaimerContentEntries', block: Array<
+            | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Policy', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'PolicyCards', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
+           | null> }, assets: { __typename?: 'DisclaimerContentAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null };
 
 export type CtfFooterQueryVariables = Types.Exact<{
   id: Types.Scalars['String']['input'];
@@ -56,6 +77,19 @@ export const FooterFieldsFragmentDoc = `
         }
         linkHeading
         linkUrl
+        slug
+        icon {
+          __typename
+          sys {
+            id
+          }
+          contentType
+          title
+          description
+          width
+          height
+          url
+        }
       }
       secondaryLinksCollection(limit: 20) {
         items {
@@ -65,6 +99,7 @@ export const FooterFieldsFragmentDoc = `
           }
           linkHeading
           linkUrl
+          slug
         }
       }
     }
@@ -75,11 +110,24 @@ export const FooterFieldsFragmentDoc = `
       sys {
         id
       }
-      buttonText
-      buttonLink
+      linkHeading
+      linkUrl
+      slug
+      icon {
+        __typename
+        sys {
+          id
+        }
+        contentType
+        title
+        description
+        width
+        height
+        url
+      }
     }
   }
-  linksCollection(limit: 20) {
+  socialLinksCollection(limit: 20) {
     items {
       __typename
       sys {
@@ -87,6 +135,42 @@ export const FooterFieldsFragmentDoc = `
       }
       linkHeading
       linkUrl
+      slug
+      icon {
+        __typename
+        sys {
+          id
+        }
+        contentType
+        title
+        description
+        width
+        height
+        url
+      }
+    }
+  }
+  groupSitesLinksCollection {
+    items {
+      __typename
+      sys {
+        id
+      }
+      linkHeading
+      linkUrl
+      slug
+      icon {
+        __typename
+        sys {
+          id
+        }
+        contentType
+        title
+        description
+        width
+        height
+        url
+      }
     }
   }
   footerInformation {
@@ -113,6 +197,37 @@ export const FooterFieldsFragmentDoc = `
           width
           height
           url
+        }
+      }
+    }
+  }
+  disclaimerSection {
+    __typename
+    heading
+    content {
+      json
+      links {
+        entries {
+          block {
+            __typename
+            sys {
+              id
+            }
+          }
+        }
+        assets {
+          block {
+            __typename
+            sys {
+              id
+            }
+            contentType
+            title
+            description
+            width
+            height
+            url
+          }
         }
       }
     }
