@@ -16,6 +16,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   sectionHeadlines: {
     marginBottom: theme.spacing(12),
   },
+  fontSmall: {
+    fontSize: 'small',
+  },
+  colorBlack: {
+    color: '#000000',
+  },
 }));
 
 export const CtfTextBlock = ({ body }: TextBlockFieldsFragment) => {
@@ -25,7 +31,7 @@ export const CtfTextBlock = ({ body }: TextBlockFieldsFragment) => {
     <Container maxWidth={false}>
       <div className={classes.innerContainer}>
         {body && (
-          <div>
+          <div className={classes.fontSmall + ' ' + classes.colorBlack}>
             <CtfRichtext {...body} />
           </div>
         )}
