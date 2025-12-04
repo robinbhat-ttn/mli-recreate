@@ -1,6 +1,6 @@
 import * as Types from '../../../../../lib/__generated/graphql.types';
 
-export type NavigationFieldsFragment = { __typename?: 'HeaderNavigationItemsCollection', items: Array<{ __typename: 'NavigationItems', navigationTitle?: string | null, navigationLink?: string | null, sys: { __typename?: 'Sys', id: string }, subNavigationMenuCollection?: { __typename?: 'NavigationItemsSubNavigationMenuCollection', items: Array<{ __typename: 'SubNavigationItem', subNavigationItemTitle?: string | null, sys: { __typename?: 'Sys', id: string }, mainLink?: { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null } | null> };
+export type NavigationFieldsFragment = { __typename?: 'HeaderNavigationItemsCollection', items: Array<{ __typename: 'NavigationItems', navigationTitle?: string | null, navigationLink?: string | null, sys: { __typename?: 'Sys', id: string }, subNavigationMenuCollection?: { __typename?: 'NavigationItemsSubNavigationMenuCollection', items: Array<{ __typename: 'SubNavigationItem', subNavigationItemTitle?: string | null, sys: { __typename?: 'Sys', id: string }, mainLink?: { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null, secondaryLinksCollection?: { __typename?: 'SubNavigationItemSecondaryLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null } | null> } | null } | null> };
 
 
 export const NavigationFieldsFragmentDoc = `
@@ -26,6 +26,18 @@ export const NavigationFieldsFragmentDoc = `
           }
           linkHeading
           linkUrl
+          slug
+        }
+        secondaryLinksCollection(limit: 10) {
+          items {
+            __typename
+            sys {
+              id
+            }
+            linkHeading
+            linkUrl
+            slug
+          }
         }
       }
     }
