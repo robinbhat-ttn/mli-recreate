@@ -3,10 +3,10 @@ fragment HeaderFields on Header {
   logo {
     ...AssetFields
   }
-  navigationItemsCollection (limit : 20) {
+  navigationItemsCollection (limit : 5) {
     ...NavigationFields
   }
-  buttonCollection (limit : 20) {
+  buttonCollection (limit : 5) {
     items {
       __typename
       ... on ButtonWithLinks {
@@ -15,7 +15,7 @@ fragment HeaderFields on Header {
           id
         }
         buttonText
-        buttonDropDownLinksCollection (limit : 20) {
+        buttonDropDownLinksCollection (limit : 5) {
           items {
             __typename
             sys {
@@ -23,6 +23,7 @@ fragment HeaderFields on Header {
             }
             linkHeading
             linkUrl
+            slug
           }
         }
       }
@@ -42,7 +43,7 @@ fragment HeaderFields on Header {
       id
     }
     menuTitle
-    menuItemsCollection (limit : 20) {
+    menuItemsCollection (limit : 10) {
       items {
         __typename
         ... on Link {
@@ -52,6 +53,7 @@ fragment HeaderFields on Header {
           }
           linkHeading
           linkUrl
+          slug
         }
         ... on SubNavigationItem {
           __typename
@@ -66,8 +68,9 @@ fragment HeaderFields on Header {
             }
             linkHeading
             linkUrl
+            slug
           }
-          secondaryLinksCollection (limit : 20) {
+          secondaryLinksCollection (limit : 10) {
             items {
               __typename
               sys {
@@ -75,6 +78,7 @@ fragment HeaderFields on Header {
               }
               linkHeading
               linkUrl
+              slug
             }
           }
         }

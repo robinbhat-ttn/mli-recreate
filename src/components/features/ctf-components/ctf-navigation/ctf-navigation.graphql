@@ -20,6 +20,18 @@ fragment NavigationFields on HeaderNavigationItemsCollection {
           }
           linkHeading
           linkUrl
+          slug
+        }
+        secondaryLinksCollection(limit: 10) {
+          items {
+            __typename
+            sys {
+              id
+            }
+            linkHeading
+            linkUrl
+            slug
+          }
         }
       }
     }

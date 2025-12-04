@@ -14,10 +14,10 @@ export type HeaderFieldsFragment = { __typename: 'Header', logo?: (
     & NavigationFieldsFragment
   ) | null, buttonCollection?: { __typename?: 'HeaderButtonCollection', items: Array<
       | { __typename: 'Button', buttonText?: string | null, buttonLink?: string | null, sys: { __typename?: 'Sys', id: string } }
-      | { __typename: 'ButtonWithLinks', buttonText?: string | null, sys: { __typename?: 'Sys', id: string }, buttonDropDownLinksCollection?: { __typename?: 'ButtonWithLinksButtonDropDownLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null }
+      | { __typename: 'ButtonWithLinks', buttonText?: string | null, sys: { __typename?: 'Sys', id: string }, buttonDropDownLinksCollection?: { __typename?: 'ButtonWithLinksButtonDropDownLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null }
      | null> } | null, hamburgerMenu?: { __typename: 'HamburgerMenu', menuTitle?: string | null, sys: { __typename?: 'Sys', id: string }, menuItemsCollection?: { __typename?: 'HamburgerMenuMenuItemsCollection', items: Array<
-        | { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string } }
-        | { __typename: 'SubNavigationItem', subNavigationItemTitle?: string | null, sys: { __typename?: 'Sys', id: string }, mainLink?: { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string } } | null, secondaryLinksCollection?: { __typename?: 'SubNavigationItemSecondaryLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null }
+        | { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } }
+        | { __typename: 'SubNavigationItem', subNavigationItemTitle?: string | null, sys: { __typename?: 'Sys', id: string }, mainLink?: { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null, secondaryLinksCollection?: { __typename?: 'SubNavigationItemSecondaryLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null }
        | null> } | null } | null };
 
 export type CtfHeaderQueryVariables = Types.Exact<{
@@ -39,10 +39,10 @@ export const HeaderFieldsFragmentDoc = `
   logo {
     ...AssetFields
   }
-  navigationItemsCollection(limit: 20) {
+  navigationItemsCollection(limit: 5) {
     ...NavigationFields
   }
-  buttonCollection(limit: 20) {
+  buttonCollection(limit: 5) {
     items {
       __typename
       ... on ButtonWithLinks {
@@ -51,7 +51,7 @@ export const HeaderFieldsFragmentDoc = `
           id
         }
         buttonText
-        buttonDropDownLinksCollection(limit: 20) {
+        buttonDropDownLinksCollection(limit: 5) {
           items {
             __typename
             sys {
@@ -59,6 +59,7 @@ export const HeaderFieldsFragmentDoc = `
             }
             linkHeading
             linkUrl
+            slug
           }
         }
       }
@@ -78,7 +79,7 @@ export const HeaderFieldsFragmentDoc = `
       id
     }
     menuTitle
-    menuItemsCollection(limit: 20) {
+    menuItemsCollection(limit: 10) {
       items {
         __typename
         ... on Link {
@@ -88,6 +89,7 @@ export const HeaderFieldsFragmentDoc = `
           }
           linkHeading
           linkUrl
+          slug
         }
         ... on SubNavigationItem {
           __typename
@@ -102,8 +104,9 @@ export const HeaderFieldsFragmentDoc = `
             }
             linkHeading
             linkUrl
+            slug
           }
-          secondaryLinksCollection(limit: 20) {
+          secondaryLinksCollection(limit: 10) {
             items {
               __typename
               sys {
@@ -111,6 +114,7 @@ export const HeaderFieldsFragmentDoc = `
               }
               linkHeading
               linkUrl
+              slug
             }
           }
         }
