@@ -392,8 +392,6 @@ export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
   ]);
 
   return (
-    <div className={clsx(props.className, classes.root)}>
-      {documentToReactComponents(json, options)}
-    </div>
+    <div className={clsx(props.className, classes.root)}>{documentToReactComponents(json)}</div>
   );
 };

@@ -1051,6 +1051,7 @@ export type ComponentTextBlock = Entry & _Node & {
   internalName?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<ComponentTextBlockLinkingCollections>;
   sys: Sys;
+  variations?: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -1071,6 +1072,13 @@ export type ComponentTextBlockInternalNameArgs = {
 /** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/componentTextBlock) */
 export type ComponentTextBlockLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/componentTextBlock) */
+export type ComponentTextBlockVariationsArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type ComponentTextBlockBody = {
@@ -1144,6 +1152,13 @@ export type ComponentTextBlockFilter = {
   internalName_not_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   sys?: InputMaybe<SysFilter>;
+  variations?: InputMaybe<Scalars['String']['input']>;
+  variations_contains?: InputMaybe<Scalars['String']['input']>;
+  variations_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  variations_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  variations_not?: InputMaybe<Scalars['String']['input']>;
+  variations_not_contains?: InputMaybe<Scalars['String']['input']>;
+  variations_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type ComponentTextBlockLinkingCollections = {
@@ -1198,7 +1213,9 @@ export enum ComponentTextBlockOrder {
   SysPublishedAtAsc = 'sys_publishedAt_ASC',
   SysPublishedAtDesc = 'sys_publishedAt_DESC',
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  VariationsAsc = 'variations_ASC',
+  VariationsDesc = 'variations_DESC'
 }
 
 export type ContentfulMetadata = {
@@ -4910,7 +4927,7 @@ export type CtfRichTextHyperlinkQuery = { __typename?: 'Query', page?: { __typen
         | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
        | null> } | null } | null };
 
-export type TextBlockFieldsFragment = { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string }, body?: { __typename?: 'ComponentTextBlockBody', json: any, links: { __typename?: 'ComponentTextBlockBodyLinks', entries: { __typename?: 'ComponentTextBlockBodyEntries', block: Array<
+export type TextBlockFieldsFragment = { __typename: 'ComponentTextBlock', variations?: string | null, sys: { __typename?: 'Sys', id: string }, body?: { __typename?: 'ComponentTextBlockBody', json: any, links: { __typename?: 'ComponentTextBlockBodyLinks', entries: { __typename?: 'ComponentTextBlockBodyEntries', block: Array<
           | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
@@ -4939,7 +4956,7 @@ export type CtfTextBlockQueryVariables = Exact<{
 }>;
 
 
-export type CtfTextBlockQuery = { __typename?: 'Query', componentTextBlock?: { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string }, body?: { __typename?: 'ComponentTextBlockBody', json: any, links: { __typename?: 'ComponentTextBlockBodyLinks', entries: { __typename?: 'ComponentTextBlockBodyEntries', block: Array<
+export type CtfTextBlockQuery = { __typename?: 'Query', componentTextBlock?: { __typename: 'ComponentTextBlock', variations?: string | null, sys: { __typename?: 'Sys', id: string }, body?: { __typename?: 'ComponentTextBlockBody', json: any, links: { __typename?: 'ComponentTextBlockBodyLinks', entries: { __typename?: 'ComponentTextBlockBodyEntries', block: Array<
             | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }

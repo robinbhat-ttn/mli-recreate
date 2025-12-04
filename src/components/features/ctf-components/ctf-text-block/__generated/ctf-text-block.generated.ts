@@ -6,7 +6,7 @@ import { ComponentReferenceFieldsFragmentDoc } from '../../../../../lib/shared-f
 import { AssetFieldsFragmentDoc } from '../../ctf-asset/__generated/ctf-asset.generated';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { customFetcher } from '@src/lib/fetchConfig';
-export type TextBlockFieldsFragment = { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string }, body?: { __typename?: 'ComponentTextBlockBody', json: any, links: { __typename?: 'ComponentTextBlockBodyLinks', entries: { __typename?: 'ComponentTextBlockBodyEntries', block: Array<
+export type TextBlockFieldsFragment = { __typename: 'ComponentTextBlock', variations?: string | null, sys: { __typename?: 'Sys', id: string }, body?: { __typename?: 'ComponentTextBlockBody', json: any, links: { __typename?: 'ComponentTextBlockBodyLinks', entries: { __typename?: 'ComponentTextBlockBodyEntries', block: Array<
           | (
             { __typename?: 'Banner' }
             & ComponentReferenceFields_Banner_Fragment
@@ -122,6 +122,7 @@ export const TextBlockFieldsFragmentDoc = `
       }
     }
   }
+  variations
 }
     `;
 export const CtfTextBlockDocument = `

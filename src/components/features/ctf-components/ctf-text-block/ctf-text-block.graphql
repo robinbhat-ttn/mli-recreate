@@ -18,6 +18,7 @@ fragment TextBlockFields on ComponentTextBlock {
       }
     }
   }
+  variations
 }
 
 query CtfTextBlock($id: String!, $locale: String, $preview: Boolean) {

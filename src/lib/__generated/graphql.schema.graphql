@@ -630,6 +630,7 @@ type ComponentTextBlock implements Entry & _Node {
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): ComponentTextBlockLinkingCollections
   sys: Sys!
+  variations(locale: String, useFallbackLocale: Boolean): String
 }
 
 type ComponentTextBlockBody {
@@ -694,6 +695,13 @@ input ComponentTextBlockFilter {
   internalName_not_contains: String
   internalName_not_in: [String]
   sys: SysFilter
+  variations: String
+  variations_contains: String
+  variations_exists: Boolean
+  variations_in: [String]
+  variations_not: String
+  variations_not_contains: String
+  variations_not_in: [String]
 }
 
 type ComponentTextBlockLinkingCollections {
@@ -729,6 +737,8 @@ enum ComponentTextBlockOrder {
   sys_publishedAt_DESC
   sys_publishedVersion_ASC
   sys_publishedVersion_DESC
+  variations_ASC
+  variations_DESC
 }
 
 type ContentfulMetadata {
