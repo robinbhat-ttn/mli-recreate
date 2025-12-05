@@ -182,7 +182,6 @@ export type AssetLinkingCollections = {
   entryCollection?: Maybe<EntryCollection>;
   headerCollection?: Maybe<HeaderCollection>;
   linkCollection?: Maybe<LinkCollection>;
-  policyCollection?: Maybe<PolicyCollection>;
   seoCollection?: Maybe<SeoCollection>;
   videoSectionCollection?: Maybe<VideoSectionCollection>;
 };
@@ -225,15 +224,6 @@ export type AssetLinkingCollectionsHeaderCollectionArgs = {
 
 
 export type AssetLinkingCollectionsLinkCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type AssetLinkingCollectionsPolicyCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -287,10 +277,13 @@ export type Banner = Entry & _Node & {
   __typename?: 'Banner';
   _id: Scalars['ID']['output'];
   bannerImage?: Maybe<Asset>;
+  bannerImageLink?: Maybe<Scalars['String']['output']>;
+  bannerTextCollection?: Maybe<BannerBannerTextCollection>;
+  bannerTitle?: Maybe<Scalars['String']['output']>;
   contentfulMetadata: ContentfulMetadata;
-  headline?: Maybe<Scalars['String']['output']>;
   internalName?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<BannerLinkingCollections>;
+  policyCardsCollection?: Maybe<BannerPolicyCardsCollection>;
   sys: Sys;
 };
 
@@ -304,7 +297,26 @@ export type BannerBannerImageArgs = {
 
 
 /** Banner Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
-export type BannerHeadlineArgs = {
+export type BannerBannerImageLinkArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Banner Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
+export type BannerBannerTextCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<BannerBannerTextCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<ComponentTextBlockFilter>;
+};
+
+
+/** Banner Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
+export type BannerBannerTitleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
@@ -322,6 +334,41 @@ export type BannerLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
+
+/** Banner Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
+export type BannerPolicyCardsCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<BannerPolicyCardsCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<CardFilter>;
+};
+
+export type BannerBannerTextCollection = {
+  __typename?: 'BannerBannerTextCollection';
+  items: Array<Maybe<ComponentTextBlock>>;
+  limit: Scalars['Int']['output'];
+  skip: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
+export enum BannerBannerTextCollectionOrder {
+  InternalNameAsc = 'internalName_ASC',
+  InternalNameDesc = 'internalName_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  VariationsAsc = 'variations_ASC',
+  VariationsDesc = 'variations_DESC'
+}
+
 export type BannerCollection = {
   __typename?: 'BannerCollection';
   items: Array<Maybe<Banner>>;
@@ -333,15 +380,24 @@ export type BannerCollection = {
 export type BannerFilter = {
   AND?: InputMaybe<Array<InputMaybe<BannerFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<BannerFilter>>>;
+  bannerImageLink?: InputMaybe<Scalars['String']['input']>;
+  bannerImageLink_contains?: InputMaybe<Scalars['String']['input']>;
+  bannerImageLink_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  bannerImageLink_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  bannerImageLink_not?: InputMaybe<Scalars['String']['input']>;
+  bannerImageLink_not_contains?: InputMaybe<Scalars['String']['input']>;
+  bannerImageLink_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   bannerImage_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  bannerText?: InputMaybe<CfComponentTextBlockNestedFilter>;
+  bannerTextCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  bannerTitle?: InputMaybe<Scalars['String']['input']>;
+  bannerTitle_contains?: InputMaybe<Scalars['String']['input']>;
+  bannerTitle_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  bannerTitle_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  bannerTitle_not?: InputMaybe<Scalars['String']['input']>;
+  bannerTitle_not_contains?: InputMaybe<Scalars['String']['input']>;
+  bannerTitle_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  headline?: InputMaybe<Scalars['String']['input']>;
-  headline_contains?: InputMaybe<Scalars['String']['input']>;
-  headline_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  headline_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  headline_not?: InputMaybe<Scalars['String']['input']>;
-  headline_not_contains?: InputMaybe<Scalars['String']['input']>;
-  headline_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -349,6 +405,8 @@ export type BannerFilter = {
   internalName_not?: InputMaybe<Scalars['String']['input']>;
   internalName_not_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  policyCards?: InputMaybe<CfCardNestedFilter>;
+  policyCardsCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
   sys?: InputMaybe<SysFilter>;
 };
 
@@ -395,8 +453,35 @@ export enum BannerLinkingCollectionsPageCollectionOrder {
 }
 
 export enum BannerOrder {
-  HeadlineAsc = 'headline_ASC',
-  HeadlineDesc = 'headline_DESC',
+  BannerImageLinkAsc = 'bannerImageLink_ASC',
+  BannerImageLinkDesc = 'bannerImageLink_DESC',
+  BannerTitleAsc = 'bannerTitle_ASC',
+  BannerTitleDesc = 'bannerTitle_DESC',
+  InternalNameAsc = 'internalName_ASC',
+  InternalNameDesc = 'internalName_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
+
+export type BannerPolicyCardsCollection = {
+  __typename?: 'BannerPolicyCardsCollection';
+  items: Array<Maybe<Card>>;
+  limit: Scalars['Int']['output'];
+  skip: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
+export enum BannerPolicyCardsCollectionOrder {
+  CardLinkAsc = 'cardLink_ASC',
+  CardLinkDesc = 'cardLink_DESC',
+  CardTitleAsc = 'cardTitle_ASC',
+  CardTitleDesc = 'cardTitle_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -728,6 +813,7 @@ export type Card = Entry & _Node & {
   _id: Scalars['ID']['output'];
   cardContent?: Maybe<CardCardContent>;
   cardImage?: Maybe<Asset>;
+  cardLink?: Maybe<Scalars['String']['output']>;
   cardTitle?: Maybe<Scalars['String']['output']>;
   contentfulMetadata: ContentfulMetadata;
   internalName?: Maybe<Scalars['String']['output']>;
@@ -747,6 +833,13 @@ export type CardCardContentArgs = {
 export type CardCardImageArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Card Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card) */
+export type CardCardLinkArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -833,6 +926,13 @@ export type CardFilter = {
   cardContent_exists?: InputMaybe<Scalars['Boolean']['input']>;
   cardContent_not_contains?: InputMaybe<Scalars['String']['input']>;
   cardImage_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  cardLink?: InputMaybe<Scalars['String']['input']>;
+  cardLink_contains?: InputMaybe<Scalars['String']['input']>;
+  cardLink_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  cardLink_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  cardLink_not?: InputMaybe<Scalars['String']['input']>;
+  cardLink_not_contains?: InputMaybe<Scalars['String']['input']>;
+  cardLink_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   cardTitle?: InputMaybe<Scalars['String']['input']>;
   cardTitle_contains?: InputMaybe<Scalars['String']['input']>;
   cardTitle_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -853,8 +953,19 @@ export type CardFilter = {
 
 export type CardLinkingCollections = {
   __typename?: 'CardLinkingCollections';
+  bannerCollection?: Maybe<BannerCollection>;
   carouselCollection?: Maybe<CarouselCollection>;
   entryCollection?: Maybe<EntryCollection>;
+};
+
+
+export type CardLinkingCollectionsBannerCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<CardLinkingCollectionsBannerCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -876,6 +987,23 @@ export type CardLinkingCollectionsEntryCollectionArgs = {
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export enum CardLinkingCollectionsBannerCollectionOrder {
+  BannerImageLinkAsc = 'bannerImageLink_ASC',
+  BannerImageLinkDesc = 'bannerImageLink_DESC',
+  BannerTitleAsc = 'bannerTitle_ASC',
+  BannerTitleDesc = 'bannerTitle_DESC',
+  InternalNameAsc = 'internalName_ASC',
+  InternalNameDesc = 'internalName_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
+
 export enum CardLinkingCollectionsCarouselCollectionOrder {
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
@@ -890,6 +1018,8 @@ export enum CardLinkingCollectionsCarouselCollectionOrder {
 }
 
 export enum CardOrder {
+  CardLinkAsc = 'cardLink_ASC',
+  CardLinkDesc = 'cardLink_DESC',
   CardTitleAsc = 'cardTitle_ASC',
   CardTitleDesc = 'cardTitle_DESC',
   InternalNameAsc = 'internalName_ASC',
@@ -949,6 +1079,8 @@ export type CarouselCardsCollection = {
 };
 
 export enum CarouselCardsCollectionOrder {
+  CardLinkAsc = 'cardLink_ASC',
+  CardLinkDesc = 'cardLink_DESC',
   CardTitleAsc = 'cardTitle_ASC',
   CardTitleDesc = 'cardTitle_DESC',
   InternalNameAsc = 'internalName_ASC',
@@ -1163,8 +1295,19 @@ export type ComponentTextBlockFilter = {
 
 export type ComponentTextBlockLinkingCollections = {
   __typename?: 'ComponentTextBlockLinkingCollections';
+  bannerCollection?: Maybe<BannerCollection>;
   entryCollection?: Maybe<EntryCollection>;
   pageCollection?: Maybe<PageCollection>;
+};
+
+
+export type ComponentTextBlockLinkingCollectionsBannerCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<ComponentTextBlockLinkingCollectionsBannerCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -1185,6 +1328,23 @@ export type ComponentTextBlockLinkingCollectionsPageCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
+
+export enum ComponentTextBlockLinkingCollectionsBannerCollectionOrder {
+  BannerImageLinkAsc = 'bannerImageLink_ASC',
+  BannerImageLinkDesc = 'bannerImageLink_DESC',
+  BannerTitleAsc = 'bannerTitle_ASC',
+  BannerTitleDesc = 'bannerTitle_DESC',
+  InternalNameAsc = 'internalName_ASC',
+  InternalNameDesc = 'internalName_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
 
 export enum ComponentTextBlockLinkingCollectionsPageCollectionOrder {
   InternalNameAsc = 'internalName_ASC',
@@ -2835,338 +2995,6 @@ export enum PageOrder {
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
-/** Policy Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/policy) */
-export type Policy = Entry & _Node & {
-  __typename?: 'Policy';
-  _id: Scalars['ID']['output'];
-  contentfulMetadata: ContentfulMetadata;
-  internalName?: Maybe<Scalars['String']['output']>;
-  linkedFrom?: Maybe<PolicyLinkingCollections>;
-  policyCardImage?: Maybe<Asset>;
-  policyDescription?: Maybe<PolicyPolicyDescription>;
-  policyText?: Maybe<PolicyPolicyText>;
-  sys: Sys;
-};
-
-
-/** Policy Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/policy) */
-export type PolicyInternalNameArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-/** Policy Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/policy) */
-export type PolicyLinkedFromArgs = {
-  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-/** Policy Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/policy) */
-export type PolicyPolicyCardImageArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-/** Policy Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/policy) */
-export type PolicyPolicyDescriptionArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-/** Policy Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/policy) */
-export type PolicyPolicyTextArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-/** Policy Cards Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/policyCards) */
-export type PolicyCards = Entry & _Node & {
-  __typename?: 'PolicyCards';
-  _id: Scalars['ID']['output'];
-  contentfulMetadata: ContentfulMetadata;
-  internalName?: Maybe<Scalars['String']['output']>;
-  linkedFrom?: Maybe<PolicyCardsLinkingCollections>;
-  policiesCollection?: Maybe<PolicyCardsPoliciesCollection>;
-  sys: Sys;
-};
-
-
-/** Policy Cards Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/policyCards) */
-export type PolicyCardsInternalNameArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-/** Policy Cards Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/policyCards) */
-export type PolicyCardsLinkedFromArgs = {
-  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-/** Policy Cards Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/policyCards) */
-export type PolicyCardsPoliciesCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<PolicyCardsPoliciesCollectionOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-  where?: InputMaybe<PolicyFilter>;
-};
-
-export type PolicyCardsCollection = {
-  __typename?: 'PolicyCardsCollection';
-  items: Array<Maybe<PolicyCards>>;
-  limit: Scalars['Int']['output'];
-  skip: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
-};
-
-export type PolicyCardsFilter = {
-  AND?: InputMaybe<Array<InputMaybe<PolicyCardsFilter>>>;
-  OR?: InputMaybe<Array<InputMaybe<PolicyCardsFilter>>>;
-  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  internalName?: InputMaybe<Scalars['String']['input']>;
-  internalName_contains?: InputMaybe<Scalars['String']['input']>;
-  internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  internalName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  internalName_not?: InputMaybe<Scalars['String']['input']>;
-  internalName_not_contains?: InputMaybe<Scalars['String']['input']>;
-  internalName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  policies?: InputMaybe<CfPolicyNestedFilter>;
-  policiesCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  sys?: InputMaybe<SysFilter>;
-};
-
-export type PolicyCardsLinkingCollections = {
-  __typename?: 'PolicyCardsLinkingCollections';
-  entryCollection?: Maybe<EntryCollection>;
-};
-
-
-export type PolicyCardsLinkingCollectionsEntryCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export enum PolicyCardsOrder {
-  InternalNameAsc = 'internalName_ASC',
-  InternalNameDesc = 'internalName_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
-}
-
-export type PolicyCardsPoliciesCollection = {
-  __typename?: 'PolicyCardsPoliciesCollection';
-  items: Array<Maybe<Policy>>;
-  limit: Scalars['Int']['output'];
-  skip: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
-};
-
-export enum PolicyCardsPoliciesCollectionOrder {
-  InternalNameAsc = 'internalName_ASC',
-  InternalNameDesc = 'internalName_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
-}
-
-export type PolicyCollection = {
-  __typename?: 'PolicyCollection';
-  items: Array<Maybe<Policy>>;
-  limit: Scalars['Int']['output'];
-  skip: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
-};
-
-export type PolicyFilter = {
-  AND?: InputMaybe<Array<InputMaybe<PolicyFilter>>>;
-  OR?: InputMaybe<Array<InputMaybe<PolicyFilter>>>;
-  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  internalName?: InputMaybe<Scalars['String']['input']>;
-  internalName_contains?: InputMaybe<Scalars['String']['input']>;
-  internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  internalName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  internalName_not?: InputMaybe<Scalars['String']['input']>;
-  internalName_not_contains?: InputMaybe<Scalars['String']['input']>;
-  internalName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  policyCardImage_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  policyDescription_contains?: InputMaybe<Scalars['String']['input']>;
-  policyDescription_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  policyDescription_not_contains?: InputMaybe<Scalars['String']['input']>;
-  policyText_contains?: InputMaybe<Scalars['String']['input']>;
-  policyText_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  policyText_not_contains?: InputMaybe<Scalars['String']['input']>;
-  sys?: InputMaybe<SysFilter>;
-};
-
-export type PolicyLinkingCollections = {
-  __typename?: 'PolicyLinkingCollections';
-  entryCollection?: Maybe<EntryCollection>;
-  policyCardsCollection?: Maybe<PolicyCardsCollection>;
-};
-
-
-export type PolicyLinkingCollectionsEntryCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type PolicyLinkingCollectionsPolicyCardsCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<PolicyLinkingCollectionsPolicyCardsCollectionOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-export enum PolicyLinkingCollectionsPolicyCardsCollectionOrder {
-  InternalNameAsc = 'internalName_ASC',
-  InternalNameDesc = 'internalName_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
-}
-
-export enum PolicyOrder {
-  InternalNameAsc = 'internalName_ASC',
-  InternalNameDesc = 'internalName_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
-}
-
-export type PolicyPolicyDescription = {
-  __typename?: 'PolicyPolicyDescription';
-  json: Scalars['JSON']['output'];
-  links: PolicyPolicyDescriptionLinks;
-};
-
-export type PolicyPolicyDescriptionAssets = {
-  __typename?: 'PolicyPolicyDescriptionAssets';
-  block: Array<Maybe<Asset>>;
-  hyperlink: Array<Maybe<Asset>>;
-};
-
-export type PolicyPolicyDescriptionEntries = {
-  __typename?: 'PolicyPolicyDescriptionEntries';
-  block: Array<Maybe<Entry>>;
-  hyperlink: Array<Maybe<Entry>>;
-  inline: Array<Maybe<Entry>>;
-};
-
-export type PolicyPolicyDescriptionLinks = {
-  __typename?: 'PolicyPolicyDescriptionLinks';
-  assets: PolicyPolicyDescriptionAssets;
-  entries: PolicyPolicyDescriptionEntries;
-  resources: PolicyPolicyDescriptionResources;
-};
-
-export type PolicyPolicyDescriptionResources = {
-  __typename?: 'PolicyPolicyDescriptionResources';
-  block: Array<PolicyPolicyDescriptionResourcesBlock>;
-  hyperlink: Array<PolicyPolicyDescriptionResourcesHyperlink>;
-  inline: Array<PolicyPolicyDescriptionResourcesInline>;
-};
-
-export type PolicyPolicyDescriptionResourcesBlock = ResourceLink & {
-  __typename?: 'PolicyPolicyDescriptionResourcesBlock';
-  sys: ResourceSys;
-};
-
-export type PolicyPolicyDescriptionResourcesHyperlink = ResourceLink & {
-  __typename?: 'PolicyPolicyDescriptionResourcesHyperlink';
-  sys: ResourceSys;
-};
-
-export type PolicyPolicyDescriptionResourcesInline = ResourceLink & {
-  __typename?: 'PolicyPolicyDescriptionResourcesInline';
-  sys: ResourceSys;
-};
-
-export type PolicyPolicyText = {
-  __typename?: 'PolicyPolicyText';
-  json: Scalars['JSON']['output'];
-  links: PolicyPolicyTextLinks;
-};
-
-export type PolicyPolicyTextAssets = {
-  __typename?: 'PolicyPolicyTextAssets';
-  block: Array<Maybe<Asset>>;
-  hyperlink: Array<Maybe<Asset>>;
-};
-
-export type PolicyPolicyTextEntries = {
-  __typename?: 'PolicyPolicyTextEntries';
-  block: Array<Maybe<Entry>>;
-  hyperlink: Array<Maybe<Entry>>;
-  inline: Array<Maybe<Entry>>;
-};
-
-export type PolicyPolicyTextLinks = {
-  __typename?: 'PolicyPolicyTextLinks';
-  assets: PolicyPolicyTextAssets;
-  entries: PolicyPolicyTextEntries;
-  resources: PolicyPolicyTextResources;
-};
-
-export type PolicyPolicyTextResources = {
-  __typename?: 'PolicyPolicyTextResources';
-  block: Array<PolicyPolicyTextResourcesBlock>;
-  hyperlink: Array<PolicyPolicyTextResourcesHyperlink>;
-  inline: Array<PolicyPolicyTextResourcesInline>;
-};
-
-export type PolicyPolicyTextResourcesBlock = ResourceLink & {
-  __typename?: 'PolicyPolicyTextResourcesBlock';
-  sys: ResourceSys;
-};
-
-export type PolicyPolicyTextResourcesHyperlink = ResourceLink & {
-  __typename?: 'PolicyPolicyTextResourcesHyperlink';
-  sys: ResourceSys;
-};
-
-export type PolicyPolicyTextResourcesInline = ResourceLink & {
-  __typename?: 'PolicyPolicyTextResourcesInline';
-  sys: ResourceSys;
-};
-
 export type Query = {
   __typename?: 'Query';
   _node?: Maybe<_Node>;
@@ -3200,10 +3028,6 @@ export type Query = {
   navigationItemsCollection?: Maybe<NavigationItemsCollection>;
   page?: Maybe<Page>;
   pageCollection?: Maybe<PageCollection>;
-  policy?: Maybe<Policy>;
-  policyCards?: Maybe<PolicyCards>;
-  policyCardsCollection?: Maybe<PolicyCardsCollection>;
-  policyCollection?: Maybe<PolicyCollection>;
   question?: Maybe<Question>;
   questionCollection?: Maybe<QuestionCollection>;
   seo?: Maybe<Seo>;
@@ -3505,44 +3329,6 @@ export type QueryPageCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<PageFilter>;
-};
-
-
-export type QueryPolicyArgs = {
-  id: Scalars['String']['input'];
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type QueryPolicyCardsArgs = {
-  id: Scalars['String']['input'];
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type QueryPolicyCardsCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<PolicyCardsOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-  where?: InputMaybe<PolicyCardsFilter>;
-};
-
-
-export type QueryPolicyCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<PolicyOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-  where?: InputMaybe<PolicyFilter>;
 };
 
 
@@ -4356,6 +4142,13 @@ export type CfCardNestedFilter = {
   cardContent_exists?: InputMaybe<Scalars['Boolean']['input']>;
   cardContent_not_contains?: InputMaybe<Scalars['String']['input']>;
   cardImage_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  cardLink?: InputMaybe<Scalars['String']['input']>;
+  cardLink_contains?: InputMaybe<Scalars['String']['input']>;
+  cardLink_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  cardLink_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  cardLink_not?: InputMaybe<Scalars['String']['input']>;
+  cardLink_not_contains?: InputMaybe<Scalars['String']['input']>;
+  cardLink_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   cardTitle?: InputMaybe<Scalars['String']['input']>;
   cardTitle_contains?: InputMaybe<Scalars['String']['input']>;
   cardTitle_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -4372,6 +4165,30 @@ export type CfCardNestedFilter = {
   internalName_not_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   sys?: InputMaybe<SysFilter>;
+};
+
+export type CfComponentTextBlockNestedFilter = {
+  AND?: InputMaybe<Array<InputMaybe<CfComponentTextBlockNestedFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<CfComponentTextBlockNestedFilter>>>;
+  body_contains?: InputMaybe<Scalars['String']['input']>;
+  body_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  body_not_contains?: InputMaybe<Scalars['String']['input']>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  internalName?: InputMaybe<Scalars['String']['input']>;
+  internalName_contains?: InputMaybe<Scalars['String']['input']>;
+  internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  internalName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  internalName_not?: InputMaybe<Scalars['String']['input']>;
+  internalName_not_contains?: InputMaybe<Scalars['String']['input']>;
+  internalName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  sys?: InputMaybe<SysFilter>;
+  variations?: InputMaybe<Scalars['String']['input']>;
+  variations_contains?: InputMaybe<Scalars['String']['input']>;
+  variations_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  variations_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  variations_not?: InputMaybe<Scalars['String']['input']>;
+  variations_not_contains?: InputMaybe<Scalars['String']['input']>;
+  variations_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type CfDisclaimerNestedFilter = {
@@ -4525,27 +4342,6 @@ export type CfNavigationItemsNestedFilter = {
   sys?: InputMaybe<SysFilter>;
 };
 
-export type CfPolicyNestedFilter = {
-  AND?: InputMaybe<Array<InputMaybe<CfPolicyNestedFilter>>>;
-  OR?: InputMaybe<Array<InputMaybe<CfPolicyNestedFilter>>>;
-  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  internalName?: InputMaybe<Scalars['String']['input']>;
-  internalName_contains?: InputMaybe<Scalars['String']['input']>;
-  internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  internalName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  internalName_not?: InputMaybe<Scalars['String']['input']>;
-  internalName_not_contains?: InputMaybe<Scalars['String']['input']>;
-  internalName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  policyCardImage_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  policyDescription_contains?: InputMaybe<Scalars['String']['input']>;
-  policyDescription_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  policyDescription_not_contains?: InputMaybe<Scalars['String']['input']>;
-  policyText_contains?: InputMaybe<Scalars['String']['input']>;
-  policyText_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  policyText_not_contains?: InputMaybe<Scalars['String']['input']>;
-  sys?: InputMaybe<SysFilter>;
-};
-
 export type CfSeoNestedFilter = {
   AND?: InputMaybe<Array<InputMaybe<CfSeoNestedFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<CfSeoNestedFilter>>>;
@@ -4655,6 +4451,51 @@ export type CfmenuItemsMultiTypeNestedFilter = {
 
 export type AssetFieldsFragment = { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } };
 
+export type CtfBannerQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+}>;
+
+
+export type CtfBannerQuery = { __typename?: 'Query', banner?: { __typename: 'Banner', bannerTitle?: string | null, bannerImageLink?: string | null, sys: { __typename?: 'Sys', id: string }, bannerImage?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null, bannerTextCollection?: { __typename?: 'BannerBannerTextCollection', items: Array<{ __typename: 'ComponentTextBlock', variations?: string | null, sys: { __typename?: 'Sys', id: string }, body?: { __typename?: 'ComponentTextBlockBody', json: any, links: { __typename?: 'ComponentTextBlockBodyLinks', entries: { __typename?: 'ComponentTextBlockBodyEntries', block: Array<
+                | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
+               | null> }, assets: { __typename?: 'ComponentTextBlockBodyAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null, policyCardsCollection?: { __typename?: 'BannerPolicyCardsCollection', items: Array<{ __typename: 'Card', cardTitle?: string | null, cardLink?: string | null, sys: { __typename?: 'Sys', id: string }, cardImage?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null, cardContent?: { __typename?: 'CardCardContent', json: any, links: { __typename?: 'CardCardContentLinks', entries: { __typename?: 'CardCardContentEntries', block: Array<
+                | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
+               | null> }, assets: { __typename?: 'CardCardContentAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null } | null };
+
 export type FooterFieldsFragment = { __typename: 'Footer', sys: { __typename?: 'Sys', id: string }, footerLinksCollection?: { __typename?: 'FooterFooterLinksCollection', items: Array<{ __typename: 'SubNavigationItem', subNavigationItemTitle?: string | null, sys: { __typename?: 'Sys', id: string }, mainLink?: { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null, secondaryLinksCollection?: { __typename?: 'SubNavigationItemSecondaryLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null } | null> } | null, buttonsCollection?: { __typename?: 'FooterButtonsCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, socialLinksCollection?: { __typename?: 'FooterSocialLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, groupSitesLinksCollection?: { __typename?: 'FooterGroupSitesLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, footerInformation?: { __typename: 'FooterFooterInformation', json: any, links: { __typename?: 'FooterFooterInformationLinks', entries: { __typename?: 'FooterFooterInformationEntries', block: Array<
           | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
@@ -4669,8 +4510,6 @@ export type FooterFieldsFragment = { __typename: 'Footer', sys: { __typename?: '
           | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'Policy', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'PolicyCards', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
@@ -4689,8 +4528,6 @@ export type FooterFieldsFragment = { __typename: 'Footer', sys: { __typename?: '
             | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
-            | { __typename: 'Policy', sys: { __typename?: 'Sys', id: string } }
-            | { __typename: 'PolicyCards', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
@@ -4718,8 +4555,6 @@ export type CtfFooterQuery = { __typename?: 'Query', footer?: { __typename: 'Foo
             | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
-            | { __typename: 'Policy', sys: { __typename?: 'Sys', id: string } }
-            | { __typename: 'PolicyCards', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
@@ -4738,8 +4573,6 @@ export type CtfFooterQuery = { __typename?: 'Query', footer?: { __typename: 'Foo
               | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Policy', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'PolicyCards', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
@@ -4815,8 +4648,6 @@ export type CtfPageFieldsFragment = { __typename: 'Page', pageName?: string | nu
             | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
-            | { __typename: 'Policy', sys: { __typename?: 'Sys', id: string } }
-            | { __typename: 'PolicyCards', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
@@ -4835,8 +4666,6 @@ export type CtfPageFieldsFragment = { __typename: 'Page', pageName?: string | nu
               | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Policy', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'PolicyCards', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
@@ -4876,8 +4705,6 @@ export type CtfPageQuery = { __typename?: 'Query', pageCollection?: { __typename
                 | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Policy', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'PolicyCards', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
@@ -4896,8 +4723,6 @@ export type CtfPageQuery = { __typename?: 'Query', pageCollection?: { __typename
                   | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
                   | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
                   | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
-                  | { __typename: 'Policy', sys: { __typename?: 'Sys', id: string } }
-                  | { __typename: 'PolicyCards', sys: { __typename?: 'Sys', id: string } }
                   | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
                   | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
                   | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
@@ -4941,8 +4766,6 @@ export type TextBlockFieldsFragment = { __typename: 'ComponentTextBlock', variat
           | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'Policy', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'PolicyCards', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
@@ -4970,8 +4793,6 @@ export type CtfTextBlockQuery = { __typename?: 'Query', componentTextBlock?: { _
             | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
-            | { __typename: 'Policy', sys: { __typename?: 'Sys', id: string } }
-            | { __typename: 'PolicyCards', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
@@ -5012,10 +4833,6 @@ type ComponentReferenceFields_NavigationItems_Fragment = { __typename: 'Navigati
 
 type ComponentReferenceFields_Page_Fragment = { __typename: 'Page', sys: { __typename?: 'Sys', id: string } };
 
-type ComponentReferenceFields_Policy_Fragment = { __typename: 'Policy', sys: { __typename?: 'Sys', id: string } };
-
-type ComponentReferenceFields_PolicyCards_Fragment = { __typename: 'PolicyCards', sys: { __typename?: 'Sys', id: string } };
-
 type ComponentReferenceFields_Question_Fragment = { __typename: 'Question', sys: { __typename?: 'Sys', id: string } };
 
 type ComponentReferenceFields_Seo_Fragment = { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } };
@@ -5038,8 +4855,6 @@ export type ComponentReferenceFieldsFragment =
   | ComponentReferenceFields_Link_Fragment
   | ComponentReferenceFields_NavigationItems_Fragment
   | ComponentReferenceFields_Page_Fragment
-  | ComponentReferenceFields_Policy_Fragment
-  | ComponentReferenceFields_PolicyCards_Fragment
   | ComponentReferenceFields_Question_Fragment
   | ComponentReferenceFields_Seo_Fragment
   | ComponentReferenceFields_SubNavigationItem_Fragment

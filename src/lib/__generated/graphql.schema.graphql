@@ -99,7 +99,6 @@ type AssetLinkingCollections {
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
   headerCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): HeaderCollection
   linkCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): LinkCollection
-  policyCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): PolicyCollection
   seoCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): SeoCollection
   videoSectionCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): VideoSectionCollection
 }
@@ -133,11 +132,36 @@ Banner Content Type [See type definition](https://app.contentful.com/spaces/t6kv
 type Banner implements Entry & _Node {
   _id: ID!
   bannerImage(locale: String, preview: Boolean, useFallbackLocale: Boolean): Asset
+  bannerImageLink(locale: String, useFallbackLocale: Boolean): String
+  bannerTextCollection(limit: Int = 100, locale: String, order: [BannerBannerTextCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: ComponentTextBlockFilter): BannerBannerTextCollection
+  bannerTitle(locale: String, useFallbackLocale: Boolean): String
   contentfulMetadata: ContentfulMetadata!
-  headline(locale: String, useFallbackLocale: Boolean): String
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): BannerLinkingCollections
+  policyCardsCollection(limit: Int = 100, locale: String, order: [BannerPolicyCardsCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: CardFilter): BannerPolicyCardsCollection
   sys: Sys!
+}
+
+type BannerBannerTextCollection {
+  items: [ComponentTextBlock]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+enum BannerBannerTextCollectionOrder {
+  internalName_ASC
+  internalName_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  variations_ASC
+  variations_DESC
 }
 
 type BannerCollection {
@@ -150,15 +174,24 @@ type BannerCollection {
 input BannerFilter {
   AND: [BannerFilter]
   OR: [BannerFilter]
+  bannerImageLink: String
+  bannerImageLink_contains: String
+  bannerImageLink_exists: Boolean
+  bannerImageLink_in: [String]
+  bannerImageLink_not: String
+  bannerImageLink_not_contains: String
+  bannerImageLink_not_in: [String]
   bannerImage_exists: Boolean
+  bannerText: cfComponentTextBlockNestedFilter
+  bannerTextCollection_exists: Boolean
+  bannerTitle: String
+  bannerTitle_contains: String
+  bannerTitle_exists: Boolean
+  bannerTitle_in: [String]
+  bannerTitle_not: String
+  bannerTitle_not_contains: String
+  bannerTitle_not_in: [String]
   contentfulMetadata: ContentfulMetadataFilter
-  headline: String
-  headline_contains: String
-  headline_exists: Boolean
-  headline_in: [String]
-  headline_not: String
-  headline_not_contains: String
-  headline_not_in: [String]
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean
@@ -166,6 +199,8 @@ input BannerFilter {
   internalName_not: String
   internalName_not_contains: String
   internalName_not_in: [String]
+  policyCards: cfCardNestedFilter
+  policyCardsCollection_exists: Boolean
   sys: SysFilter
 }
 
@@ -192,8 +227,34 @@ enum BannerLinkingCollectionsPageCollectionOrder {
 }
 
 enum BannerOrder {
-  headline_ASC
-  headline_DESC
+  bannerImageLink_ASC
+  bannerImageLink_DESC
+  bannerTitle_ASC
+  bannerTitle_DESC
+  internalName_ASC
+  internalName_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+}
+
+type BannerPolicyCardsCollection {
+  items: [Card]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+enum BannerPolicyCardsCollectionOrder {
+  cardLink_ASC
+  cardLink_DESC
+  cardTitle_ASC
+  cardTitle_DESC
   internalName_ASC
   internalName_DESC
   sys_firstPublishedAt_ASC
@@ -416,6 +477,7 @@ type Card implements Entry & _Node {
   _id: ID!
   cardContent(locale: String, useFallbackLocale: Boolean): CardCardContent
   cardImage(locale: String, preview: Boolean, useFallbackLocale: Boolean): Asset
+  cardLink(locale: String, useFallbackLocale: Boolean): String
   cardTitle(locale: String, useFallbackLocale: Boolean): String
   contentfulMetadata: ContentfulMetadata!
   internalName(locale: String, useFallbackLocale: Boolean): String
@@ -477,6 +539,13 @@ input CardFilter {
   cardContent_exists: Boolean
   cardContent_not_contains: String
   cardImage_exists: Boolean
+  cardLink: String
+  cardLink_contains: String
+  cardLink_exists: Boolean
+  cardLink_in: [String]
+  cardLink_not: String
+  cardLink_not_contains: String
+  cardLink_not_in: [String]
   cardTitle: String
   cardTitle_contains: String
   cardTitle_exists: Boolean
@@ -496,8 +565,26 @@ input CardFilter {
 }
 
 type CardLinkingCollections {
+  bannerCollection(limit: Int = 100, locale: String, order: [CardLinkingCollectionsBannerCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): BannerCollection
   carouselCollection(limit: Int = 100, locale: String, order: [CardLinkingCollectionsCarouselCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): CarouselCollection
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
+}
+
+enum CardLinkingCollectionsBannerCollectionOrder {
+  bannerImageLink_ASC
+  bannerImageLink_DESC
+  bannerTitle_ASC
+  bannerTitle_DESC
+  internalName_ASC
+  internalName_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
 }
 
 enum CardLinkingCollectionsCarouselCollectionOrder {
@@ -514,6 +601,8 @@ enum CardLinkingCollectionsCarouselCollectionOrder {
 }
 
 enum CardOrder {
+  cardLink_ASC
+  cardLink_DESC
   cardTitle_ASC
   cardTitle_DESC
   internalName_ASC
@@ -548,6 +637,8 @@ type CarouselCardsCollection {
 }
 
 enum CarouselCardsCollectionOrder {
+  cardLink_ASC
+  cardLink_DESC
   cardTitle_ASC
   cardTitle_DESC
   internalName_ASC
@@ -705,8 +796,26 @@ input ComponentTextBlockFilter {
 }
 
 type ComponentTextBlockLinkingCollections {
+  bannerCollection(limit: Int = 100, locale: String, order: [ComponentTextBlockLinkingCollectionsBannerCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): BannerCollection
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
   pageCollection(limit: Int = 100, locale: String, order: [ComponentTextBlockLinkingCollectionsPageCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): PageCollection
+}
+
+enum ComponentTextBlockLinkingCollectionsBannerCollectionOrder {
+  bannerImageLink_ASC
+  bannerImageLink_DESC
+  bannerTitle_ASC
+  bannerTitle_DESC
+  internalName_ASC
+  internalName_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
 }
 
 enum ComponentTextBlockLinkingCollectionsPageCollectionOrder {
@@ -1891,231 +2000,6 @@ enum PageOrder {
 }
 
 """
-Policy Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/policy)
-"""
-type Policy implements Entry & _Node {
-  _id: ID!
-  contentfulMetadata: ContentfulMetadata!
-  internalName(locale: String, useFallbackLocale: Boolean): String
-  linkedFrom(allowedLocales: [String]): PolicyLinkingCollections
-  policyCardImage(locale: String, preview: Boolean, useFallbackLocale: Boolean): Asset
-  policyDescription(locale: String, useFallbackLocale: Boolean): PolicyPolicyDescription
-  policyText(locale: String, useFallbackLocale: Boolean): PolicyPolicyText
-  sys: Sys!
-}
-
-"""
-Policy Cards Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/policyCards)
-"""
-type PolicyCards implements Entry & _Node {
-  _id: ID!
-  contentfulMetadata: ContentfulMetadata!
-  internalName(locale: String, useFallbackLocale: Boolean): String
-  linkedFrom(allowedLocales: [String]): PolicyCardsLinkingCollections
-  policiesCollection(limit: Int = 100, locale: String, order: [PolicyCardsPoliciesCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: PolicyFilter): PolicyCardsPoliciesCollection
-  sys: Sys!
-}
-
-type PolicyCardsCollection {
-  items: [PolicyCards]!
-  limit: Int!
-  skip: Int!
-  total: Int!
-}
-
-input PolicyCardsFilter {
-  AND: [PolicyCardsFilter]
-  OR: [PolicyCardsFilter]
-  contentfulMetadata: ContentfulMetadataFilter
-  internalName: String
-  internalName_contains: String
-  internalName_exists: Boolean
-  internalName_in: [String]
-  internalName_not: String
-  internalName_not_contains: String
-  internalName_not_in: [String]
-  policies: cfPolicyNestedFilter
-  policiesCollection_exists: Boolean
-  sys: SysFilter
-}
-
-type PolicyCardsLinkingCollections {
-  entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
-}
-
-enum PolicyCardsOrder {
-  internalName_ASC
-  internalName_DESC
-  sys_firstPublishedAt_ASC
-  sys_firstPublishedAt_DESC
-  sys_id_ASC
-  sys_id_DESC
-  sys_publishedAt_ASC
-  sys_publishedAt_DESC
-  sys_publishedVersion_ASC
-  sys_publishedVersion_DESC
-}
-
-type PolicyCardsPoliciesCollection {
-  items: [Policy]!
-  limit: Int!
-  skip: Int!
-  total: Int!
-}
-
-enum PolicyCardsPoliciesCollectionOrder {
-  internalName_ASC
-  internalName_DESC
-  sys_firstPublishedAt_ASC
-  sys_firstPublishedAt_DESC
-  sys_id_ASC
-  sys_id_DESC
-  sys_publishedAt_ASC
-  sys_publishedAt_DESC
-  sys_publishedVersion_ASC
-  sys_publishedVersion_DESC
-}
-
-type PolicyCollection {
-  items: [Policy]!
-  limit: Int!
-  skip: Int!
-  total: Int!
-}
-
-input PolicyFilter {
-  AND: [PolicyFilter]
-  OR: [PolicyFilter]
-  contentfulMetadata: ContentfulMetadataFilter
-  internalName: String
-  internalName_contains: String
-  internalName_exists: Boolean
-  internalName_in: [String]
-  internalName_not: String
-  internalName_not_contains: String
-  internalName_not_in: [String]
-  policyCardImage_exists: Boolean
-  policyDescription_contains: String
-  policyDescription_exists: Boolean
-  policyDescription_not_contains: String
-  policyText_contains: String
-  policyText_exists: Boolean
-  policyText_not_contains: String
-  sys: SysFilter
-}
-
-type PolicyLinkingCollections {
-  entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
-  policyCardsCollection(limit: Int = 100, locale: String, order: [PolicyLinkingCollectionsPolicyCardsCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): PolicyCardsCollection
-}
-
-enum PolicyLinkingCollectionsPolicyCardsCollectionOrder {
-  internalName_ASC
-  internalName_DESC
-  sys_firstPublishedAt_ASC
-  sys_firstPublishedAt_DESC
-  sys_id_ASC
-  sys_id_DESC
-  sys_publishedAt_ASC
-  sys_publishedAt_DESC
-  sys_publishedVersion_ASC
-  sys_publishedVersion_DESC
-}
-
-enum PolicyOrder {
-  internalName_ASC
-  internalName_DESC
-  sys_firstPublishedAt_ASC
-  sys_firstPublishedAt_DESC
-  sys_id_ASC
-  sys_id_DESC
-  sys_publishedAt_ASC
-  sys_publishedAt_DESC
-  sys_publishedVersion_ASC
-  sys_publishedVersion_DESC
-}
-
-type PolicyPolicyDescription {
-  json: JSON!
-  links: PolicyPolicyDescriptionLinks!
-}
-
-type PolicyPolicyDescriptionAssets {
-  block: [Asset]!
-  hyperlink: [Asset]!
-}
-
-type PolicyPolicyDescriptionEntries {
-  block: [Entry]!
-  hyperlink: [Entry]!
-  inline: [Entry]!
-}
-
-type PolicyPolicyDescriptionLinks {
-  assets: PolicyPolicyDescriptionAssets!
-  entries: PolicyPolicyDescriptionEntries!
-  resources: PolicyPolicyDescriptionResources!
-}
-
-type PolicyPolicyDescriptionResources {
-  block: [PolicyPolicyDescriptionResourcesBlock!]!
-  hyperlink: [PolicyPolicyDescriptionResourcesHyperlink!]!
-  inline: [PolicyPolicyDescriptionResourcesInline!]!
-}
-
-type PolicyPolicyDescriptionResourcesBlock implements ResourceLink {
-  sys: ResourceSys!
-}
-
-type PolicyPolicyDescriptionResourcesHyperlink implements ResourceLink {
-  sys: ResourceSys!
-}
-
-type PolicyPolicyDescriptionResourcesInline implements ResourceLink {
-  sys: ResourceSys!
-}
-
-type PolicyPolicyText {
-  json: JSON!
-  links: PolicyPolicyTextLinks!
-}
-
-type PolicyPolicyTextAssets {
-  block: [Asset]!
-  hyperlink: [Asset]!
-}
-
-type PolicyPolicyTextEntries {
-  block: [Entry]!
-  hyperlink: [Entry]!
-  inline: [Entry]!
-}
-
-type PolicyPolicyTextLinks {
-  assets: PolicyPolicyTextAssets!
-  entries: PolicyPolicyTextEntries!
-  resources: PolicyPolicyTextResources!
-}
-
-type PolicyPolicyTextResources {
-  block: [PolicyPolicyTextResourcesBlock!]!
-  hyperlink: [PolicyPolicyTextResourcesHyperlink!]!
-  inline: [PolicyPolicyTextResourcesInline!]!
-}
-
-type PolicyPolicyTextResourcesBlock implements ResourceLink {
-  sys: ResourceSys!
-}
-
-type PolicyPolicyTextResourcesHyperlink implements ResourceLink {
-  sys: ResourceSys!
-}
-
-type PolicyPolicyTextResourcesInline implements ResourceLink {
-  sys: ResourceSys!
-}
-
-"""
 The 'Quality' type represents quality as whole numeric values between `1` and `100`.
 """
 scalar Quality
@@ -2152,10 +2036,6 @@ type Query {
   navigationItemsCollection(limit: Int = 100, locale: String, order: [NavigationItemsOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: NavigationItemsFilter): NavigationItemsCollection
   page(id: String!, locale: String, preview: Boolean, useFallbackLocale: Boolean): Page
   pageCollection(limit: Int = 100, locale: String, order: [PageOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: PageFilter): PageCollection
-  policy(id: String!, locale: String, preview: Boolean, useFallbackLocale: Boolean): Policy
-  policyCards(id: String!, locale: String, preview: Boolean, useFallbackLocale: Boolean): PolicyCards
-  policyCardsCollection(limit: Int = 100, locale: String, order: [PolicyCardsOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: PolicyCardsFilter): PolicyCardsCollection
-  policyCollection(limit: Int = 100, locale: String, order: [PolicyOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: PolicyFilter): PolicyCollection
   question(id: String!, locale: String, preview: Boolean, useFallbackLocale: Boolean): Question
   questionCollection(limit: Int = 100, locale: String, order: [QuestionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: QuestionFilter): QuestionCollection
   seo(id: String!, locale: String, preview: Boolean, useFallbackLocale: Boolean): Seo
@@ -2663,6 +2543,13 @@ input cfCardNestedFilter {
   cardContent_exists: Boolean
   cardContent_not_contains: String
   cardImage_exists: Boolean
+  cardLink: String
+  cardLink_contains: String
+  cardLink_exists: Boolean
+  cardLink_in: [String]
+  cardLink_not: String
+  cardLink_not_contains: String
+  cardLink_not_in: [String]
   cardTitle: String
   cardTitle_contains: String
   cardTitle_exists: Boolean
@@ -2679,6 +2566,30 @@ input cfCardNestedFilter {
   internalName_not_contains: String
   internalName_not_in: [String]
   sys: SysFilter
+}
+
+input cfComponentTextBlockNestedFilter {
+  AND: [cfComponentTextBlockNestedFilter]
+  OR: [cfComponentTextBlockNestedFilter]
+  body_contains: String
+  body_exists: Boolean
+  body_not_contains: String
+  contentfulMetadata: ContentfulMetadataFilter
+  internalName: String
+  internalName_contains: String
+  internalName_exists: Boolean
+  internalName_in: [String]
+  internalName_not: String
+  internalName_not_contains: String
+  internalName_not_in: [String]
+  sys: SysFilter
+  variations: String
+  variations_contains: String
+  variations_exists: Boolean
+  variations_in: [String]
+  variations_not: String
+  variations_not_contains: String
+  variations_not_in: [String]
 }
 
 input cfDisclaimerNestedFilter {
@@ -2829,27 +2740,6 @@ input cfNavigationItemsNestedFilter {
   navigationTitle_not_contains: String
   navigationTitle_not_in: [String]
   subNavigationMenuCollection_exists: Boolean
-  sys: SysFilter
-}
-
-input cfPolicyNestedFilter {
-  AND: [cfPolicyNestedFilter]
-  OR: [cfPolicyNestedFilter]
-  contentfulMetadata: ContentfulMetadataFilter
-  internalName: String
-  internalName_contains: String
-  internalName_exists: Boolean
-  internalName_in: [String]
-  internalName_not: String
-  internalName_not_contains: String
-  internalName_not_in: [String]
-  policyCardImage_exists: Boolean
-  policyDescription_contains: String
-  policyDescription_exists: Boolean
-  policyDescription_not_contains: String
-  policyText_contains: String
-  policyText_exists: Boolean
-  policyText_not_contains: String
   sys: SysFilter
 }
 
