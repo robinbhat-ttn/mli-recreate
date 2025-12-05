@@ -16,8 +16,6 @@ export type FooterFieldsFragment = { __typename: 'Footer', sys: { __typename?: '
           | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'Policy', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'PolicyCards', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
@@ -36,8 +34,6 @@ export type FooterFieldsFragment = { __typename: 'Footer', sys: { __typename?: '
             | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
-            | { __typename: 'Policy', sys: { __typename?: 'Sys', id: string } }
-            | { __typename: 'PolicyCards', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }

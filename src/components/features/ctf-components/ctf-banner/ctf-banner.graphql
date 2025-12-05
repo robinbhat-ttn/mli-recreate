@@ -1,0 +1,69 @@
+query CtfBanner($id: String!, $locale: String, $preview: Boolean){
+   banner(id: $id, locale: $locale, preview: $preview) {
+    __typename
+    sys{
+      id
+    }
+    bannerImage{
+      ...AssetFields
+    }
+    bannerTitle
+    bannerTextCollection(limit:4){
+      items{
+        __typename
+        sys{
+          id
+        }
+        body {
+    			json
+    			links {
+      			entries {
+        			block {
+          			...ComponentReferenceFields
+        			}
+      			}
+      			assets {
+        			block {
+          			...AssetFields
+        			}
+      			}
+    			}
+  			}
+  			variations
+      }
+    }
+    policyCardsCollection(limit:6){
+      items{
+        __typename
+        sys{
+          id
+        }
+        cardImage{
+          ...AssetFields
+        }
+        cardTitle
+        cardContent{
+    			json
+    			links {
+      			entries {
+        			block {
+          			...ComponentReferenceFields
+        			}
+      			}
+      			assets {
+        			block {
+          			...AssetFields
+        			}
+      			}
+    			}
+        }
+        cardLink
+      }
+    }
+    bannerImageLink
+  }
+  
+}
+
+
+

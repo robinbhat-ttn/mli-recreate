@@ -26,10 +26,6 @@ export type ComponentReferenceFields_NavigationItems_Fragment = { __typename: 'N
 
 export type ComponentReferenceFields_Page_Fragment = { __typename: 'Page', sys: { __typename?: 'Sys', id: string } };
 
-export type ComponentReferenceFields_Policy_Fragment = { __typename: 'Policy', sys: { __typename?: 'Sys', id: string } };
-
-export type ComponentReferenceFields_PolicyCards_Fragment = { __typename: 'PolicyCards', sys: { __typename?: 'Sys', id: string } };
-
 export type ComponentReferenceFields_Question_Fragment = { __typename: 'Question', sys: { __typename?: 'Sys', id: string } };
 
 export type ComponentReferenceFields_Seo_Fragment = { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } };
@@ -52,8 +48,6 @@ export type ComponentReferenceFieldsFragment =
   | ComponentReferenceFields_Link_Fragment
   | ComponentReferenceFields_NavigationItems_Fragment
   | ComponentReferenceFields_Page_Fragment
-  | ComponentReferenceFields_Policy_Fragment
-  | ComponentReferenceFields_PolicyCards_Fragment
   | ComponentReferenceFields_Question_Fragment
   | ComponentReferenceFields_Seo_Fragment
   | ComponentReferenceFields_SubNavigationItem_Fragment
