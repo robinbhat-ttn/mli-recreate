@@ -11,6 +11,11 @@ export const componentMap = {
       module => module.CtfBanner,
     ),
   ),
+  Link: dynamic(() =>
+    import('@src/components/features/ctf-components/ctf-link/ctf-link').then(
+      module => module.CtfLink,
+    ),
+  ),
 };
 
 export const componentGqlMap = {
@@ -22,6 +27,11 @@ export const componentGqlMap = {
   Banner: dynamic(() =>
     import('@src/components/features/ctf-components/ctf-banner/ctf-banner-gql').then(
       module => module.CtfBannerGql,
+    ),
+  ),
+  Link: dynamic(() =>
+    import('@src/components/features/ctf-components/ctf-link/ctf-link-gql').then(
+      module => module.CtfLinkGql,
     ),
   ),
 };

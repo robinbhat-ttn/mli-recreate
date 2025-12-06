@@ -259,13 +259,13 @@ export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
     opts.renderNode = {
       [INLINES.EMBEDDED_ENTRY]: node => {
         const id = tryget(() => node.data.target.sys.id);
+        const __typename = tryget(() => node.data.target.sys.type);
         if (id) {
           // NOTE: As the Ninetailed mergetag is the only inline entry used on the content model we don't have to setup the check through the links array.
           // If there will come additional inline entries this needs to be done.
-
           return (
             <ComponentResolver
-              componentProps={{ sys: { id }, __typename: 'NtMergetag' }}
+              componentProps={{ sys: { id }, __typename }}
               className={classes.embeddedEntry}
               inline
             />
@@ -392,6 +392,8 @@ export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
   ]);
 
   return (
-    <div className={clsx(props.className, classes.root)}>{documentToReactComponents(json)}</div>
+    <div className={clsx(props.className, classes.root)}>
+      {documentToReactComponents(json, options)}
+    </div>
   );
 };
