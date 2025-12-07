@@ -29,7 +29,7 @@ export const CtfTextBlock = ({ body }: TextBlockFieldsFragment) => {
 
   return (
     <Container maxWidth={false}>
-      <div className={classes.innerContainer}>
+      <div>
         {body && (
           <div className={classes.fontSmall + ' ' + classes.colorBlack}>
             <CtfRichtext {...body} />

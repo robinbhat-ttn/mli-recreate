@@ -10,12 +10,14 @@ export const NavigationContainer = props => {
             <ul>
               {item.subNavigationMenuCollection?.items.map((subItem, subIndex) => (
                 <li key={subIndex}>
-                  <li key={subIndex} className={styles.subNavigationItemMainLink}>
-                    <Link href={subItem.mainLink?.slug ?? subItem.mainLink?.linkUrl ?? '/'}>
-                      {subItem.mainLink?.linkHeading}
-                    </Link>
-                  </li>
-                  <>
+                  <ul>
+                    <li key={subIndex} className={styles.subNavigationItemMainLink}>
+                      <Link href={subItem.mainLink?.slug ?? subItem.mainLink?.linkUrl ?? '/'}>
+                        {subItem.mainLink?.linkHeading}
+                      </Link>
+                    </li>
+                  </ul>
+                  <ul>
                     {subItem.secondaryLinksCollection?.items.map((secItem, secIndex) => (
                       <li key={secIndex} className={styles.subNavigationItemSecondaryLink}>
                         <Link href={secItem.slug ?? secItem.linkUrl ?? '/'}>
@@ -23,7 +25,7 @@ export const NavigationContainer = props => {
                         </Link>
                       </li>
                     ))}
-                  </>
+                  </ul>
                 </li>
               ))}
             </ul>
