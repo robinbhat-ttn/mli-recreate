@@ -1,0 +1,43 @@
+fragment CarouselFields on Carousel {
+  __typename
+  sys {
+    id
+  }
+  cardsCollection(limit: 10) {
+    items {
+      ...CardFields
+    }
+  }
+}
+fragment CardFields on Card {
+  __typename
+  sys {
+    id
+  }
+  cardTitle
+  cardImage {
+    ...AssetFields
+  }
+  cardContent {
+    __typename
+    json
+    links {
+      entries {
+        block {
+          ...ComponentReferenceFields
+        }
+      }
+      assets {
+        block {
+          ...AssetFields
+        }
+      }
+    }
+  }
+}
+
+query CtfCarousel($id: String!, $locale: String, $preview: Boolean) {
+  carousel(id: $id, locale: $locale, preview: $preview) {
+    ...CarouselFields
+  }
+}
