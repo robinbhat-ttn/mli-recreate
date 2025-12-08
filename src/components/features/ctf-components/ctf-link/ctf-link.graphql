@@ -1,0 +1,17 @@
+query CtfLink($id: String!, $locale: String, $preview: Boolean){
+   link(id: $id, locale: $locale, preview: $preview) {
+    ...LinkFields
+  }
+}
+fragment LinkFields on Link{
+  	__typename
+    sys{
+      id
+    }
+    linkHeading
+    linkUrl
+    slug
+    icon{
+      ...AssetFields
+    }
+}
