@@ -1,14 +1,21 @@
+import { AssetFieldsFragment } from '../ctf-asset/__generated/ctf-asset.generated';
+import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 import styles from './ctf-header.module.css';
+import Image from 'next/image';
 
-interface ImageProps {
-  imageSrc: string;
-  imageAlt?: string;
-}
-export const ImageContainer = (props: ImageProps) => {
-  const { imageSrc, imageAlt } = props;
+export const ImageContainer = (props: AssetFieldsFragment) => {
+  const inspectorMode = useContentfulInspectorMode();
   return (
-    <div className={styles.imageContainer}>
-      <img src={imageSrc} alt={imageAlt || 'Image'} />
+    <div
+      className={styles.imageContainer}
+      {...inspectorMode({ entryId: props.sys.id, fieldId: 'logo' })}
+    >
+      <Image
+        src={props.url ?? ''}
+        alt={props.title ?? ''}
+        width={props.width ?? `${140}`}
+        height={props.height ?? `${40}`}
+      />
     </div>
   );
 };

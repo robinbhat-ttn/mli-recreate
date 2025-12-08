@@ -12,6 +12,8 @@ export const CtfBanner = (props: Props) => {
   const texts = data?.bannerTextCollection?.items || [];
   const cards = data?.policyCardsCollection?.items || [];
 
+  console.log('CtfBanner data:', data);
+
   return (
     <Box component="section" className={styles.banner}>
       <div className={styles['banner__inner']}>
@@ -20,13 +22,27 @@ export const CtfBanner = (props: Props) => {
 
           <ul className={styles['banner__texts']}>
             {texts.map((t: any) => {
-              const iconAsset = t.body?.links?.assets?.block?.[0]?.url;
+              const iconBlock = t.body?.links?.assets?.block?.[0];
+              const firstNode = t?.body?.json?.content?.[0];
+              const isSimpleParagraph =
+                firstNode &&
+                firstNode.nodeType === 'paragraph' &&
+                firstNode.content.every(c => c.nodeType === 'text');
               return (
                 <li key={t.sys?.id} className={styles['banner__text-item']}>
-                  {iconAsset && (
-                    <img src={iconAsset} alt="icon" className={styles['banner__text-icon']} />
+                  {iconBlock?.url && (
+                    <img
+                      src={iconBlock?.url}
+                      alt="icon"
+                      className={styles['banner__text-icon']}
+                      style={{ width: iconBlock?.width, height: iconBlock?.height }}
+                    />
                   )}
-                  <CtfRichtext {...t.body} />
+                  {isSimpleParagraph ? (
+                    <span>{firstNode.content.map(c => c.value).join('')}</span>
+                  ) : (
+                    <CtfRichtext {...t.body} />
+                  )}
                 </li>
               );
             })}

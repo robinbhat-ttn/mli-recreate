@@ -16,22 +16,28 @@ const useStyles = makeStyles((theme: Theme) => ({
   sectionHeadlines: {
     marginBottom: theme.spacing(12),
   },
-  fontSmall: {
-    fontSize: 'small',
-  },
-  colorBlack: {
-    color: '#000000',
+  disclaimer: {
+    '& p': {
+      // <-- this adds specificity
+      fontSize: 'small',
+      color: '#000000',
+    },
   },
 }));
 
-export const CtfTextBlock = ({ body }: TextBlockFieldsFragment) => {
-  const classes = useStyles();
+const variationToCssClassMap: Record<string, string> = {
+  // Define variation to CSS class mappings if needed
+  Disclaimer: 'disclaimer',
+  Default: 'default',
+};
 
+export const CtfTextBlock = ({ body, variations }: TextBlockFieldsFragment) => {
+  const classes = useStyles();
   return (
     <Container maxWidth={false}>
       <div>
         {body && (
-          <div className={classes.fontSmall + ' ' + classes.colorBlack}>
+          <div className={classes[variationToCssClassMap[variations ?? '']]}>
             <CtfRichtext {...body} />
           </div>
         )}

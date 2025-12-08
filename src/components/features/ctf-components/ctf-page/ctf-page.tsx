@@ -41,13 +41,7 @@ const CtfPage = (props: CtfPageFieldsFragment) => {
   return (
     <PageContainer>
       {/* header */}
-      {props.header && (
-        <CtfHeader
-          isMenuOpen={isMenuOpen}
-          onMenuClick={() => setMenuOpen(true)}
-          {...props.header}
-        />
-      )}
+      {props.header && <CtfHeader {...props.header} />}
 
       {/* page content */}
       <Container maxWidth="xl" disableGutters={false} sx={{ px: { xs: 2, md: 0 } }}>

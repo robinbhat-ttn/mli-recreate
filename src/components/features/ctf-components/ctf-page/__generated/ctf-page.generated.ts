@@ -1,11 +1,11 @@
 import * as Types from '../../../../../lib/__generated/graphql.types';
 
 import { AssetFieldsFragment } from '../../ctf-asset/__generated/ctf-asset.generated';
-import { HeaderFieldsFragment } from '../../ctf-header/__generated/ctf-header.generated';
+import { HeaderFieldsFragment, ButtonCollectionFieldsFragment, HamburgerMenuFieldsFragment } from '../../ctf-header/__generated/ctf-header.generated';
 import { NavigationFieldsFragment } from '../../ctf-navigation/__generated/ctf-navigation.generated';
 import { FooterFieldsFragment } from '../../ctf-footer/__generated/ctf-footer.generated';
 import { AssetFieldsFragmentDoc } from '../../ctf-asset/__generated/ctf-asset.generated';
-import { HeaderFieldsFragmentDoc } from '../../ctf-header/__generated/ctf-header.generated';
+import { HeaderFieldsFragmentDoc, ButtonCollectionFieldsFragmentDoc, HamburgerMenuFieldsFragmentDoc } from '../../ctf-header/__generated/ctf-header.generated';
 import { NavigationFieldsFragmentDoc } from '../../ctf-navigation/__generated/ctf-navigation.generated';
 import { FooterFieldsFragmentDoc } from '../../ctf-footer/__generated/ctf-footer.generated';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
@@ -18,6 +18,8 @@ export type PageContentFields_Carousel_Fragment = { __typename: 'Carousel' };
 
 export type PageContentFields_ComponentTextBlock_Fragment = { __typename: 'ComponentTextBlock' };
 
+export type PageContentFields_Link_Fragment = { __typename: 'Link' };
+
 export type PageContentFields_VideoSection_Fragment = { __typename: 'VideoSection' };
 
 export type PageContentFieldsFragment =
@@ -25,6 +27,7 @@ export type PageContentFieldsFragment =
   | PageContentFields_Button_Fragment
   | PageContentFields_Carousel_Fragment
   | PageContentFields_ComponentTextBlock_Fragment
+  | PageContentFields_Link_Fragment
   | PageContentFields_VideoSection_Fragment
 ;
 
@@ -47,6 +50,10 @@ export type CtfPageFieldsFragment = { __typename: 'Page', pageName?: string | nu
       | (
         { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
         & PageContentFields_ComponentTextBlock_Fragment
+      )
+      | (
+        { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
+        & PageContentFields_Link_Fragment
       )
       | (
         { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
@@ -133,6 +140,8 @@ ${AssetFieldsFragmentDoc}
 ${PageContentFieldsFragmentDoc}
 ${HeaderFieldsFragmentDoc}
 ${NavigationFieldsFragmentDoc}
+${ButtonCollectionFieldsFragmentDoc}
+${HamburgerMenuFieldsFragmentDoc}
 ${FooterFieldsFragmentDoc}`;
 
 export const useCtfPageQuery = <

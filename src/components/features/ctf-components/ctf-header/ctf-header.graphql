@@ -1,44 +1,5 @@
-fragment HeaderFields on Header {
+fragment HamburgerMenuFields on HamburgerMenu{
   __typename
-  logo {
-    ...AssetFields
-  }
-  navigationItemsCollection (limit : 5) {
-    ...NavigationFields
-  }
-  buttonCollection (limit : 5) {
-    items {
-      __typename
-      ... on ButtonWithLinks {
-        __typename
-        sys {
-          id
-        }
-        buttonText
-        buttonDropDownLinksCollection (limit : 5) {
-          items {
-            __typename
-            sys {
-              id
-            }
-            linkHeading
-            linkUrl
-            slug
-          }
-        }
-      }
-      ... on Button {
-        __typename
-        sys {
-          id
-        }
-        buttonText
-        buttonLink
-      }
-    }
-  }
-  hamburgerMenu {
-    __typename
     sys {
       id
     }
@@ -84,6 +45,54 @@ fragment HeaderFields on Header {
         }
       }
     }
+}
+fragment ButtonCollectionFields on HeaderButtonCollection{
+  items {
+      __typename
+      ... on ButtonWithLinks {
+        __typename
+        sys {
+          id
+        }
+        buttonText
+        buttonDropDownLinksCollection (limit : 5) {
+          items {
+            __typename
+            sys {
+              id
+            }
+            linkHeading
+            linkUrl
+            slug
+          }
+        }
+      }
+      ... on Button {
+        __typename
+        sys {
+          id
+        }
+        buttonText
+        buttonLink
+      }
+  }
+}
+fragment HeaderFields on Header {
+  __typename
+  sys{
+    id
+  }
+  logo {
+    ...AssetFields
+  }
+  navigationItemsCollection (limit : 5) {
+    ...NavigationFields
+  }
+  buttonCollection (limit : 5) {
+    ...ButtonCollectionFields
+  }
+  hamburgerMenu {
+    ...HamburgerMenuFields
   }
 }
 

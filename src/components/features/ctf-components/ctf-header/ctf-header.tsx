@@ -5,8 +5,15 @@ import styles from './ctf-header.module.css';
 import { useEffect, useState } from 'react';
 import { HamburgerIcon } from './HamburgerIcon';
 import { HamburgerMenu } from './HamburgerMenu';
+import { HeaderFieldsFragment } from './__generated/ctf-header.generated';
+import { AssetFieldsFragment } from '../ctf-asset/__generated/ctf-asset.generated';
+import { useContentfulInspectorMode } from '@contentful/live-preview/react';
+import { NavigationFieldsFragment } from '../ctf-navigation/__generated/ctf-navigation.generated';
+import { ButtonCollectionFieldsFragment } from '../ctf-header/__generated/ctf-header.generated';
+import { HamburgerMenuProps } from './HamburgerMenu';
 
-export const CtfHeader = props => {
+export const CtfHeader = (props: HeaderFieldsFragment) => {
+  const inspectorMode = useContentfulInspectorMode();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => {
     setIsMenuOpen(isMenuOpen => !isMenuOpen);
@@ -18,17 +25,18 @@ export const CtfHeader = props => {
       document.body.style.overflow = 'auto'; // enable scrolling
     }
   }, [isMenuOpen]);
-  const imageUrl = props.logo?.url || '';
-  const imageAlt = props.logo?.title || 'MLI Logo';
   return (
     <>
-      <div className={styles.headerContainer}>
-        <ImageContainer imageSrc={imageUrl} imageAlt={imageAlt} />
-        <NavigationContainer navigationItemsCollection={props.navigationItemsCollection} />
-        <ButtonContainer buttons={props.buttonCollection?.items || []} />
+      <div
+        className={styles.headerContainer}
+        {...inspectorMode({ entryId: props.sys.id, fieldId: 'header' })}
+      >
+        <ImageContainer {...(props.logo as AssetFieldsFragment)} />
+        <NavigationContainer {...(props.navigationItemsCollection as NavigationFieldsFragment)} />
+        <ButtonContainer {...(props.buttonCollection as ButtonCollectionFieldsFragment)} />
         <HamburgerIcon isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
       </div>
-      <HamburgerMenu isMenuOpen={isMenuOpen} hamburgerMenu={props.hamburgerMenu} />
+      <HamburgerMenu {...({ ...props.hamburgerMenu, isMenuOpen } as HamburgerMenuProps)} />
     </>
   );
 };
