@@ -1,11 +1,11 @@
 import * as Types from '../../../../../lib/__generated/graphql.types';
 
 import { AssetFieldsFragment } from '../../ctf-asset/__generated/ctf-asset.generated';
-import { HeaderFieldsFragment } from '../../ctf-header/__generated/ctf-header.generated';
+import { HeaderFieldsFragment, ButtonCollectionFieldsFragment, HamburgerMenuFieldsFragment } from '../../ctf-header/__generated/ctf-header.generated';
 import { NavigationFieldsFragment } from '../../ctf-navigation/__generated/ctf-navigation.generated';
 import { FooterFieldsFragment } from '../../ctf-footer/__generated/ctf-footer.generated';
 import { AssetFieldsFragmentDoc } from '../../ctf-asset/__generated/ctf-asset.generated';
-import { HeaderFieldsFragmentDoc } from '../../ctf-header/__generated/ctf-header.generated';
+import { HeaderFieldsFragmentDoc, ButtonCollectionFieldsFragmentDoc, HamburgerMenuFieldsFragmentDoc } from '../../ctf-header/__generated/ctf-header.generated';
 import { NavigationFieldsFragmentDoc } from '../../ctf-navigation/__generated/ctf-navigation.generated';
 import { FooterFieldsFragmentDoc } from '../../ctf-footer/__generated/ctf-footer.generated';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
@@ -140,6 +140,8 @@ ${AssetFieldsFragmentDoc}
 ${PageContentFieldsFragmentDoc}
 ${HeaderFieldsFragmentDoc}
 ${NavigationFieldsFragmentDoc}
+${ButtonCollectionFieldsFragmentDoc}
+${HamburgerMenuFieldsFragmentDoc}
 ${FooterFieldsFragmentDoc}`;
 
 export const useCtfPageQuery = <
