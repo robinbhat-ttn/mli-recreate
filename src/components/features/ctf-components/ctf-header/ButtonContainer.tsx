@@ -1,7 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
 import styles from './ctf-header.module.css';
 import Link from 'next/link';
-export const ButtonContainer = props => {
+import { ButtonCollectionFieldsFragment } from '../ctf-header/__generated/ctf-header.generated';
+import { useContentfulInspectorMode } from '@contentful/live-preview/react';
+export const ButtonContainer = (props: ButtonCollectionFieldsFragment) => {
+  const inspectorMode = useContentfulInspectorMode();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
@@ -15,27 +18,36 @@ export const ButtonContainer = props => {
   }, []);
   return (
     <div className={styles.buttonsContainer}>
-      {props.buttons.map((button, btnIndex) =>
-        button.__typename == 'Button' ? (
-          <button key={btnIndex} className={styles.headerButton}>
-            <Link href={button.buttonUrl ?? '/'}>{button.buttonText}</Link>
+      {props.items.map((button, btnIndex) =>
+        button?.__typename == 'Button' ? (
+          <button
+            key={btnIndex}
+            className={styles.headerButton}
+            {...inspectorMode({ entryId: button.sys.id, fieldId: 'button' })}
+          >
+            <Link href={button.buttonLink ?? '/'}>{button.buttonText}</Link>
           </button>
         ) : (
           <div key={btnIndex} className={styles.dropdownWrapper} ref={dropdownRef}>
-            <button className={styles.headerButton} onClick={() => setIsOpen(prev => !prev)}>
-              {button.buttonText}
+            <button
+              className={styles.headerButton}
+              onClick={() => setIsOpen(prev => !prev)}
+              {...inspectorMode({ entryId: button?.sys.id, fieldId: 'buttonWithLinks' })}
+            >
+              {button?.buttonText}
               <span className={styles.arrow}>{isOpen ? '▲' : '▼'}</span>
             </button>
 
             {isOpen && (
               <div className={styles.dropdownContent}>
-                {button.buttonDropDownLinksCollection.items.map((linkItem, i) => (
+                {button?.buttonDropDownLinksCollection?.items.map((linkItem, i) => (
                   <Link
                     key={i}
-                    href={linkItem.slug ?? linkItem.linkUrl ?? '/'}
+                    href={linkItem?.slug ?? linkItem?.linkUrl ?? '/'}
                     className={styles.dropdownLink}
+                    {...inspectorMode({ entryId: linkItem?.sys.id, fieldId: 'link' })}
                   >
-                    {linkItem.linkHeading}
+                    {linkItem?.linkHeading}
                   </Link>
                 ))}
               </div>
