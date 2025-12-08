@@ -1,14 +1,19 @@
-$bg: #f5fbfd;
 $card-bg: #ffffff;
 $text: #0f1724;
-$muted: #6b7280;
+$primary: #171a21;
 $accent: #ccf5dd;
 
 .banner {
   padding: 50px 0 0;
-  background: #f5fbfd;
+  background: #f1f6fa;
   height: 414px;
   margin-bottom: 144px;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
 
   &__inner {
     max-width: 1200px;
@@ -26,7 +31,7 @@ $accent: #ccf5dd;
 
   &__title {
     margin: 0;
-    font-size: 32px;
+    font-size: 40px;
     color: $text;
     font-weight: 700;
   }
@@ -43,14 +48,14 @@ $accent: #ccf5dd;
       display: flex;
       align-items: center;
       gap: 10px;
-      color: $muted;
-      font-size: 15px;
+      color: $primary;
+      font-size: 18px;
       flex: 0 0 calc(50% - 24px); 
       max-width: calc(50% - 24px);
 
       .banner__text-icon {
-        width: 18px;
-        height: 18px;
+        max-width: 100%;
+        height: auto;
         display: inline-block;
       }
 
@@ -74,14 +79,12 @@ $accent: #ccf5dd;
 
   &__cards {
     display: flex;
-    gap: 18px;
-    padding: 32px;
+    gap: 36px;
+    padding: 32px 48px;
     background: $card-bg;
     border-radius: 16px;
     box-shadow: 0 8px 20px rgba(16,24,40,0.06);
-    overflow-x: auto;
     justify-content: center;
-    width: fit-content;
   }
 
   &__card {
@@ -104,12 +107,12 @@ $accent: #ccf5dd;
 
     &-pill {
       display: inline-block;
-      padding: 6px 10px;
-      border-radius: 20px;
-      background: $accent;
-      font-size: 12px;
-      color: $text;
-      font-weight: 600;
+      padding: 4px;
+      border-radius: 12px;
+      background: #cef5e1;
+      font-size: 10px;
+      color: #099a4f;
+      font-weight: 700;
       position: absolute;
       top: -10px;
       left: 0;
@@ -117,7 +120,7 @@ $accent: #ccf5dd;
     }
 
     &-body {
-      padding: 18px;
+      padding: 16px 0;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -135,13 +138,14 @@ $accent: #ccf5dd;
     &-title {
       font-size: 16px;
       text-align: center;
-      color: $text;
-      font-weight: 600;
+      color: $primary;
+      font-weight: 500;
+      padding: 0 16px;
     }
 
     &-sub {
       font-size: 13px;
-      color: $muted;
+      color: $primary;
       text-align: center;
     }
   }
@@ -152,12 +156,43 @@ $accent: #ccf5dd;
     justify-content: center;
 
     .banner__image-wrap {
+        position: relative; 
+        z-index: 2;         
+
+      /* Create a circular soft background using ::before */
+      &::before {
+        display: block;
+        content: "";
+        background: #3597ec;
+        width: 38.456rem;
+        height: 38.456rem;
+        border-radius: 50%;
+        position: absolute;
+        top: -8%;
+        right: -17px;
+        transform: translateZ(0);
+        z-index: 1;
+        opacity: 0.08;
+        pointer-events: none;
+
+        @media (max-width: 900px) {
+          width: 12rem;
+          height: 12rem;
+          top: -10%;
+          right: 1.5rem;
+          box-shadow: 0 0 0 8px rgba(193, 221, 245, 0.65),
+                      0 4px 18px rgba(53, 151, 236, 0.12);
+        }
+      }
     }
 
     .banner__image {
       width: 348px;
       height: auto;
-      //padding-top: 50px;
+      position: relative;
+      z-index: 3;
+      display: block;
+
     }
   }
 }
