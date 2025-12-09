@@ -1,27 +1,36 @@
 import Link from 'next/link';
+import { FooterLinksCollectionFragment } from './__generated/ctf-footer.generated';
+import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
 import styles from './ctf-footer.module.css';
 
-export const FooterLinks = props => {
+export const FooterLinks = (props: FooterLinksCollectionFragment) => {
+  const inspectorMode = useContentfulInspectorMode();
   return (
     <>
       <div className={styles.footerLinks}>
-        {props.footerLinksCollection.map((linkItem, index) => (
-          <div className={styles.footerLink} key={index}>
+        {props.items.map((linkItem, index) => (
+          <div
+            className={styles.footerLink}
+            key={index}
+            {...inspectorMode({ entryId: linkItem?.sys.id, fieldId: 'subNavigationItem' })}
+          >
             <Link
-              href={linkItem.mainLink?.slug ?? linkItem.mainLink?.linkUrl ?? '/'}
+              href={linkItem?.mainLink?.slug ?? linkItem?.mainLink?.linkUrl ?? '/'}
               className={styles.mainLink}
+              {...inspectorMode({ entryId: linkItem?.mainLink?.sys.id, fieldId: 'link' })}
             >
-              {linkItem.mainLink.linkHeading}
+              {linkItem?.mainLink?.linkHeading}
             </Link>
             <ul className={styles.secondaryLinks}>
-              {linkItem.secondaryLinksCollection.items.map((secondaryLink, secondaryIndex) => (
+              {linkItem?.secondaryLinksCollection?.items.map((secondaryLink, secondaryIndex) => (
                 <li key={secondaryIndex}>
                   <Link
-                    href={secondaryLink.slug ?? secondaryLink.linkUrl ?? '/'}
+                    href={secondaryLink?.slug ?? secondaryLink?.linkUrl ?? '/'}
                     className={styles.secondaryLink}
+                    {...inspectorMode({ entryId: secondaryLink?.sys.id, fieldId: 'link' })}
                   >
-                    {secondaryLink.linkHeading}
+                    {secondaryLink?.linkHeading}
                   </Link>
                 </li>
               ))}

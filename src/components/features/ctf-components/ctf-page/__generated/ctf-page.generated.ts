@@ -3,11 +3,13 @@ import * as Types from '../../../../../lib/__generated/graphql.types';
 import { AssetFieldsFragment } from '../../ctf-asset/__generated/ctf-asset.generated';
 import { HeaderFieldsFragment, ButtonCollectionFieldsFragment, HamburgerMenuFieldsFragment } from '../../ctf-header/__generated/ctf-header.generated';
 import { NavigationFieldsFragment } from '../../ctf-navigation/__generated/ctf-navigation.generated';
-import { FooterFieldsFragment } from '../../ctf-footer/__generated/ctf-footer.generated';
+import { FooterFieldsFragment, FooterLinksCollectionFragment, FooterButtonCollectionFieldsFragment, SocialLinksCollectionFieldsFragment, GroupSitesLinksCollectionFieldsFragment, FooterInformationFieldsFragment, DisclaimerSectionFieldsFragment } from '../../ctf-footer/__generated/ctf-footer.generated';
+import { ComponentReferenceFields_Banner_Fragment, ComponentReferenceFields_Button_Fragment, ComponentReferenceFields_ButtonWithLinks_Fragment, ComponentReferenceFields_Card_Fragment, ComponentReferenceFields_Carousel_Fragment, ComponentReferenceFields_ComponentTextBlock_Fragment, ComponentReferenceFields_Disclaimer_Fragment, ComponentReferenceFields_Footer_Fragment, ComponentReferenceFields_Form_Fragment, ComponentReferenceFields_FormField_Fragment, ComponentReferenceFields_FormTab_Fragment, ComponentReferenceFields_HamburgerMenu_Fragment, ComponentReferenceFields_Header_Fragment, ComponentReferenceFields_Link_Fragment, ComponentReferenceFields_NavigationItems_Fragment, ComponentReferenceFields_Page_Fragment, ComponentReferenceFields_Question_Fragment, ComponentReferenceFields_Seo_Fragment, ComponentReferenceFields_SubNavigationItem_Fragment, ComponentReferenceFields_TabbedFormContainer_Fragment, ComponentReferenceFields_VideoSection_Fragment } from '../../../../../lib/shared-fragments/__generated/ctf-componentMap.generated';
 import { AssetFieldsFragmentDoc } from '../../ctf-asset/__generated/ctf-asset.generated';
 import { HeaderFieldsFragmentDoc, ButtonCollectionFieldsFragmentDoc, HamburgerMenuFieldsFragmentDoc } from '../../ctf-header/__generated/ctf-header.generated';
 import { NavigationFieldsFragmentDoc } from '../../ctf-navigation/__generated/ctf-navigation.generated';
-import { FooterFieldsFragmentDoc } from '../../ctf-footer/__generated/ctf-footer.generated';
+import { FooterFieldsFragmentDoc, FooterLinksCollectionFragmentDoc, FooterButtonCollectionFieldsFragmentDoc, SocialLinksCollectionFieldsFragmentDoc, GroupSitesLinksCollectionFieldsFragmentDoc, FooterInformationFieldsFragmentDoc, DisclaimerSectionFieldsFragmentDoc } from '../../ctf-footer/__generated/ctf-footer.generated';
+import { ComponentReferenceFieldsFragmentDoc } from '../../../../../lib/shared-fragments/__generated/ctf-componentMap.generated';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { customFetcher } from '@src/lib/fetchConfig';
 export type PageContentFields_Banner_Fragment = { __typename: 'Banner' };
@@ -142,7 +144,14 @@ ${HeaderFieldsFragmentDoc}
 ${NavigationFieldsFragmentDoc}
 ${ButtonCollectionFieldsFragmentDoc}
 ${HamburgerMenuFieldsFragmentDoc}
-${FooterFieldsFragmentDoc}`;
+${FooterFieldsFragmentDoc}
+${FooterLinksCollectionFragmentDoc}
+${FooterButtonCollectionFieldsFragmentDoc}
+${SocialLinksCollectionFieldsFragmentDoc}
+${GroupSitesLinksCollectionFieldsFragmentDoc}
+${FooterInformationFieldsFragmentDoc}
+${ComponentReferenceFieldsFragmentDoc}
+${DisclaimerSectionFieldsFragmentDoc}`;
 
 export const useCtfPageQuery = <
       TData = CtfPageQuery,
