@@ -183,6 +183,7 @@ interface CtfRichtextPropsInterface {
   className?: string;
   containerClassName?: string;
   gridClassName?: string;
+  disableContainer?: boolean;
 }
 
 const EntryHyperlink = ({ node }) => {
@@ -210,7 +211,7 @@ const EntryHyperlink = ({ node }) => {
 };
 
 export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
-  const { json, links, containerClassName, gridClassName } = props;
+  const { json, links, containerClassName, gridClassName, disableContainer } = props;
   const layout = useLayoutContext();
 
   const entryBlocks = useMemo(
@@ -227,6 +228,9 @@ export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
 
   const ParagraphGridContainer = useCallback(
     (containerProps: { children?: any }) => {
+      if (disableContainer) {
+        return <>{containerProps.children}</>;
+      }
       return (
         <Container
           maxWidth={false}
@@ -251,7 +255,13 @@ export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
         </Container>
       );
     },
-    [classes.paragraphGridContainer, containerClassName, gridClassName, layout.parent],
+    [
+      classes.paragraphGridContainer,
+      containerClassName,
+      gridClassName,
+      layout.parent,
+      disableContainer,
+    ],
   );
 
   const options = useMemo(() => {
@@ -304,6 +314,9 @@ export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
     };
 
     const hrRenderer = () => {
+      if (disableContainer) {
+        return <hr />;
+      }
       return (
         <ParagraphGridContainer>
           <hr />
@@ -321,6 +334,13 @@ export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
       (rendererProps: ParagraphRendererInterface = {}) =>
       (_node, children) => {
         const { variant, className, component } = rendererProps;
+
+        if (disableContainer) {
+          if (component) {
+            return <>{children}</>;
+          }
+          return <>{children}</>;
+        }
 
         if (!variant) {
           return <ParagraphGridContainer>{children}</ParagraphGridContainer>;
@@ -359,6 +379,17 @@ export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
       variant: 'body1',
     });
     opts.renderNode![BLOCKS.TABLE] = (_, children) => {
+      if (disableContainer) {
+        return (
+          <div
+            style={{
+              overflow: 'auto',
+            }}
+          >
+            <table>{children}</table>
+          </div>
+        );
+      }
       return (
         <ParagraphGridContainer>
           <div

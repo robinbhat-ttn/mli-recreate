@@ -15,6 +15,8 @@ const Slider = dynamic(() => import('react-slick'), { ssr: false });
 
 const Arrow = ({ className, style, onClick }: any) => {
   const isPrev = (className || '').includes('prev');
+
+  // Provided SVG (right arrow). For prev arrow we flip horizontally using CSS transform.
   return (
     <button
       type="button"
@@ -26,15 +28,30 @@ const Arrow = ({ className, style, onClick }: any) => {
       aria-hidden="true"
       tabIndex={-1}
     >
-      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden focusable="false">
-        <circle cx="12" cy="12" r="11" fill="white" stroke="#e6e9ee" strokeWidth="1" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        viewBox="0 0 32 32"
+        fill="none"
+        aria-hidden
+        focusable="false"
+        style={{ transform: isPrev ? 'scaleX(-1)' : undefined }}
+      >
+        <rect
+          x="32"
+          y="32"
+          width="32"
+          height="32"
+          rx="16"
+          transform="rotate(-180 32 32)"
+          fill="#E0E0E0"
+        />
         <path
-          d={isPrev ? 'M14 7 L9 12 L14 17' : 'M10 7 L15 12 L10 17'}
-          fill="none"
-          stroke="#1f2f4a"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M22.2064 17.1427L7.11118 17.1427C6.49753 17.1427 6.00008 16.6311 6.00008 15.9999C6.00008 15.3687 6.49753 14.857 7.11118 14.857L22.2063 14.857L17.4366 9.95092C17.0027 9.50459 17.0027 8.78103 17.4366 8.33473C17.8705 7.88844 18.574 7.88841 19.0079 8.33473L25.6627 15.1798C25.7199 15.2369 25.7712 15.3003 25.8154 15.3689C25.8318 15.3942 25.847 15.4201 25.8612 15.4464C25.9496 15.6104 25.9999 15.7991 25.9999 15.9999C25.9999 16.0065 25.9999 16.0132 25.9998 16.0198C25.9976 16.1492 25.9746 16.2732 25.934 16.3887C25.8803 16.5418 25.7938 16.6854 25.6745 16.8081L19.0079 23.6653C18.574 24.1116 17.8705 24.1116 17.4366 23.6653C17.0027 23.2189 17.0027 22.4954 17.4366 22.0491L22.2064 17.1427Z"
+          fill="#343842"
         />
       </svg>
     </button>
@@ -100,7 +117,7 @@ export const CtfCarousel: FC<CarouselFieldsFragment> = props => {
                         <CtfRichtext
                           json={content.json}
                           links={content.links}
-                          containerClassName={styles['carousel__richtext-container']}
+                          disableContainer={true}
                         />
                       </div>
                     )}

@@ -44,7 +44,11 @@ const CtfPage = (props: CtfPageFieldsFragment) => {
       {props.header && <CtfHeader {...props.header} />}
 
       {/* page content */}
-      <Container maxWidth="xl" disableGutters={false} sx={{ px: { xs: 2, md: 0 } }}>
+      <Container
+        maxWidth={false}
+        disableGutters={true}
+        //sx={{ display: 'flex', flexDirection: 'column' }}
+      >
         {content &&
           content.map(entry => (
             <LayoutContext.Provider value={layoutConfig} key={entry!.sys.id}>
