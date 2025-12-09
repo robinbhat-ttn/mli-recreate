@@ -1,7 +1,7 @@
 import * as Types from '../../../../../lib/__generated/graphql.types';
 
 import { AssetFieldsFragment } from '../../ctf-asset/__generated/ctf-asset.generated';
-import { ComponentReferenceFields_Banner_Fragment, ComponentReferenceFields_Button_Fragment, ComponentReferenceFields_ButtonWithLinks_Fragment, ComponentReferenceFields_Card_Fragment, ComponentReferenceFields_Carousel_Fragment, ComponentReferenceFields_ComponentTextBlock_Fragment, ComponentReferenceFields_Disclaimer_Fragment, ComponentReferenceFields_Footer_Fragment, ComponentReferenceFields_Form_Fragment, ComponentReferenceFields_FormField_Fragment, ComponentReferenceFields_FormTab_Fragment, ComponentReferenceFields_HamburgerMenu_Fragment, ComponentReferenceFields_Header_Fragment, ComponentReferenceFields_Link_Fragment, ComponentReferenceFields_NavigationItems_Fragment, ComponentReferenceFields_Page_Fragment, ComponentReferenceFields_Question_Fragment, ComponentReferenceFields_Seo_Fragment, ComponentReferenceFields_SubNavigationItem_Fragment, ComponentReferenceFields_TabbedFormContainer_Fragment, ComponentReferenceFields_VideoSection_Fragment } from '../../../../../lib/shared-fragments/__generated/ctf-componentMap.generated';
+import { ComponentReferenceFields_Accordion_Fragment, ComponentReferenceFields_Banner_Fragment, ComponentReferenceFields_Button_Fragment, ComponentReferenceFields_ButtonWithLinks_Fragment, ComponentReferenceFields_Card_Fragment, ComponentReferenceFields_Carousel_Fragment, ComponentReferenceFields_ComponentTextBlock_Fragment, ComponentReferenceFields_Disclaimer_Fragment, ComponentReferenceFields_Footer_Fragment, ComponentReferenceFields_Form_Fragment, ComponentReferenceFields_FormField_Fragment, ComponentReferenceFields_FormTab_Fragment, ComponentReferenceFields_HamburgerMenu_Fragment, ComponentReferenceFields_Header_Fragment, ComponentReferenceFields_Link_Fragment, ComponentReferenceFields_NavigationItems_Fragment, ComponentReferenceFields_OptionSet_Fragment, ComponentReferenceFields_Page_Fragment, ComponentReferenceFields_Question_Fragment, ComponentReferenceFields_Seo_Fragment, ComponentReferenceFields_SubNavigationItem_Fragment, ComponentReferenceFields_TabbedFormContainer_Fragment, ComponentReferenceFields_VideoSection_Fragment } from '../../../../../lib/shared-fragments/__generated/ctf-componentMap.generated';
 import { AssetFieldsFragmentDoc } from '../../ctf-asset/__generated/ctf-asset.generated';
 import { ComponentReferenceFieldsFragmentDoc } from '../../../../../lib/shared-fragments/__generated/ctf-componentMap.generated';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
@@ -15,6 +15,10 @@ export type CardFieldsFragment = { __typename: 'Card', cardTitle?: string | null
     { __typename?: 'Asset' }
     & AssetFieldsFragment
   ) | null, cardContent?: { __typename: 'CardCardContent', json: any, links: { __typename?: 'CardCardContentLinks', entries: { __typename?: 'CardCardContentEntries', block: Array<
+          | (
+            { __typename?: 'Accordion' }
+            & ComponentReferenceFields_Accordion_Fragment
+          )
           | (
             { __typename?: 'Banner' }
             & ComponentReferenceFields_Banner_Fragment
@@ -74,6 +78,10 @@ export type CardFieldsFragment = { __typename: 'Card', cardTitle?: string | null
           | (
             { __typename?: 'NavigationItems' }
             & ComponentReferenceFields_NavigationItems_Fragment
+          )
+          | (
+            { __typename?: 'OptionSet' }
+            & ComponentReferenceFields_OptionSet_Fragment
           )
           | (
             { __typename?: 'Page' }

@@ -1,12 +1,13 @@
 import * as Types from '../../../../../lib/__generated/graphql.types';
 
-import { ComponentReferenceFields_Banner_Fragment, ComponentReferenceFields_Button_Fragment, ComponentReferenceFields_ButtonWithLinks_Fragment, ComponentReferenceFields_Card_Fragment, ComponentReferenceFields_Carousel_Fragment, ComponentReferenceFields_ComponentTextBlock_Fragment, ComponentReferenceFields_Disclaimer_Fragment, ComponentReferenceFields_Footer_Fragment, ComponentReferenceFields_Form_Fragment, ComponentReferenceFields_FormField_Fragment, ComponentReferenceFields_FormTab_Fragment, ComponentReferenceFields_HamburgerMenu_Fragment, ComponentReferenceFields_Header_Fragment, ComponentReferenceFields_Link_Fragment, ComponentReferenceFields_NavigationItems_Fragment, ComponentReferenceFields_Page_Fragment, ComponentReferenceFields_Question_Fragment, ComponentReferenceFields_Seo_Fragment, ComponentReferenceFields_SubNavigationItem_Fragment, ComponentReferenceFields_TabbedFormContainer_Fragment, ComponentReferenceFields_VideoSection_Fragment } from '../../../../../lib/shared-fragments/__generated/ctf-componentMap.generated';
+import { ComponentReferenceFields_Accordion_Fragment, ComponentReferenceFields_Banner_Fragment, ComponentReferenceFields_Button_Fragment, ComponentReferenceFields_ButtonWithLinks_Fragment, ComponentReferenceFields_Card_Fragment, ComponentReferenceFields_Carousel_Fragment, ComponentReferenceFields_ComponentTextBlock_Fragment, ComponentReferenceFields_Disclaimer_Fragment, ComponentReferenceFields_Footer_Fragment, ComponentReferenceFields_Form_Fragment, ComponentReferenceFields_FormField_Fragment, ComponentReferenceFields_FormTab_Fragment, ComponentReferenceFields_HamburgerMenu_Fragment, ComponentReferenceFields_Header_Fragment, ComponentReferenceFields_Link_Fragment, ComponentReferenceFields_NavigationItems_Fragment, ComponentReferenceFields_OptionSet_Fragment, ComponentReferenceFields_Page_Fragment, ComponentReferenceFields_Question_Fragment, ComponentReferenceFields_Seo_Fragment, ComponentReferenceFields_SubNavigationItem_Fragment, ComponentReferenceFields_TabbedFormContainer_Fragment, ComponentReferenceFields_VideoSection_Fragment } from '../../../../../lib/shared-fragments/__generated/ctf-componentMap.generated';
 import { AssetFieldsFragment } from '../../ctf-asset/__generated/ctf-asset.generated';
 import { ComponentReferenceFieldsFragmentDoc } from '../../../../../lib/shared-fragments/__generated/ctf-componentMap.generated';
 import { AssetFieldsFragmentDoc } from '../../ctf-asset/__generated/ctf-asset.generated';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { customFetcher } from '@src/lib/fetchConfig';
 export type DisclaimerSectionFieldsFragment = { __typename: 'Disclaimer', heading?: string | null, sys: { __typename?: 'Sys', id: string }, content?: { __typename?: 'DisclaimerContent', json: any, links: { __typename?: 'DisclaimerContentLinks', entries: { __typename?: 'DisclaimerContentEntries', block: Array<
+          | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
@@ -22,6 +23,7 @@ export type DisclaimerSectionFieldsFragment = { __typename: 'Disclaimer', headin
           | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
@@ -31,6 +33,10 @@ export type DisclaimerSectionFieldsFragment = { __typename: 'Disclaimer', headin
          | null> }, assets: { __typename?: 'DisclaimerContentAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null };
 
 export type FooterInformationFieldsFragment = { __typename: 'FooterFooterInformation', json: any, links: { __typename?: 'FooterFooterInformationLinks', entries: { __typename?: 'FooterFooterInformationEntries', block: Array<
+        | (
+          { __typename?: 'Accordion' }
+          & ComponentReferenceFields_Accordion_Fragment
+        )
         | (
           { __typename?: 'Banner' }
           & ComponentReferenceFields_Banner_Fragment
@@ -90,6 +96,10 @@ export type FooterInformationFieldsFragment = { __typename: 'FooterFooterInforma
         | (
           { __typename?: 'NavigationItems' }
           & ComponentReferenceFields_NavigationItems_Fragment
+        )
+        | (
+          { __typename?: 'OptionSet' }
+          & ComponentReferenceFields_OptionSet_Fragment
         )
         | (
           { __typename?: 'Page' }

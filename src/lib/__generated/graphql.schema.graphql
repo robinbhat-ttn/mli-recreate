@@ -2,6 +2,80 @@ directive @contentSourceMaps on QUERY
 
 directive @timeline(where: TimelineFilterInput!) on QUERY
 
+"""
+Accordion Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion)
+"""
+type Accordion implements Entry & _Node {
+  _id: ID!
+  accordionItemsCollection(limit: Int = 100, locale: String, order: [AccordionAccordionItemsCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: QuestionFilter): AccordionAccordionItemsCollection
+  contentfulMetadata: ContentfulMetadata!
+  internalName(locale: String, useFallbackLocale: Boolean): String
+  linkedFrom(allowedLocales: [String]): AccordionLinkingCollections
+  sys: Sys!
+}
+
+type AccordionAccordionItemsCollection {
+  items: [Question]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+enum AccordionAccordionItemsCollectionOrder {
+  internalName_ASC
+  internalName_DESC
+  questionText_ASC
+  questionText_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+}
+
+type AccordionCollection {
+  items: [Accordion]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+input AccordionFilter {
+  AND: [AccordionFilter]
+  OR: [AccordionFilter]
+  accordionItems: cfQuestionNestedFilter
+  accordionItemsCollection_exists: Boolean
+  contentfulMetadata: ContentfulMetadataFilter
+  internalName: String
+  internalName_contains: String
+  internalName_exists: Boolean
+  internalName_in: [String]
+  internalName_not: String
+  internalName_not_contains: String
+  internalName_not_in: [String]
+  sys: SysFilter
+}
+
+type AccordionLinkingCollections {
+  entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
+}
+
+enum AccordionOrder {
+  internalName_ASC
+  internalName_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+}
+
 """Represents a binary file in a space. An asset can be any file type."""
 type Asset {
   contentType(locale: String, useFallbackLocale: Boolean): String
@@ -1308,6 +1382,7 @@ type FormField implements Entry & _Node {
   label(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): FormFieldLinkingCollections
   name(locale: String, useFallbackLocale: Boolean): String
+  options(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: OptionSetFilter): OptionSet
   placeholder(locale: String, useFallbackLocale: Boolean): String
   required(locale: String, useFallbackLocale: Boolean): Boolean
   sys: Sys!
@@ -1352,6 +1427,8 @@ input FormFieldFilter {
   name_not: String
   name_not_contains: String
   name_not_in: [String]
+  options: cfOptionSetNestedFilter
+  options_exists: Boolean
   placeholder: String
   placeholder_contains: String
   placeholder_exists: Boolean
@@ -2223,6 +2300,81 @@ enum NavigationItemsSubNavigationMenuCollectionOrder {
 }
 
 """
+[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/optionSet)
+"""
+type OptionSet implements Entry & _Node {
+  _id: ID!
+  contentfulMetadata: ContentfulMetadata!
+  internalName(locale: String, useFallbackLocale: Boolean): String
+  items(locale: String, useFallbackLocale: Boolean): JSON
+  linkedFrom(allowedLocales: [String]): OptionSetLinkingCollections
+  sys: Sys!
+}
+
+type OptionSetCollection {
+  items: [OptionSet]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+input OptionSetFilter {
+  AND: [OptionSetFilter]
+  OR: [OptionSetFilter]
+  contentfulMetadata: ContentfulMetadataFilter
+  internalName: String
+  internalName_contains: String
+  internalName_exists: Boolean
+  internalName_in: [String]
+  internalName_not: String
+  internalName_not_contains: String
+  internalName_not_in: [String]
+  items_exists: Boolean
+  sys: SysFilter
+}
+
+type OptionSetLinkingCollections {
+  entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
+  formFieldCollection(limit: Int = 100, locale: String, order: [OptionSetLinkingCollectionsFormFieldCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): FormFieldCollection
+}
+
+enum OptionSetLinkingCollectionsFormFieldCollectionOrder {
+  fieldType_ASC
+  fieldType_DESC
+  internalName_ASC
+  internalName_DESC
+  label_ASC
+  label_DESC
+  name_ASC
+  name_DESC
+  placeholder_ASC
+  placeholder_DESC
+  required_ASC
+  required_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+}
+
+enum OptionSetOrder {
+  internalName_ASC
+  internalName_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+}
+
+"""
 AMLI Page Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page)
 """
 type Page implements Entry & _Node {
@@ -2334,6 +2486,8 @@ scalar Quality
 type Query {
   _node(id: ID!, locale: String, preview: Boolean, useFallbackLocale: Boolean): _Node
   _nodes(ids: [ID!]!, locale: String, preview: Boolean, useFallbackLocale: Boolean): [_Node]!
+  accordion(id: String!, locale: String, preview: Boolean, useFallbackLocale: Boolean): Accordion
+  accordionCollection(limit: Int = 100, locale: String, order: [AccordionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: AccordionFilter): AccordionCollection
   asset(id: String!, locale: String, preview: Boolean, useFallbackLocale: Boolean): Asset
   assetCollection(limit: Int = 100, locale: String, order: [AssetOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: AssetFilter): AssetCollection
   banner(id: String!, locale: String, preview: Boolean, useFallbackLocale: Boolean): Banner
@@ -2367,6 +2521,8 @@ type Query {
   linkCollection(limit: Int = 100, locale: String, order: [LinkOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: LinkFilter): LinkCollection
   navigationItems(id: String!, locale: String, preview: Boolean, useFallbackLocale: Boolean): NavigationItems
   navigationItemsCollection(limit: Int = 100, locale: String, order: [NavigationItemsOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: NavigationItemsFilter): NavigationItemsCollection
+  optionSet(id: String!, locale: String, preview: Boolean, useFallbackLocale: Boolean): OptionSet
+  optionSetCollection(limit: Int = 100, locale: String, order: [OptionSetOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: OptionSetFilter): OptionSetCollection
   page(id: String!, locale: String, preview: Boolean, useFallbackLocale: Boolean): Page
   pageCollection(limit: Int = 100, locale: String, order: [PageOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: PageFilter): PageCollection
   question(id: String!, locale: String, preview: Boolean, useFallbackLocale: Boolean): Question
@@ -2466,7 +2622,21 @@ input QuestionFilter {
 }
 
 type QuestionLinkingCollections {
+  accordionCollection(limit: Int = 100, locale: String, order: [QuestionLinkingCollectionsAccordionCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): AccordionCollection
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
+}
+
+enum QuestionLinkingCollectionsAccordionCollectionOrder {
+  internalName_ASC
+  internalName_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
 }
 
 enum QuestionOrder {
@@ -3089,6 +3259,7 @@ input cfFormFieldNestedFilter {
   name_not: String
   name_not_contains: String
   name_not_in: [String]
+  options_exists: Boolean
   placeholder: String
   placeholder_contains: String
   placeholder_exists: Boolean
@@ -3255,6 +3426,45 @@ input cfNavigationItemsNestedFilter {
   navigationTitle_not_contains: String
   navigationTitle_not_in: [String]
   subNavigationMenuCollection_exists: Boolean
+  sys: SysFilter
+}
+
+input cfOptionSetNestedFilter {
+  AND: [cfOptionSetNestedFilter]
+  OR: [cfOptionSetNestedFilter]
+  contentfulMetadata: ContentfulMetadataFilter
+  internalName: String
+  internalName_contains: String
+  internalName_exists: Boolean
+  internalName_in: [String]
+  internalName_not: String
+  internalName_not_contains: String
+  internalName_not_in: [String]
+  items_exists: Boolean
+  sys: SysFilter
+}
+
+input cfQuestionNestedFilter {
+  AND: [cfQuestionNestedFilter]
+  OR: [cfQuestionNestedFilter]
+  answerText_contains: String
+  answerText_exists: Boolean
+  answerText_not_contains: String
+  contentfulMetadata: ContentfulMetadataFilter
+  internalName: String
+  internalName_contains: String
+  internalName_exists: Boolean
+  internalName_in: [String]
+  internalName_not: String
+  internalName_not_contains: String
+  internalName_not_in: [String]
+  questionText: String
+  questionText_contains: String
+  questionText_exists: Boolean
+  questionText_in: [String]
+  questionText_not: String
+  questionText_not_contains: String
+  questionText_not_in: [String]
   sys: SysFilter
 }
 

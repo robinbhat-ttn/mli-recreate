@@ -19,6 +19,116 @@ export type Scalars = {
   Quality: { input: any; output: any; }
 };
 
+/** Accordion Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
+export type Accordion = Entry & _Node & {
+  __typename?: 'Accordion';
+  _id: Scalars['ID']['output'];
+  accordionItemsCollection?: Maybe<AccordionAccordionItemsCollection>;
+  contentfulMetadata: ContentfulMetadata;
+  internalName?: Maybe<Scalars['String']['output']>;
+  linkedFrom?: Maybe<AccordionLinkingCollections>;
+  sys: Sys;
+};
+
+
+/** Accordion Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
+export type AccordionAccordionItemsCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<AccordionAccordionItemsCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<QuestionFilter>;
+};
+
+
+/** Accordion Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
+export type AccordionInternalNameArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Accordion Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
+export type AccordionLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type AccordionAccordionItemsCollection = {
+  __typename?: 'AccordionAccordionItemsCollection';
+  items: Array<Maybe<Question>>;
+  limit: Scalars['Int']['output'];
+  skip: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
+export enum AccordionAccordionItemsCollectionOrder {
+  InternalNameAsc = 'internalName_ASC',
+  InternalNameDesc = 'internalName_DESC',
+  QuestionTextAsc = 'questionText_ASC',
+  QuestionTextDesc = 'questionText_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
+
+export type AccordionCollection = {
+  __typename?: 'AccordionCollection';
+  items: Array<Maybe<Accordion>>;
+  limit: Scalars['Int']['output'];
+  skip: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
+export type AccordionFilter = {
+  AND?: InputMaybe<Array<InputMaybe<AccordionFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<AccordionFilter>>>;
+  accordionItems?: InputMaybe<CfQuestionNestedFilter>;
+  accordionItemsCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  internalName?: InputMaybe<Scalars['String']['input']>;
+  internalName_contains?: InputMaybe<Scalars['String']['input']>;
+  internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  internalName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  internalName_not?: InputMaybe<Scalars['String']['input']>;
+  internalName_not_contains?: InputMaybe<Scalars['String']['input']>;
+  internalName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  sys?: InputMaybe<SysFilter>;
+};
+
+export type AccordionLinkingCollections = {
+  __typename?: 'AccordionLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+};
+
+
+export type AccordionLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export enum AccordionOrder {
+  InternalNameAsc = 'internalName_ASC',
+  InternalNameDesc = 'internalName_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
+
 /** Represents a binary file in a space. An asset can be any file type. */
 export type Asset = {
   __typename?: 'Asset';
@@ -2028,6 +2138,7 @@ export type FormField = Entry & _Node & {
   label?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<FormFieldLinkingCollections>;
   name?: Maybe<Scalars['String']['output']>;
+  options?: Maybe<OptionSet>;
   placeholder?: Maybe<Scalars['String']['output']>;
   required?: Maybe<Scalars['Boolean']['output']>;
   sys: Sys;
@@ -2065,6 +2176,15 @@ export type FormFieldLinkedFromArgs = {
 export type FormFieldNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Field content type for form fields [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
+export type FormFieldOptionsArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<OptionSetFilter>;
 };
 
 
@@ -2121,6 +2241,8 @@ export type FormFieldFilter = {
   name_not?: InputMaybe<Scalars['String']['input']>;
   name_not_contains?: InputMaybe<Scalars['String']['input']>;
   name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  options?: InputMaybe<CfOptionSetNestedFilter>;
+  options_exists?: InputMaybe<Scalars['Boolean']['input']>;
   placeholder?: InputMaybe<Scalars['String']['input']>;
   placeholder_contains?: InputMaybe<Scalars['String']['input']>;
   placeholder_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -3329,6 +3451,121 @@ export enum NavigationItemsSubNavigationMenuCollectionOrder {
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/optionSet) */
+export type OptionSet = Entry & _Node & {
+  __typename?: 'OptionSet';
+  _id: Scalars['ID']['output'];
+  contentfulMetadata: ContentfulMetadata;
+  internalName?: Maybe<Scalars['String']['output']>;
+  items?: Maybe<Scalars['JSON']['output']>;
+  linkedFrom?: Maybe<OptionSetLinkingCollections>;
+  sys: Sys;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/optionSet) */
+export type OptionSetInternalNameArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/optionSet) */
+export type OptionSetItemsArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/optionSet) */
+export type OptionSetLinkedFromArgs = {
+  allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type OptionSetCollection = {
+  __typename?: 'OptionSetCollection';
+  items: Array<Maybe<OptionSet>>;
+  limit: Scalars['Int']['output'];
+  skip: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
+export type OptionSetFilter = {
+  AND?: InputMaybe<Array<InputMaybe<OptionSetFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<OptionSetFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  internalName?: InputMaybe<Scalars['String']['input']>;
+  internalName_contains?: InputMaybe<Scalars['String']['input']>;
+  internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  internalName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  internalName_not?: InputMaybe<Scalars['String']['input']>;
+  internalName_not_contains?: InputMaybe<Scalars['String']['input']>;
+  internalName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  items_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  sys?: InputMaybe<SysFilter>;
+};
+
+export type OptionSetLinkingCollections = {
+  __typename?: 'OptionSetLinkingCollections';
+  entryCollection?: Maybe<EntryCollection>;
+  formFieldCollection?: Maybe<FormFieldCollection>;
+};
+
+
+export type OptionSetLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type OptionSetLinkingCollectionsFormFieldCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<OptionSetLinkingCollectionsFormFieldCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export enum OptionSetLinkingCollectionsFormFieldCollectionOrder {
+  FieldTypeAsc = 'fieldType_ASC',
+  FieldTypeDesc = 'fieldType_DESC',
+  InternalNameAsc = 'internalName_ASC',
+  InternalNameDesc = 'internalName_DESC',
+  LabelAsc = 'label_ASC',
+  LabelDesc = 'label_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  PlaceholderAsc = 'placeholder_ASC',
+  PlaceholderDesc = 'placeholder_DESC',
+  RequiredAsc = 'required_ASC',
+  RequiredDesc = 'required_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
+
+export enum OptionSetOrder {
+  InternalNameAsc = 'internalName_ASC',
+  InternalNameDesc = 'internalName_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
+
 /** AMLI Page Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
 export type Page = Entry & _Node & {
   __typename?: 'Page';
@@ -3513,6 +3750,8 @@ export type Query = {
   __typename?: 'Query';
   _node?: Maybe<_Node>;
   _nodes: Array<Maybe<_Node>>;
+  accordion?: Maybe<Accordion>;
+  accordionCollection?: Maybe<AccordionCollection>;
   asset?: Maybe<Asset>;
   assetCollection?: Maybe<AssetCollection>;
   banner?: Maybe<Banner>;
@@ -3546,6 +3785,8 @@ export type Query = {
   linkCollection?: Maybe<LinkCollection>;
   navigationItems?: Maybe<NavigationItems>;
   navigationItemsCollection?: Maybe<NavigationItemsCollection>;
+  optionSet?: Maybe<OptionSet>;
+  optionSetCollection?: Maybe<OptionSetCollection>;
   page?: Maybe<Page>;
   pageCollection?: Maybe<PageCollection>;
   question?: Maybe<Question>;
@@ -3574,6 +3815,25 @@ export type Query_NodesArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type QueryAccordionArgs = {
+  id: Scalars['String']['input'];
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type QueryAccordionCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<AccordionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<AccordionFilter>;
 };
 
 
@@ -3892,6 +4152,25 @@ export type QueryNavigationItemsCollectionArgs = {
 };
 
 
+export type QueryOptionSetArgs = {
+  id: Scalars['String']['input'];
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type QueryOptionSetCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<OptionSetOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<OptionSetFilter>;
+};
+
+
 export type QueryPageArgs = {
   id: Scalars['String']['input'];
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -4126,7 +4405,18 @@ export type QuestionFilter = {
 
 export type QuestionLinkingCollections = {
   __typename?: 'QuestionLinkingCollections';
+  accordionCollection?: Maybe<AccordionCollection>;
   entryCollection?: Maybe<EntryCollection>;
+};
+
+
+export type QuestionLinkingCollectionsAccordionCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<QuestionLinkingCollectionsAccordionCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -4137,6 +4427,19 @@ export type QuestionLinkingCollectionsEntryCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
+
+export enum QuestionLinkingCollectionsAccordionCollectionOrder {
+  InternalNameAsc = 'internalName_ASC',
+  InternalNameDesc = 'internalName_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
 
 export enum QuestionOrder {
   InternalNameAsc = 'internalName_ASC',
@@ -4994,6 +5297,7 @@ export type CfFormFieldNestedFilter = {
   name_not?: InputMaybe<Scalars['String']['input']>;
   name_not_contains?: InputMaybe<Scalars['String']['input']>;
   name_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  options_exists?: InputMaybe<Scalars['Boolean']['input']>;
   placeholder?: InputMaybe<Scalars['String']['input']>;
   placeholder_contains?: InputMaybe<Scalars['String']['input']>;
   placeholder_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5163,6 +5467,45 @@ export type CfNavigationItemsNestedFilter = {
   sys?: InputMaybe<SysFilter>;
 };
 
+export type CfOptionSetNestedFilter = {
+  AND?: InputMaybe<Array<InputMaybe<CfOptionSetNestedFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<CfOptionSetNestedFilter>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  internalName?: InputMaybe<Scalars['String']['input']>;
+  internalName_contains?: InputMaybe<Scalars['String']['input']>;
+  internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  internalName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  internalName_not?: InputMaybe<Scalars['String']['input']>;
+  internalName_not_contains?: InputMaybe<Scalars['String']['input']>;
+  internalName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  items_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  sys?: InputMaybe<SysFilter>;
+};
+
+export type CfQuestionNestedFilter = {
+  AND?: InputMaybe<Array<InputMaybe<CfQuestionNestedFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<CfQuestionNestedFilter>>>;
+  answerText_contains?: InputMaybe<Scalars['String']['input']>;
+  answerText_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  answerText_not_contains?: InputMaybe<Scalars['String']['input']>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  internalName?: InputMaybe<Scalars['String']['input']>;
+  internalName_contains?: InputMaybe<Scalars['String']['input']>;
+  internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  internalName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  internalName_not?: InputMaybe<Scalars['String']['input']>;
+  internalName_not_contains?: InputMaybe<Scalars['String']['input']>;
+  internalName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  questionText?: InputMaybe<Scalars['String']['input']>;
+  questionText_contains?: InputMaybe<Scalars['String']['input']>;
+  questionText_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  questionText_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  questionText_not?: InputMaybe<Scalars['String']['input']>;
+  questionText_not_contains?: InputMaybe<Scalars['String']['input']>;
+  questionText_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  sys?: InputMaybe<SysFilter>;
+};
+
 export type CfSeoNestedFilter = {
   AND?: InputMaybe<Array<InputMaybe<CfSeoNestedFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<CfSeoNestedFilter>>>;
@@ -5270,62 +5613,34 @@ export type CfmenuItemsMultiTypeNestedFilter = {
   sys?: InputMaybe<SysFilter>;
 };
 
-export type AssetFieldsFragment = { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } };
+export type AccordionCollectionFieldsFragment = { __typename?: 'AccordionAccordionItemsCollection', items: Array<{ __typename: 'Question', questionText?: string | null, sys: { __typename?: 'Sys', id: string }, answerText?: { __typename?: 'QuestionAnswerText', json: any, links: { __typename?: 'QuestionAnswerTextLinks', entries: { __typename?: 'QuestionAnswerTextEntries', block: Array<
+            | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
+           | null> }, assets: { __typename?: 'QuestionAnswerTextAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> };
 
-export type CtfBannerQueryVariables = Exact<{
-  id: Scalars['String']['input'];
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-}>;
-
-
-export type CtfBannerQuery = { __typename?: 'Query', banner?: { __typename: 'Banner', bannerTitle?: string | null, bannerImageLink?: string | null, sys: { __typename?: 'Sys', id: string }, bannerImage?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null, bannerTextCollection?: { __typename?: 'BannerBannerTextCollection', items: Array<{ __typename: 'ComponentTextBlock', variations?: string | null, sys: { __typename?: 'Sys', id: string }, body?: { __typename?: 'ComponentTextBlockBody', json: any, links: { __typename?: 'ComponentTextBlockBodyLinks', entries: { __typename?: 'ComponentTextBlockBodyEntries', block: Array<
-                | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
-               | null> }, assets: { __typename?: 'ComponentTextBlockBodyAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null, policyCardsCollection?: { __typename?: 'BannerPolicyCardsCollection', items: Array<{ __typename: 'Card', cardTitle?: string | null, cardLink?: string | null, sys: { __typename?: 'Sys', id: string }, cardImage?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null, cardContent?: { __typename?: 'CardCardContent', json: any, links: { __typename?: 'CardCardContentLinks', entries: { __typename?: 'CardCardContentEntries', block: Array<
-                | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
-                | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
-               | null> }, assets: { __typename?: 'CardCardContentAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null } | null };
-
-export type CarouselFieldsFragment = { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string }, cardsCollection?: { __typename?: 'CarouselCardsCollection', items: Array<{ __typename: 'Card', cardTitle?: string | null, sys: { __typename?: 'Sys', id: string }, cardImage?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null, cardContent?: { __typename: 'CardCardContent', json: any, links: { __typename?: 'CardCardContentLinks', entries: { __typename?: 'CardCardContentEntries', block: Array<
+export type AccordionFieldsFragment = { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string }, accordionItemsCollection?: { __typename?: 'AccordionAccordionItemsCollection', items: Array<{ __typename: 'Question', questionText?: string | null, sys: { __typename?: 'Sys', id: string }, answerText?: { __typename?: 'QuestionAnswerText', json: any, links: { __typename?: 'QuestionAnswerTextLinks', entries: { __typename?: 'QuestionAnswerTextEntries', block: Array<
+              | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
@@ -5341,6 +5656,125 @@ export type CarouselFieldsFragment = { __typename: 'Carousel', sys: { __typename
               | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
+             | null> }, assets: { __typename?: 'QuestionAnswerTextAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null };
+
+export type CtfAccordionQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+}>;
+
+
+export type CtfAccordionQuery = { __typename?: 'Query', accordion?: { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string }, accordionItemsCollection?: { __typename?: 'AccordionAccordionItemsCollection', items: Array<{ __typename: 'Question', questionText?: string | null, sys: { __typename?: 'Sys', id: string }, answerText?: { __typename?: 'QuestionAnswerText', json: any, links: { __typename?: 'QuestionAnswerTextLinks', entries: { __typename?: 'QuestionAnswerTextEntries', block: Array<
+                | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
+               | null> }, assets: { __typename?: 'QuestionAnswerTextAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null } | null };
+
+export type AssetFieldsFragment = { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } };
+
+export type CtfBannerQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+}>;
+
+
+export type CtfBannerQuery = { __typename?: 'Query', banner?: { __typename: 'Banner', bannerTitle?: string | null, bannerImageLink?: string | null, sys: { __typename?: 'Sys', id: string }, bannerImage?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null, bannerTextCollection?: { __typename?: 'BannerBannerTextCollection', items: Array<{ __typename: 'ComponentTextBlock', variations?: string | null, sys: { __typename?: 'Sys', id: string }, body?: { __typename?: 'ComponentTextBlockBody', json: any, links: { __typename?: 'ComponentTextBlockBodyLinks', entries: { __typename?: 'ComponentTextBlockBodyEntries', block: Array<
+                | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
+               | null> }, assets: { __typename?: 'ComponentTextBlockBodyAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null, policyCardsCollection?: { __typename?: 'BannerPolicyCardsCollection', items: Array<{ __typename: 'Card', cardTitle?: string | null, cardLink?: string | null, sys: { __typename?: 'Sys', id: string }, cardImage?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null, cardContent?: { __typename?: 'CardCardContent', json: any, links: { __typename?: 'CardCardContentLinks', entries: { __typename?: 'CardCardContentEntries', block: Array<
+                | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
+               | null> }, assets: { __typename?: 'CardCardContentAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null } | null };
+
+export type CarouselFieldsFragment = { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string }, cardsCollection?: { __typename?: 'CarouselCardsCollection', items: Array<{ __typename: 'Card', cardTitle?: string | null, sys: { __typename?: 'Sys', id: string }, cardImage?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null, cardContent?: { __typename: 'CardCardContent', json: any, links: { __typename?: 'CardCardContentLinks', entries: { __typename?: 'CardCardContentEntries', block: Array<
+              | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
@@ -5350,6 +5784,7 @@ export type CarouselFieldsFragment = { __typename: 'Carousel', sys: { __typename
              | null> }, assets: { __typename?: 'CardCardContentAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null };
 
 export type CardFieldsFragment = { __typename: 'Card', cardTitle?: string | null, sys: { __typename?: 'Sys', id: string }, cardImage?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null, cardContent?: { __typename: 'CardCardContent', json: any, links: { __typename?: 'CardCardContentLinks', entries: { __typename?: 'CardCardContentEntries', block: Array<
+          | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
@@ -5365,6 +5800,7 @@ export type CardFieldsFragment = { __typename: 'Card', cardTitle?: string | null
           | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
@@ -5381,6 +5817,7 @@ export type CtfCarouselQueryVariables = Exact<{
 
 
 export type CtfCarouselQuery = { __typename?: 'Query', carousel?: { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string }, cardsCollection?: { __typename?: 'CarouselCardsCollection', items: Array<{ __typename: 'Card', cardTitle?: string | null, sys: { __typename?: 'Sys', id: string }, cardImage?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null, cardContent?: { __typename: 'CardCardContent', json: any, links: { __typename?: 'CardCardContentLinks', entries: { __typename?: 'CardCardContentEntries', block: Array<
+                | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
@@ -5396,6 +5833,7 @@ export type CtfCarouselQuery = { __typename?: 'Query', carousel?: { __typename: 
                 | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
@@ -5405,6 +5843,7 @@ export type CtfCarouselQuery = { __typename?: 'Query', carousel?: { __typename: 
                | null> }, assets: { __typename?: 'CardCardContentAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null } | null };
 
 export type DisclaimerSectionFieldsFragment = { __typename: 'Disclaimer', heading?: string | null, sys: { __typename?: 'Sys', id: string }, content?: { __typename?: 'DisclaimerContent', json: any, links: { __typename?: 'DisclaimerContentLinks', entries: { __typename?: 'DisclaimerContentEntries', block: Array<
+          | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
@@ -5420,6 +5859,7 @@ export type DisclaimerSectionFieldsFragment = { __typename: 'Disclaimer', headin
           | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
@@ -5429,6 +5869,7 @@ export type DisclaimerSectionFieldsFragment = { __typename: 'Disclaimer', headin
          | null> }, assets: { __typename?: 'DisclaimerContentAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null };
 
 export type FooterInformationFieldsFragment = { __typename: 'FooterFooterInformation', json: any, links: { __typename?: 'FooterFooterInformationLinks', entries: { __typename?: 'FooterFooterInformationEntries', block: Array<
+        | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
@@ -5444,6 +5885,7 @@ export type FooterInformationFieldsFragment = { __typename: 'FooterFooterInforma
         | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+        | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
@@ -5461,6 +5903,7 @@ export type FooterButtonCollectionFieldsFragment = { __typename?: 'FooterButtons
 export type FooterLinksCollectionFragment = { __typename?: 'FooterFooterLinksCollection', items: Array<{ __typename: 'SubNavigationItem', subNavigationItemTitle?: string | null, sys: { __typename?: 'Sys', id: string }, mainLink?: { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null, secondaryLinksCollection?: { __typename?: 'SubNavigationItemSecondaryLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null } | null> };
 
 export type FooterFieldsFragment = { __typename: 'Footer', sys: { __typename?: 'Sys', id: string }, footerLinksCollection?: { __typename?: 'FooterFooterLinksCollection', items: Array<{ __typename: 'SubNavigationItem', subNavigationItemTitle?: string | null, sys: { __typename?: 'Sys', id: string }, mainLink?: { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null, secondaryLinksCollection?: { __typename?: 'SubNavigationItemSecondaryLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null } | null> } | null, buttonsCollection?: { __typename?: 'FooterButtonsCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, socialLinksCollection?: { __typename?: 'FooterSocialLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, groupSitesLinksCollection?: { __typename?: 'FooterGroupSitesLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, footerInformation?: { __typename: 'FooterFooterInformation', json: any, links: { __typename?: 'FooterFooterInformationLinks', entries: { __typename?: 'FooterFooterInformationEntries', block: Array<
+          | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
@@ -5476,6 +5919,7 @@ export type FooterFieldsFragment = { __typename: 'Footer', sys: { __typename?: '
           | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
@@ -5483,6 +5927,7 @@ export type FooterFieldsFragment = { __typename: 'Footer', sys: { __typename?: '
           | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
          | null> }, assets: { __typename?: 'FooterFooterInformationAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, disclaimerSection?: { __typename: 'Disclaimer', heading?: string | null, sys: { __typename?: 'Sys', id: string }, content?: { __typename?: 'DisclaimerContent', json: any, links: { __typename?: 'DisclaimerContentLinks', entries: { __typename?: 'DisclaimerContentEntries', block: Array<
+            | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
@@ -5498,6 +5943,7 @@ export type FooterFieldsFragment = { __typename: 'Footer', sys: { __typename?: '
             | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
@@ -5514,6 +5960,7 @@ export type CtfFooterQueryVariables = Exact<{
 
 
 export type CtfFooterQuery = { __typename?: 'Query', footer?: { __typename: 'Footer', sys: { __typename?: 'Sys', id: string }, footerLinksCollection?: { __typename?: 'FooterFooterLinksCollection', items: Array<{ __typename: 'SubNavigationItem', subNavigationItemTitle?: string | null, sys: { __typename?: 'Sys', id: string }, mainLink?: { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null, secondaryLinksCollection?: { __typename?: 'SubNavigationItemSecondaryLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null } | null> } | null, buttonsCollection?: { __typename?: 'FooterButtonsCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, socialLinksCollection?: { __typename?: 'FooterSocialLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, groupSitesLinksCollection?: { __typename?: 'FooterGroupSitesLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, footerInformation?: { __typename: 'FooterFooterInformation', json: any, links: { __typename?: 'FooterFooterInformationLinks', entries: { __typename?: 'FooterFooterInformationEntries', block: Array<
+            | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
@@ -5529,6 +5976,7 @@ export type CtfFooterQuery = { __typename?: 'Query', footer?: { __typename: 'Foo
             | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
@@ -5536,6 +5984,7 @@ export type CtfFooterQuery = { __typename?: 'Query', footer?: { __typename: 'Foo
             | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
            | null> }, assets: { __typename?: 'FooterFooterInformationAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, disclaimerSection?: { __typename: 'Disclaimer', heading?: string | null, sys: { __typename?: 'Sys', id: string }, content?: { __typename?: 'DisclaimerContent', json: any, links: { __typename?: 'DisclaimerContentLinks', entries: { __typename?: 'DisclaimerContentEntries', block: Array<
+              | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
@@ -5551,6 +6000,7 @@ export type CtfFooterQuery = { __typename?: 'Query', footer?: { __typename: 'Foo
               | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
@@ -5640,6 +6090,7 @@ export type CtfPageFieldsFragment = { __typename: 'Page', pageName?: string | nu
           | { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'SubNavigationItem', subNavigationItemTitle?: string | null, sys: { __typename?: 'Sys', id: string }, mainLink?: { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null, secondaryLinksCollection?: { __typename?: 'SubNavigationItemSecondaryLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null }
          | null> } | null } | null } | null, footer?: { __typename: 'Footer', sys: { __typename?: 'Sys', id: string }, footerLinksCollection?: { __typename?: 'FooterFooterLinksCollection', items: Array<{ __typename: 'SubNavigationItem', subNavigationItemTitle?: string | null, sys: { __typename?: 'Sys', id: string }, mainLink?: { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null, secondaryLinksCollection?: { __typename?: 'SubNavigationItemSecondaryLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null } | null> } | null, buttonsCollection?: { __typename?: 'FooterButtonsCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, socialLinksCollection?: { __typename?: 'FooterSocialLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, groupSitesLinksCollection?: { __typename?: 'FooterGroupSitesLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, footerInformation?: { __typename: 'FooterFooterInformation', json: any, links: { __typename?: 'FooterFooterInformationLinks', entries: { __typename?: 'FooterFooterInformationEntries', block: Array<
+            | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
@@ -5655,6 +6106,7 @@ export type CtfPageFieldsFragment = { __typename: 'Page', pageName?: string | nu
             | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
@@ -5662,6 +6114,7 @@ export type CtfPageFieldsFragment = { __typename: 'Page', pageName?: string | nu
             | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
            | null> }, assets: { __typename?: 'FooterFooterInformationAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, disclaimerSection?: { __typename: 'Disclaimer', heading?: string | null, sys: { __typename?: 'Sys', id: string }, content?: { __typename?: 'DisclaimerContent', json: any, links: { __typename?: 'DisclaimerContentLinks', entries: { __typename?: 'DisclaimerContentEntries', block: Array<
+              | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
@@ -5677,6 +6130,7 @@ export type CtfPageFieldsFragment = { __typename: 'Page', pageName?: string | nu
               | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
@@ -5706,6 +6160,7 @@ export type CtfPageQuery = { __typename?: 'Query', pageCollection?: { __typename
               | { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'SubNavigationItem', subNavigationItemTitle?: string | null, sys: { __typename?: 'Sys', id: string }, mainLink?: { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null, secondaryLinksCollection?: { __typename?: 'SubNavigationItemSecondaryLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null }
              | null> } | null } | null } | null, footer?: { __typename: 'Footer', sys: { __typename?: 'Sys', id: string }, footerLinksCollection?: { __typename?: 'FooterFooterLinksCollection', items: Array<{ __typename: 'SubNavigationItem', subNavigationItemTitle?: string | null, sys: { __typename?: 'Sys', id: string }, mainLink?: { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null, secondaryLinksCollection?: { __typename?: 'SubNavigationItemSecondaryLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null } | null> } | null, buttonsCollection?: { __typename?: 'FooterButtonsCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, socialLinksCollection?: { __typename?: 'FooterSocialLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, groupSitesLinksCollection?: { __typename?: 'FooterGroupSitesLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, footerInformation?: { __typename: 'FooterFooterInformation', json: any, links: { __typename?: 'FooterFooterInformationLinks', entries: { __typename?: 'FooterFooterInformationEntries', block: Array<
+                | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
@@ -5721,6 +6176,7 @@ export type CtfPageQuery = { __typename?: 'Query', pageCollection?: { __typename
                 | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
@@ -5728,6 +6184,7 @@ export type CtfPageQuery = { __typename?: 'Query', pageCollection?: { __typename
                 | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
                | null> }, assets: { __typename?: 'FooterFooterInformationAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, disclaimerSection?: { __typename: 'Disclaimer', heading?: string | null, sys: { __typename?: 'Sys', id: string }, content?: { __typename?: 'DisclaimerContent', json: any, links: { __typename?: 'DisclaimerContentLinks', entries: { __typename?: 'DisclaimerContentEntries', block: Array<
+                  | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
                   | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
                   | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
                   | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
@@ -5743,6 +6200,7 @@ export type CtfPageQuery = { __typename?: 'Query', pageCollection?: { __typename
                   | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
                   | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
                   | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+                  | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
                   | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
                   | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
                   | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
@@ -5777,6 +6235,7 @@ export type CtfRichTextHyperlinkQuery = { __typename?: 'Query', page?: { __typen
        | null> } | null } | null };
 
 export type TextBlockFieldsFragment = { __typename: 'ComponentTextBlock', variations?: string | null, sys: { __typename?: 'Sys', id: string }, body?: { __typename?: 'ComponentTextBlockBody', json: any, links: { __typename?: 'ComponentTextBlockBodyLinks', entries: { __typename?: 'ComponentTextBlockBodyEntries', block: Array<
+          | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
@@ -5792,6 +6251,7 @@ export type TextBlockFieldsFragment = { __typename: 'ComponentTextBlock', variat
           | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
@@ -5808,6 +6268,7 @@ export type CtfTextBlockQueryVariables = Exact<{
 
 
 export type CtfTextBlockQuery = { __typename?: 'Query', componentTextBlock?: { __typename: 'ComponentTextBlock', variations?: string | null, sys: { __typename?: 'Sys', id: string }, body?: { __typename?: 'ComponentTextBlockBody', json: any, links: { __typename?: 'ComponentTextBlockBodyLinks', entries: { __typename?: 'ComponentTextBlockBodyEntries', block: Array<
+            | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
@@ -5823,6 +6284,7 @@ export type CtfTextBlockQuery = { __typename?: 'Query', componentTextBlock?: { _
             | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
@@ -5839,6 +6301,8 @@ export type PageLinkFieldsFragment = { __typename: 'Page', slug?: string | null,
       | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
      | null> } | null };
+
+type ComponentReferenceFields_Accordion_Fragment = { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } };
 
 type ComponentReferenceFields_Banner_Fragment = { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } };
 
@@ -5870,6 +6334,8 @@ type ComponentReferenceFields_Link_Fragment = { __typename: 'Link', sys: { __typ
 
 type ComponentReferenceFields_NavigationItems_Fragment = { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } };
 
+type ComponentReferenceFields_OptionSet_Fragment = { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } };
+
 type ComponentReferenceFields_Page_Fragment = { __typename: 'Page', sys: { __typename?: 'Sys', id: string } };
 
 type ComponentReferenceFields_Question_Fragment = { __typename: 'Question', sys: { __typename?: 'Sys', id: string } };
@@ -5883,6 +6349,7 @@ type ComponentReferenceFields_TabbedFormContainer_Fragment = { __typename: 'Tabb
 type ComponentReferenceFields_VideoSection_Fragment = { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } };
 
 export type ComponentReferenceFieldsFragment =
+  | ComponentReferenceFields_Accordion_Fragment
   | ComponentReferenceFields_Banner_Fragment
   | ComponentReferenceFields_Button_Fragment
   | ComponentReferenceFields_ButtonWithLinks_Fragment
@@ -5898,6 +6365,7 @@ export type ComponentReferenceFieldsFragment =
   | ComponentReferenceFields_Header_Fragment
   | ComponentReferenceFields_Link_Fragment
   | ComponentReferenceFields_NavigationItems_Fragment
+  | ComponentReferenceFields_OptionSet_Fragment
   | ComponentReferenceFields_Page_Fragment
   | ComponentReferenceFields_Question_Fragment
   | ComponentReferenceFields_Seo_Fragment
