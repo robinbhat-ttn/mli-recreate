@@ -16,6 +16,12 @@ export type ComponentReferenceFields_Disclaimer_Fragment = { __typename: 'Discla
 
 export type ComponentReferenceFields_Footer_Fragment = { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } };
 
+export type ComponentReferenceFields_Form_Fragment = { __typename: 'Form', sys: { __typename?: 'Sys', id: string } };
+
+export type ComponentReferenceFields_FormField_Fragment = { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } };
+
+export type ComponentReferenceFields_FormTab_Fragment = { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } };
+
 export type ComponentReferenceFields_HamburgerMenu_Fragment = { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } };
 
 export type ComponentReferenceFields_Header_Fragment = { __typename: 'Header', sys: { __typename?: 'Sys', id: string } };
@@ -32,6 +38,8 @@ export type ComponentReferenceFields_Seo_Fragment = { __typename: 'Seo', sys: { 
 
 export type ComponentReferenceFields_SubNavigationItem_Fragment = { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } };
 
+export type ComponentReferenceFields_TabbedFormContainer_Fragment = { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } };
+
 export type ComponentReferenceFields_VideoSection_Fragment = { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } };
 
 export type ComponentReferenceFieldsFragment =
@@ -43,6 +51,9 @@ export type ComponentReferenceFieldsFragment =
   | ComponentReferenceFields_ComponentTextBlock_Fragment
   | ComponentReferenceFields_Disclaimer_Fragment
   | ComponentReferenceFields_Footer_Fragment
+  | ComponentReferenceFields_Form_Fragment
+  | ComponentReferenceFields_FormField_Fragment
+  | ComponentReferenceFields_FormTab_Fragment
   | ComponentReferenceFields_HamburgerMenu_Fragment
   | ComponentReferenceFields_Header_Fragment
   | ComponentReferenceFields_Link_Fragment
@@ -51,6 +62,7 @@ export type ComponentReferenceFieldsFragment =
   | ComponentReferenceFields_Question_Fragment
   | ComponentReferenceFields_Seo_Fragment
   | ComponentReferenceFields_SubNavigationItem_Fragment
+  | ComponentReferenceFields_TabbedFormContainer_Fragment
   | ComponentReferenceFields_VideoSection_Fragment
 ;
 

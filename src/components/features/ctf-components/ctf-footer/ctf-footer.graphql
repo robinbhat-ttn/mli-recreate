@@ -1,125 +1,10 @@
-fragment FooterFields on Footer {
+fragment DisclaimerSectionFields on Disclaimer {
   __typename
-  sys {
+  sys{
     id
   }
-  footerLinksCollection(limit: 20) {
-    items {
-      __typename
-      sys {
-        id
-      }
-      subNavigationItemTitle
-      mainLink {
-        __typename
-        sys {
-          id
-        }
-        linkHeading
-        linkUrl
-        slug
-        icon {
-          __typename
-          sys {
-            id
-          }
-          contentType
-          title
-          description
-          width
-          height
-          url
-        }
-      }
-
-      secondaryLinksCollection(limit: 20) {
-        items {
-          __typename
-          sys {
-            id
-          }
-          linkHeading
-          linkUrl
-          slug
-        }
-      }
-    }
-  }
-
-  buttonsCollection(limit: 20) {
-    items {
-      __typename
-      sys {
-        id
-      }
-      linkHeading
-      linkUrl
-      slug
-      icon {
-        __typename
-        sys {
-          id
-        }
-        contentType
-        title
-        description
-        width
-        height
-        url
-      }
-    }
-  }
-
-  socialLinksCollection(limit: 20) {
-    items {
-      __typename
-      sys {
-        id
-      }
-      linkHeading
-      linkUrl
-      slug
-      icon {
-        __typename
-        sys {
-          id
-        }
-        contentType
-        title
-        description
-        width
-        height
-        url
-      }
-    }
-  }
-
-  groupSitesLinksCollection {
-    items {
-      __typename
-      sys {
-        id
-      }
-      linkHeading
-      linkUrl
-      slug
-      icon {
-        __typename
-        sys {
-          id
-        }
-        contentType
-        title
-        description
-        width
-        height
-        url
-      }
-    }
-  }
-
-  footerInformation {
-    __typename
+  heading
+  content {
     json
     links {
       entries {
@@ -146,37 +31,161 @@ fragment FooterFields on Footer {
       }
     }
   }
+}
 
-  disclaimerSection {
-    __typename
-    heading
-    content {
-      json
-      links {
-        entries {
-          block {
-            __typename
-            sys {
-              id
-            }
-          }
-        }
-        assets {
-          block {
-            __typename
-            sys {
-              id
-            }
-            contentType
-            title
-            description
-            width
-            height
-            url
-          }
-        }
+fragment FooterInformationFields on FooterFooterInformation {
+  __typename
+  json
+  links {
+    entries {
+      block {
+        ...ComponentReferenceFields
       }
     }
+    assets {
+      block {
+        ...AssetFields
+      }
+    }
+  }
+}
+
+fragment GroupSitesLinksCollectionFields on FooterGroupSitesLinksCollection {
+  items {
+    __typename
+    sys {
+      id
+    }
+    linkHeading
+    linkUrl
+    slug
+    icon {
+      __typename
+      sys {
+        id
+      }
+      contentType
+      title
+      description
+      width
+      height
+      url
+    }
+  }
+}
+
+fragment SocialLinksCollectionFields on FooterSocialLinksCollection {
+  items {
+    __typename
+    sys {
+      id
+    }
+    linkHeading
+    linkUrl
+    slug
+    icon {
+      __typename
+      sys {
+        id
+      }
+      contentType
+      title
+      description
+      width
+      height
+      url
+    }
+  }
+}
+
+fragment FooterButtonCollectionFields on FooterButtonsCollection {
+  items {
+    __typename
+    sys {
+      id
+    }
+    linkHeading
+    linkUrl
+    slug
+    icon {
+      __typename
+      sys {
+        id
+      }
+      contentType
+      title
+      description
+      width
+      height
+      url
+    }
+  }
+}
+
+fragment FooterLinksCollection on FooterFooterLinksCollection {
+  items {
+    __typename
+    sys {
+      id
+    }
+    subNavigationItemTitle
+    mainLink {
+      __typename
+      sys {
+        id
+      }
+      linkHeading
+      linkUrl
+      slug
+      icon {
+        __typename
+        sys {
+          id
+        }
+        contentType
+        title
+        description
+        width
+        height
+        url
+      }
+    }
+    secondaryLinksCollection(limit: 20) {
+      items {
+        __typename
+        sys {
+          id
+        }
+        linkHeading
+        linkUrl
+        slug
+      }
+    }
+  }
+}
+
+fragment FooterFields on Footer {
+  __typename
+  sys {
+    id
+  }
+  footerLinksCollection(limit: 20) {
+    ...FooterLinksCollection
+  }
+  buttonsCollection(limit: 20) {
+    ...FooterButtonCollectionFields
+  }
+  socialLinksCollection(limit: 20) {
+    ...SocialLinksCollectionFields
+  }
+  groupSitesLinksCollection {
+    ...GroupSitesLinksCollectionFields
+  }
+  footerInformation {
+    ...FooterInformationFields
+  }
+  disclaimerSection {
+    ...DisclaimerSectionFields
   }
 }
 
