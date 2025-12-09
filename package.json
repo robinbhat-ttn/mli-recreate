@@ -57,11 +57,13 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-kawaii": "1.6.0",
+    "react-slick": "^0.31.0",
     "react-transition-group": "4.4.5",
     "rehype-parse": "8.0.5",
     "rehype-react": "7.2.0",
     "remark-breaks": "4.0.0",
     "sass": "^1.94.2",
+    "slick-carousel": "^1.8.1",
     "styled-jsx": "5.1.7"
   },
   "devDependencies": {
@@ -77,6 +79,7 @@
     "@types/imagesloaded": "4.1.7",
     "@types/lodash": "4.17.21",
     "@types/react": "18.0.28",
+    "@types/react-slick": "^0.23.13",
     "@types/react-transition-group": "4.4.12",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
