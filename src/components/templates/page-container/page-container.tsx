@@ -1,25 +1,16 @@
-import { CSSProperties } from '@mui/material/styles/createTypography';
-import { makeStyles } from '@mui/styles';
-import clsx from 'clsx';
+import { Box } from '@mui/material';
 import React from 'react';
-
-const useStyles = makeStyles(() => ({
-  pageContainerRoot: {
-    width: '100%',
-  },
-}));
 
 type Props = {
   className?: string;
-  style?: CSSProperties;
+  style?: React.CSSProperties;
   children?: React.ReactNode | React.ReactNode[];
 };
 
 export const PageContainer = (props: Props) => {
-  const classes = useStyles();
   return (
-    <div style={props.style} className={clsx(classes.pageContainerRoot, props.className)}>
+    <Box sx={{ width: '100%' }} className={props.className} style={props.style}>
       {props.children}
-    </div>
+    </Box>
   );
 };
