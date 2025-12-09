@@ -1,5 +1,7 @@
 import * as Types from '../../__generated/graphql.types';
 
+export type ComponentReferenceFields_Accordion_Fragment = { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } };
+
 export type ComponentReferenceFields_Banner_Fragment = { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } };
 
 export type ComponentReferenceFields_Button_Fragment = { __typename: 'Button', sys: { __typename?: 'Sys', id: string } };
@@ -30,6 +32,8 @@ export type ComponentReferenceFields_Link_Fragment = { __typename: 'Link', sys: 
 
 export type ComponentReferenceFields_NavigationItems_Fragment = { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } };
 
+export type ComponentReferenceFields_OptionSet_Fragment = { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } };
+
 export type ComponentReferenceFields_Page_Fragment = { __typename: 'Page', sys: { __typename?: 'Sys', id: string } };
 
 export type ComponentReferenceFields_Question_Fragment = { __typename: 'Question', sys: { __typename?: 'Sys', id: string } };
@@ -43,6 +47,7 @@ export type ComponentReferenceFields_TabbedFormContainer_Fragment = { __typename
 export type ComponentReferenceFields_VideoSection_Fragment = { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } };
 
 export type ComponentReferenceFieldsFragment =
+  | ComponentReferenceFields_Accordion_Fragment
   | ComponentReferenceFields_Banner_Fragment
   | ComponentReferenceFields_Button_Fragment
   | ComponentReferenceFields_ButtonWithLinks_Fragment
@@ -58,6 +63,7 @@ export type ComponentReferenceFieldsFragment =
   | ComponentReferenceFields_Header_Fragment
   | ComponentReferenceFields_Link_Fragment
   | ComponentReferenceFields_NavigationItems_Fragment
+  | ComponentReferenceFields_OptionSet_Fragment
   | ComponentReferenceFields_Page_Fragment
   | ComponentReferenceFields_Question_Fragment
   | ComponentReferenceFields_Seo_Fragment

@@ -2,6 +2,7 @@ import { useCtfTextBlockQuery } from '@src/components/features/ctf-components/ct
 import { useCtfBannerQuery } from '@src/components/features/ctf-components/ctf-banner/__generated/ctf-banner.generated';
 import { useCtfCarouselQuery } from '@src/components/features/ctf-components/ctf-carousel/__generated/ctf-carousel.generated';
 import { useCtfLinkQuery } from '@src/components/features/ctf-components/ctf-link/__generated/ctf-link.generated';
+import { useCtfAccordionQuery } from '@src/components/features/ctf-components/ctf-accordion/__generated/ctf-accordion.generated';
 /**
  * This map is used to match a generated GQL query to a Contentful model's __typename. The query is used to prefetch the data through React Query's prefetchQuery method
  */
@@ -11,4 +12,5 @@ export const prefetchMap = {
   ComponentBanner: useCtfBannerQuery,
   ComponentCarousel: useCtfCarouselQuery,
   ComponentLink: useCtfLinkQuery,
+  ComponentAccordion: useCtfAccordionQuery,
 };

@@ -21,6 +21,11 @@ export const componentMap = {
       module => module.CtfLink,
     ),
   ),
+  Accordion: dynamic(() =>
+    import('@src/components/features/ctf-components/ctf-accordion/ctf-accordion').then(
+      module => module.CtfAccordion,
+    ),
+  ),
 };
 
 export const componentGqlMap = {
@@ -42,6 +47,11 @@ export const componentGqlMap = {
   Link: dynamic(() =>
     import('@src/components/features/ctf-components/ctf-link/ctf-link-gql').then(
       module => module.CtfLinkGql,
+    ),
+  ),
+  Accordion: dynamic(() =>
+    import('@src/components/features/ctf-components/ctf-accordion/ctf-accordion-gql').then(
+      module => module.CtfAccordionGql,
     ),
   ),
 };
