@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Container } from '@mui/material';
 import styles from './ctf-banner.module.scss';
 import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 type Props = any;
 
@@ -64,7 +65,9 @@ export const CtfBanner = (props: Props) => {
             return (
               <a key={c.sys?.id} className={styles['banner__card']} href={c.cardLink || '#'}>
                 <div className={styles['banner__card-top']}>
-                  <span className={styles['banner__card-pill']}>18% GST 0% GST</span>
+                  <span className={styles['banner__card-pill']}>
+                    {documentToReactComponents(c.cardContent.json)}
+                  </span>
                 </div>
                 <div className={styles['banner__card-body']}>
                   {cardImg && (
