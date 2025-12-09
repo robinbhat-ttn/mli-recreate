@@ -9,6 +9,7 @@ import LayoutContext, { defaultLayout } from '@src/layout-context';
 import { CtfHeader } from '@src/components/features/ctf-components/ctf-header/ctf-header';
 import { CtfFooter } from '@src/components/features/ctf-components/ctf-footer/ctf-footer';
 import { CtfMobileMenu } from '@src/components/features/ctf-components/ctf-mobile-menu/ctf-mobile-menu';
+import { Container } from '@mui/material';
 
 const CtfPage = (props: CtfPageFieldsFragment) => {
   const content = props.contentCollection && props.contentCollection.items.filter(it => !!it);
@@ -43,12 +44,14 @@ const CtfPage = (props: CtfPageFieldsFragment) => {
       {props.header && <CtfHeader {...props.header} />}
 
       {/* page content */}
-      {content &&
-        content.map(entry => (
-          <LayoutContext.Provider value={layoutConfig} key={entry!.sys.id}>
-            <ComponentResolver componentProps={entry!} />
-          </LayoutContext.Provider>
-        ))}
+      <Container maxWidth="xl" disableGutters={false} sx={{ px: { xs: 2, md: 0 } }}>
+        {content &&
+          content.map(entry => (
+            <LayoutContext.Provider value={layoutConfig} key={entry!.sys.id}>
+              <ComponentResolver componentProps={entry!} />
+            </LayoutContext.Provider>
+          ))}
+      </Container>
 
       {/* footer */}
       {props.footer && <CtfFooter {...props.footer} />}

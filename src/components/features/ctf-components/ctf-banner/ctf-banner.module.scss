@@ -1,0 +1,216 @@
+$card-bg: #ffffff;
+$text: #0f1724;
+$primary: #171a21;
+$accent: #ccf5dd;
+
+.banner {
+  padding: 50px 0 0;
+  background: #f1f6fa;
+  height: 414px;
+  margin-bottom: 144px;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+
+  &__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 40px;
+    color: $text;
+    font-weight: 700;
+  }
+
+  &__texts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    & > .banner__text-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: $primary;
+      font-size: 18px;
+      flex: 0 0 calc(50% - 24px); 
+      max-width: calc(50% - 24px);
+
+      .banner__text-icon {
+        max-width: 100%;
+        height: auto;
+        display: inline-block;
+      }
+
+      > div > p {
+        margin: 0;
+      }
+    }
+  }
+
+
+  &__cards-wrapper {
+    justify-content: center;
+    display: flex;
+    position: relative;
+    z-index: 2;
+    position: absolute;
+    top: 286px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &__cards {
+    display: flex;
+    gap: 36px;
+    padding: 32px 48px;
+    background: $card-bg;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(16,24,40,0.06);
+    justify-content: center;
+  }
+
+  &__card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 10px;
+    background: white;
+    box-shadow: 0 6px 14px rgba(16,24,40,0.04);
+    border: 1px solid rgba(0,0,0,0.03);
+    width: 100%;
+    flex: 1 1 0;
+
+    &-top {
+      padding: 8px;
+      text-align: center;
+      background: transparent;
+      position: relative;
+    }
+
+    &-pill {
+      display: inline-block;
+      padding: 4px;
+      border-radius: 12px;
+      background: #cef5e1;
+      font-size: 10px;
+      color: #099a4f;
+      font-weight: 700;
+      position: absolute;
+      top: -10px;
+      left: 0;
+      width: 100%;
+    }
+
+    &-body {
+      padding: 16px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      min-width: 174px;
+      max-width: 100px;
+    }
+
+    &-icon img {
+      width: 56px;
+      height: auto;
+      display: block;
+    }
+
+    &-title {
+      font-size: 16px;
+      text-align: center;
+      color: $primary;
+      font-weight: 500;
+      padding: 0 16px;
+    }
+
+    &-sub {
+      font-size: 13px;
+      color: $primary;
+      text-align: center;
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .banner__image-wrap {
+        position: relative; 
+        z-index: 2;         
+
+      /* Create a circular soft background using ::before */
+      &::before {
+        display: block;
+        content: "";
+        background: #3597ec;
+        width: 38.456rem;
+        height: 38.456rem;
+        border-radius: 50%;
+        position: absolute;
+        top: -8%;
+        right: -17px;
+        transform: translateZ(0);
+        z-index: 1;
+        opacity: 0.08;
+        pointer-events: none;
+
+        @media (max-width: 900px) {
+          width: 12rem;
+          height: 12rem;
+          top: -10%;
+          right: 1.5rem;
+          box-shadow: 0 0 0 8px rgba(193, 221, 245, 0.65),
+                      0 4px 18px rgba(53, 151, 236, 0.12);
+        }
+      }
+    }
+
+    .banner__image {
+      width: 348px;
+      height: auto;
+      position: relative;
+      z-index: 3;
+      display: block;
+
+    }
+  }
+}
+
+
+// @media (max-width: 900px) {
+//   .banner {
+//     &__inner {
+//       flex-direction: column;
+//       align-items: stretch;
+//     }
+//     &__right {
+//       width: auto;
+//       order: -1;
+//       margin-bottom: 10px;
+//     }
+//     &__cards {
+//       gap: 12px;
+//     }
+//   }
+// }

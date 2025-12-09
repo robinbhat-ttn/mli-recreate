@@ -1,5 +1,5 @@
 import styles from './ctf-header.module.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { HamburgerMenuFieldsFragment } from './__generated/ctf-header.generated';
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
@@ -23,10 +23,10 @@ export const HamburgerMenu = (props: HamburgerMenuProps) => {
       {...inspectorMode({ entryId: props.sys.id, fieldId: 'hamburgerMenu' })}
     >
       <p>{props?.menuTitle}</p>
-      <ol>
+      <ul>
         <>
           {props.menuItemsCollection?.items.map((item, index) => (
-            <>
+            <React.Fragment key={index}>
               <li key={index} className={styles.hamburgerMenuItem}>
                 {item?.__typename === 'Link' ? (
                   <Link
@@ -59,10 +59,10 @@ export const HamburgerMenu = (props: HamburgerMenuProps) => {
                 )}
               </li>
               <hr />
-            </>
+            </React.Fragment>
           ))}
         </>
-      </ol>
+      </ul>
     </div>
   );
 };

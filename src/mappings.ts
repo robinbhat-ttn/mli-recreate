@@ -38,7 +38,7 @@ export const componentGqlMap = {
     import('@src/components/features/ctf-components/ctf-carousel/ctf-carousel-gql').then(
       module => module.CtfCarouselGql,
     ),
-  ),                   
+  ),
   Link: dynamic(() =>
     import('@src/components/features/ctf-components/ctf-link/ctf-link-gql').then(
       module => module.CtfLinkGql,
