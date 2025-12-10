@@ -105,6 +105,7 @@ export type AccordionFilter = {
 export type AccordionLinkingCollections = {
   __typename?: 'AccordionLinkingCollections';
   entryCollection?: Maybe<EntryCollection>;
+  pageCollection?: Maybe<PageCollection>;
 };
 
 
@@ -115,6 +116,33 @@ export type AccordionLinkingCollectionsEntryCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
+
+
+export type AccordionLinkingCollectionsPageCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<AccordionLinkingCollectionsPageCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export enum AccordionLinkingCollectionsPageCollectionOrder {
+  InternalNameAsc = 'internalName_ASC',
+  InternalNameDesc = 'internalName_DESC',
+  PageNameAsc = 'pageName_ASC',
+  PageNameDesc = 'pageName_DESC',
+  SlugAsc = 'slug_ASC',
+  SlugDesc = 'slug_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
 
 export enum AccordionOrder {
   InternalNameAsc = 'internalName_ASC',
@@ -3677,7 +3705,7 @@ export type PageContentFilter = {
   sys?: InputMaybe<SysFilter>;
 };
 
-export type PageContentItem = Banner | Button | Carousel | ComponentTextBlock | Link | VideoSection;
+export type PageContentItem = Accordion | Banner | Button | Carousel | ComponentTextBlock | Link | VideoSection;
 
 export type PageFilter = {
   AND?: InputMaybe<Array<InputMaybe<PageFilter>>>;
@@ -6055,6 +6083,8 @@ export type LinkFieldsFragment = { __typename: 'Link', linkHeading?: string | nu
 
 export type NavigationFieldsFragment = { __typename?: 'HeaderNavigationItemsCollection', items: Array<{ __typename: 'NavigationItems', navigationTitle?: string | null, navigationLink?: string | null, sys: { __typename?: 'Sys', id: string }, subNavigationMenuCollection?: { __typename?: 'NavigationItemsSubNavigationMenuCollection', items: Array<{ __typename: 'SubNavigationItem', subNavigationItemTitle?: string | null, sys: { __typename?: 'Sys', id: string }, mainLink?: { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null, secondaryLinksCollection?: { __typename?: 'SubNavigationItemSecondaryLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null } | null> } | null } | null> };
 
+type PageContentFields_Accordion_Fragment = { __typename: 'Accordion' };
+
 type PageContentFields_Banner_Fragment = { __typename: 'Banner' };
 
 type PageContentFields_Button_Fragment = { __typename: 'Button' };
@@ -6068,6 +6098,7 @@ type PageContentFields_Link_Fragment = { __typename: 'Link' };
 type PageContentFields_VideoSection_Fragment = { __typename: 'VideoSection' };
 
 export type PageContentFieldsFragment =
+  | PageContentFields_Accordion_Fragment
   | PageContentFields_Banner_Fragment
   | PageContentFields_Button_Fragment
   | PageContentFields_Carousel_Fragment
@@ -6077,6 +6108,7 @@ export type PageContentFieldsFragment =
 ;
 
 export type CtfPageFieldsFragment = { __typename: 'Page', pageName?: string | null, slug?: string | null, internalName?: string | null, sys: { __typename?: 'Sys', id: string }, seo?: { __typename?: 'Seo', title?: string | null, description?: string | null, noIndex?: boolean | null, noFollow?: boolean | null, image?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null, contentCollection?: { __typename?: 'PageContentCollection', items: Array<
+      | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
@@ -6147,6 +6179,7 @@ export type CtfPageQueryVariables = Exact<{
 
 
 export type CtfPageQuery = { __typename?: 'Query', pageCollection?: { __typename?: 'PageCollection', items: Array<{ __typename: 'Page', pageName?: string | null, slug?: string | null, internalName?: string | null, sys: { __typename?: 'Sys', id: string }, seo?: { __typename?: 'Seo', title?: string | null, description?: string | null, noIndex?: boolean | null, noFollow?: boolean | null, image?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null, contentCollection?: { __typename?: 'PageContentCollection', items: Array<
+          | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
@@ -6210,6 +6243,7 @@ export type CtfPageQuery = { __typename?: 'Query', pageCollection?: { __typename
                  | null> }, assets: { __typename?: 'DisclaimerContentAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null } | null } | null> } | null };
 
 export type RichTextHyperlinkFieldsFragment = { __typename?: 'Query', page?: { __typename: 'Page', slug?: string | null, pageName?: string | null, sys: { __typename?: 'Sys', id: string }, contentCollection?: { __typename?: 'PageContentCollection', items: Array<
+        | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
@@ -6226,6 +6260,7 @@ export type CtfRichTextHyperlinkQueryVariables = Exact<{
 
 
 export type CtfRichTextHyperlinkQuery = { __typename?: 'Query', page?: { __typename: 'Page', slug?: string | null, pageName?: string | null, sys: { __typename?: 'Sys', id: string }, contentCollection?: { __typename?: 'PageContentCollection', items: Array<
+        | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
@@ -6294,6 +6329,7 @@ export type CtfTextBlockQuery = { __typename?: 'Query', componentTextBlock?: { _
            | null> }, assets: { __typename?: 'ComponentTextBlockBodyAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null };
 
 export type PageLinkFieldsFragment = { __typename: 'Page', slug?: string | null, pageName?: string | null, sys: { __typename?: 'Sys', id: string }, contentCollection?: { __typename?: 'PageContentCollection', items: Array<
+      | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }

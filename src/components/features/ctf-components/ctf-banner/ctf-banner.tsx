@@ -13,8 +13,6 @@ export const CtfBanner = (props: Props) => {
   const texts = data?.bannerTextCollection?.items || [];
   const cards = data?.policyCardsCollection?.items || [];
 
-  console.log('CtfBanner data:', data);
-
   return (
     <Box component="section" className={styles.banner}>
       <div className={styles['banner__inner']}>

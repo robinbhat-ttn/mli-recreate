@@ -9,8 +9,8 @@ import { useCtfAccordionQuery } from '@src/components/features/ctf-components/ct
 
 export const prefetchMap = {
   ComponentTextBlock: useCtfTextBlockQuery,
-  ComponentBanner: useCtfBannerQuery,
-  ComponentCarousel: useCtfCarouselQuery,
-  ComponentLink: useCtfLinkQuery,
-  ComponentAccordion: useCtfAccordionQuery,
+  Banner: useCtfBannerQuery,
+  Carousel: useCtfCarouselQuery,
+  Link: useCtfLinkQuery,
+  Accordion: useCtfAccordionQuery,
 };
