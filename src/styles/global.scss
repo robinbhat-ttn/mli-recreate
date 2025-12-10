@@ -1,0 +1,15 @@
+@import './fonts.scss';
+
+/* Global styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  @include font-apply($font-noto);
+  font-size: 16px;
+  line-height: 24px;
+}

@@ -36,7 +36,8 @@ export const CtfBanner = (props: Props) => {
                       src={iconBlock?.url}
                       alt="icon"
                       className={styles['banner__text-icon']}
-                      style={{ width: iconBlock?.width, height: iconBlock?.height }}
+                      height={iconBlock?.height}
+                      width={iconBlock?.width}
                     />
                   )}
                   {isSimpleParagraph ? (
