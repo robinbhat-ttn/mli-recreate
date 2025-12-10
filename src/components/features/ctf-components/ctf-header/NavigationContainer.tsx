@@ -1,7 +1,9 @@
-import { NavigationFieldsFragment } from '../ctf-navigation/__generated/ctf-navigation.generated';
-import styles from './ctf-header.module.css';
-import Link from 'next/link';
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
+import Link from 'next/link';
+
+import styles from './ctf-header.module.css';
+import type { NavigationFieldsFragment } from '../ctf-navigation/__generated/ctf-navigation.generated';
+
 export const NavigationContainer = (props: NavigationFieldsFragment) => {
   const inspectorMode = useContentfulInspectorMode();
   return (

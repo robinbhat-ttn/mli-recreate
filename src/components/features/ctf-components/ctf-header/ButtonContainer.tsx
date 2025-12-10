@@ -1,8 +1,10 @@
-import { useEffect, useState, useRef } from 'react';
-import styles from './ctf-header.module.css';
-import Link from 'next/link';
-import { ButtonCollectionFieldsFragment } from '../ctf-header/__generated/ctf-header.generated';
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
+import Link from 'next/link';
+import React, { useEffect, useState, useRef } from 'react';
+
+import styles from './ctf-header.module.css';
+import type { ButtonCollectionFieldsFragment } from '../ctf-header/__generated/ctf-header.generated';
+
 export const ButtonContainer = (props: ButtonCollectionFieldsFragment) => {
   const inspectorMode = useContentfulInspectorMode();
   const [isOpen, setIsOpen] = useState(false);

@@ -1,10 +1,9 @@
+import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import type { SocialLinksCollectionFieldsFragment } from './__generated/ctf-footer.generated';
 import styles from './ctf-footer.module.css';
-
-import { SocialLinksCollectionFieldsFragment } from './__generated/ctf-footer.generated';
-import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
 export const SocialLinks = (props: SocialLinksCollectionFieldsFragment) => {
   const inspectorMode = useContentfulInspectorMode();

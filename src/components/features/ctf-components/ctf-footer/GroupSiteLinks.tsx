@@ -1,7 +1,7 @@
-import Link from 'next/link';
-import { GroupSitesLinksCollectionFieldsFragment } from './__generated/ctf-footer.generated';
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
+import Link from 'next/link';
 
+import type { GroupSitesLinksCollectionFieldsFragment } from './__generated/ctf-footer.generated';
 import styles from './ctf-footer.module.css';
 
 export const GroupSiteLinks = (props: GroupSitesLinksCollectionFieldsFragment) => {

@@ -3,7 +3,6 @@ import { Theme } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 import { NavigationFieldsFragment } from './__generated/ctf-navigation.generated';
-import { getLinkDisplayText, getLinkHrefPrefix } from './utils';
 
 import { Link } from '@src/components/shared/link';
 

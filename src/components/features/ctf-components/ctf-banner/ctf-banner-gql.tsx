@@ -3,8 +3,6 @@ import { useContentfulLiveUpdates } from '@contentful/live-preview/react';
 import { useCtfBannerQuery } from './__generated/ctf-banner.generated';
 import { CtfBanner } from './ctf-banner';
 
-import { useContentfulContext } from '@src/contentful-context';
-
 interface CtfBannerGqlPropsInterface {
   id: string;
   locale: string;

@@ -1,11 +1,11 @@
-import React from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import React from 'react';
 import type { FC } from 'react';
 import type { Settings } from 'react-slick';
 
-import styles from './ctf-carousel.module.scss';
 import type { CarouselFieldsFragment } from './__generated/ctf-carousel.generated';
+import styles from './ctf-carousel.module.scss';
 import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
 
 import 'slick-carousel/slick/slick.css';

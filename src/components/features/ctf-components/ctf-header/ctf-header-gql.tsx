@@ -3,8 +3,6 @@ import { useContentfulLiveUpdates } from '@contentful/live-preview/react';
 import { useCtfHeaderQuery } from './__generated/ctf-header.generated';
 import { CtfHeader } from './ctf-header';
 
-import { useContentfulContext } from '@src/contentful-context';
-
 interface CtfHeaderGqlPropsInterface {
   id: string;
   locale: string;

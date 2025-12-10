@@ -2,10 +2,6 @@ import { Drawer } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 import { NavigationFieldsFragment } from '@src/components/features/ctf-components/ctf-navigation/__generated/ctf-navigation.generated';
-import {
-  getLinkDisplayText,
-  getLinkHrefPrefix,
-} from '@src/components/features/ctf-components/ctf-navigation/utils';
 import { Link } from '@src/components/shared/link';
 
 const useStyles = makeStyles(theme => ({

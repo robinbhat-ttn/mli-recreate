@@ -1,11 +1,11 @@
+import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { useState } from 'react';
-import {
+
+import type {
   DisclaimerSectionFieldsFragment,
   FooterInformationFieldsFragment,
 } from './__generated/ctf-footer.generated';
-import { useContentfulInspectorMode } from '@contentful/live-preview/react';
-
 import styles from './ctf-footer.module.css';
 
 interface FooterContentProps {

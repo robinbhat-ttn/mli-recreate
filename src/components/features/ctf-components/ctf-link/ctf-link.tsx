@@ -1,5 +1,6 @@
-import { LinkFieldsFragment } from './__generated/ctf-link.generated';
 import Link from 'next/link';
+
+import { LinkFieldsFragment } from './__generated/ctf-link.generated';
 
 export const CtfLink = (props: LinkFieldsFragment) => {
   return (
