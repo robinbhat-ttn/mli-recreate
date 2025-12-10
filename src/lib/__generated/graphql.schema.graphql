@@ -61,6 +61,24 @@ input AccordionFilter {
 
 type AccordionLinkingCollections {
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
+  pageCollection(limit: Int = 100, locale: String, order: [AccordionLinkingCollectionsPageCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): PageCollection
+}
+
+enum AccordionLinkingCollectionsPageCollectionOrder {
+  internalName_ASC
+  internalName_DESC
+  pageName_ASC
+  pageName_DESC
+  slug_ASC
+  slug_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
 }
 
 enum AccordionOrder {
@@ -2419,7 +2437,7 @@ input PageContentFilter {
   sys: SysFilter
 }
 
-union PageContentItem = Banner | Button | Carousel | ComponentTextBlock | Link | VideoSection
+union PageContentItem = Accordion | Banner | Button | Carousel | ComponentTextBlock | Link | VideoSection
 
 input PageFilter {
   AND: [PageFilter]

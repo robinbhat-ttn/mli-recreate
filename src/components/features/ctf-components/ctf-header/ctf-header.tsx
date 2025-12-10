@@ -1,16 +1,18 @@
+import { useContentfulInspectorMode } from '@contentful/live-preview/react';
+import React, { useEffect, useState } from 'react';
+
+import type {
+  HeaderFieldsFragment,
+  ButtonCollectionFieldsFragment,
+} from './__generated/ctf-header.generated';
 import { ButtonContainer } from './ButtonContainer';
+import styles from './ctf-header.module.css';
+import { HamburgerIcon } from './HamburgerIcon';
+import { HamburgerMenu, HamburgerMenuProps } from './HamburgerMenu';
 import { ImageContainer } from './ImageContainer';
 import { NavigationContainer } from './NavigationContainer';
-import styles from './ctf-header.module.css';
-import { useEffect, useState } from 'react';
-import { HamburgerIcon } from './HamburgerIcon';
-import { HamburgerMenu } from './HamburgerMenu';
-import { HeaderFieldsFragment } from './__generated/ctf-header.generated';
-import { AssetFieldsFragment } from '../ctf-asset/__generated/ctf-asset.generated';
-import { useContentfulInspectorMode } from '@contentful/live-preview/react';
-import { NavigationFieldsFragment } from '../ctf-navigation/__generated/ctf-navigation.generated';
-import { ButtonCollectionFieldsFragment } from '../ctf-header/__generated/ctf-header.generated';
-import { HamburgerMenuProps } from './HamburgerMenu';
+import type { AssetFieldsFragment } from '../ctf-asset/__generated/ctf-asset.generated';
+import type { NavigationFieldsFragment } from '../ctf-navigation/__generated/ctf-navigation.generated';
 
 export const CtfHeader = (props: HeaderFieldsFragment) => {
   const inspectorMode = useContentfulInspectorMode();

@@ -1,12 +1,7 @@
-import { FooterFieldsFragment } from './__generated/ctf-footer.generated';
-import { ButtonContainer } from './ButtonContainer';
-import styles from './ctf-footer.module.css';
-import { FooterContent } from './FooterContent';
-import { FooterLinks } from './FooterLinks';
-import { GroupSiteLinks } from './GroupSiteLinks';
-import { SocialLinks } from './SocialLinks';
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
-import {
+
+import type {
+  FooterFieldsFragment,
   FooterLinksCollectionFragment,
   SocialLinksCollectionFieldsFragment,
   FooterButtonCollectionFieldsFragment,
@@ -14,6 +9,12 @@ import {
   DisclaimerSectionFieldsFragment,
   FooterInformationFieldsFragment,
 } from './__generated/ctf-footer.generated';
+import { ButtonContainer } from './ButtonContainer';
+import styles from './ctf-footer.module.css';
+import { FooterContent } from './FooterContent';
+import { FooterLinks } from './FooterLinks';
+import { GroupSiteLinks } from './GroupSiteLinks';
+import { SocialLinks } from './SocialLinks';
 
 export const CtfFooter = (props: FooterFieldsFragment) => {
   const inspectorMode = useContentfulInspectorMode();

@@ -9,9 +9,9 @@ export const HamburgerIcon = (props: HamburgerMenuProps) => {
     <button className={styles.hamburgerSection} onClick={props.toggleMenu}>
       {!props.isMenuOpen ? (
         <span className={styles.hamburgerIcon}>
-          <div></div>
-          <div></div>
-          <div></div>
+          <div />
+          <div />
+          <div />
         </span>
       ) : (
         <span className={styles.crossIcon}>&#10005;</span>

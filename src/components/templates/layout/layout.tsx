@@ -1,5 +1,4 @@
-import { CssBaseline, Theme } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { CssBaseline } from '@mui/material';
 import React, { ReactElement } from 'react';
 interface LayoutPropsInterface {
   preview: boolean;

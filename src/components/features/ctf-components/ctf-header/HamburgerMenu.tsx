@@ -1,8 +1,9 @@
-import styles from './ctf-header.module.css';
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { HamburgerMenuFieldsFragment } from './__generated/ctf-header.generated';
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
+import Link from 'next/link';
+import React, { useState } from 'react';
+
+import type { HamburgerMenuFieldsFragment } from './__generated/ctf-header.generated';
+import styles from './ctf-header.module.css';
 
 export interface HamburgerMenuProps extends HamburgerMenuFieldsFragment {
   isMenuOpen: boolean;

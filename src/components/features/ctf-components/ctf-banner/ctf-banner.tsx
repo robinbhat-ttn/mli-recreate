@@ -1,8 +1,9 @@
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import { Box } from '@mui/material';
 import React from 'react';
-import { Box, Container } from '@mui/material';
+
 import styles from './ctf-banner.module.scss';
 import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 type Props = any;
 
@@ -12,8 +13,6 @@ export const CtfBanner = (props: Props) => {
   const image = data?.bannerImage?.url;
   const texts = data?.bannerTextCollection?.items || [];
   const cards = data?.policyCardsCollection?.items || [];
-
-  console.log('CtfBanner data:', data);
 
   return (
     <Box component="section" className={styles.banner}>

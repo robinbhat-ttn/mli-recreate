@@ -1,15 +1,14 @@
+import { Container } from '@mui/material';
+import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
 
-import { useRouter } from 'next/router';
-
-import { CtfPageFieldsFragment } from '@src/components/features/ctf-components/ctf-page/__generated/ctf-page.generated';
+import { CtfFooter } from '@src/components/features/ctf-components/ctf-footer/ctf-footer';
+import { CtfHeader } from '@src/components/features/ctf-components/ctf-header/ctf-header';
+import { CtfMobileMenu } from '@src/components/features/ctf-components/ctf-mobile-menu/ctf-mobile-menu';
+import type { CtfPageFieldsFragment } from '@src/components/features/ctf-components/ctf-page/__generated/ctf-page.generated';
 import { ComponentResolver } from '@src/components/shared/component-resolver';
 import { PageContainer } from '@src/components/templates/page-container';
 import LayoutContext, { defaultLayout } from '@src/layout-context';
-import { CtfHeader } from '@src/components/features/ctf-components/ctf-header/ctf-header';
-import { CtfFooter } from '@src/components/features/ctf-components/ctf-footer/ctf-footer';
-import { CtfMobileMenu } from '@src/components/features/ctf-components/ctf-mobile-menu/ctf-mobile-menu';
-import { Container } from '@mui/material';
 
 const CtfPage = (props: CtfPageFieldsFragment) => {
   const content = props.contentCollection && props.contentCollection.items.filter(it => !!it);

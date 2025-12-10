@@ -3,8 +3,6 @@ import { useContentfulLiveUpdates } from '@contentful/live-preview/react';
 import { useCtfCarouselQuery } from './__generated/ctf-carousel.generated';
 import { CtfCarousel } from './ctf-carousel';
 
-import { useContentfulContext } from '@src/contentful-context';
-
 interface CtfCarouselGqlPropsInterface {
   id: string;
   locale: string;

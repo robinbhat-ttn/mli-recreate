@@ -1,6 +1,8 @@
 import { Container } from '@mui/material';
 import React from 'react';
+
 import { TextBlockFieldsFragment } from './__generated/ctf-text-block.generated';
+
 import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtext/ctf-richtext';
 
 const variationToCssClassMap: Record<string, string> = {

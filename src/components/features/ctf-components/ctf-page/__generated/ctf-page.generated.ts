@@ -12,6 +12,8 @@ import { FooterFieldsFragmentDoc, FooterLinksCollectionFragmentDoc, FooterButton
 import { ComponentReferenceFieldsFragmentDoc } from '../../../../../lib/shared-fragments/__generated/ctf-componentMap.generated';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { customFetcher } from '@src/lib/fetchConfig';
+export type PageContentFields_Accordion_Fragment = { __typename: 'Accordion' };
+
 export type PageContentFields_Banner_Fragment = { __typename: 'Banner' };
 
 export type PageContentFields_Button_Fragment = { __typename: 'Button' };
@@ -25,6 +27,7 @@ export type PageContentFields_Link_Fragment = { __typename: 'Link' };
 export type PageContentFields_VideoSection_Fragment = { __typename: 'VideoSection' };
 
 export type PageContentFieldsFragment =
+  | PageContentFields_Accordion_Fragment
   | PageContentFields_Banner_Fragment
   | PageContentFields_Button_Fragment
   | PageContentFields_Carousel_Fragment
@@ -37,6 +40,10 @@ export type CtfPageFieldsFragment = { __typename: 'Page', pageName?: string | nu
       { __typename?: 'Asset' }
       & AssetFieldsFragment
     ) | null } | null, contentCollection?: { __typename?: 'PageContentCollection', items: Array<
+      | (
+        { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
+        & PageContentFields_Accordion_Fragment
+      )
       | (
         { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
         & PageContentFields_Banner_Fragment
