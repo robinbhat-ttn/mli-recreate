@@ -103,7 +103,7 @@
       display: inline-block;
       padding: 4px;
       border-radius: 12px;
-      background: rgba($success, 0.15);
+      background: #cef5e1;
       font-size: 10px;
       color: $success;
       @include font-apply($font-noto, $fw-bold);
@@ -111,6 +111,7 @@
       top: -10px;
       left: 0;
       width: 100%;
+      line-height: 16px;
 
       p{
         margin: 0;
