@@ -35,7 +35,8 @@ export const CtfBanner = (props: Props) => {
                       src={iconBlock?.url}
                       alt="icon"
                       className={styles['banner__text-icon']}
-                      style={{ width: iconBlock?.width, height: iconBlock?.height }}
+                      height={iconBlock?.height}
+                      width={iconBlock?.width}
                     />
                   )}
                   {isSimpleParagraph ? (
@@ -57,7 +58,7 @@ export const CtfBanner = (props: Props) => {
           )}
         </div>
       </div>
-      <div className={styles['banner__cards-wrapper']}>
+      <div className={`container-sec ${styles['banner__cards-wrapper']}`}>
         <div className={styles['banner__cards']}>
           {cards.map((c: any) => {
             const cardImg = c.cardImage?.url;
@@ -71,7 +72,12 @@ export const CtfBanner = (props: Props) => {
                 <div className={styles['banner__card-body']}>
                   {cardImg && (
                     <div className={styles['banner__card-icon']}>
-                      <img src={cardImg} alt={c.cardTitle} />
+                      <img
+                        src={cardImg}
+                        alt={c.cardTitle}
+                        height={c.cardImage?.height}
+                        width={c.cardImage?.width}
+                      />
                     </div>
                   )}
                   <div className={styles['banner__card-title']}>{c.cardTitle}</div>

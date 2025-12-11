@@ -16,7 +16,6 @@ const Slider = dynamic(() => import('react-slick'), { ssr: false });
 const Arrow = ({ className, style, onClick }: any) => {
   const isPrev = (className || '').includes('prev');
 
-  // Provided SVG (right arrow). For prev arrow we flip horizontally using CSS transform.
   return (
     <button
       type="button"
@@ -78,56 +77,54 @@ export const CtfCarousel: FC<CarouselFieldsFragment> = props => {
   if (!items || items.length === 0) return null;
 
   return (
-    <div className={styles.carousel}>
-      <div className={styles['carousel__inner']}>
-        <Slider {...settings}>
-          {items.map((card: any) => {
-            const id = card?.sys?.id ?? Math.random().toString(36).slice(2, 9);
-            const img = card?.cardImage;
-            const title = card?.cardTitle;
-            const content = card?.cardContent;
+    <div className={`container-sec ${styles.carousel}`}>
+      <Slider {...settings}>
+        {items.map((card: any) => {
+          const id = card?.sys?.id ?? Math.random().toString(36).slice(2, 9);
+          const img = card?.cardImage;
+          const title = card?.cardTitle;
+          const content = card?.cardContent;
 
-            return (
-              <div key={id} className={styles['carousel__slide']}>
-                <div className={styles['carousel__card']} aria-labelledby={`card-title-${id}`}>
-                  <div className={styles['carousel__media']}>
-                    {img?.url ? (
-                      <div className={styles['carousel__image-wrap']}>
-                        <Image
-                          src={img.url}
-                          alt={img.title ?? title ?? ''}
-                          width={img.width ?? 66}
-                          height={img.height ?? 77}
-                          priority={false}
-                        />
-                        <span className={styles['carousel__media-underline']} />
-                      </div>
-                    ) : null}
-                  </div>
+          return (
+            <div key={id} className={styles['carousel__slide']}>
+              <div className={styles['carousel__card']} aria-labelledby={`card-title-${id}`}>
+                <div className={styles['carousel__media']}>
+                  {img?.url ? (
+                    <div className={styles['carousel__image-wrap']}>
+                      <Image
+                        src={img.url}
+                        alt={img.title ?? title ?? ''}
+                        width={img.width}
+                        height={img.height}
+                        priority={false}
+                      />
+                      <span className={styles['carousel__media-underline']} />
+                    </div>
+                  ) : null}
+                </div>
 
-                  <div className={styles['carousel__body']}>
-                    {title && (
-                      <h3 id={`card-title-${id}`} className={styles['carousel__title']}>
-                        {title}
-                      </h3>
-                    )}
+                <div className={styles['carousel__body']}>
+                  {title && (
+                    <h3 id={`card-title-${id}`} className={styles['carousel__title']}>
+                      {title}
+                    </h3>
+                  )}
 
-                    {content?.json && (
-                      <div className={styles['carousel__content']}>
-                        <CtfRichtext
-                          json={content.json}
-                          links={content.links}
-                          disableContainer={true}
-                        />
-                      </div>
-                    )}
-                  </div>
+                  {content?.json && (
+                    <div className={styles['carousel__content']}>
+                      <CtfRichtext
+                        json={content.json}
+                        links={content.links}
+                        disableContainer={true}
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
-            );
-          })}
-        </Slider>
-      </div>
+            </div>
+          );
+        })}
+      </Slider>
     </div>
   );
 };

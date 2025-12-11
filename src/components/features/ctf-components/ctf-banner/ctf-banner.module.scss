@@ -1,13 +1,11 @@
-$card-bg: #ffffff;
-$text: #0f1724;
-$primary: #171a21;
-$accent: #ccf5dd;
+@import '@src/styles/fonts.scss';
+@import '@src/styles/variables.scss';
 
 .banner {
-  padding: 50px 0 0;
+  padding: 80px 0 0;
   background: #f1f6fa;
-  height: 414px;
-  margin-bottom: 144px;
+  height: 480px;
+  margin-bottom: 130px;
   position: relative;
 
   &__inner {
@@ -21,14 +19,16 @@ $accent: #ccf5dd;
   &__left {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 32px;
   }
 
   &__title {
     margin: 0;
     font-size: 40px;
-    color: $text;
-    font-weight: 700;
+    color: #171a21;
+    padding-top: 56px;
+    @include font-apply($font-lato, $fw-bold);
+    line-height: 1.1;
   }
 
   &__texts {
@@ -43,10 +43,12 @@ $accent: #ccf5dd;
       display: flex;
       align-items: center;
       gap: 10px;
-      color: $primary;
+      color: #171a21;
       font-size: 18px;
       flex: 0 0 calc(50% - 24px); 
       max-width: calc(50% - 24px);
+      line-height: 28px;
+      @include font-apply($font-noto);
 
       .banner__text-icon {
         max-width: 100%;
@@ -62,36 +64,33 @@ $accent: #ccf5dd;
 
 
   &__cards-wrapper {
-    justify-content: center;
-    display: flex;
     position: relative;
     z-index: 2;
-    position: absolute;
-    top: 286px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: -190px;
+    padding: 0;
   }
 
   &__cards {
     display: flex;
-    gap: 36px;
+    gap: 40px;
     padding: 32px 48px;
-    background: $card-bg;
+    background: $white;
     border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(16,24,40,0.06);
     justify-content: center;
+    box-shadow: 0px 4px 8px #171a211f;
   }
 
   &__card {
     display: block;
     text-decoration: none;
     color: inherit;
-    border-radius: 10px;
+    border-radius: 12px;
     background: white;
-    box-shadow: 0 6px 14px rgba(16,24,40,0.04);
-    border: 1px solid rgba(0,0,0,0.03);
+    box-shadow: 0px 4px 8px #5097e529;
+    border: 1px solid #E8EBF1;
     width: 100%;
-    flex: 1 1 0;
+    min-width: 104px;
+    max-width: 174px;
 
     &-top {
       padding: 8px;
@@ -107,7 +106,7 @@ $accent: #ccf5dd;
       background: #cef5e1;
       font-size: 10px;
       color: #099a4f;
-      font-weight: 700;
+      @include font-apply($font-noto, $fw-bold);
       position: absolute;
       top: -10px;
       left: 0;
@@ -137,14 +136,15 @@ $accent: #ccf5dd;
     &-title {
       font-size: 16px;
       text-align: center;
-      color: $primary;
-      font-weight: 500;
+      color: #171a21;
       padding: 0 16px;
+      line-height: 21px;
+      @include font-apply($font-noto, $fw-medium);
     }
 
     &-sub {
       font-size: 13px;
-      color: $primary;
+      color: #171a21;
       text-align: center;
     }
   }
@@ -156,7 +156,8 @@ $accent: #ccf5dd;
 
     .banner__image-wrap {
         position: relative; 
-        z-index: 2;         
+        z-index: 2; 
+        padding-top: 56px;        
 
       /* Create a circular soft background using ::before */
       &::before {
@@ -167,7 +168,7 @@ $accent: #ccf5dd;
         height: 38.456rem;
         border-radius: 50%;
         position: absolute;
-        top: -8%;
+        top: 24px;
         right: -17px;
         transform: translateZ(0);
         z-index: 1;
