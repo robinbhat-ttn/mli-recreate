@@ -5,7 +5,7 @@
   padding: 80px 0 0;
   background: #f1f6fa;
   height: 480px;
-  margin-bottom: 144px;
+  margin-bottom: 130px;
   position: relative;
 
   &__inner {
@@ -64,17 +64,15 @@
 
 
   &__cards-wrapper {
-    justify-content: center;
-    display: flex;
     position: relative;
     z-index: 2;
     top: -190px;
-    position: relative;
+    padding: 0;
   }
 
   &__cards {
     display: flex;
-    gap: 36px;
+    gap: 40px;
     padding: 32px 48px;
     background: $white;
     border-radius: 16px;
@@ -86,12 +84,13 @@
     display: block;
     text-decoration: none;
     color: inherit;
-    border-radius: 10px;
+    border-radius: 12px;
     background: white;
-    box-shadow: 0 6px 14px rgba(16,24,40,0.04);
-    border: 1px solid rgba(0,0,0,0.03);
+    box-shadow: 0px 4px 8px #5097e529;
+    border: 1px solid #E8EBF1;
     width: 100%;
-    flex: 1 1 0;
+    min-width: 104px;
+    max-width: 174px;
 
     &-top {
       padding: 8px;
@@ -138,8 +137,9 @@
       font-size: 16px;
       text-align: center;
       color: #171a21;
-      font-weight: 500;
       padding: 0 16px;
+      line-height: 21px;
+      @include font-apply($font-noto, $fw-medium);
     }
 
     &-sub {
