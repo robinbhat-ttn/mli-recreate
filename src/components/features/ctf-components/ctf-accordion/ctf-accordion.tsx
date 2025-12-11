@@ -1,13 +1,16 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { Accordion, AccordionSummary, AccordionDetails, Typography, Box } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useContentfulInspectorMode } from '@contentful/live-preview/react';
+import { Accordion, AccordionSummary, AccordionDetails, Typography, Box } from '@mui/material';
+import React, { useCallback, useMemo, useState } from 'react';
+
+import type { AccordionFieldsFragment } from './__generated/ctf-accordion.generated';
 import styles from './ctf-accordion.module.scss';
-import { AccordionFieldsFragment } from './__generated/ctf-accordion.generated';
 import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
 
 interface Props extends AccordionFieldsFragment {}
 
 export const CtfAccordion: React.FC<Props> = props => {
+  const inspectorMode = useContentfulInspectorMode();
   const items = useMemo(
     () => props?.accordionItemsCollection?.items?.filter(Boolean) ?? [],
     [props],
@@ -22,7 +25,10 @@ export const CtfAccordion: React.FC<Props> = props => {
   if (!items.length) return null;
 
   return (
-    <Box className={styles.accordion}>
+    <Box
+      className={styles.accordion}
+      {...inspectorMode({ entryId: props.sys.id, fieldId: 'accordion' })}
+    >
       {items.map((item, idx) => {
         const question = (item as any)?.questionText ?? '';
         const answer = (item as any)?.answerText ?? null;
@@ -37,6 +43,7 @@ export const CtfAccordion: React.FC<Props> = props => {
             expanded={isExpanded}
             onChange={() => handleToggle(id)}
             className={styles['accordion__item']}
+            {...inspectorMode({ entryId: item?.sys.id, fieldId: 'question' })}
           >
             <AccordionSummary
               id={`accordion-${id}-header`}
