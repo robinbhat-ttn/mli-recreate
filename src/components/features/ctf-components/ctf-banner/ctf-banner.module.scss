@@ -77,7 +77,7 @@
     background: $white;
     border-radius: 16px;
     justify-content: center;
-    box-shadow: 0px 4px 8px #171a211f;
+    box-shadow: 0px 4px 8px rgba($text-primary, 0.12);
   }
 
   &__card {
@@ -85,8 +85,8 @@
     text-decoration: none;
     color: inherit;
     border-radius: 12px;
-    background: white;
-    box-shadow: 0px 4px 8px #5097e529;
+    background: $white;
+    box-shadow: 0px 4px 8px rgba($accent, 0.16);
     border: 1px solid $border-light;
     width: 100%;
     min-width: 104px;
@@ -103,9 +103,9 @@
       display: inline-block;
       padding: 4px;
       border-radius: 12px;
-      background: #cef5e1;
+      background: rgba($success, 0.15);
       font-size: 10px;
-      color: #099a4f;
+      color: $success;
       @include font-apply($font-noto, $fw-bold);
       position: absolute;
       top: -10px;
@@ -180,8 +180,8 @@
           height: 12rem;
           top: -10%;
           right: 1.5rem;
-          box-shadow: 0 0 0 8px rgba(193, 221, 245, 0.65),
-                      0 4px 18px rgba(53, 151, 236, 0.12);
+          box-shadow: 0 0 0 8px rgba($accent-light, 0.65),
+                      0 4px 18px rgba($accent, 0.12);
         }
       }
     }
