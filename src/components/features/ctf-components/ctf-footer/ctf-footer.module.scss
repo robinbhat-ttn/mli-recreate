@@ -1,6 +1,8 @@
+@import '@src/styles/_variables.scss';
+
 /*****Footer Links Section*****/
 .footerContainer{
-    background-color: #f4f6fa;
+    background-color: $bg-muted;
     padding-top: 2rem;
     padding-bottom: 2rem;
 }
@@ -11,7 +13,7 @@
     justify-content: space-evenly;
 }
 .mainLink{
-    color: #171A21;
+    color: $text-primary;
     text-decoration: none;
     font-weight: 700;
     font-size: smaller;
@@ -22,7 +24,7 @@
 }
 .secondaryLink{
     text-decoration: none;
-    color: #505662;
+    color: $text-muted;
     font-size: smaller;
 }
 .footerDivider{
@@ -39,7 +41,7 @@
 }
 .socialLinksContainer a{
     text-decoration: none;
-    color: #5c6370;
+    color: $text-muted;
 }
 
 /*******Button Section*******/
@@ -53,9 +55,9 @@
 .buttonContainer a{
     text-decoration: none;
     padding: 1rem;
-    color: #505662;
+    color: $text-muted;
     font-size: small;
-    border: 1px solid #e5e7eb;
+    border: 1px solid $gray-200;
     border-radius: 2rem;
     font-weight: 600;
 }
@@ -70,12 +72,12 @@
 .groupSitesLinks span{
     font-size: smaller;
     font-weight: 500;
-    color: #171A21;
+    color: $text-primary;
 }
 .groupSitesLinks a{
     text-decoration: none;
     font-size: smaller;
-    color: #505662;
+    color: $text-muted;
     font-weight: 900;
 }
 
@@ -83,7 +85,7 @@
 .footerInformation{
     padding: 0 10rem;
     font-size: small;
-    background-color: #d0d8e3;
+    background-color: $border-medium;
     padding-top: 2rem;
     padding-bottom: 2rem;
 }

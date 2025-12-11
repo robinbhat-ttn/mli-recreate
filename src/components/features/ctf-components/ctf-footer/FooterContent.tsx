@@ -6,7 +6,7 @@ import type {
   DisclaimerSectionFieldsFragment,
   FooterInformationFieldsFragment,
 } from './__generated/ctf-footer.generated';
-import styles from './ctf-footer.module.css';
+import styles from './ctf-footer.module.scss';
 
 interface FooterContentProps {
   footerInformation: FooterInformationFieldsFragment;

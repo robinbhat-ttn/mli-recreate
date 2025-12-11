@@ -5,7 +5,7 @@
   padding: 2rem 0;
 
   &__card {
-    background: #fff;
+    background: $white;
     margin: 16px;
     border-radius: 6px;
     min-height: 260px;
@@ -33,25 +33,25 @@
     display: block;
     width: 60px;
     height: 6px;
-    background: #e6eef8;
+    background: $bg-muted;
     margin: 16px auto 0;
     border-radius: 3px;
   }
 
   &__body {
-    border-left: 1px solid #ebedf0;
+    border-left: 1px solid $border-light;
     padding-left: 16px;
   }
 
   &__title {
     font-size: 16px;
-    color: #0F4A8A;
+    color: $primary-dark;
     @include font-apply($font-lato, $fw-bold);
     margin: 0;
   }
 
   &__content {
-    color: #333;
+    color: $text-primary;
     font-size: 16px;
     padding: 20px 0;
     @include font-apply($font-noto, $fw-semi-bold);

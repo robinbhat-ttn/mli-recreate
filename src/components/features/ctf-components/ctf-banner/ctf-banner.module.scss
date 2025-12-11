@@ -3,7 +3,7 @@
 
 .banner {
   padding: 80px 0 0;
-  background: #f1f6fa;
+  background: $bg-muted;
   height: 480px;
   margin-bottom: 130px;
   position: relative;
@@ -25,7 +25,7 @@
   &__title {
     margin: 0;
     font-size: 40px;
-    color: #171a21;
+    color: $text-primary;
     padding-top: 56px;
     @include font-apply($font-lato, $fw-bold);
     line-height: 1.1;
@@ -39,11 +39,11 @@
     padding: 0;
     margin: 0;
 
-    & > .banner__text-item {
+      & > .banner__text-item {
       display: flex;
       align-items: center;
       gap: 10px;
-      color: #171a21;
+      color: $text-primary;
       font-size: 18px;
       flex: 0 0 calc(50% - 24px); 
       max-width: calc(50% - 24px);
@@ -87,7 +87,7 @@
     border-radius: 12px;
     background: white;
     box-shadow: 0px 4px 8px #5097e529;
-    border: 1px solid #E8EBF1;
+    border: 1px solid $border-light;
     width: 100%;
     min-width: 104px;
     max-width: 174px;
@@ -136,7 +136,7 @@
     &-title {
       font-size: 16px;
       text-align: center;
-      color: #171a21;
+      color: $text-primary;
       padding: 0 16px;
       line-height: 21px;
       @include font-apply($font-noto, $fw-medium);
@@ -144,7 +144,7 @@
 
     &-sub {
       font-size: 13px;
-      color: #171a21;
+      color: $text-primary;
       text-align: center;
     }
   }
@@ -163,7 +163,7 @@
       &::before {
         display: block;
         content: "";
-        background: #3597ec;
+        background: $accent;
         width: 38.456rem;
         height: 38.456rem;
         border-radius: 50%;

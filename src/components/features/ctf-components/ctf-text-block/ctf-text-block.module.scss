@@ -14,14 +14,14 @@
 .life-insurance-wrapper {
   padding-top: 48px;
   p {
-    color: #171a21;
+    color: $text-primary;
     @include font-apply($font-noto, $fw-regular);
     line-height: 1.44;
     font-size: 16px;
   }
 
   a {
-    color: #0092db;
+    color: $accent;
     cursor: pointer;
   }
 }
