@@ -16,8 +16,6 @@ export const CtfTextBlock = ({ body, variations }: TextBlockFieldsFragment) => {
 
   return (
     <Box
-      //maxWidth="lg"
-      // disableGutters={false}
       className={`container-sec ${isDisclaimer ? styles['disclaimer-wrapper'] : styles['life-insurance-wrapper']}`}
       sx={isDisclaimer ? { pt: 1 } : { p: 6 }}
     >
