@@ -2,19 +2,23 @@
 @import '@src/styles/variables.scss';
 
 .disclaimer-wrapper {
-  color: $black;
-  font-size: 13px;
-  line-height: 18px;
-  @include font-apply($font-noto, $fw-regular);
-  padding: 0 32px
+  p {
+    color: $black;
+    font-size: 13px;
+    line-height: 18px;
+    @include font-apply($font-noto, $fw-regular);
+    padding: 0 32px;
+  }
 }
 
 .life-insurance-wrapper {
-  color: #171a21;
-  @include font-apply($font-noto, $fw-regular);
-  line-height: 1.44;
-  font-size: 16px;
-  padding: 48px;
+  padding-top: 48px;
+  p {
+    color: #171a21;
+    @include font-apply($font-noto, $fw-regular);
+    line-height: 1.44;
+    font-size: 16px;
+  }
 
   a {
     color: #0092db;

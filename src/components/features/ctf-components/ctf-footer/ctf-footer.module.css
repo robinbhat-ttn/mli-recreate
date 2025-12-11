@@ -11,7 +11,7 @@
     justify-content: space-evenly;
 }
 .mainLink{
-    color: black;
+    color: #171A21;
     text-decoration: none;
     font-weight: 700;
     font-size: smaller;
@@ -53,9 +53,9 @@
 .buttonContainer a{
     text-decoration: none;
     padding: 1rem;
-    color: #5c6370;
+    color: #505662;
     font-size: small;
-    border: 1px solid #bcc1cb;
+    border: 1px solid #e5e7eb;
     border-radius: 2rem;
     font-weight: 600;
 }
@@ -70,6 +70,7 @@
 .groupSitesLinks span{
     font-size: smaller;
     font-weight: 500;
+    color: #171A21;
 }
 .groupSitesLinks a{
     text-decoration: none;

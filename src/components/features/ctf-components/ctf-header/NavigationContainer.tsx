@@ -1,14 +1,14 @@
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 import Link from 'next/link';
 
-import styles from './ctf-header.module.css';
+import styles from './ctf-header.module.scss';
 import type { NavigationFieldsFragment } from '../ctf-navigation/__generated/ctf-navigation.generated';
 
 export const NavigationContainer = (props: NavigationFieldsFragment) => {
   const inspectorMode = useContentfulInspectorMode();
   return (
     <nav className={styles.navigationMenu}>
-      <ol>
+      <ul>
         {props?.items.map((item, index) => (
           <li
             key={index}
@@ -49,7 +49,7 @@ export const NavigationContainer = (props: NavigationFieldsFragment) => {
             </ul>
           </li>
         ))}
-      </ol>
+      </ul>
     </nav>
   );
 };

@@ -2,7 +2,7 @@ import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 import Link from 'next/link';
 import React, { useEffect, useState, useRef } from 'react';
 
-import styles from './ctf-header.module.css';
+import styles from './ctf-header.module.scss';
 import type { ButtonCollectionFieldsFragment } from '../ctf-header/__generated/ctf-header.generated';
 
 export const ButtonContainer = (props: ButtonCollectionFieldsFragment) => {

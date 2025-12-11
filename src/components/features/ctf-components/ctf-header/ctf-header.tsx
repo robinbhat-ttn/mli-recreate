@@ -1,12 +1,12 @@
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import type {
   HeaderFieldsFragment,
   ButtonCollectionFieldsFragment,
 } from './__generated/ctf-header.generated';
 import { ButtonContainer } from './ButtonContainer';
-import styles from './ctf-header.module.css';
+import styles from './ctf-header.module.scss';
 import { HamburgerIcon } from './HamburgerIcon';
 import { HamburgerMenu, HamburgerMenuProps } from './HamburgerMenu';
 import { ImageContainer } from './ImageContainer';
@@ -20,17 +20,10 @@ export const CtfHeader = (props: HeaderFieldsFragment) => {
   const toggleMenu = () => {
     setIsMenuOpen(isMenuOpen => !isMenuOpen);
   };
-  useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden'; // stop scrolling
-    } else {
-      document.body.style.overflow = 'auto'; // enable scrolling
-    }
-  }, [isMenuOpen]);
   return (
-    <>
+    <div className={styles.headerContainer}>
       <div
-        className={styles.headerContainer}
+        className={`container-sec ${styles.headerInner}`}
         {...inspectorMode({ entryId: props.sys.id, fieldId: 'header' })}
       >
         <ImageContainer {...(props.logo as AssetFieldsFragment)} />
@@ -39,6 +32,6 @@ export const CtfHeader = (props: HeaderFieldsFragment) => {
         <HamburgerIcon isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
       </div>
       <HamburgerMenu {...({ ...props.hamburgerMenu, isMenuOpen } as HamburgerMenuProps)} />
-    </>
+    </div>
   );
 };

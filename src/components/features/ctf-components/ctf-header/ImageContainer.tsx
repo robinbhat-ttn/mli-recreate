@@ -1,7 +1,7 @@
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 import Image from 'next/image';
 
-import styles from './ctf-header.module.css';
+import styles from './ctf-header.module.scss';
 import type { AssetFieldsFragment } from '../ctf-asset/__generated/ctf-asset.generated';
 
 export const ImageContainer = (props: AssetFieldsFragment) => {
