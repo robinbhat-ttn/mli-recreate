@@ -1,0 +1,166 @@
+// Breakpoint Variables
+$breakpoints: (
+  'xs': 0,
+  'sm': 640px,
+  'md': 768px,
+  'lg': 1024px,
+  'xl': 1280px,
+  '2xl': 1536px,
+) !default;
+
+$breakpoint-mobile: 640px;
+$breakpoint-tablet: 768px;
+$breakpoint-tablet-lg: 900px;
+$breakpoint-desktop: 1024px;
+$breakpoint-desktop-lg: 1280px;
+
+// Media Query Mixins
+
+// Min-width media query
+@mixin min-width($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @media (min-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+
+// Max-width media query
+@mixin max-width($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (max-width: map-get($breakpoints, $breakpoint) - 1px) {
+      @content;
+    }
+  } @else {
+    @media (max-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+
+// Range media query (between two breakpoints)
+@mixin between($min, $max) {
+  $min-value: if(map-has-key($breakpoints, $min), map-get($breakpoints, $min), $min);
+  $max-value: if(map-has-key($breakpoints, $max), map-get($breakpoints, $max), $max);
+  
+  @media (min-width: $min-value) and (max-width: $max-value - 1px) {
+    @content;
+  }
+}
+
+// Orientation mixins
+@mixin landscape {
+  @media (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin portrait {
+  @media (orientation: portrait) {
+    @content;
+  }
+}
+
+// Device-specific mixins
+@mixin mobile {
+  @media (max-width: $breakpoint-mobile) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: $breakpoint-mobile + 1px) and (max-width: $breakpoint-desktop - 1px) {
+    @content;
+  }
+}
+
+@mixin tablet-down {
+  @media (max-width: $breakpoint-desktop - 1px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $breakpoint-desktop) {
+    @content;
+  }
+}
+
+@mixin desktop-lg {
+  @media (min-width: $breakpoint-desktop-lg) {
+    @content;
+  }
+}
+
+// Predefined breakpoint mixins using the breakpoint map
+@mixin xs {
+  @media (min-width: map-get($breakpoints, 'xs')) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media (min-width: map-get($breakpoints, 'sm')) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: map-get($breakpoints, 'md')) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: map-get($breakpoints, 'lg')) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media (min-width: map-get($breakpoints, 'xl')) {
+    @content;
+  }
+}
+
+@mixin xl-2 {
+  @media (min-width: map-get($breakpoints, '2xl')) {
+    @content;
+  }
+}
+
+// Max-width variants
+@mixin sm-down {
+  @media (max-width: map-get($breakpoints, 'sm') - 1px) {
+    @content;
+  }
+}
+
+@mixin md-down {
+  @media (max-width: map-get($breakpoints, 'md') - 1px) {
+    @content;
+  }
+}
+
+@mixin lg-down {
+  @media (max-width: map-get($breakpoints, 'lg') - 1px) {
+    @content;
+  }
+}
+
+@mixin xl-down {
+  @media (max-width: map-get($breakpoints, 'xl') - 1px) {
+    @content;
+  }
+}
+
+@mixin xl-2-down {
+  @media (max-width: map-get($breakpoints, '2xl') - 1px) {
+    @content;
+  }
+}
+

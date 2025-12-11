@@ -271,7 +271,7 @@
 }
 
 .headerButton {
-  background-color: rgba($secondary, 0.1);
+  background-color: #f5e8ed;
   padding: 8px 16px;
   border-radius: 32px;
   font-weight: 700;
@@ -280,7 +280,7 @@
   gap: 6px;
   cursor: pointer;
   border: none;
-  color: $secondary;
+  color: $white;
   font-size: 14px;
   line-height: 21px;
   @include font-apply($font-noto, $fw-bold);
@@ -297,6 +297,10 @@
 .dropdownWrapper {
   position: relative;
   display: flex;
+
+  .headerButton {
+    background-color: $secondary;
+  }
 }
 
 
