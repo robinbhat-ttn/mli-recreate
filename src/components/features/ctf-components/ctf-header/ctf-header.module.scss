@@ -1,0 +1,350 @@
+@import "../../../../styles/fonts.scss";
+@import "../../../../styles/_variables.scss";
+
+.headerContainer {
+  background-color: $primary;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 3;
+  border-bottom: 1px solid rgba($border-light, 0.2);
+
+  .headerInner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 16px;
+  }
+}
+
+.imageContainer img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+/*****Navigation Menu Style ******/
+.navigationItem {
+  list-style: none;
+}
+
+.navigationItem ul {
+  padding-left: 0;
+}
+
+.subNavigationItemMainLink {
+  list-style: none;
+}
+
+.subNavigationItemSecondaryLink {
+  list-style: none;
+}
+
+
+/* Parent container */
+.navigationMenu {
+  position: relative;
+  flex: 4;
+}
+
+.navigationMenu ul {
+  display: flex;
+  padding: 0;
+  margin-left: 40px;
+  gap: 44px;
+
+  li {
+    padding: 0;
+    a {
+      color: $white;
+      @include font-apply($font-noto, $fw-semi-bold);
+      font-size: 15px;
+      line-height: 24px;
+    }
+  }
+}
+
+/* --- NAV ITEM (TOP LEVEL) --- */
+.navigationItem {
+  position: relative;
+  list-style: none;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+/* The link inside the top-level nav item */
+.navigationItem>a {
+  text-decoration: none;
+  color: $white;
+  font-weight: 600;
+  position: relative;
+  padding-right: 20px;
+  /* space for arrow */
+}
+
+/* --- DOWN ARROW (default state) --- */
+.navigationItem>a::after {
+  content: "▼";
+  font-size: 10px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.25s ease;
+}
+
+/* --- UP ARROW ON HOVER --- */
+.navigationItem:hover>a::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* --- SUBMENU (Initially hidden) --- */
+.navigationItem>ul {
+  display: none;
+  /* hidden by default */
+  position: absolute;
+  left: 0;
+  top: 100%;
+  background: $white;
+  padding: 10px 0;
+  margin: 0;
+  list-style: none;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  min-width: 180px;
+  z-index: 999;
+
+}
+
+/* Show submenu on hover */
+.navigationItem:hover>ul {
+  display: flex;
+  padding: 2rem;
+}
+
+/* --- SUBMENU ITEMS --- */
+.subNavigationItemMainLink,
+.subNavigationItemSecondaryLink {
+  padding: 8px 15px;
+  white-space: nowrap;
+}
+
+.subNavigationItemMainLink a,
+.subNavigationItemSecondaryLink a {
+  text-decoration: none;
+  color: $text-primary;
+  font-size: 14px;
+}
+
+/* Hover styling for submenu items */
+.subNavigationItemMainLink:hover,
+.subNavigationItemSecondaryLink:hover {
+  background: $bg-light;
+}
+
+.subNavigationItemMainLink a {
+  color: $accent;
+  font-weight: 800;
+  font-size: medium;
+}
+
+.subNavigationItemSecondaryLink a {
+  color: $text-muted;
+  font-size: medium;
+  font-weight: 600;
+}
+
+.subNavigationItemSecondaryLink:hover a {
+  color: $accent;
+}
+
+.hamburgerSection {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding: 8px;
+  background-color: transparent;
+  border: none;
+  margin-left: 10px;
+  color: $white;
+}
+
+.hamburgerSection:focus-visible {
+  outline: 2px solid $white;
+  outline-offset: 2px;
+}
+
+.hamburgerMenu {
+  display: block;
+  width: min(360px, 85vw);
+  background: $white;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.15);
+  padding: 24px 20px 32px;
+  position: fixed;
+  z-index: 3;
+  right: 0;
+  overflow-y: auto;
+  height: calc(100vh - 80px);
+  bottom: 0;
+}
+
+.hamburgerMenu>p {
+  margin: 0;
+  color: $text-muted;
+  font-weight: 600;
+  font-size: smaller;
+}
+
+.hamburgerMenuHidden {
+  display: none;
+  /* invisible */
+  opacity: 0;
+}
+
+.hamburgerMenu ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.hamburgerMenu ol {
+  padding-left: 0;
+}
+
+.hamburgerMenuItem {
+  list-style: none;
+  position: relative;
+}
+
+.hamburgerMenuItem a {
+  text-decoration: none;
+  color: $black;
+}
+
+.hamburgerMenuItem button {
+  background-color: transparent;
+  border: none;
+  font-size: large;
+  margin-bottom: 1rem;
+  cursor: pointer
+}
+
+
+.hamburgerSubMenuClosed {
+  display: none;
+}
+
+.hamburgerSubMenuOpen {
+  display: block;
+}
+
+.hamburgerMenuItem div ul {
+  padding-left: 0;
+}
+
+.hamburgerSubMenuItem {
+  list-style: none;
+  margin-left: 2rem;
+}
+
+.hamburgerIcon {
+  display: block;
+}
+
+.hamburgerIcon line {
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-width: 2;
+}
+
+.crossIcon {
+  display: inline-block;
+  width: 24px;
+  height: 20px;
+  color: $white;
+}
+
+
+/******Button Style******/
+.buttonsContainer {
+  display: flex;
+  gap: 16px;
+}
+
+.headerButton {
+  background-color: #f5e8ed;
+  padding: 8px 16px;
+  border-radius: 32px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  border: none;
+  color: $white;
+  font-size: 14px;
+  line-height: 21px;
+  @include font-apply($font-noto, $fw-bold);
+}
+
+.headerButton a {
+  color: $secondary;
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 21px;
+  @include font-apply($font-noto, $fw-bold);
+}
+
+.dropdownWrapper {
+  position: relative;
+  display: flex;
+
+  .headerButton {
+    background-color: $secondary;
+  }
+}
+
+
+.arrow {
+  font-size: 12px;
+  transition: transform 0.2s ease;
+}
+
+.dropdownContent {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background: $white;
+  border-radius: 8px;
+  padding: 12px;
+  min-width: 180px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transform: translateY(-6px);
+  animation: fadeDrop 0.25s ease forwards;
+  z-index: 999;
+}
+
+@keyframes fadeDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdownLink {
+  display: block;
+  padding: 8px;
+  color: $text-primary;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.dropdownLink:hover {
+  background: rgba(0, 0, 0, 0.07);
+}

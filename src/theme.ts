@@ -178,6 +178,16 @@ const colorfulTheme = createTheme({
         },
       },
     },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          margin: 0,
+          fontFamily: 'inherit',
+          fontSize: 'inherit',
+          lineHeight: 'inherit',
+        },
+      },
+    },
     MuiTextField: {
       styleOverrides: {
         root: {
@@ -208,10 +218,10 @@ const colorfulTheme = createTheme({
           '#__next': {
             display: 'flex',
             flexDirection: 'column',
-          }
+          },
         },
-      }
-    }
+      },
+    },
   },
 });
 

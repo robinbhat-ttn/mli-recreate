@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import type { SocialLinksCollectionFieldsFragment } from './__generated/ctf-footer.generated';
-import styles from './ctf-footer.module.css';
+import styles from './ctf-footer.module.scss';
 
 export const SocialLinks = (props: SocialLinksCollectionFieldsFragment) => {
   const inspectorMode = useContentfulInspectorMode();

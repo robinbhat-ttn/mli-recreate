@@ -10,7 +10,7 @@ import type {
   FooterInformationFieldsFragment,
 } from './__generated/ctf-footer.generated';
 import { ButtonContainer } from './ButtonContainer';
-import styles from './ctf-footer.module.css';
+import styles from './ctf-footer.module.scss';
 import { FooterContent } from './FooterContent';
 import { FooterLinks } from './FooterLinks';
 import { GroupSiteLinks } from './GroupSiteLinks';

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 
 import type { HamburgerMenuFieldsFragment } from './__generated/ctf-header.generated';
-import styles from './ctf-header.module.css';
+import styles from './ctf-header.module.scss';
 
 export interface HamburgerMenuProps extends HamburgerMenuFieldsFragment {
   isMenuOpen: boolean;

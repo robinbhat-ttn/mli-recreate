@@ -336,10 +336,24 @@ export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
         const { variant, className, component } = rendererProps;
 
         if (disableContainer) {
-          if (component) {
+          // Keep the semantic HTML (Typography renders the proper tag) but drop layout wrappers.
+          if (!variant) {
             return <>{children}</>;
           }
-          return <>{children}</>;
+
+          if (component) {
+            return (
+              <Typography variant={variant} className={className} component={component}>
+                {children}
+              </Typography>
+            );
+          }
+
+          return (
+            <Typography variant={variant} className={className}>
+              {children}
+            </Typography>
+          );
         }
 
         if (!variant) {
@@ -379,6 +393,12 @@ export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
       variant: 'body1',
     });
     opts.renderNode![BLOCKS.TABLE] = (_, children) => {
+      const table = (
+        <table>
+          <tbody>{children}</tbody>
+        </table>
+      );
+
       if (disableContainer) {
         return (
           <div
@@ -386,10 +406,11 @@ export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
               overflow: 'auto',
             }}
           >
-            <table>{children}</table>
+            {table}
           </div>
         );
       }
+
       return (
         <ParagraphGridContainer>
           <div
@@ -397,11 +418,14 @@ export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
               overflow: 'auto',
             }}
           >
-            <table>{children}</table>
+            {table}
           </div>
         </ParagraphGridContainer>
       );
     };
+    opts.renderNode![BLOCKS.TABLE_ROW] = (_, children) => <tr>{children}</tr>;
+    opts.renderNode![BLOCKS.TABLE_CELL] = (_, children) => <td>{children}</td>;
+    opts.renderNode![BLOCKS.TABLE_HEADER_CELL] = (_, children) => <th>{children}</th>;
     opts.renderNode![BLOCKS.HR] = hrRenderer;
     opts.renderNode![BLOCKS.LIST_ITEM] = (_, children) => (
       <li className={classes.paragrahGridListItem}>{children}</li>
