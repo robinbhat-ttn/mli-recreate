@@ -1,3 +1,4 @@
+import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { Box } from '@mui/material';
 import React from 'react';
@@ -8,6 +9,7 @@ import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
 type Props = any;
 
 export const CtfBanner = (props: Props) => {
+  const inspectorMode = useContentfulInspectorMode();
   const data = props;
   const title = data?.bannerTitle || '';
   const image = data?.bannerImage?.url;
@@ -15,7 +17,11 @@ export const CtfBanner = (props: Props) => {
   const cards = data?.policyCardsCollection?.items || [];
 
   return (
-    <Box component="section" className={styles.banner}>
+    <Box
+      component="section"
+      className={styles.banner}
+      {...inspectorMode({ entryId: props.sys.id, fieldId: 'banner' })}
+    >
       <div className={styles['banner__inner']}>
         <div className={styles['banner__left']}>
           <h1 className={styles['banner__title']}>{title}</h1>
@@ -29,7 +35,11 @@ export const CtfBanner = (props: Props) => {
                 firstNode.nodeType === 'paragraph' &&
                 firstNode.content.every(c => c.nodeType === 'text');
               return (
-                <li key={t.sys?.id} className={styles['banner__text-item']}>
+                <li
+                  key={t.sys?.id}
+                  className={styles['banner__text-item']}
+                  {...inspectorMode({ entryId: t.sys?.id, fieldId: 'componentTextBlock' })}
+                >
                   {iconBlock?.url && (
                     <img
                       src={iconBlock?.url}
@@ -63,7 +73,12 @@ export const CtfBanner = (props: Props) => {
           {cards.map((c: any) => {
             const cardImg = c.cardImage?.url;
             return (
-              <a key={c.sys?.id} className={styles['banner__card']} href={c.cardLink || '#'}>
+              <a
+                key={c.sys?.id}
+                className={styles['banner__card']}
+                href={c.cardLink || '#'}
+                {...inspectorMode({ entryId: c.sys?.id, fieldId: 'card' })}
+              >
                 <div className={styles['banner__card-top']}>
                   <span className={styles['banner__card-pill']}>
                     {documentToReactComponents(c.cardContent.json)}

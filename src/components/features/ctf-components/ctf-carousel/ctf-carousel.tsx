@@ -1,3 +1,4 @@
+import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import React from 'react';
@@ -72,12 +73,16 @@ const settings: Settings = {
 };
 
 export const CtfCarousel: FC<CarouselFieldsFragment> = props => {
+  const inspectorMode = useContentfulInspectorMode();
   const items = (props as any)?.cardsCollection?.items || [];
 
   if (!items || items.length === 0) return null;
 
   return (
-    <div className={`container-sec ${styles.carousel}`}>
+    <div
+      className={`container-sec ${styles.carousel}`}
+      {...inspectorMode({ entryId: props.sys.id, fieldId: 'carousel' })}
+    >
       <Slider {...settings}>
         {items.map((card: any) => {
           const id = card?.sys?.id ?? Math.random().toString(36).slice(2, 9);
@@ -87,7 +92,11 @@ export const CtfCarousel: FC<CarouselFieldsFragment> = props => {
 
           return (
             <div key={id} className={styles['carousel__slide']}>
-              <div className={styles['carousel__card']} aria-labelledby={`card-title-${id}`}>
+              <div
+                className={styles['carousel__card']}
+                aria-labelledby={`card-title-${id}`}
+                {...inspectorMode({ entryId: card?.sys?.id, fieldId: 'card' })}
+              >
                 <div className={styles['carousel__media']}>
                   {img?.url ? (
                     <div className={styles['carousel__image-wrap']}>
