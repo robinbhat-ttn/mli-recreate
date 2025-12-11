@@ -321,7 +321,6 @@ export type AssetLinkingCollections = {
   headerCollection?: Maybe<HeaderCollection>;
   linkCollection?: Maybe<LinkCollection>;
   seoCollection?: Maybe<SeoCollection>;
-  videoSectionCollection?: Maybe<VideoSectionCollection>;
 };
 
 
@@ -371,15 +370,6 @@ export type AssetLinkingCollectionsLinkCollectionArgs = {
 
 
 export type AssetLinkingCollectionsSeoCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type AssetLinkingCollectionsVideoSectionCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5085,7 +5075,8 @@ export type VideoSection = Entry & _Node & {
   internalName?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<VideoSectionLinkingCollections>;
   sys: Sys;
-  video?: Maybe<Asset>;
+  videoTitle?: Maybe<Scalars['String']['output']>;
+  youtubeId?: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -5103,9 +5094,15 @@ export type VideoSectionLinkedFromArgs = {
 
 
 /** Video Section Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/videoSection) */
-export type VideoSectionVideoArgs = {
+export type VideoSectionVideoTitleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Video Section Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/videoSection) */
+export type VideoSectionYoutubeIdArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
@@ -5129,7 +5126,20 @@ export type VideoSectionFilter = {
   internalName_not_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   sys?: InputMaybe<SysFilter>;
-  video_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  videoTitle?: InputMaybe<Scalars['String']['input']>;
+  videoTitle_contains?: InputMaybe<Scalars['String']['input']>;
+  videoTitle_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  videoTitle_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  videoTitle_not?: InputMaybe<Scalars['String']['input']>;
+  videoTitle_not_contains?: InputMaybe<Scalars['String']['input']>;
+  videoTitle_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  youtubeId?: InputMaybe<Scalars['String']['input']>;
+  youtubeId_contains?: InputMaybe<Scalars['String']['input']>;
+  youtubeId_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  youtubeId_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  youtubeId_not?: InputMaybe<Scalars['String']['input']>;
+  youtubeId_not_contains?: InputMaybe<Scalars['String']['input']>;
+  youtubeId_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type VideoSectionLinkingCollections = {
@@ -5184,7 +5194,11 @@ export enum VideoSectionOrder {
   SysPublishedAtAsc = 'sys_publishedAt_ASC',
   SysPublishedAtDesc = 'sys_publishedAt_DESC',
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  VideoTitleAsc = 'videoTitle_ASC',
+  VideoTitleDesc = 'videoTitle_DESC',
+  YoutubeIdAsc = 'youtubeId_ASC',
+  YoutubeIdDesc = 'youtubeId_DESC'
 }
 
 export type _Node = {
@@ -6327,6 +6341,17 @@ export type CtfTextBlockQuery = { __typename?: 'Query', componentTextBlock?: { _
             | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
            | null> }, assets: { __typename?: 'ComponentTextBlockBodyAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null };
+
+export type VideoSectionFieldsFragment = { __typename: 'VideoSection', videoTitle?: string | null, youtubeId?: string | null, sys: { __typename?: 'Sys', id: string } };
+
+export type CtfVideoQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+}>;
+
+
+export type CtfVideoQuery = { __typename?: 'Query', videoSection?: { __typename: 'VideoSection', videoTitle?: string | null, youtubeId?: string | null, sys: { __typename?: 'Sys', id: string } } | null };
 
 export type PageLinkFieldsFragment = { __typename: 'Page', slug?: string | null, pageName?: string | null, sys: { __typename?: 'Sys', id: string }, contentCollection?: { __typename?: 'PageContentCollection', items: Array<
       | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }

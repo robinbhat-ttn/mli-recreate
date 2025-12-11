@@ -1,0 +1,13 @@
+fragment VideoSectionFields on VideoSection{
+  __typename
+    sys{
+      id
+    }
+    videoTitle
+    youtubeId
+}
+query CtfVideo($id: String!, $locale: String, $preview: Boolean){
+  videoSection(id: $id, locale: $locale, preview: $preview){
+    ...VideoSectionFields
+  }
+}

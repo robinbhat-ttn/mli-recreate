@@ -26,6 +26,11 @@ export const componentMap = {
       module => module.CtfAccordion,
     ),
   ),
+  VideoSection: dynamic(() =>
+    import('@src/components/features/ctf-components/ctf-video-v2/ctf-video-v2').then(
+      module => module.CtfVideoV2,
+    ),
+  ),
 };
 
 export const componentGqlMap = {
@@ -52,6 +57,11 @@ export const componentGqlMap = {
   Accordion: dynamic(() =>
     import('@src/components/features/ctf-components/ctf-accordion/ctf-accordion-gql').then(
       module => module.CtfAccordionGql,
+    ),
+  ),
+  VideoSection: dynamic(() =>
+    import('@src/components/features/ctf-components/ctf-video-v2/ctf-video-v2-gql').then(
+      module => module.CtfVideoV2Gql,
     ),
   ),
 };

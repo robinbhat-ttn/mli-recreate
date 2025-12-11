@@ -192,7 +192,6 @@ type AssetLinkingCollections {
   headerCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): HeaderCollection
   linkCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): LinkCollection
   seoCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): SeoCollection
-  videoSectionCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): VideoSectionCollection
 }
 
 enum AssetOrder {
@@ -3079,7 +3078,8 @@ type VideoSection implements Entry & _Node {
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): VideoSectionLinkingCollections
   sys: Sys!
-  video(locale: String, preview: Boolean, useFallbackLocale: Boolean): Asset
+  videoTitle(locale: String, useFallbackLocale: Boolean): String
+  youtubeId(locale: String, useFallbackLocale: Boolean): String
 }
 
 type VideoSectionCollection {
@@ -3101,7 +3101,20 @@ input VideoSectionFilter {
   internalName_not_contains: String
   internalName_not_in: [String]
   sys: SysFilter
-  video_exists: Boolean
+  videoTitle: String
+  videoTitle_contains: String
+  videoTitle_exists: Boolean
+  videoTitle_in: [String]
+  videoTitle_not: String
+  videoTitle_not_contains: String
+  videoTitle_not_in: [String]
+  youtubeId: String
+  youtubeId_contains: String
+  youtubeId_exists: Boolean
+  youtubeId_in: [String]
+  youtubeId_not: String
+  youtubeId_not_contains: String
+  youtubeId_not_in: [String]
 }
 
 type VideoSectionLinkingCollections {
@@ -3137,6 +3150,10 @@ enum VideoSectionOrder {
   sys_publishedAt_DESC
   sys_publishedVersion_ASC
   sys_publishedVersion_DESC
+  videoTitle_ASC
+  videoTitle_DESC
+  youtubeId_ASC
+  youtubeId_DESC
 }
 
 interface _Node {

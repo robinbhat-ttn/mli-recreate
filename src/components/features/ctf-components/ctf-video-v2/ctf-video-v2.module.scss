@@ -1,0 +1,26 @@
+.videoContainer {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+
+  iframe {
+    height: 45rem;
+    width: 75rem;
+    border:none;
+    border-radius: 1.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .videoContainer {
+    padding: 2.75rem;
+  }
+}
+
+@media (max-width: 690px) {
+    .videoContainer{
+        iframe{
+            height:30rem;
+        }
+    }
+}
