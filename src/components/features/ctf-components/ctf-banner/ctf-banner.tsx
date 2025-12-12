@@ -1,6 +1,7 @@
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { Box } from '@mui/material';
+import Image from 'next/image';
 import React from 'react';
 
 import styles from './ctf-banner.module.scss';
@@ -41,7 +42,7 @@ export const CtfBanner = (props: Props) => {
                   {...inspectorMode({ entryId: t.sys?.id, fieldId: 'componentTextBlock' })}
                 >
                   {iconBlock?.url && (
-                    <img
+                    <Image
                       src={iconBlock?.url}
                       alt="icon"
                       className={styles['banner__text-icon']}
@@ -63,7 +64,13 @@ export const CtfBanner = (props: Props) => {
         <div className={styles['banner__right']}>
           {image && (
             <div className={styles['banner__image-wrap']}>
-              <img src={image} alt="Banner" className={styles['banner__image']} />
+              <Image
+                src={image}
+                alt="Banner"
+                className={styles['banner__image']}
+                height={'420'}
+                width={'348'}
+              />
             </div>
           )}
         </div>
@@ -87,7 +94,7 @@ export const CtfBanner = (props: Props) => {
                 <div className={styles['banner__card-body']}>
                   {cardImg && (
                     <div className={styles['banner__card-icon']}>
-                      <img
+                      <Image
                         src={cardImg}
                         alt={c.cardTitle}
                         height={c.cardImage?.height}

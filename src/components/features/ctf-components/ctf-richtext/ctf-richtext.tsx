@@ -444,6 +444,7 @@ export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
     classes.embeddedEntry,
     classes.paragrahGridListItem,
     entryBlocks,
+    disableContainer,
   ]);
 
   return (
