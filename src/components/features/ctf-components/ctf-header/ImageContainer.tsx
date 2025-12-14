@@ -5,7 +5,7 @@ import type { AssetFieldsFragment } from '../ctf-asset/__generated/ctf-asset.gen
 
 export const ImageContainer = (props: AssetFieldsFragment) => {
   return (
-    <div className={styles.imageContainer}>
+    <div className={styles.logoContainer}>
       <Image
         src={props.url ?? ''}
         alt={props.title ?? ''}

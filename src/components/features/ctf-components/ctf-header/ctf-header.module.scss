@@ -17,9 +17,13 @@
   }
 }
 
-.imageContainer img {
-  max-width: 100%;
-  height: auto;
+.logoContainer {
+  margin-right: auto;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 }
 
 
@@ -55,6 +59,7 @@
 
   li {
     padding: 0;
+
     a {
       color: $white;
       @include font-apply($font-noto, $fw-semi-bold);
@@ -175,7 +180,7 @@
 
 .hamburgerMenu {
   display: block;
-  width: min(360px, 85vw);
+  width: 360px;
   background: $white;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.15);
   padding: 24px 20px 32px;
@@ -183,8 +188,7 @@
   z-index: 3;
   right: 0;
   overflow-y: auto;
-  height: calc(100vh - 80px);
-  bottom: 0;
+  height: calc(100vh - 66px);
 }
 
 .hamburgerMenu>p {
