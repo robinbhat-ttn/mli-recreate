@@ -4,20 +4,20 @@
 .disclaimer-wrapper {
   p {
     color: $black;
-    font-size: 13px;
-    line-height: 18px;
+    font-size: $fs-13;
+    line-height: 1.125rem; // 18px
     @include font-apply($font-noto, $fw-regular);
-    padding: 0 32px;
+    padding: 0 $space-32;
   }
 }
 
 .life-insurance-wrapper {
-  padding-top: 48px;
+  padding-top: $space-48;
   p {
     color: $text-primary;
     @include font-apply($font-noto, $fw-regular);
     line-height: 1.44;
-    font-size: 16px;
+    font-size: $fs-16;
   }
 
   a {

@@ -6,17 +6,17 @@
 
   &__card {
     background: $white;
-    margin: 16px;
-    border-radius: 6px;
-    min-height: 260px;
+     margin: $space-16;
+     border-radius: $radius-6;
+     min-height: $space-260;
     display: flex;
-    gap: 44px;
+     gap: $space-44;
     align-items: flex-start;
     flex-direction: column;
   }
 
   &__media {
-    padding-left: 16px;
+     padding-left: $space-16;
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -25,26 +25,26 @@
   &__image-wrap {
     display: inline-block;
     position: relative;
-    width: 66px;
-    height: 77px;
+     width: 4.125rem; // 66px
+     height: 4.8125rem; // 77px
   }
 
   &__media-underline {
     display: block;
-    width: 60px;
-    height: 6px;
+     width: 3.75rem; // 60px
+     height: $space-6;
     background: $bg-muted;
-    margin: 16px auto 0;
-    border-radius: 3px;
+     margin: $space-16 auto 0;
+     border-radius: $radius-3;
   }
 
   &__body {
     border-left: 1px solid $border-light;
-    padding-left: 16px;
+     padding-left: $space-16;
   }
 
   &__title {
-    font-size: 16px;
+     font-size: $fs-16;
     color: $primary-dark;
     @include font-apply($font-lato, $fw-bold);
     margin: 0;
@@ -52,8 +52,8 @@
 
   &__content {
     color: $text-primary;
-    font-size: 16px;
-    padding: 20px 0;
+      font-size: $fs-16;
+      padding: $space-20 0;
     @include font-apply($font-noto, $fw-semi-bold);
     p {
       margin: 0 0 0.8rem 0;

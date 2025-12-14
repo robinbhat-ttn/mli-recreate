@@ -1,6 +1,10 @@
 @import './fonts.scss';
+@import './variables.scss';
 
 /* Global styles */
+html {
+  font-size: 16px;
+}
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -10,8 +14,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   @include font-apply($font-noto);
-  font-size: 16px;
-  line-height: 24px;
+  font-size: $fs-16;
+  line-height: 1.5rem; // 24px
 }
 
 audio, canvas, embed, iframe, img, object, svg, video {
@@ -19,8 +23,8 @@ audio, canvas, embed, iframe, img, object, svg, video {
 }
 
 .container-sec {
-  max-width: 1366px;
+  max-width: $space-1366;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 $space-16;
   width: 100%;
 }
