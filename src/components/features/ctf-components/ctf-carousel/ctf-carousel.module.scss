@@ -4,19 +4,28 @@
 .carousel {
   padding: 2rem 0;
 
+  :global(.slick-dots li button:before) {
+    font-size: 12px; 
+    opacity: 0.1; 
+  }
+
+  :global(.slick-dots li.slick-active button:before) {
+    opacity: 0.5;
+  }
+
   &__card {
     background: $white;
-    margin: 16px;
-    border-radius: 6px;
-    min-height: 260px;
+    margin: $space-16;
+    border-radius: $radius-6;
+    min-height: $space-260;
     display: flex;
-    gap: 44px;
+    gap: $space-44;
     align-items: flex-start;
     flex-direction: column;
   }
 
   &__media {
-    padding-left: 16px;
+    padding-left: $space-16;
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -25,26 +34,26 @@
   &__image-wrap {
     display: inline-block;
     position: relative;
-    width: 66px;
-    height: 77px;
+    width: 4.125rem; // 66px
+    height: 4.8125rem; // 77px
   }
 
   &__media-underline {
     display: block;
-    width: 60px;
-    height: 6px;
+    width: 3.75rem; // 60px
+    height: $space-6;
     background: $bg-muted;
-    margin: 16px auto 0;
-    border-radius: 3px;
+    margin: $space-16 auto 0;
+    border-radius: $radius-3;
   }
 
   &__body {
     border-left: 1px solid $border-light;
-    padding-left: 16px;
+    padding-left: $space-16;
   }
 
   &__title {
-    font-size: 16px;
+    font-size: $fs-16;
     color: $primary-dark;
     @include font-apply($font-lato, $fw-bold);
     margin: 0;
@@ -52,16 +61,19 @@
 
   &__content {
     color: $text-primary;
-    font-size: 16px;
-    padding: 20px 0;
+    font-size: $fs-16;
+    padding: $space-20 0;
     @include font-apply($font-noto, $fw-semi-bold);
     p {
       margin: 0 0 0.8rem 0;
+      color: $text-primary;
+      font-size: $fs-16;
+      @include font-apply($font-noto, $fw-semi-bold);
     }
   }
 
   &__arrow {
-    background: rgba(0,0,0,0.06);
+    background: rgba(0, 0, 0, 0.06);
     border: 0;
     width: 36px;
     height: 36px;
@@ -71,16 +83,16 @@
     justify-content: center;
     cursor: pointer;
 
-    &--left { 
-      left: -40px!important;
+    &--left {
+      left: -40px !important;
     }
 
-    &--right { 
-      right: -40px!important;
+    &--right {
+      right: -40px !important;
     }
 
     &:before {
-      content:none
+      content: none
     }
   }
 
@@ -89,7 +101,7 @@
     filter: grayscale(1);
     pointer-events: none;
     transition: opacity 0.2s ease;
-   }
+  }
 }
 
 

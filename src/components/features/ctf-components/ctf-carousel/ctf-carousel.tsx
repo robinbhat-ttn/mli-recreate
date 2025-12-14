@@ -59,16 +59,40 @@ const Arrow = ({ className, style, onClick }: any) => {
 };
 
 const settings: Settings = {
-  dots: false,
+  dots: false, // Default: no dots
+  arrows: true, // Default: show arrows
   infinite: false,
   speed: 400,
-  slidesToShow: 3,
+  slidesToShow: 3, // Default: 3 cards per slide
   slidesToScroll: 1,
   nextArrow: <Arrow />,
   prevArrow: <Arrow />,
   responsive: [
-    { breakpoint: 1024, settings: { slidesToShow: 2 } },
-    { breakpoint: 640, settings: { slidesToShow: 1 } },
+    {
+      breakpoint: 1222,
+      settings: {
+        slidesToShow: 3,
+        arrows: false,
+        dots: true,
+      },
+    },
+    {
+      breakpoint: 800,
+      settings: {
+        slidesToShow: 2,
+        arrows: false,
+        dots: true,
+      },
+    },
+    {
+      breakpoint: 500,
+      settings: {
+        slidesToShow: 1,
+        arrows: false,
+        dots: true,
+        adaptiveHeight: true,
+      },
+    },
   ],
 };
 
