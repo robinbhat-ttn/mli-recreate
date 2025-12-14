@@ -1,5 +1,6 @@
 @import './fonts.scss';
 @import './variables.scss';
+@import './mixins.scss';
 
 /* Global styles */
 html {
@@ -28,3 +29,9 @@ audio, canvas, embed, iframe, img, object, svg, video {
   padding: 0 $space-16;
   width: 100%;
 }
+
+.hidden-mobile {
+  @include max-width('md') {
+    display: none !important;
+  }
+} 

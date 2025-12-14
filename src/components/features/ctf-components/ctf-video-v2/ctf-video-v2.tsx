@@ -7,7 +7,7 @@ export const CtfVideoV2 = (props: VideoSectionFieldsFragment) => {
   const inspectorMode = useContentfulInspectorMode();
   return (
     <div
-      className={styles.videoContainer}
+      className={`container-sec ${styles.videoContainer}`}
       {...inspectorMode({ entryId: props.sys.id, fieldId: 'videoSection' })}
     >
       <iframe
