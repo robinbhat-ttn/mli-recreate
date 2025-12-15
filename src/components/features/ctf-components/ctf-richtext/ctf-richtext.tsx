@@ -2,8 +2,8 @@ import { useContentfulLiveUpdates } from '@contentful/live-preview/react';
 import { documentToReactComponents, Options } from '@contentful/rich-text-react-renderer';
 import { Block as RichtextBlock, BLOCKS, INLINES } from '@contentful/rich-text-types';
 import { Theme, Typography, Container } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { Variant } from '@mui/material/styles/createTypography';
-import { makeStyles } from '@mui/styles';
 import clsx from 'clsx';
 import React, { useMemo, useCallback } from 'react';
 
@@ -17,148 +17,144 @@ import { useContentfulContext } from '@src/contentful-context';
 import { useLayoutContext } from '@src/layout-context';
 import { OmitRecursive, tryget } from '@src/utils';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  paragrahGridListItem: {},
+const Root = styled('div')(({ theme }: { theme: Theme }) => ({
+  '& > ol, > ul': {
+    listStylePosition: 'inside',
+    marginBottom: theme.spacing(6),
+    paddingLeft: 0,
 
-  root: {
-    '& > ol, > ul': {
-      listStylePosition: 'inside',
-      marginBottom: theme.spacing(6),
-      paddingLeft: 0,
-
-      '& p': {
-        marginBottom: theme.spacing(2),
-        paddingLeft: theme.spacing(11),
-      },
-
-      '& $paragrahGridListItem': {
-        display: 'block',
-        '& $paragraphGridContainer': {
-          marginBottom: 'inherit',
-        },
-        '& p': {
-          display: 'list-item',
-          padding: 0,
-          margin: '0 0 0 2rem',
-        },
-      },
-    },
-    '& > ol': {
-      listStyleType: 'none',
-
-      '& $paragrahGridListItem': {
-        '& p': {
-          listStyle: 'decimal outside',
-        },
-      },
-    },
-    '& > ul': {
-      listStyleType: 'none',
-
-      '& $paragrahGridListItem': {
-        '& p': {
-          listStyle: 'disc outside',
-        },
-      },
-    },
-    '& table': {
-      borderSpacing: 0,
-      width: '100%',
-      tableLayout: 'auto',
-      textAlign: 'left',
-      marginTop: '1rem',
-      marginBottom: '1rem',
-      '& th': {
-        fontWeight: '600',
-        borderBottom: '1px solid #ddd',
-        verticalAlign: 'bottom',
-        paddingRight: '0.8rem',
-        paddingBottom: '0.8rem',
-        paddingLeft: '0.8rem',
-        borderRight: '1px solid #ddd',
-      },
-      '& tr': {
-        borderBottomWidth: '1px',
-      },
-      '& tr:last-child': {
-        borderBottomWidth: '0',
-      },
-      '& td': {
-        verticalAlign: 'top',
-        paddingTop: '0.8rem',
-        paddingRight: '0.8rem',
-        paddingBottom: '0.8rem',
-        paddingLeft: '0.8rem',
-        borderRight: '1px solid #ddd',
-      },
-      '& th:first-child': {
-        paddingLeft: '0',
-      },
-      '& th:last-child': {
-        paddingRight: '0',
-        borderRight: 0,
-      },
-      '& td:first-child': {
-        paddingLeft: '0',
-      },
-      '& td:last-child': {
-        paddingRight: '0',
-        borderRight: 0,
-      },
-
-      '& .MuiContainer-root': {
-        paddingLeft: 0,
-        paddingRight: 0,
-      },
-      '& $paragraphGridContainer p:last-child': {
-        marginBottom: 0,
-      },
-    },
-  },
-
-  embeddedEntry: {
-    lineHeight: 0,
-  },
-
-  paragraphGridContainer: {
     '& p': {
-      marginBottom: theme.spacing(6),
-      fontSize: '1.8rem',
-      color: '#414D63',
-    },
-    '& h1, h2, h3, h4, h5, h6': {
-      marginBottom: theme.spacing(7),
-      marginTop: theme.spacing(10),
-    },
-    '& blockquote': {
-      borderLeft: '1px solid #000',
-      fontStyle: 'italic',
+      marginBottom: theme.spacing(2),
       paddingLeft: theme.spacing(11),
     },
-    '& code': {
-      backgroundColor: '#F8F8F8',
+
+    '& li.paragraph-grid-list-item': {
       display: 'block',
-      fontFamily: 'Courier, monospace',
-      fontSize: '2rem',
-      lineHeight: '1.25',
-      overflow: 'auto',
-      padding: theme.spacing(18, 10, 15, 10),
+      '& .paragraph-grid-container': {
+        marginBottom: 'inherit',
+      },
+      '& p': {
+        display: 'list-item',
+        padding: 0,
+        margin: '0 0 0 2rem',
+      },
     },
-    '& a': {
-      color: 'inherit',
+  },
+  '& > ol': {
+    listStyleType: 'none',
+
+    '& li.paragraph-grid-list-item': {
+      '& p': {
+        listStyle: 'decimal outside',
+      },
     },
-    '& hr': {
-      border: 0,
-      borderTop: '1px solid #797979',
-      boxShadow: 'none',
-      marginBottom: theme.spacing(7),
-      marginLeft: 0,
-      marginTop: theme.spacing(10),
-      width: '50%',
+  },
+  '& > ul': {
+    listStyleType: 'none',
+
+    '& li.paragraph-grid-list-item': {
+      '& p': {
+        listStyle: 'disc outside',
+      },
     },
-    '& strong, b': {
-      fontWeight: 600,
+  },
+  '& table': {
+    borderSpacing: 0,
+    width: '100%',
+    tableLayout: 'auto',
+    textAlign: 'left',
+    marginTop: '1rem',
+    marginBottom: '1rem',
+    '& th': {
+      fontWeight: '600',
+      borderBottom: '1px solid #ddd',
+      verticalAlign: 'bottom',
+      paddingRight: '0.8rem',
+      paddingBottom: '0.8rem',
+      paddingLeft: '0.8rem',
+      borderRight: '1px solid #ddd',
     },
+    '& tr': {
+      borderBottomWidth: '1px',
+    },
+    '& tr:last-child': {
+      borderBottomWidth: '0',
+    },
+    '& td': {
+      verticalAlign: 'top',
+      paddingTop: '0.8rem',
+      paddingRight: '0.8rem',
+      paddingBottom: '0.8rem',
+      paddingLeft: '0.8rem',
+      borderRight: '1px solid #ddd',
+    },
+    '& th:first-child': {
+      paddingLeft: '0',
+    },
+    '& th:last-child': {
+      paddingRight: '0',
+      borderRight: 0,
+    },
+    '& td:first-child': {
+      paddingLeft: '0',
+    },
+    '& td:last-child': {
+      paddingRight: '0',
+      borderRight: 0,
+    },
+
+    '& .MuiContainer-root': {
+      paddingLeft: 0,
+      paddingRight: 0,
+    },
+    '& .paragraph-grid-container p:last-child': {
+      marginBottom: 0,
+    },
+  },
+}));
+
+const EmbeddedEntry = styled('div')({
+  lineHeight: 0,
+});
+
+const ParagraphGridContainerInner = styled('div')(({ theme }: { theme: Theme }) => ({
+  '& p': {
+    marginBottom: theme.spacing(6),
+    fontSize: '1.8rem',
+    color: '#414D63',
+  },
+  '& h1, h2, h3, h4, h5, h6': {
+    marginBottom: theme.spacing(7),
+    marginTop: theme.spacing(10),
+  },
+  '& blockquote': {
+    borderLeft: '1px solid #000',
+    fontStyle: 'italic',
+    paddingLeft: theme.spacing(11),
+  },
+  '& code': {
+    backgroundColor: '#F8F8F8',
+    display: 'block',
+    fontFamily: 'Courier, monospace',
+    fontSize: '2rem',
+    lineHeight: '1.25',
+    overflow: 'auto',
+    padding: theme.spacing(18, 10, 15, 10),
+  },
+  '& a': {
+    color: 'inherit',
+  },
+  '& hr': {
+    border: 0,
+    borderTop: '1px solid #797979',
+    boxShadow: 'none',
+    marginBottom: theme.spacing(7),
+    marginLeft: 0,
+    marginTop: theme.spacing(10),
+    width: '50%',
+  },
+  '& strong, b': {
+    fontWeight: 600,
   },
 }));
 
@@ -224,8 +220,6 @@ export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
     [links],
   );
 
-  const classes = useStyles();
-
   const ParagraphGridContainer = useCallback(
     (containerProps: { children?: any }) => {
       if (disableContainer) {
@@ -248,20 +242,16 @@ export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
           ].includes(layout.parent)}
         >
           <div className={containerClassName}>
-            <div className={clsx(classes.paragraphGridContainer, gridClassName)}>
+            <ParagraphGridContainerInner
+              className={clsx('paragraph-grid-container', gridClassName)}
+            >
               {containerProps.children}
-            </div>
+            </ParagraphGridContainerInner>
           </div>
         </Container>
       );
     },
-    [
-      classes.paragraphGridContainer,
-      containerClassName,
-      gridClassName,
-      layout.parent,
-      disableContainer,
-    ],
+    [containerClassName, gridClassName, layout.parent, disableContainer],
   );
 
   const options = useMemo(() => {
@@ -274,11 +264,7 @@ export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
           // NOTE: As the Ninetailed mergetag is the only inline entry used on the content model we don't have to setup the check through the links array.
           // If there will come additional inline entries this needs to be done.
           return (
-            <ComponentResolver
-              componentProps={{ sys: { id }, __typename }}
-              className={classes.embeddedEntry}
-              inline
-            />
+            <ComponentResolver componentProps={{ sys: { id }, __typename }} className="" inline />
           );
         }
         return <>{`${node.nodeType} ${id}`}</>;
@@ -289,7 +275,7 @@ export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
           const entry = entryBlocks.find(block => block!.sys.id === id);
 
           if (entry) {
-            return <ComponentResolver componentProps={entry} className={classes.embeddedEntry} />;
+            return <ComponentResolver componentProps={entry} className="" />;
           }
         }
         return <>{`${node.nodeType} ${id}`}</>;
@@ -428,7 +414,7 @@ export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
     opts.renderNode![BLOCKS.TABLE_HEADER_CELL] = (_, children) => <th>{children}</th>;
     opts.renderNode![BLOCKS.HR] = hrRenderer;
     opts.renderNode![BLOCKS.LIST_ITEM] = (_, children) => (
-      <li className={classes.paragrahGridListItem}>{children}</li>
+      <li className="paragraph-grid-list-item">{children}</li>
     );
 
     opts.renderText = text => {
@@ -438,18 +424,7 @@ export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
     };
 
     return opts;
-  }, [
-    ParagraphGridContainer,
-    assetBlocks,
-    classes.embeddedEntry,
-    classes.paragrahGridListItem,
-    entryBlocks,
-    disableContainer,
-  ]);
+  }, [ParagraphGridContainer, assetBlocks, entryBlocks, disableContainer]);
 
-  return (
-    <div className={clsx(props.className, classes.root)}>
-      {documentToReactComponents(json, options)}
-    </div>
-  );
+  return <Root className={clsx(props.className)}>{documentToReactComponents(json, options)}</Root>;
 };

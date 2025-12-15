@@ -1,31 +1,30 @@
-import { Drawer } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { Drawer, Theme } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 import { NavigationFieldsFragment } from '@src/components/features/ctf-components/ctf-navigation/__generated/ctf-navigation.generated';
 import { Link } from '@src/components/shared/link';
 
-const useStyles = makeStyles(theme => ({
-  menu: {
-    listStyle: 'none',
-    margin: 0,
-    padding: theme.spacing(4, 8),
-  },
-  menuItem: {
-    cursor: 'default',
-    display: 'block',
-    fontSize: '2.1rem',
-    lineHeight: '1.8',
-    position: 'relative',
+const Menu = styled('ul')(({ theme }: { theme: Theme }) => ({
+  listStyle: 'none',
+  margin: 0,
+  padding: theme.spacing(4, 8),
+}));
 
-    a: {
-      cursor: 'pointer',
-    },
+const MenuItem = styled('li')({
+  cursor: 'default',
+  display: 'block',
+  fontSize: '2.1rem',
+  lineHeight: '1.8',
+  position: 'relative',
+  '& a': {
+    cursor: 'pointer',
   },
-  submenu: {
-    borderLeft: '1px solid #eee',
-    listStyle: 'none',
-    padding: theme.spacing(0, 0, 0, 2),
-  },
+});
+
+const Submenu = styled('ul')(({ theme }: { theme: Theme }) => ({
+  borderLeft: '1px solid #eee',
+  listStyle: 'none',
+  padding: theme.spacing(0, 0, 0, 2),
 }));
 
 interface MobileMenuPropsInterface extends NavigationFieldsFragment {
@@ -34,8 +33,6 @@ interface MobileMenuPropsInterface extends NavigationFieldsFragment {
 }
 
 export const CtfMobileMenu = (props: MobileMenuPropsInterface) => {
-  const classes = useStyles();
-
   const { isOpen, onOpenChange } = props;
 
   const onCloseClick = (e, reason) => {
@@ -51,11 +48,9 @@ export const CtfMobileMenu = (props: MobileMenuPropsInterface) => {
       const href = menuItem?.mainLink?.linkUrl;
       const linkText = menuItem?.mainLink?.linkHeading;
       return (
-        <li key={menuItem.sys.id}>
-          <Link href={href} className={classes.menuItem}>
-            {linkText}
-          </Link>
-        </li>
+        <MenuItem key={menuItem.sys.id}>
+          <Link href={href}>{linkText}</Link>
+        </MenuItem>
       );
     });
   };
@@ -71,25 +66,25 @@ export const CtfMobileMenu = (props: MobileMenuPropsInterface) => {
     >
       {mobileMenuContent?.items.length && (
         <nav role="navigation">
-          <ul className={classes.menu}>
+          <Menu>
             {mobileMenuContent.items.map(
               menuItem =>
                 menuItem && (
-                  <li key={menuItem.sys.id} className={classes.menuItem}>
+                  <MenuItem key={menuItem.sys.id}>
                     {!menuItem.navigationLink ? (
                       menuItem.navigationTitle
                     ) : (
                       <Link href={`/${menuItem.navigationLink}`}>{menuItem.navigationTitle}</Link>
                     )}
                     {!menuItem.navigationLink && menuItem.subNavigationMenuCollection && (
-                      <ul className={classes.submenu}>
+                      <Submenu>
                         {renderMobileMenuLinks(menuItem.subNavigationMenuCollection)}
-                      </ul>
+                      </Submenu>
                     )}
-                  </li>
+                  </MenuItem>
                 ),
             )}
-          </ul>
+          </Menu>
         </nav>
       )}
     </Drawer>

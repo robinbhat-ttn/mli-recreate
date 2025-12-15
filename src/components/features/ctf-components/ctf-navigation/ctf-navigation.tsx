@@ -1,76 +1,73 @@
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 import { Theme } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
 
 import { NavigationFieldsFragment } from './__generated/ctf-navigation.generated';
 
 import { Link } from '@src/components/shared/link';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  menu: {
-    alignItems: 'center',
-    display: 'flex',
-    listStyle: 'none',
-    margin: 0,
-    padding: 0,
-  },
-  menuItem: {
-    alignItems: 'center',
-    cursor: 'default',
-    display: 'inline-flex',
-    fontSize: '1.7rem',
-    fontWeight: 400,
-    height: '8rem',
-    lineHeight: 1.9,
-    marginRight: theme.spacing(8),
-    position: 'relative',
+const Menu = styled('ul')({
+  alignItems: 'center',
+  display: 'flex',
+  listStyle: 'none',
+  margin: 0,
+  padding: 0,
+});
 
-    [theme.breakpoints.up('lg')]: {
-      marginRight: theme.spacing(10),
-    },
+const Submenu = styled('ul')(({ theme }: { theme: Theme }) => ({
+  backgroundColor: '#fff',
+  boxShadow: '0 3px 6px #00000029',
+  borderRadius: '14px',
+  left: theme.spacing(10 * -1),
+  listStyle: 'none',
+  opacity: 0,
+  padding: theme.spacing(4, 10),
+  pointerEvents: 'none',
+  position: 'absolute',
+  top: 'calc(100% - 2rem)',
+  transform: 'translateY(20%)',
+  transition: 'all 0.3s ease-in-out',
+}));
 
-    '& a': {
-      cursor: 'pointer',
-      display: 'inline-block',
-      transition: 'transform 0.2s ease-in-out',
-    },
-
-    '&:hover, &:focus, &:focus-within': {
-      '& > a': {
-        transform: 'translateY(-4px)',
-      },
-      '& $submenu': {
-        opacity: 1,
-        pointerEvents: 'all',
-        transform: 'translateY(0)',
-      },
-    },
+const MenuItem = styled('li')(({ theme }: { theme: Theme }) => ({
+  alignItems: 'center',
+  cursor: 'default',
+  display: 'inline-flex',
+  fontSize: '1.7rem',
+  fontWeight: 400,
+  height: '8rem',
+  lineHeight: 1.9,
+  marginRight: theme.spacing(8),
+  position: 'relative',
+  [theme.breakpoints.up('lg')]: {
+    marginRight: theme.spacing(10),
   },
-  submenu: {
-    backgroundColor: '#fff',
-    boxShadow: '0 3px 6px #00000029',
-    borderRadius: '14px',
-    left: theme.spacing(10 * -1),
-    listStyle: 'none',
-    opacity: 0,
-    padding: theme.spacing(4, 10),
-    pointerEvents: 'none',
-    position: 'absolute',
-    top: 'calc(100% - 2rem)',
-    transform: 'translateY(20%)',
-    transition: 'all 0.3s ease-in-out',
+  '& a': {
+    cursor: 'pointer',
+    display: 'inline-block',
+    transition: 'transform 0.2s ease-in-out',
   },
-  submenuItem: {
-    '&:hover, &:focus, &:focus-within': {
-      '& > a': {
-        transform: 'translateY(-4px)',
-      },
+  '&:hover, &:focus, &:focus-within': {
+    '& > a': {
+      transform: 'translateY(-4px)',
+    },
+    [`& ${Submenu}`]: {
+      opacity: 1,
+      pointerEvents: 'all',
+      transform: 'translateY(0)',
     },
   },
 }));
 
+const SubmenuItem = styled('li')({
+  '&:hover, &:focus, &:focus-within': {
+    '& > a': {
+      transform: 'translateY(-4px)',
+    },
+  },
+});
+
 export const CtfNavigation = (props: NavigationFieldsFragment) => {
-  const classes = useStyles();
   const inspectorMode = useContentfulInspectorMode();
 
   const navigationContent = props;
@@ -81,16 +78,15 @@ export const CtfNavigation = (props: NavigationFieldsFragment) => {
       const linkText = menuItem?.mainLink?.linkHeading;
 
       return (
-        <li
+        <SubmenuItem
           key={menuItem.sys.id}
-          className={listClassName}
           {...inspectorMode({
             entryId: menuItem.sys.id,
             fieldId: 'mainLink',
           })}
         >
           <Link href={href}>{linkText}</Link>
-        </li>
+        </SubmenuItem>
       );
     });
   };
@@ -99,13 +95,12 @@ export const CtfNavigation = (props: NavigationFieldsFragment) => {
     <>
       {navigationContent?.items.length && (
         <nav role="navigation">
-          <ul className={classes.menu}>
+          <Menu>
             {navigationContent.items.map(
               menuItem =>
                 menuItem && (
-                  <li
+                  <MenuItem
                     key={menuItem.sys.id}
-                    className={classes.menuItem}
                     {...inspectorMode({
                       entryId: menuItem.sys.id,
                       fieldId: 'navigationTitle',
@@ -117,17 +112,14 @@ export const CtfNavigation = (props: NavigationFieldsFragment) => {
                       <Link href={`${menuItem.navigationLink}`}>{menuItem.navigationTitle}</Link>
                     )}
                     {!menuItem.navigationLink && menuItem.subNavigationMenuCollection && (
-                      <ul className={classes.submenu}>
-                        {renderNavigationLinks(
-                          menuItem.subNavigationMenuCollection,
-                          classes.submenuItem,
-                        )}
-                      </ul>
+                      <Submenu>
+                        {renderNavigationLinks(menuItem.subNavigationMenuCollection, SubmenuItem)}
+                      </Submenu>
                     )}
-                  </li>
+                  </MenuItem>
                 ),
             )}
-          </ul>
+          </Menu>
         </nav>
       )}
     </>
