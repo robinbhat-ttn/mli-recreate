@@ -1,5 +1,5 @@
 import { Theme } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 import React from 'react';
 import parse from 'rehype-parse';
@@ -7,29 +7,27 @@ import rehypeReact from 'rehype-react';
 import breaks from 'remark-breaks';
 import { unified } from 'unified';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
+const Root = styled('div')(({ theme }: { theme: Theme }) => ({
+  ...theme.typography.body1,
+  ...theme.typography.body2,
+  ...theme.typography.h2,
+  ...theme.typography.h3,
+  ...theme.typography.h4,
+  ...theme.typography.h5,
+  ...theme.typography.h6,
+  '& p': {
     ...theme.typography.body1,
-    ...theme.typography.body2,
-    ...theme.typography.h2,
-    ...theme.typography.h3,
-    ...theme.typography.h4,
-    ...theme.typography.h5,
-    ...theme.typography.h6,
-    '& p': {
-      ...theme.typography.body1,
-    },
-    '& a': {
-      color: theme.palette.primary.main,
-      textDecoration: 'none',
-    },
-    '& li': {
-      ...theme.typography.body1,
-      marginBottom: theme.spacing(3),
-    },
-    '& strong, b': {
-      fontWeight: 600,
-    },
+  },
+  '& a': {
+    color: theme.palette.primary.main,
+    textDecoration: 'none',
+  },
+  '& li': {
+    ...theme.typography.body1,
+    marginBottom: theme.spacing(3),
+  },
+  '& strong, b': {
+    fontWeight: 600,
   },
 }));
 
@@ -43,10 +41,9 @@ type Props = {
 };
 
 export const Markdown = (props: Props) => {
-  const classes = useStyles();
   return (
-    <div className={clsx(classes.root, props.className)}>
+    <Root className={clsx(props.className)}>
       {(renderer.processSync(props.text) as any).result}
-    </div>
+    </Root>
   );
 };

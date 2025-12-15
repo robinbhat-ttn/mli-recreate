@@ -1,6 +1,6 @@
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import Image from 'next/image';
 import React from 'react';
 
@@ -65,6 +65,8 @@ export const CtfBanner = (props: Props) => {
           {image && (
             <div className={styles['banner__image-wrap']}>
               <Image
+                priority
+                fetchPriority="high"
                 src={image}
                 alt="Banner"
                 className={styles['banner__image']}
