@@ -1,3 +1,9 @@
+// Font Variables
+@mixin font-apply($family, $weight: $fw-regular) {
+  font-family: $family;
+  font-weight: $weight;
+}
+
 // Breakpoint Variables
 $breakpoints: (
   'xs': 0,
