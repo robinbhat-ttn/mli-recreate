@@ -90,12 +90,12 @@ export const CtfBanner = (props: Props) => {
               {...inspectorMode({ entryId: t.sys?.id, fieldId: 'componentTextBlock' })}
             >
               {iconBlock?.url && (
-                <img
+                <Image
                   src={iconBlock?.url}
                   alt="icon"
                   className={styles['banner__text-icon']}
-                  height={iconBlock?.height}
-                  width={iconBlock?.width}
+                  height={iconBlock?.height || 24}
+                  width={iconBlock?.width || 24}
                 />
               )}
               {isSimpleParagraph ? (

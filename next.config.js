@@ -62,9 +62,16 @@ module.exports = withPlugins(plugins, {
    */
   images: {
     deviceSizes: [320, 420, 768, 1024, 1200, 1600],
-    domains: ['images.ctfassets.net','images.eu.ctfassets.net'],
+    domains: ['images.ctfassets.net', 'images.eu.ctfassets.net'],
     path: '/_next/image',
     loader: 'default',
+  },
+
+  sassOptions: {
+    additionalData: `
+    @import "@src/styles/variables.scss";
+    @import "@src/styles/mixins.scss";
+  `,
   },
 
   webpack(config, options) {

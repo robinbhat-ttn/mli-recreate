@@ -1,12 +1,13 @@
 @import './fonts.scss';
-@import './variables.scss';
-@import './mixins.scss';
 
 /* Global styles */
 html {
   font-size: 16px;
 }
-*, *::before, *::after {
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -14,12 +15,19 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  @include font-apply($font-noto);
+  font-family: 'Noto Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: $fs-16;
   line-height: 1.5rem; // 24px
 }
 
-audio, canvas, embed, iframe, img, object, svg, video {
+audio,
+canvas,
+embed,
+iframe,
+img,
+object,
+svg,
+video {
   display: block;
 }
 
@@ -34,4 +42,4 @@ audio, canvas, embed, iframe, img, object, svg, video {
   @include max-width('md') {
     display: none !important;
   }
-} 
+}
