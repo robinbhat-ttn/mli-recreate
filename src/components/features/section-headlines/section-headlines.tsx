@@ -1,7 +1,6 @@
 import type { InspectorModeTags } from '@contentful/live-preview/dist/inspectorMode/types';
 import { Theme, Typography, TypographyProps } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import clsx from 'clsx';
 import React from 'react';
 
 import { Markdown } from '@src/components/features/markdown';
