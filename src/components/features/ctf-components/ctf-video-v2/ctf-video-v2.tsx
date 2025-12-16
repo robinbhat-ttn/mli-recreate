@@ -1,8 +1,9 @@
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
+import Image from 'next/image';
+import { useState } from 'react';
 
 import { VideoSectionFieldsFragment } from './__generated/ctf-video-v2.generated';
 import styles from './ctf-video-v2.module.scss';
-import { useState } from 'react';
 
 export const CtfVideoV2 = (props: VideoSectionFieldsFragment) => {
   const inspectorMode = useContentfulInspectorMode();
@@ -22,18 +23,20 @@ export const CtfVideoV2 = (props: VideoSectionFieldsFragment) => {
           onClick={() => setIsPlaying(true)}
           aria-label="Play video"
         >
-          <img
+          <Image
             src={thumbnailUrl}
             alt="Video thumbnail"
             loading="lazy"
             className={styles.ytLiteThumb}
+            width={1200}
+            height={720}
           />
           <span className={styles.ytLitePlayIcon} aria-hidden="true" />
         </button>
       ) : (
         <iframe
           src={videoUrl}
-          title={props.videoTitle ?? 'Video'}
+          title={videoTitle ?? 'Video'}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerPolicy="strict-origin-when-cross-origin"
         />

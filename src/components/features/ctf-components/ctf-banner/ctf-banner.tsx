@@ -72,8 +72,6 @@ export const CtfBanner = (props: Props) => {
                 className={styles['banner__image']}
                 height={'420'}
                 width={'348'}
-                priority
-                fetchPriority="high"
               />
             </div>
           )}
