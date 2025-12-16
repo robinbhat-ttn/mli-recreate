@@ -130,7 +130,7 @@ const FormSectionTitle = styled(Typography)(({ theme }: { theme: Theme }) => ({
   paddingBottom: theme.spacing(1.5),
 }));
 
-const StyledFormControlLabel = styled(FormControlLabel)(({ theme }: { theme: Theme }) => ({
+const StyledFormControlLabel = styled(FormControlLabel)(({ theme: _theme }: { theme: Theme }) => ({
   marginLeft: 0,
   marginRight: 0,
   '& .MuiSwitch-root': {
