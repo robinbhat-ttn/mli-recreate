@@ -9,9 +9,6 @@ import type { CarouselFieldsFragment } from './__generated/ctf-carousel.generate
 import styles from './ctf-carousel.module.scss';
 import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
 
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-
 const Slider = dynamic(() => import('react-slick'), { ssr: false });
 
 const Arrow = ({ className, style, onClick }: any) => {

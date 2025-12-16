@@ -1,13 +1,85 @@
 .carousel {
   padding: 2rem 0;
+  position: relative;
 
-  :global(.slick-dots li button:before) {
-    font-size: 12px; 
-    opacity: 0.1; 
+  /* Custom dots styling */
+  :global(.slick-dots) {
+    position: absolute;
+    bottom: 15px;
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
   }
 
-  :global(.slick-dots li.slick-active button:before) {
-    opacity: 0.5;
+  :global(.slick-dots li) {
+    position: relative;
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin: 0 6px;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  :global(.slick-dots li button) {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: none;
+    background: #d0d0d0;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0;
+    transition: background 0.3s ease;
+
+    &:before {
+      content: none;
+    }
+  }
+
+  :global(.slick-dots li.slick-active button) {
+    background: #000;
+  }
+
+  :global(.slick-slider) {
+    position: relative;
+  }
+
+  &__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1;
+
+    &--left {
+      left: -50px;
+    }
+
+    &--right {
+      right: -50px;
+    }
+
+    &:before {
+      content: none;
+    }
+
+    svg {
+      width: 32px;
+      height: 32px;
+    }
   }
 
   &__card {
@@ -69,28 +141,8 @@
     }
   }
 
-  &__arrow {
-    background: rgba(0, 0, 0, 0.06);
-    border: 0;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-
-    &--left {
-      left: -40px !important;
-    }
-
-    &--right {
-      right: -40px !important;
-    }
-
-    &:before {
-      content: none
-    }
+  :global(.slick-slide) {
+    pointer-events: auto;
   }
 
   :global(.slick-disabled) {
