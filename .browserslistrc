@@ -1,7 +1,7 @@
-# Browserslist config to target modern browsers
-# This prevents unnecessary transpilation of ES2020+ features
-> 0.5%
-last 2 versions
-not dead
-not IE 11
+# Target modern browsers only - this prevents unnecessary polyfills
+# Remove browsers that don't support ES2020+ features
+last 2 Chrome versions
+last 2 Firefox versions
+last 2 Safari versions
+last 2 Edge versions
 
