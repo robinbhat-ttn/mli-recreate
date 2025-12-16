@@ -17,6 +17,22 @@ export default class CustomDocument extends Document {
           {/* PWA primary color */}
           <meta name="theme-color" content={colorfulTheme.palette.primary.main} />
 
+          {/* Preload critical fonts to reduce CLS */}
+          <link
+            rel="preload"
+            href="/assets/fonts/noto-sans-400-latin.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+          <link
+            rel="preload"
+            href="/assets/fonts/lato-700.woff2"
+            as="font"
+            type="font/woff2"
+            crossOrigin="anonymous"
+          />
+
           {/* <link
             href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;600;700;800;900&display=swap"
             rel="stylesheet"

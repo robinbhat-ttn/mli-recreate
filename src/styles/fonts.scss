@@ -15,9 +15,10 @@
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  ascent-override: 110%;
-  descent-override: 27%;
+  ascent-override: 109%;
+  descent-override: 26%;
   line-gap-override: 0%;
+  size-adjust: 100%;
 }
 @font-face {
   font-family: 'Noto Sans';
@@ -25,9 +26,10 @@
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  ascent-override: 110%;
-  descent-override: 27%;
+  ascent-override: 109%;
+  descent-override: 26%;
   line-gap-override: 0%;
+  size-adjust: 100%;
 }
 
 // Lato Regular
@@ -37,9 +39,10 @@
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  ascent-override: 105%;
-  descent-override: 28%;
+  ascent-override: 103%;
+  descent-override: 27%;
   line-gap-override: 0%;
+  size-adjust: 100%;
 }
 
 // Lato Bold
@@ -49,7 +52,8 @@
   font-weight: 700;
   font-style: normal;
   font-display: swap;
-  ascent-override: 105%;
-  descent-override: 28%;
+  ascent-override: 103%;
+  descent-override: 27%;
   line-gap-override: 0%;
+  size-adjust: 100%;
 }
