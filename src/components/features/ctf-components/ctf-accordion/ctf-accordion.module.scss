@@ -4,17 +4,20 @@
   padding-right: $space-72;
   box-sizing: border-box;
   padding-bottom: $space-32;
+  contain: layout style;
 }
 
 .accordion__item {
   box-shadow: none;
   border-bottom: 1px solid $border-medium;
+  contain: layout style;
 }
 
 .accordion__summary {
   padding: $space-24 0; 
   min-height: auto; 
   align-items: center;
+  contain: layout style;
 
   .MuiAccordionSummary-content {
     margin: 0;
