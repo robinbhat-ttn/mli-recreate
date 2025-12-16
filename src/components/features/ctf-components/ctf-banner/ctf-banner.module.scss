@@ -1,53 +1,117 @@
-@import '@src/styles/fonts.scss';
-@import '@src/styles/variables.scss';
+
 
 .banner {
-  padding: 80px 0 0;
+  padding: $space-64 0 0;
   background: $bg-muted;
-  height: 480px;
-  margin-bottom: 130px;
+  height: $space-480;
+  margin-bottom: $space-190;
   position: relative;
+  @include min-width('lg') {
+    padding: $space-80 0 0;
+    margin-bottom: $space-130;
+  }
 
   &__inner {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 75rem;
+    margin: $space-32 auto 0;
     display: flex;
-    gap: 24px;
+    gap: $space-24;
     align-items: flex-start;
+    justify-content: center;
+
+    @include min-width('lg') {
+      margin-top: 0;
+    }
+  }
+
+  &__texts--mobile {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+    row-gap: $space-16;
+    padding: $space-16 $space-16 $space-20;
+    position: relative;
+    top: -48px;
+    z-index: 2;
+    background: #f1f6fa 0% 0% no-repeat padding-box;
+
+    @include min-width('sm') {
+      width: 70%;
+    }
+
+    @include min-width('lg') {
+      display: none;
+    }
+
+    &>.banner__text-item {
+      display: flex;
+      align-items: center;
+      gap: $space-10;
+      color: $text-primary;
+      font-size: $fs-10;
+      flex: 0 0 50%;
+      line-height: 1.5;
+      @include font-apply($font-noto);
+
+      span {
+        color: $gray-500;
+      }
+
+      .banner__text-icon {
+        max-width: 100%;
+        height: auto;
+        display: inline-block;
+      }
+
+      >div>p {
+        margin: 0;
+      }
+    }
   }
 
   &__left {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: $space-32;
+    width: 60%;
+    @include min-width('lg') {
+      width: auto;
+    }
   }
 
   &__title {
     margin: 0;
-    font-size: 40px;
+    font-size: $fs-20;
     color: $text-primary;
-    padding-top: 56px;
     @include font-apply($font-lato, $fw-bold);
     line-height: 1.1;
+
+    @include min-width('lg') {
+      font-size: $fs-40;
+      padding-top: $space-56;
+    }
   }
 
   &__texts {
     display: flex;
     flex-wrap: wrap;
-    gap: 24px;
+    gap: $space-24;
     list-style: none;
     padding: 0;
     margin: 0;
 
-      & > .banner__text-item {
+    &>.banner__text-item {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: $space-10;
       color: $text-primary;
-      font-size: 18px;
-      flex: 0 0 calc(50% - 24px); 
-      max-width: calc(50% - 24px);
-      line-height: 28px;
+      font-size: $fs-18;
+      flex: 0 0 calc(50% - 1.5rem); // 24px
+      max-width: calc(50% - 1.5rem); // 24px
+      line-height: 1.75rem; // 28px
       @include font-apply($font-noto);
 
       .banner__text-icon {
@@ -56,7 +120,7 @@
         display: inline-block;
       }
 
-      > div > p {
+      >div>p {
         margin: 0;
       }
     }
@@ -66,85 +130,115 @@
   &__cards-wrapper {
     position: relative;
     z-index: 2;
-    top: -190px;
     padding: 0;
+    top: -48px;  
+    @include min-width('lg') {
+      top: -$space-190;
+    }
   }
 
   &__cards {
     display: flex;
-    gap: 40px;
-    padding: 32px 48px;
+    column-gap: $space-10;
     background: $white;
-    border-radius: 16px;
+    border-radius: 0;
     justify-content: center;
     box-shadow: 0px 4px 8px rgba($text-primary, 0.12);
+    flex-wrap: wrap;
+    row-gap: $space-20;
+    padding: $space-24 $space-10;  
+
+    @include min-width('md') {
+      padding: $space-32 $space-48;
+      row-gap: $space-40;
+      column-gap: $space-40;
+      border-radius: $radius-16;
+    }
   }
 
   &__card {
     display: block;
     text-decoration: none;
     color: inherit;
-    border-radius: 12px;
+    border-radius: $radius-12;
     background: $white;
     box-shadow: 0px 4px 8px rgba($accent, 0.16);
     border: 1px solid $border-light;
     width: 100%;
-    min-width: 104px;
-    max-width: 174px;
+    flex: 0 0 calc(33.333% - 1rem);
+    @include min-width('lg') {
+      min-width: $space-104;
+      max-width: $space-174;
+    }
 
     &-top {
-      padding: 8px;
+      padding: $space-16;
       text-align: center;
       background: transparent;
       position: relative;
+
+      @include min-width('lg') {
+        padding: $space-8;
+      }
     }
 
     &-pill {
       display: inline-block;
-      padding: 4px;
-      border-radius: 12px;
+      padding: $space-4;
+      border-radius: $radius-12;
       background: #cef5e1;
-      font-size: 10px;
-      color: $success;
+      color: #099A4F;
       @include font-apply($font-noto, $fw-bold);
       position: absolute;
-      top: -10px;
+      top: -$space-10;
       left: 0;
       width: 100%;
-      line-height: 16px;
-
-      p{
+      font-size: $fs-10;
+      line-height: 10.5px;
+      p {
         margin: 0;
       }
     }
 
     &-body {
-      padding: 16px 0;
+      padding: 0 0 $space-10;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
-      min-width: 174px;
-      max-width: 100px;
+      gap: $space-10;
+      
+      @include min-width('lg') {
+        min-width: $space-174;
+        max-width: 6.25rem; // 100px
+        padding: $space-16 0;
+      }
     }
 
     &-icon img {
-      width: 56px;
+      width: $space-44;
       height: auto;
       display: block;
+
+      @include min-width('lg') {
+        width: $space-56;
+      }
     }
 
     &-title {
-      font-size: 16px;
+      font-size: $fs-13;
       text-align: center;
       color: $text-primary;
-      padding: 0 16px;
-      line-height: 21px;
+      line-height: 16px;
       @include font-apply($font-noto, $fw-medium);
+      @include min-width('lg') {
+        font-size: $fs-16;
+        line-height: 1.3125rem;
+        padding: 0 $space-16;
+      }
     }
 
     &-sub {
-      font-size: 13px;
+      font-size: $fs-13;
       color: $text-primary;
       text-align: center;
     }
@@ -156,62 +250,43 @@
     justify-content: center;
 
     .banner__image-wrap {
-        position: relative; 
-        z-index: 2; 
-        padding-top: 56px;        
+      position: relative;
+      z-index: 2;
+      @include min-width('lg') {
+        padding-top: $space-56;
+      }
 
-      /* Create a circular soft background using ::before */
       &::before {
-        display: block;
         content: "";
-        background: $accent;
-        width: 38.456rem;
-        height: 38.456rem;
         border-radius: 50%;
-        position: absolute;
-        top: 24px;
-        right: -17px;
-        transform: translateZ(0);
-        z-index: 1;
+        background: #3597ec;
+        width: 150px;
+        height: 128px;
+        border-radius: 50%;
         opacity: 0.08;
-        pointer-events: none;
-
-        @media (max-width: 900px) {
-          width: 12rem;
-          height: 12rem;
-          top: -10%;
-          right: 1.5rem;
-          box-shadow: 0 0 0 8px rgba($accent-light, 0.65),
-                      0 4px 18px rgba($accent, 0.12);
+        position: absolute;
+        right: -10px;
+        border: solid #c1ddf5 5px;
+        top: -22%;
+        @include min-width('lg') {
+          width: 26.456rem;
+          height: 26.456rem;
+          right: -2.5rem;
+          border: solid #c1ddf5 20px;
+          top: 8px;
         }
       }
     }
 
     .banner__image {
-      width: 348px;
+      width: $space-110;
       height: auto;
       position: relative;
       z-index: 3;
       display: block;
-
+      @include min-width('lg') {
+        width: $space-348;
+      }
     }
   }
 }
-
-
-// @media (max-width: 900px) {
-//   .banner {
-//     &__inner {
-//       flex-direction: column;
-//       align-items: stretch;
-//     }
-//     &__right {
-//       width: auto;
-//       order: -1;
-//       margin-bottom: 10px;
-//     }
-//     &__cards {
-//       gap: 12px;
-//     }
-//   }
-// }

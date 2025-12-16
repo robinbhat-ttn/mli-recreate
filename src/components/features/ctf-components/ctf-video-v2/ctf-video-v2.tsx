@@ -12,7 +12,7 @@ export const CtfVideoV2 = (props: VideoSectionFieldsFragment) => {
   const videoUrl = `https://www.youtube.com/embed/${props.youtubeId}?autoplay=1`;
   return (
     <div
-      className={styles.videoContainer}
+      className={`container-sec ${styles.videoContainer}`}
       {...inspectorMode({ entryId: props.sys.id, fieldId: 'videoSection' })}
     >
       {!isPlaying ? (

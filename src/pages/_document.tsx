@@ -1,6 +1,4 @@
 /* eslint-disable react/no-danger */
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { ServerStyleSheets } from '@mui/styles';
 import Document, { DocumentContext, Head, Main, NextScript, Html } from 'next/document';
 import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -62,25 +60,11 @@ CustomDocument.getInitialProps = async function (ctx: DocumentContext) {
   // 3. app.render
   // 4. page.render
 
-  // Render app and page and get the context of the page with collected side effects.
-  const sheets = new ServerStyleSheets();
-  const originalRenderPage = ctx.renderPage;
-
-  ctx.renderPage = () =>
-    originalRenderPage({
-      enhanceApp: App => props => sheets.collect(<App {...props} />),
-    });
-
   const initialProps = await Document.getInitialProps(ctx);
 
   return {
     ...initialProps,
     locale: ctx.locale,
-    styles: (
-      <>
-        {sheets.getStyleElement()}
-        {flush.createStyleRegistry().styles() || null}
-      </>
-    ),
+    styles: <>{flush.createStyleRegistry().styles() || null}</>,
   };
 };

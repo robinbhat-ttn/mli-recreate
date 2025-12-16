@@ -1,20 +1,17 @@
 import { MenuItem, Select, SvgIcon, Theme } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
 import { useRouter } from 'next/router';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  localeMenu: {
-    alignItems: 'center',
-    display: 'flex',
-    '& > svg': {
-      marginRight: theme.spacing(2),
-    },
+const LocaleMenu = styled('div')(({ theme }: { theme: Theme }) => ({
+  alignItems: 'center',
+  display: 'flex',
+  '& > svg': {
+    marginRight: theme.spacing(2),
   },
 }));
 
 export const LanguageSelector = () => {
   const { locale, locales } = useRouter();
-  const classes = useStyles();
   const router = useRouter();
 
   const languageNames = new Intl.DisplayNames([], {
@@ -22,7 +19,7 @@ export const LanguageSelector = () => {
   });
 
   return locales && locales.length > 1 ? (
-    <div className={classes.localeMenu}>
+    <LocaleMenu>
       <SvgIcon>
         <g clipPath="url(#clip-footer-lang)">
           <path
@@ -50,6 +47,6 @@ export const LanguageSelector = () => {
           </MenuItem>
         ))}
       </Select>
-    </div>
+    </LocaleMenu>
   ) : null;
 };

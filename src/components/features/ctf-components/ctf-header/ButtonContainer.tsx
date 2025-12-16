@@ -24,7 +24,7 @@ export const ButtonContainer = (props: ButtonCollectionFieldsFragment) => {
         button?.__typename == 'Button' ? (
           <button
             key={btnIndex}
-            className={styles.headerButton}
+            className={` hidden-mobile ${styles.headerButton}`}
             {...inspectorMode({ entryId: button.sys.id, fieldId: 'button' })}
           >
             <Link href={button.buttonLink ?? '/'}>{button.buttonText}</Link>

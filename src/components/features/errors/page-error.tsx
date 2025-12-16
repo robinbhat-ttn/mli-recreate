@@ -1,5 +1,5 @@
 import { Theme, Container, Grid, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { File } from 'react-kawaii';
@@ -14,33 +14,34 @@ interface PropsInterface {
   };
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    width: '100%',
-    minhHeight: '100%',
-    color: 'black',
-  },
-  container: {
-    paddingTop: theme.spacing(16),
-  },
-  content: {
-    '& > *': {
-      marginBottom: theme.spacing(6),
-    },
-  },
-  icon: {
-    marginRight: theme.spacing(4),
-    marginBottom: theme.spacing(3),
-  },
-  headlineWrap: {
-    alignItems: 'center',
-    display: 'flex',
+const Root = styled('div')({
+  width: '100%',
+  minhHeight: '100%',
+  color: 'black',
+});
+
+const StyledContainer = styled(Container)(({ theme }: { theme: Theme }) => ({
+  paddingTop: theme.spacing(16),
+}));
+
+const Content = styled('div')(({ theme }: { theme: Theme }) => ({
+  '& > *': {
+    marginBottom: theme.spacing(6),
   },
 }));
 
+const IconWrapper = styled('div')(({ theme }: { theme: Theme }) => ({
+  marginRight: theme.spacing(4),
+  marginBottom: theme.spacing(3),
+}));
+
+const HeadlineWrap = styled('div')({
+  alignItems: 'center',
+  display: 'flex',
+});
+
 export const PageError = (props: PropsInterface) => {
   const { t } = useTranslation();
-  const classes = useStyles();
 
   const error =
     props.error === undefined
@@ -51,31 +52,28 @@ export const PageError = (props: PropsInterface) => {
       : props.error;
 
   return (
-    <div className={classes.root}>
+    <Root>
       <PageContainer>
-        <Container className={classes.container}>
+        <StyledContainer>
           <Grid container spacing={4} justifyContent="center">
             <Grid item xs={12} sm={8}>
-              <div className={classes.headlineWrap}>
-                <File
-                  size={100}
-                  mood="ko"
-                  color={colorfulTheme.palette.primary.main}
-                  className={classes.icon}
-                />
+              <HeadlineWrap>
+                <IconWrapper>
+                  <File size={100} mood="ko" color={colorfulTheme.palette.primary.main} />
+                </IconWrapper>
                 <Typography variant="h1" gutterBottom>
                   {t('error.code', { code: error.code })}
                 </Typography>
-              </div>
+              </HeadlineWrap>
               {error.message && (
-                <div className={classes.content}>
+                <Content>
                   <Typography variant="h4">{error.message}</Typography>
-                </div>
+                </Content>
               )}
             </Grid>
           </Grid>
-        </Container>
+        </StyledContainer>
       </PageContainer>
-    </div>
+    </Root>
   );
 };

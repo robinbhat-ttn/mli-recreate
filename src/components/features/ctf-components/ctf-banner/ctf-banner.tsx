@@ -1,6 +1,6 @@
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
 import Image from 'next/image';
 import React from 'react';
 
@@ -27,7 +27,7 @@ export const CtfBanner = (props: Props) => {
         <div className={styles['banner__left']}>
           <h1 className={styles['banner__title']}>{title}</h1>
 
-          <ul className={styles['banner__texts']}>
+          <ul className={`hidden-mobile ${styles['banner__texts']}`}>
             {texts.map((t: any) => {
               const iconBlock = t.body?.links?.assets?.block?.[0];
               const firstNode = t?.body?.json?.content?.[0];
@@ -65,6 +65,8 @@ export const CtfBanner = (props: Props) => {
           {image && (
             <div className={styles['banner__image-wrap']}>
               <Image
+                priority
+                fetchPriority="high"
                 src={image}
                 alt="Banner"
                 className={styles['banner__image']}
@@ -77,6 +79,38 @@ export const CtfBanner = (props: Props) => {
           )}
         </div>
       </div>
+      <ul className={styles['banner__texts--mobile']}>
+        {texts.map((t: any) => {
+          const iconBlock = t.body?.links?.assets?.block?.[0];
+          const firstNode = t?.body?.json?.content?.[0];
+          const isSimpleParagraph =
+            firstNode &&
+            firstNode.nodeType === 'paragraph' &&
+            firstNode.content.every(c => c.nodeType === 'text');
+          return (
+            <li
+              key={t.sys?.id}
+              className={styles['banner__text-item']}
+              {...inspectorMode({ entryId: t.sys?.id, fieldId: 'componentTextBlock' })}
+            >
+              {iconBlock?.url && (
+                <Image
+                  src={iconBlock?.url}
+                  alt="icon"
+                  className={styles['banner__text-icon']}
+                  height={iconBlock?.height || 24}
+                  width={iconBlock?.width || 24}
+                />
+              )}
+              {isSimpleParagraph ? (
+                <span>{firstNode.content.map(c => c.value).join('')}</span>
+              ) : (
+                <CtfRichtext {...t.body} />
+              )}
+            </li>
+          );
+        })}
+      </ul>
       <div className={`container-sec ${styles['banner__cards-wrapper']}`}>
         <div className={styles['banner__cards']}>
           {cards.map((c: any) => {

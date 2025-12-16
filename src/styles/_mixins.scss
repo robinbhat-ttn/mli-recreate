@@ -1,8 +1,14 @@
+// Font Variables
+@mixin font-apply($family, $weight: $fw-regular) {
+  font-family: $family;
+  font-weight: $weight;
+}
+
 // Breakpoint Variables
 $breakpoints: (
   'xs': 0,
   'sm': 640px,
-  'md': 768px,
+  'md': 768px, 
   'lg': 1024px,
   'xl': 1280px,
   '2xl': 1536px,
@@ -12,7 +18,7 @@ $breakpoint-mobile: 640px;
 $breakpoint-tablet: 768px;
 $breakpoint-tablet-lg: 900px;
 $breakpoint-desktop: 1024px;
-$breakpoint-desktop-lg: 1280px;
+$breakpoint-desktop-lg: 1280px; 
 
 // Media Query Mixins
 
@@ -44,8 +50,15 @@ $breakpoint-desktop-lg: 1280px;
 
 // Range media query (between two breakpoints)
 @mixin between($min, $max) {
-  $min-value: if(map-has-key($breakpoints, $min), map-get($breakpoints, $min), $min);
-  $max-value: if(map-has-key($breakpoints, $max), map-get($breakpoints, $max), $max);
+  $min-value: $min;
+  @if map-has-key($breakpoints, $min) {
+    $min-value: map-get($breakpoints, $min);
+  }
+
+  $max-value: $max;
+  @if map-has-key($breakpoints, $max) {
+    $max-value: map-get($breakpoints, $max);
+  }
   
   @media (min-width: $min-value) and (max-width: $max-value - 1px) {
     @content;

@@ -1,4 +1,5 @@
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
+import { Box } from '@mui/material';
 import Link from 'next/link';
 
 import styles from './ctf-header.module.scss';
@@ -7,7 +8,11 @@ import type { NavigationFieldsFragment } from '../ctf-navigation/__generated/ctf
 export const NavigationContainer = (props: NavigationFieldsFragment) => {
   const inspectorMode = useContentfulInspectorMode();
   return (
-    <nav className={styles.navigationMenu}>
+    <Box
+      component="nav"
+      className={styles.navigationMenu}
+      sx={{ display: { xs: 'none', md: 'block' } }}
+    >
       <ul>
         {props?.items.map((item, index) => (
           <li
@@ -50,6 +55,6 @@ export const NavigationContainer = (props: NavigationFieldsFragment) => {
           </li>
         ))}
       </ul>
-    </nav>
+    </Box>
   );
 };

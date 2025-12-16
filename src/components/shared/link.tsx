@@ -1,19 +1,15 @@
 import MuiButton from '@mui/material/Button';
 import MuiLink from '@mui/material/Link';
-import { makeStyles } from '@mui/styles';
-import clsx from 'clsx';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import queryString from 'query-string';
-import { ReactNode } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 
-const useStyles = makeStyles(() => ({
-  baseAnchor: {
-    display: 'block',
-    color: 'inherit',
-    textDecoration: 'none',
-  },
-}));
+const baseAnchorStyle: CSSProperties = {
+  display: 'block',
+  color: 'inherit',
+  textDecoration: 'none',
+};
 
 interface Props {
   children: ReactNode;
@@ -93,8 +89,6 @@ export const Link = (props: Props) => {
     }
   }
 
-  const classes = useStyles();
-
   if (props.href === undefined || props.href === null) return <>{props.children}</>;
 
   const external = href.startsWith('http://') || href.startsWith('https://');
@@ -111,7 +105,8 @@ export const Link = (props: Props) => {
         size={size}
         startIcon={startIcon}
         endIcon={endIcon}
-        title={title}>
+        title={title}
+      >
         {children}
       </MuiButton>
     ) : (
@@ -123,7 +118,8 @@ export const Link = (props: Props) => {
         target={props.target}
         rel="noopener noreferrer"
         onClick={() => onClick && onClick()}
-        title={title}>
+        title={title}
+      >
         {children}
       </MuiLink>
     );
@@ -131,7 +127,14 @@ export const Link = (props: Props) => {
 
   if (withoutMaterial === true) {
     return (
-      <NextLink href={href} as={as} passHref className={clsx(classes.baseAnchor, className)} title={title}>
+      <NextLink
+        href={href}
+        as={as}
+        passHref
+        className={className}
+        style={baseAnchorStyle}
+        title={title}
+      >
         {children}
       </NextLink>
     );
@@ -149,7 +152,8 @@ export const Link = (props: Props) => {
           size={size}
           startIcon={startIcon}
           endIcon={endIcon}
-          title={title}>
+          title={title}
+        >
           {children}
         </MuiButton>
       </NextLink>
@@ -164,7 +168,8 @@ export const Link = (props: Props) => {
         underline={underlineStyle}
         color={color}
         onClick={() => onClick && onClick()}
-        title={title}>
+        title={title}
+      >
         {children}
       </MuiLink>
     </NextLink>
