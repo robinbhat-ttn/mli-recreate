@@ -66,7 +66,6 @@ const CustomApp = ({
         <title key="title">{contentfulConfig.meta.title}</title>
         <meta key="og:title" property="og:title" content={contentfulConfig.meta.title} />
         <meta key="description" name="description" content={contentfulConfig.meta.description} />
-
         <meta
           key="og:description"
           property="og:description"
@@ -76,6 +75,14 @@ const CustomApp = ({
         <meta key="og:image:width" property="og:image:width" content="1200" />
         <meta key="og:image:height" property="og:image:height" content="630" />
         <meta key="og:type" property="og:type" content="website" />
+        <meta key="twitter:card" property="twitter:card" content="summary_large_image" />
+        <meta key="twitter:title" property="twitter:title" content={contentfulConfig.meta.title} />
+        <meta
+          key="twitter:description"
+          property="twitter:description"
+          content={contentfulConfig.meta.description}
+        />
+        <meta key="twitter:image" property="twitter:image" content={contentfulConfig.meta.image} />
       </Head>
 
       <ContentfulContentProvider router={router}>
