@@ -23,7 +23,7 @@ export const HamburgerMenu = (props: HamburgerMenuProps) => {
       }
       {...inspectorMode({ entryId: props.sys.id, fieldId: 'hamburgerMenu' })}
     >
-      <p>{props?.menuTitle}</p>
+      <h2>{props?.menuTitle}</h2>
       <ul>
         <>
           {props.menuItemsCollection?.items.map((item, index) => (
@@ -38,7 +38,12 @@ export const HamburgerMenu = (props: HamburgerMenuProps) => {
                   </Link>
                 ) : (
                   <div {...inspectorMode({ entryId: item?.sys.id, fieldId: 'subNavigationItem' })}>
-                    <button onClick={toggleSubMenu}>{item?.mainLink?.linkHeading}</button>
+                    <button
+                      onClick={toggleSubMenu}
+                      className={isSubMenuOpen ? styles.hamburgerSubmenuOpen : ''}
+                    >
+                      {item?.mainLink?.linkHeading}
+                    </button>
                     <ul
                       className={
                         isSubMenuOpen ? styles.hamburgerSubMenuOpen : styles.hamburgerSubMenuClosed
