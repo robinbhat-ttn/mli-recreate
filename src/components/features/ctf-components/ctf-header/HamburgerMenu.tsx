@@ -25,49 +25,47 @@ export const HamburgerMenu = (props: HamburgerMenuProps) => {
     >
       <h2>{props?.menuTitle}</h2>
       <ul>
-        <>
-          {props.menuItemsCollection?.items.map((item, index) => (
-            <React.Fragment key={index}>
-              <li key={index} className={styles.hamburgerMenuItem}>
-                {item?.__typename === 'Link' ? (
-                  <Link
-                    href={item.slug ?? item.linkUrl ?? '/'}
-                    {...inspectorMode({ entryId: item.sys.id, fieldId: 'link' })}
+        {props.menuItemsCollection?.items.map((item, index) => (
+          <React.Fragment key={index}>
+            <li key={index} className={styles.hamburgerMenuItem}>
+              {item?.__typename === 'Link' ? (
+                <Link
+                  href={item.slug ?? item.linkUrl ?? '/'}
+                  {...inspectorMode({ entryId: item.sys.id, fieldId: 'link' })}
+                >
+                  {item.linkHeading}
+                </Link>
+              ) : (
+                <div {...inspectorMode({ entryId: item?.sys.id, fieldId: 'subNavigationItem' })}>
+                  <button
+                    onClick={toggleSubMenu}
+                    className={isSubMenuOpen ? styles.hamburgerSubmenuOpen : ''}
                   >
-                    {item.linkHeading}
-                  </Link>
-                ) : (
-                  <div {...inspectorMode({ entryId: item?.sys.id, fieldId: 'subNavigationItem' })}>
-                    <button
-                      onClick={toggleSubMenu}
-                      className={isSubMenuOpen ? styles.hamburgerSubmenuOpen : ''}
-                    >
-                      {item?.mainLink?.linkHeading}
-                    </button>
-                    <ul
-                      className={
-                        isSubMenuOpen ? styles.hamburgerSubMenuOpen : styles.hamburgerSubMenuClosed
-                      }
-                    >
-                      {item?.secondaryLinksCollection?.items.map((subItem, subIndex) => (
-                        <li
-                          key={subIndex}
-                          className={styles.hamburgerSubMenuItem}
-                          {...inspectorMode({ entryId: subItem?.sys.id, fieldId: 'link' })}
-                        >
-                          <Link href={subItem?.slug ?? subItem?.linkUrl ?? '/'}>
-                            {subItem?.linkHeading}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </li>
-              <hr />
-            </React.Fragment>
-          ))}
-        </>
+                    {item?.mainLink?.linkHeading}
+                  </button>
+                  <ul
+                    className={
+                      isSubMenuOpen ? styles.hamburgerSubMenuOpen : styles.hamburgerSubMenuClosed
+                    }
+                  >
+                    {item?.secondaryLinksCollection?.items.map((subItem, subIndex) => (
+                      <li
+                        key={subIndex}
+                        className={styles.hamburgerSubMenuItem}
+                        {...inspectorMode({ entryId: subItem?.sys.id, fieldId: 'link' })}
+                      >
+                        <Link href={subItem?.slug ?? subItem?.linkUrl ?? '/'}>
+                          {subItem?.linkHeading}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </li>
+            <hr />
+          </React.Fragment>
+        ))}
       </ul>
     </div>
   );
