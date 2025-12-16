@@ -1,4 +1,6 @@
 .disclaimer-wrapper {
+  contain: layout style;
+  
   p {
     color: $black;
     font-size: $fs-10;
@@ -16,6 +18,8 @@
 }
 
 .life-insurance-wrapper {
+  contain: layout style;
+  
   @include min-width('lg') {
     padding: $space-48;
   }
