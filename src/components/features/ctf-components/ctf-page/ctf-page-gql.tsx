@@ -59,21 +59,34 @@ const CtfPageGgl = ({ slug: slugFromProps }: Props) => {
           <>
             <title key="title">{metaTags.title}</title>
             <meta key="og:title" property="og:title" content={metaTags.title} />
+            <meta key="twitter:title" property="twitter:title" content={metaTags.title} />
           </>
         )}
         {metaTags.description && (
           <>
             <meta key="description" name="description" content={metaTags.description} />
             <meta key="og:description" property="og:description" content={metaTags.description} />
+            <meta
+              key="twitter:description"
+              property="twitter:description"
+              content={metaTags.description}
+            />
           </>
         )}
         {robots.length > 0 && <meta key="robots" name="robots" content={robots.join(', ')} />}
         {metaTags.image && (
-          <meta
-            key="og:image"
-            property="og:image"
-            content={`${metaTags.image.url}?w=1200&h=630&f=faces&fit=fill`}
-          />
+          <>
+            <meta
+              key="og:image"
+              property="og:image"
+              content={`${metaTags.image.url}?w=1200&h=630&f=faces&fit=fill`}
+            />
+            <meta
+              key="twitter:image"
+              property="twitter:image"
+              content={`${metaTags.image.url}?w=1200&h=630&f=faces&fit=fill`}
+            />
+          </>
         )}
         {page.slug && (
           <meta
