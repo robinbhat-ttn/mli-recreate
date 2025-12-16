@@ -1,5 +1,7 @@
-# Browserslist config to target modern browsers only
+# Browserslist config to target modern browsers
 # This prevents unnecessary transpilation of ES2020+ features
+> 0.5%
 last 2 versions
-> 1%
 not dead
+not IE 11
+

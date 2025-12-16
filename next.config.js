@@ -49,17 +49,6 @@ module.exports = withPlugins(plugins, {
   reactStrictMode: false,
   compress: true,
 
-  // Target modern browsers to avoid polyfills
-  outputFileTracing: true,
-
-  experimental: {
-    // Reduce JavaScript output
-    optimizePackageImports: [
-      '@mui/material',
-      '@mui/icons-material',
-    ],
-  },
-
   /**
    * add the headers you would like your next server to use
    * documentation: https://nextjs.org/docs/api-reference/next.config.js/headers
