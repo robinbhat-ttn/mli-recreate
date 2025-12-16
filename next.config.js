@@ -43,7 +43,7 @@ module.exports = withPlugins(plugins, {
    * Please note that while not in experimental, the swcMinification may cause issues in your build.
    * example: https://github.com/vercel/next.js/issues/30429 (Yup email validation causes an exception)
    */
-  // swcMinify: true,
+  swcMinify: true,
 
   poweredByHeader: false,
   reactStrictMode: false,
