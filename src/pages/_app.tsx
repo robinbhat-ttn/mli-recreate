@@ -1,8 +1,8 @@
 import { ContentfulLivePreviewProvider } from '@contentful/live-preview/react';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import { DehydratedState, Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AppProps } from 'next/app';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { appWithTranslation, SSRConfig } from 'next-i18next';
 import { useEffect, useState } from 'react';
@@ -16,6 +16,15 @@ import { queryConfig } from '@src/lib/gql-client';
 import colorfulTheme from '@src/theme';
 import contentfulConfig from 'contentful.config';
 import nextI18nConfig from 'next-i18next.config';
+
+// Only load React Query Devtools in development
+const ReactQueryDevtools = dynamic(
+  () =>
+    import('@tanstack/react-query-devtools').then(mod => ({
+      default: mod.ReactQueryDevtools,
+    })),
+  { ssr: false },
+);
 
 const LivePreviewProvider = ({ children }) => {
   const { previewActive, locale } = useContentfulContext();
@@ -82,7 +91,7 @@ const CustomApp = ({
       <ContentfulContentProvider router={router}>
         <LivePreviewProvider>
           <QueryClientProvider client={queryClient}>
-            <ReactQueryDevtools initialIsOpen={false} />
+            {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
             <StyledEngineProvider injectFirst>
               <ThemeProvider theme={colorfulTheme}>
                 <Hydrate state={dehydratedState}>
