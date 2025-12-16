@@ -1,0 +1,10 @@
+query SitemapPages($locale: String, $preview: Boolean) {
+  pageCollection(locale: $locale, preview: $preview, limit: 100) {
+    items {
+      slug
+      sys {
+        publishedAt
+      }
+    }
+  }
+}

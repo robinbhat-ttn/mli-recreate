@@ -6434,3 +6434,11 @@ export type ComponentReferenceFieldsFragment =
   | ComponentReferenceFields_TabbedFormContainer_Fragment
   | ComponentReferenceFields_VideoSection_Fragment
 ;
+
+export type SitemapPagesQueryVariables = Exact<{
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+}>;
+
+
+export type SitemapPagesQuery = { __typename?: 'Query', pageCollection?: { __typename?: 'PageCollection', items: Array<{ __typename?: 'Page', slug?: string | null, sys: { __typename?: 'Sys', publishedAt?: any | null } } | null> } | null };
