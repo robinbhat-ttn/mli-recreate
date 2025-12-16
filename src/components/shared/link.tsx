@@ -1,6 +1,5 @@
 import MuiButton from '@mui/material/Button';
 import MuiLink from '@mui/material/Link';
-import clsx from 'clsx';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import queryString from 'query-string';

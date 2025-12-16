@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next';
 //import { CtfNavigationGql } from '@src/components/features/ctf-components/ctf-navigation/ctf-navigation-gql';
 import { Link } from '@src/components/shared/link';
 import Logo from '@src/icons/mli-logo.svg';
-import { HEADER_HEIGHT, HEADER_HEIGHT_MD, CONTAINER_WIDTH } from '@src/theme';
+import { HEADER_HEIGHT, CONTAINER_WIDTH } from '@src/theme';
 
 const StyledAppBar = styled(AppBar)({
   boxShadow: '0 2px 6px #00000021',

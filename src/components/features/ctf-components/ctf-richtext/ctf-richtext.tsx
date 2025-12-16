@@ -113,10 +113,6 @@ const Root = styled('div')(({ theme }: { theme: Theme }) => ({
   },
 }));
 
-const EmbeddedEntry = styled('div')({
-  lineHeight: 0,
-});
-
 const ParagraphGridContainerInner = styled('div')(({ theme }: { theme: Theme }) => ({
   '& p': {
     marginBottom: theme.spacing(6),

@@ -72,7 +72,7 @@ export const CtfNavigation = (props: NavigationFieldsFragment) => {
 
   const navigationContent = props;
 
-  const renderNavigationLinks = (menuGroup, listClassName) => {
+  const renderNavigationLinks = menuGroup => {
     return menuGroup?.items?.map(menuItem => {
       const href = menuItem?.mainLink?.linkUrl;
       const linkText = menuItem?.mainLink?.linkHeading;
@@ -113,7 +113,7 @@ export const CtfNavigation = (props: NavigationFieldsFragment) => {
                     )}
                     {!menuItem.navigationLink && menuItem.subNavigationMenuCollection && (
                       <Submenu>
-                        {renderNavigationLinks(menuItem.subNavigationMenuCollection, SubmenuItem)}
+                        {renderNavigationLinks(menuItem.subNavigationMenuCollection)}
                       </Submenu>
                     )}
                   </MenuItem>

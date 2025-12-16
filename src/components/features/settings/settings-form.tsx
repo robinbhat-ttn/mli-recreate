@@ -8,7 +8,6 @@ import {
   Typography,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import queryString from 'query-string';
 import React, { useState } from 'react';
