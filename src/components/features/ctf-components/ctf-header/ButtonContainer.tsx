@@ -32,12 +32,11 @@ export const ButtonContainer = (props: ButtonCollectionFieldsFragment) => {
         ) : (
           <div key={btnIndex} className={styles.dropdownWrapper} ref={dropdownRef}>
             <button
-              className={styles.headerButton}
+              className={`${styles.headerButton} ${isOpen ? styles.headerButtonOpen : ''}`}
               onClick={() => setIsOpen(prev => !prev)}
               {...inspectorMode({ entryId: button?.sys.id, fieldId: 'buttonWithLinks' })}
             >
               {button?.buttonText}
-              <span className={styles.arrow}>{isOpen ? '▲' : '▼'}</span>
             </button>
 
             {isOpen && (

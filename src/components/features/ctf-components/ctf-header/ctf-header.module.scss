@@ -1,4 +1,3 @@
-
 .headerContainer {
   background-color: $primary;
   position: fixed;
@@ -11,7 +10,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: $space-12 $space-16;
+    padding: 0 $space-12;
   }
 }
 
@@ -27,40 +26,49 @@
 
 /*****Navigation Menu Style ******/
 .navigationItem {
-  list-style: none;
+  >a {
+    padding: 1.8rem 0;
+    display: inline-block;
+  }
 }
 
-.navigationItem ul {
-  padding-left: 0;
+.subNavigationItem {
+  display: flex;
+  row-gap: 20px;
+  flex-direction: column;
 }
 
 .subNavigationItemMainLink {
-  list-style: none;
+  @include font-apply($font-noto, $fw-bold);
+  font-size: $fs-16;
+  line-height: 24px;
 }
-
-.subNavigationItemSecondaryLink {
-  list-style: none;
-}
-
 
 /* Parent container */
 .navigationMenu {
   position: relative;
   flex: 4;
+
+  ul>li>ul>li>ul {
+    flex-direction: column;
+  }
 }
 
-.navigationMenu ul {
+.navigationMenu .navigationMenu__inner {
   display: flex;
   padding: 0;
-  margin-left: $space-40;
+  margin: 0 0 0 $space-40;
   gap: $space-44;
+  //padding: 28.8px 0;
 
-  li {
+  >li {
     padding: 0;
 
-    a {
-      color: $white;
-      @include font-apply($font-noto, $fw-semi-bold);
+    >a {
+      //color: #3597EC;
+      //@include font-apply($font-noto, $fw-semi-bold);
+      padding: 28.8px 0;
+      display: inline-block;
       font-size: 15px;
       line-height: 24px;
     }
@@ -71,7 +79,7 @@
 .navigationItem {
   position: relative;
   list-style: none;
-  padding: 10px 15px;
+  //padding: 10px 15px;
   cursor: pointer;
 }
 
@@ -82,53 +90,50 @@
   font-weight: 600;
   position: relative;
   padding-right: 20px;
-  /* space for arrow */
 }
 
-/* --- DOWN ARROW (default state) --- */
-.navigationItem>a::after {
-  content: "▼";
-  font-size: 10px;
+/* --- SVG ARROW --- */
+.navigationArrow {
   position: absolute;
   right: 0;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) rotate(90deg);
   transition: transform 0.25s ease;
+  margin-left: 8px;
 }
 
-/* --- UP ARROW ON HOVER --- */
-.navigationItem:hover>a::after {
-  transform: translateY(-50%) rotate(180deg);
+/* --- ARROW ROTATION ON HOVER --- */
+.navigationItemWrapper:hover .navigationArrow {
+  transform: translateY(-50%) rotate(-90deg);
 }
 
 /* --- SUBMENU (Initially hidden) --- */
-.navigationItem>ul {
+.navigationItemWrapper .subNavigationMenu {
   display: none;
-  /* hidden by default */
   position: absolute;
-  left: 0;
-  top: 100%;
   background: $white;
   padding: 10px 0;
   margin: 0;
-  list-style: none;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1);
   min-width: 180px;
   z-index: 999;
-
+  column-gap: 2rem;
+  border-radius: 0 0 1rem 1rem;
+  border-top: 1px solid #DCDDE0;
 }
 
-/* Show submenu on hover */
-.navigationItem:hover>ul {
+/* Show submenu on hover of wrapper */
+.navigationItemWrapper:hover .subNavigationMenu {
   display: flex;
-  padding: 2rem;
+  padding: 1.5rem 1.875rem;
+  flex-direction: row;
 }
 
-/* --- SUBMENU ITEMS --- */
-.subNavigationItemMainLink,
-.subNavigationItemSecondaryLink {
-  padding: 8px 15px;
-  white-space: nowrap;
+/* --- UP ARROW ON HOVER --- */
+.navigationItemWrapper:hover .navigationItem>a::after {
+  transform: translateY(-50%) rotate(180deg);
 }
 
 .subNavigationItemMainLink a,
@@ -138,26 +143,20 @@
   font-size: 14px;
 }
 
-/* Hover styling for submenu items */
-.subNavigationItemMainLink:hover,
-.subNavigationItemSecondaryLink:hover {
-  background: $bg-light;
-}
-
 .subNavigationItemMainLink a {
-  color: $accent;
+  color: #3597EC;
   font-weight: 800;
-  font-size: medium;
 }
 
 .subNavigationItemSecondaryLink a {
-  color: $text-muted;
-  font-size: medium;
-  font-weight: 600;
+  @include font-apply($font-noto, $fw-regular);
+  color: #626772;
+  line-height: 24px;
+  font-size: $fs-16;
 }
 
 .subNavigationItemSecondaryLink:hover a {
-  color: $accent;
+  color: #3597ec;
 }
 
 .hamburgerSection {
@@ -178,22 +177,25 @@
 
 .hamburgerMenu {
   display: block;
-  width: 360px;
+  width: 24rem;
   background: $white;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.15);
-  padding: 24px 20px 32px;
+  padding: 16px 1px 16px 1px;
   position: fixed;
   z-index: 3;
   right: 0;
-  overflow-y: auto;
-  height: calc(100vh - 66px);
+  overflow: hidden auto;
+  height: calc(-53px + 100vh);
 }
 
-.hamburgerMenu>p {
-  margin: 0;
-  color: $text-muted;
-  font-weight: 600;
-  font-size: smaller;
+.hamburgerMenu>h2 {
+  margin: 0 0 0 5px;
+  color: #969aa1;
+  padding-inline: 23px;
+  padding-bottom: 23px;
+  font-size: 12px;
+  font-weight: 700;
+  @include font-apply($font-lato, $fw-regular)
 }
 
 .hamburgerMenuHidden {
@@ -206,6 +208,14 @@
   list-style: none;
   margin: 0;
   padding-left: 0;
+
+  hr {
+    margin: 1rem 0;
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin-left: 28px;
+    margin-right: 14px;
+  }
 }
 
 .hamburgerMenu ol {
@@ -215,19 +225,46 @@
 .hamburgerMenuItem {
   list-style: none;
   position: relative;
+  margin-left: 20px;
+  padding: 0 10px;
 }
 
 .hamburgerMenuItem a {
   text-decoration: none;
-  color: $black;
+  font-size: 16px;
+  color: $text-primary;
+  @include font-apply($font-noto, $fw-medium);
 }
 
 .hamburgerMenuItem button {
   background-color: transparent;
   border: none;
-  font-size: large;
-  margin-bottom: 1rem;
-  cursor: pointer
+  font-size: 16px;
+  color: $text-primary;
+  @include font-apply($font-noto, $fw-medium);
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 8px;
+
+  &::after {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+  }
+}
+
+.hamburgerSubmenuOpen::after {
+  transform: rotate(-135deg) !important ;
 }
 
 
@@ -239,13 +276,24 @@
   display: block;
 }
 
-.hamburgerMenuItem div ul {
-  padding-left: 0;
+.hamburgerMenuItem>div>ul {
+  list-style: none;
+  margin-top: 1rem;
+  border-color: #ebedf0;
+  color: $text-primary;
+  margin-bottom: 2rem;
+  border-left: 1px solid lightgray;
+  margin-left: 16px;
 }
 
 .hamburgerSubMenuItem {
   list-style: none;
-  margin-left: 2rem;
+  padding: $space-10 0 $space-10 $space-18;
+  a {
+    color: #626772;
+    @include font-apply($font-noto, $fw-regular);
+    font-size: 16px;
+  }
 }
 
 .hamburgerIcon {
@@ -288,12 +336,38 @@
   @include font-apply($font-noto, $fw-bold);
 }
 
+.headerButton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &::after {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+    margin-bottom: 4px;
+  }
+}
+
 .headerButton a {
   color: $secondary;
   text-decoration: none;
   font-size: 14px;
   line-height: 21px;
   @include font-apply($font-noto, $fw-bold);
+}
+
+.headerButtonOpen::after {
+  transform: rotate(-135deg) !important;
+  margin-top: 8px;
+  margin-bottom: 0;
 }
 
 .dropdownWrapper {
