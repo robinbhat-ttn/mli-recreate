@@ -1,10 +1,10 @@
-import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 import { Box } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
-import styles from './ctf-header.module.scss';
 import type { NavigationFieldsFragment } from '../ctf-navigation/__generated/ctf-navigation.generated';
+import styles from './ctf-header.module.scss';
 
 export const NavigationContainer = (props: NavigationFieldsFragment) => {
   const inspectorMode = useContentfulInspectorMode();
