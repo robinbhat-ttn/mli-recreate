@@ -4,7 +4,7 @@
   p {
     color: $black;
     font-size: $fs-10;
-    line-height: 14px;
+    line-height: $lh-normal;
     @include font-apply($font-noto, $fw-regular);
     padding: 0;
     margin-top: $space-48;
@@ -12,7 +12,7 @@
     @include min-width('lg') {
       padding: 0 $space-32;
       font-size: $fs-13;
-      line-height: 1.125rem;
+      line-height: $lh-normal;
     }
   }
 }
@@ -26,33 +26,33 @@
 
   h2 {
     font-size: $fs-18;
-    color: #143a72;
+    color: $primary;
     @include font-apply($font-lato, $fw-bold);
     position: relative;
-    line-height: 1.4;
+    line-height: $lh-relaxed;
     @include min-width('lg') {
       font-size: $fs-32;
-      line-height: 1.44;
+      line-height: $lh-relaxed;
     }
 
     &::before {
       content: "";
       position: absolute;
       left: 0;
-      bottom: -8px;
-      border-radius: 0.25rem;
-      height: 4px;
-      width: 2rem;
-      background: linear-gradient(45deg, #0092db 0%, #91DCFD 100%);
+      bottom: -$space-8;
+      border-radius: $radius-4;
+      height: $space-4;
+      width: $space-32;
+      background: linear-gradient(45deg, $accent 0%, #91DCFD 100%);
     }
   }
 
   p {
     color: $text-primary;
     @include font-apply($font-noto, $fw-regular);
-    line-height: 1.44;
+    line-height: $lh-relaxed;
     font-size: $fs-16;
-    padding: 24px 0 0;
+    padding: $space-24 0 0;
   }
 
   a {

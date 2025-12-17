@@ -415,7 +415,7 @@ export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
 
     opts.renderText = text => {
       return text.split('\n').reduce((children, textSegment, index) => {
-        return [...children, index > 0 && <br key={textSegment} />, textSegment];
+        return [...children, index > 0 && <br key={`br-${index}`} />, textSegment];
       }, [] as any[]);
     };
 

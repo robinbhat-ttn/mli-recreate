@@ -1,0 +1,307 @@
+.tabbedForm {
+  background: $bg-muted;
+  padding: $space-64 $space-16;
+
+  &__container {
+    max-width: 1366px;
+    margin: 0 auto;
+  }
+
+  &__wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-40;
+    align-items: center;
+
+    @media (min-width: 1024px) {
+      grid-template-columns: 1fr 450px;
+    }
+  }
+
+  &__content {
+    background: $white;
+    border-radius: $radius-16;
+    padding: $space-32 $space-24;
+    box-shadow: $shadow-card-accent;
+
+    @media (min-width: 768px) {
+      padding: $space-48 $space-40;
+    }
+  }
+
+  &__tabs {
+    margin-bottom: $space-24;
+    border-bottom: 1px solid $border-light;
+    
+    .MuiTab-root {
+      text-transform: none;
+      font-weight: $fw-medium;
+      font-size: $fs-16;
+      color: $text-secondary;
+      padding: $space-12 $space-16;
+      min-width: auto;
+      
+      &.Mui-selected {
+        color: $text-primary;
+        font-weight: $fw-bold;
+      }
+    }
+  }
+
+  &__tabIndicator {
+    background-color: $primary !important;
+    height: 3px;
+  }
+
+  &__title {
+    margin-bottom: $space-24;
+    
+    h1 {
+      font-size: $fs-32;
+      font-weight: $fw-bold;
+      color: $text-primary;
+      margin: 0;
+      line-height: $lh-normal;
+    }
+
+    h2 {
+      font-size: $fs-28;
+      font-weight: $fw-bold;
+      color: $text-primary;
+      margin: 0;
+      line-height: $lh-normal;
+    }
+  }
+
+  &__benefits {
+    display: flex;
+    gap: $space-24;
+    margin-bottom: $space-32;
+    flex-wrap: wrap;
+
+    p {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: $space-8;
+      color: $text-primary;
+      font-weight: $fw-medium;
+      font-size: $fs-14;
+
+      &:before {
+        content: '✓';
+        color: #4caf50;
+        font-weight: bold;
+        font-size: $fs-18;
+      }
+    }
+  }
+
+  &__formGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $space-20;
+
+    @media (min-width: 640px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__input {
+    padding: $space-12 $space-16;
+    border-radius: $radius-8;
+    border: 1px solid $border-light;
+    font-size: $fs-14;
+    font-family: inherit;
+    color: $text-primary;
+    transition: $transition-standard border-color;
+
+    &::placeholder {
+      color: $text-tertiary;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $primary;
+      box-shadow: 0 0 0 2px rgba($primary, 0.1);
+    }
+  }
+
+  &__phoneField {
+    display: flex;
+    gap: $space-8;
+    align-items: center;
+    
+    @media (min-width: 640px) {
+      grid-column: 2;
+    }
+  }
+
+  &__phonePrefix {
+    font-size: $fs-14;
+    font-weight: $fw-medium;
+    color: $text-primary;
+    background: $bg-light;
+    padding: $space-12 $space-12;
+    border-radius: $radius-8;
+    border: 1px solid $border-light;
+    min-width: 50px;
+    text-align: center;
+  }
+
+  &__phoneInput {
+    flex: 1;
+    padding: $space-12 $space-16;
+    border-radius: $radius-8;
+    border: 1px solid $border-light;
+    font-size: $fs-14;
+    font-family: inherit;
+    color: $text-primary;
+    transition: $transition-standard border-color;
+
+    &::placeholder {
+      color: $text-tertiary;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $primary;
+      box-shadow: 0 0 0 2px rgba($primary, 0.1);
+    }
+  }
+
+  &__fieldLabel {
+    margin-bottom: $space-12;
+    font-size: $fs-14;
+    font-weight: $fw-medium;
+    color: $text-primary;
+  }
+
+  &__radioGroup {
+    grid-column: 1 / -1;
+    
+    &.tabbedForm__radioGroupMultiRow {
+      .tabbedForm__radioOptions {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: $space-12;
+      }
+    }
+  }
+
+  &__radioOptions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-12;
+  }
+
+  &__radioOption {
+    display: flex;
+    align-items: center;
+    gap: $space-8;
+    padding: $space-12 $space-16;
+    border: 1px solid $border-light;
+    border-radius: $radius-8;
+    cursor: pointer;
+    transition: $transition-standard;
+    background: $white;
+    font-size: $fs-14;
+
+    &:hover {
+      border-color: $primary;
+      background-color: rgba($primary, 0.05);
+    }
+
+    input[type='radio'] {
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
+      accent-color: $primary;
+    }
+
+    span {
+      color: $text-primary;
+      font-weight: $fw-medium;
+    }
+  }
+
+  &__footer {
+    margin-top: $space-32;
+    display: flex;
+    flex-direction: column;
+    gap: $space-16;
+  }
+
+  &__submit {
+    padding: $space-16 $space-32;
+    background: #97144d;
+    color: $white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: $fs-16;
+    font-weight: $fw-bold;
+    transition: $transition-standard background-color;
+
+    &:hover {
+      background: #7a0f3f;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  &__checkbox {
+    display: flex;
+    gap: $space-8;
+    font-size: $fs-12;
+    color: $text-secondary;
+    cursor: pointer;
+
+    input[type='checkbox'] {
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: $primary;
+    }
+
+    span {
+      line-height: $lh-relaxed;
+      
+      a {
+        color: $primary;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  &__imageContainer {
+    display: none;
+    position: relative;
+
+    @media (min-width: 1024px) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: $radius-16;
+    }
+  }
+}

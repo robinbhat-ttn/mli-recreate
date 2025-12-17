@@ -4,13 +4,13 @@
   top: 0;
   width: 100%;
   z-index: 3;
-  border-bottom: 1px solid rgba($border-light, 0.2);
+  border-bottom: 1px solid rgba($border-light, $opacity-border-light);
 
   .headerInner {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 0.725rem $space-12;
+    padding: $header-padding-top $space-12;
 
     @include min-width('lg') {
       padding: 0 $space-12;
@@ -71,10 +71,10 @@
     >a {
       //color: #3597EC;
       //@include font-apply($font-noto, $fw-semi-bold);
-      padding: 28.8px 0;
+      padding: 1.8rem 0;
       display: inline-block;
-      font-size: 15px;
-      line-height: 24px;
+      font-size: $fs-15;
+      line-height: $lh-loose;
     }
   }
 }
@@ -102,8 +102,8 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%) rotate(90deg);
-  transition: transform 0.25s ease;
-  margin-left: 8px;
+  transition: transform $transition-standard;
+  margin-left: $space-8;
 }
 
 /* --- ARROW ROTATION ON HOVER --- */
@@ -116,22 +116,20 @@
   display: none;
   position: absolute;
   background: $white;
-  padding: 10px 0;
+  padding: $space-10 0;
   margin: 0;
-  box-shadow:
-    0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  box-shadow: $shadow-md;
   min-width: 180px;
   z-index: 999;
-  column-gap: 2rem;
-  border-radius: 0 0 1rem 1rem;
-  border-top: 1px solid #DCDDE0;
+  column-gap: $space-32;
+  border-radius: 0 0 $radius-16 $radius-16;
+  border-top: 1px solid $header-border-color;
 }
 
 /* Show submenu on hover of wrapper */
 .navigationItemWrapper:hover .subNavigationMenu {
   display: flex;
-  padding: 1.5rem 1.875rem;
+  padding: $space-24 $space-30;
   flex-direction: row;
 }
 
@@ -144,33 +142,33 @@
 .subNavigationItemSecondaryLink a {
   text-decoration: none;
   color: $text-primary;
-  font-size: 14px;
+  font-size: $fs-14;
 }
 
 .subNavigationItemMainLink a {
-  color: #3597EC;
-  font-weight: 800;
+  color: $nav-link-active;
+  font-weight: $fw-bold;
 }
 
 .subNavigationItemSecondaryLink a {
   @include font-apply($font-noto, $fw-regular);
-  color: #626772;
-  line-height: 24px;
+  color: $nav-secondary-text;
+  line-height: $lh-loose;
   font-size: $fs-16;
 }
 
 .subNavigationItemSecondaryLink:hover a {
-  color: #3597ec;
+  color: $nav-link-active;
 }
 
 .hamburgerSection {
   display: flex;
   align-items: center;
   justify-content: end;
-  padding: 8px;
+  padding: $space-8;
   background-color: transparent;
   border: none;
-  margin-left: 10px;
+  margin-left: $space-10;
   color: $white;
 }
 
@@ -181,10 +179,10 @@
 
 .hamburgerMenu {
   display: block;
-  width: 24rem;
+  width: $space-348;
   background: $white;
-  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.15);
-  padding: 16px 1px 16px 1px;
+  box-shadow: $shadow-hamburger;
+  padding: $space-16 1px $space-16 1px;
   position: fixed;
   z-index: 3;
   right: 0;
@@ -194,11 +192,11 @@
 
 .hamburgerMenu>h2 {
   margin: 0 0 0 5px;
-  color: #969aa1;
-  padding-inline: 23px;
-  padding-bottom: 23px;
-  font-size: 12px;
-  font-weight: 700;
+  color: $nav-secondary-text;
+  padding-inline: $space-24;
+  padding-bottom: $space-24;
+  font-size: $fs-12;
+  font-weight: $fw-bold;
   @include font-apply($font-lato, $fw-regular)
 }
 
@@ -214,11 +212,11 @@
   padding-left: 0;
 
   hr {
-    margin: 1rem 0;
+    margin: $space-16 0;
     border: none;
     border-top: 1px solid #e0e0e0;
-    margin-left: 28px;
-    margin-right: 14px;
+    margin-left: $space-28;
+    margin-right: $space-14;
   }
 }
 
@@ -229,13 +227,13 @@
 .hamburgerMenuItem {
   list-style: none;
   position: relative;
-  margin-left: 20px;
-  padding: 0 10px;
+  margin-left: $space-20;
+  padding: 0 $space-10;
 }
 
 .hamburgerMenuItem a {
   text-decoration: none;
-  font-size: 16px;
+  font-size: $fs-16;
   color: $text-primary;
   @include font-apply($font-noto, $fw-medium);
 }
@@ -243,7 +241,7 @@
 .hamburgerMenuItem button {
   background-color: transparent;
   border: none;
-  font-size: 16px;
+  font-size: $fs-16;
   color: $text-primary;
   @include font-apply($font-noto, $fw-medium);
   cursor: pointer;
@@ -252,17 +250,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-right: 8px;
+  padding-right: $space-8;
 
   &::after {
     content: '';
     display: inline-block;
-    width: 8px;
-    height: 8px;
+    width: $space-8;
+    height: $space-8;
     border-right: 2px solid currentColor;
     border-bottom: 2px solid currentColor;
     transform: rotate(45deg);
-    transition: transform 0.25s ease;
+    transition: transform $transition-standard;
     flex-shrink: 0;
   }
 }
@@ -282,12 +280,12 @@
 
 .hamburgerMenuItem>div>ul {
   list-style: none;
-  margin-top: 1rem;
+  margin-top: $space-16;
   border-color: #ebedf0;
   color: $text-primary;
-  margin-bottom: 2rem;
-  border-left: 1px solid lightgray;
-  margin-left: 16px;
+  margin-bottom: $space-32;
+  border-left: 1px solid $border-hamburger-submenu;
+  margin-left: $space-16;
 }
 
 .hamburgerSubMenuItem {
@@ -322,21 +320,21 @@
 /******Button Style******/
 .buttonsContainer {
   display: flex;
-  gap: 16px;
+  gap: $space-16;
 }
 
 .headerButton {
   background-color: #f5e8ed;
-  padding: 8px 16px;
-  border-radius: 32px;
-  font-weight: 700;
+  padding: $space-8 $space-16;
+  border-radius: $radius-32;
+  font-weight: $fw-bold;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: $space-6;
   cursor: pointer;
   border: none;
   color: $white;
-  font-size: 14px;
+  font-size: $fs-14;
   line-height: 21px;
   @include font-apply($font-noto, $fw-bold);
 }
@@ -345,13 +343,13 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: $space-8;
 }
 
 .headerButton a {
   color: $secondary;
   text-decoration: none;
-  font-size: 14px;
+  font-size: $fs-14;
   line-height: 21px;
   @include font-apply($font-noto, $fw-bold);
 }
@@ -366,19 +364,19 @@
     &::after {
       content: '';
       display: inline-block;
-      width: 8px;
-      height: 8px;
+      width: $space-8;
+      height: $space-8;
       border-right: 2px solid currentColor;
       border-bottom: 2px solid currentColor;
       transform: rotate(45deg);
       flex-shrink: 0;
-      margin-bottom: 4px;
+      margin-bottom: $space-4;
     }
   }
 
   .headerButtonOpen::after {
     transform: rotate(-135deg) !important;
-    margin-top: 8px;
+    margin-top: $space-8;
     margin-bottom: 0;
   }
 }
@@ -393,24 +391,24 @@
 
   left: 0;
   background: $white;
-  padding: 12px;
+  padding: $space-12;
   opacity: 0;
   transform: translateY(-6px);
-  animation: fadeDrop 0.25s ease forwards;
+  animation: fadeDrop $transition-standard forwards;
   z-index: 999;
   position: fixed;
   top: 60px;
   width: 100%;
   border-radius: 0;
-  box-shadow: rgba(80, 86, 98, 0.2) 0px 4px 12px 0px;
+  box-shadow: $shadow-dropdown;
 
   @include min-width('lg') {
     min-width: 200px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    box-shadow: $shadow-lg;
     position: absolute;
-    top: calc(100% + 8px);
+    top: calc(100% + $space-8);
     min-width: 180px;
-    border-radius: 8px;
+    border-radius: $radius-8;
   }
 }
 
@@ -428,13 +426,13 @@
 
 .dropdownLink {
   display: block;
-  padding: 8px;
+  padding: $space-8;
   color: $text-primary;
   text-decoration: none;
-  border-radius: 6px;
-  transition: background 0.2s ease;
+  border-radius: $radius-6;
+  transition: background $transition-fast;
 }
 
 .dropdownLink:hover {
-  background: rgba(0, 0, 0, 0.07);
+  background: rgba(0, 0, 0, $opacity-hover-dark);
 }

@@ -12,22 +12,22 @@
     border: none;
     cursor: pointer;
     background: none;
-    height: 12rem !important;
-    width: 21.5rem !important;
+    height: $video-height-sm !important;
+    width: $video-width-sm !important;
 
     @include min-width('lg') {
-      height: 26rem !important;
-      width: 46.125rem !important;
+      height: $video-height-lg !important;
+      width: $video-width-lg !important;
     }
 
     .ytLiteThumb {
-      height: 12rem !important;
-      width: 21.5rem !important;
-      border-radius: 1.75rem;
+      height: $video-height-sm !important;
+      width: $video-width-sm !important;
+      border-radius: $video-border-radius;
 
       @include min-width('lg') {
-        height: 26rem !important;
-        width: 46.125rem !important;
+        height: $video-height-lg !important;
+        width: $video-width-lg !important;
       }
     }
 
@@ -35,12 +35,12 @@
       position: absolute;
       left: 50%;
       top: 50%;
-      width: 68px;
-      height: 48px;
+      width: $video-play-icon-width;
+      height: $video-play-icon-height;
       transform: translate(-50%, -50%);
-      background: rgba(255, 0, 0, 0.75);
-      border-radius: 14px;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+      background: rgba(255, 0, 0, $opacity-video-play-icon);
+      border-radius: $radius-12;
+      box-shadow: $shadow-video-play;
     }
 
     /* Triangle */
@@ -51,50 +51,50 @@
       top: 50%;
       transform: translate(-40%, -50%);
       border-style: solid;
-      border-width: 10px 0 10px 18px;
+      border-width: $video-play-icon-border;
       border-color: transparent transparent transparent #fff;
     }
 
     /* Keyboard focus ring */
     .ytLiteButton:focus-visible {
-      outline: 3px solid #1a73e8;
-      outline-offset: 3px;
+      outline: $radius-3 solid $video-focus-color;
+      outline-offset: $focus-outline-offset;
     }
   }
 
   iframe {
-    height: 45rem;
-    width: 75rem;
+    height: $video-height-full;
+    width: $video-width-full;
     border: none;
-    border-radius: 1.75rem;
-    height: 12rem;
-    width: 21.5rem;
+    border-radius: $video-border-radius;
+    height: $video-height-sm;
+    width: $video-width-sm;
 
     @include min-width('lg') {
-      width: 46.125rem;
-      height: 26rem;
+      width: $video-width-lg;
+      height: $video-height-lg;
     }
   }
 }
 
 @media (max-width: 768px) {
   .videoContainer {
-    padding: 2.75rem;
+    padding: $padding-video-mobile;
   }
 }
 
 @media (max-width: 690px) {
   .videoContainer {
     .ytLiteButton {
-      height: 30rem;
+      height: $video-height-mobile;
     }
 
     .ytLiteThumb {
-      height: 30rem;
+      height: $video-height-mobile;
     }
 
     iframe {
-      height: 30rem;
+      height: $video-height-mobile;
     }
   }
 }
