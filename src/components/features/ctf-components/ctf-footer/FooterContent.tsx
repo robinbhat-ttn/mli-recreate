@@ -25,7 +25,7 @@ export const FooterContent = (props: FooterContentProps) => {
         >
           <button className={styles.disclaimerSectionHeading} onClick={() => setIsOpen(!isOpen)}>
             {props.disclaimerSection.heading}
-            <span className={`${styles.arrow} ${isOpen ? styles.open : ''}`}></span>
+            <span className={`${styles.arrow} ${isOpen ? styles.open : ''}`} />
           </button>
           {isOpen && (
             <p className={styles.disclaimerSectionContent}>

@@ -11,7 +11,8 @@
     flex-direction: row;
     align-items: center;
     padding: 0.725rem $space-12;
-    @include min-width('lg') { 
+
+    @include min-width('lg') {
       padding: 0 $space-12;
     }
   }
@@ -389,26 +390,27 @@
 }
 
 .dropdownContent {
-  position: absolute;
-  top: calc(100% + 8px);
+
   left: 0;
   background: $white;
-  border-radius: 8px;
   padding: 12px;
-  min-width: 180px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
   opacity: 0;
   transform: translateY(-6px);
   animation: fadeDrop 0.25s ease forwards;
   z-index: 999;
-
   position: fixed;
   top: 60px;
   width: 100%;
   border-radius: 0;
   box-shadow: rgba(80, 86, 98, 0.2) 0px 4px 12px 0px;
+
   @include min-width('lg') {
     min-width: 200px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+    position: absolute;
+    top: calc(100% + 8px);
+    min-width: 180px;
+    border-radius: 8px;
   }
 }
 
