@@ -146,8 +146,18 @@
 }
 
 .subNavigationItemMainLink a {
+  display: flex;
+  align-items: center;
+  gap: $space-12;
   color: $nav-link-active;
   font-weight: $fw-bold;
+}
+
+.subNavigationItemIcon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: block;
 }
 
 .subNavigationItemSecondaryLink a {
@@ -388,7 +398,6 @@
 }
 
 .dropdownContent {
-
   left: 0;
   background: $white;
   padding: $space-12;
@@ -401,14 +410,28 @@
   width: 100%;
   border-radius: 0;
   box-shadow: $shadow-dropdown;
-
   @include min-width('lg') {
-    min-width: 200px;
+    width: 312px;
     box-shadow: $shadow-lg;
     position: absolute;
-    top: calc(100% + $space-8);
-    min-width: 180px;
+    top: 80px;
+    left: -212px;
     border-radius: $radius-8;
+
+    ::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 84%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 20px solid $white;
+      z-index: 1000;
+    }
+
   }
 }
 
@@ -425,12 +448,21 @@
 }
 
 .dropdownLink {
-  display: block;
-  padding: $space-8;
+  display: flex;
+  align-items: center;
+  gap: $space-12;
+  padding: $space-12;
   color: $text-primary;
   text-decoration: none;
   border-radius: $radius-6;
   transition: background $transition-fast;
+}
+
+.dropdownLinkIcon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: block;
 }
 
 .dropdownLink:hover {
