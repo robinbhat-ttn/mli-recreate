@@ -2,6 +2,7 @@
   width: fit-content;
   margin: 0 auto;
   padding: $space-16;
+
   @include min-width('lg') {
     padding: $space-32;
   }
@@ -10,11 +11,24 @@
     padding: 0;
     border: none;
     cursor: pointer;
+    background: none;
+    height: 12rem !important;
+    width: 21.5rem !important;
 
-    .ytLiteThumb{
+    @include min-width('lg') {
       height: 26rem !important;
       width: 46.125rem !important;
+    }
+
+    .ytLiteThumb {
+      height: 12rem !important;
+      width: 21.5rem !important;
       border-radius: 1.75rem;
+
+      @include min-width('lg') {
+        height: 26rem !important;
+        width: 46.125rem !important;
+      }
     }
 
     .ytLitePlayIcon {
@@ -55,6 +69,7 @@
     border-radius: 1.75rem;
     height: 12rem;
     width: 21.5rem;
+
     @include min-width('lg') {
       width: 46.125rem;
       height: 26rem;
@@ -70,11 +85,11 @@
 
 @media (max-width: 690px) {
   .videoContainer {
-    .ytLiteButton{
+    .ytLiteButton {
       height: 30rem;
     }
 
-    .ytLiteThumb{
+    .ytLiteThumb {
       height: 30rem;
     }
 

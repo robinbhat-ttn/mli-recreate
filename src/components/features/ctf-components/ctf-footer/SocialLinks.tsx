@@ -25,7 +25,7 @@ export const SocialLinks = (props: SocialLinksCollectionFieldsFragment) => {
           </Link>
         ))}
       </div>
-      <hr className={styles.footerDivider} />
+      {/* <hr className={styles.footerDivider} /> */}
     </>
   );
 };

@@ -19,7 +19,7 @@ export const ButtonContainer = (props: FooterButtonCollectionFieldsFragment) => 
           </Link>
         ))}
       </div>
-      <hr className={styles.footerDivider} />
+      {/* <hr className={styles.footerDivider} /> */}
     </>
   );
 };

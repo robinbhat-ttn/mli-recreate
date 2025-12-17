@@ -17,20 +17,22 @@ export const FooterContent = (props: FooterContentProps) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className={styles.footerInformation}>
-      {documentToReactComponents(props.footerInformation.json)}
-      <div
-        className={styles.disclaimerSection}
-        {...inspectorMode({ entryId: props.disclaimerSection.sys.id, fieldId: 'disclaimer' })}
-      >
-        <button className={styles.disclaimerSectionHeading} onClick={() => setIsOpen(!isOpen)}>
-          {props.disclaimerSection.heading}
-          <span className={styles.arrow}>{isOpen ? '▲' : '▼'}</span>
-        </button>
-        {isOpen && (
-          <p className={styles.disclaimerSectionContent}>
-            {documentToReactComponents(props.disclaimerSection.content?.json)}
-          </p>
-        )}
+      <div className={styles.footerInformationInner}>
+        {documentToReactComponents(props.footerInformation.json)}
+        <div
+          className={styles.disclaimerSection}
+          {...inspectorMode({ entryId: props.disclaimerSection.sys.id, fieldId: 'disclaimer' })}
+        >
+          <button className={styles.disclaimerSectionHeading} onClick={() => setIsOpen(!isOpen)}>
+            {props.disclaimerSection.heading}
+            <span className={`${styles.arrow} ${isOpen ? styles.open : ''}`}></span>
+          </button>
+          {isOpen && (
+            <p className={styles.disclaimerSectionContent}>
+              {documentToReactComponents(props.disclaimerSection.content?.json)}
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
