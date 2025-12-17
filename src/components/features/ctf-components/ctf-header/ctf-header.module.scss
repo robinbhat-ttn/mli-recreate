@@ -10,7 +10,10 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 0 $space-12;
+    padding: 0.725rem $space-12;
+    @include min-width('lg') { 
+      padding: 0 $space-12;
+    }
   }
 }
 
@@ -264,7 +267,7 @@
 }
 
 .hamburgerSubmenuOpen::after {
-  transform: rotate(-135deg) !important ;
+  transform: rotate(-135deg) !important;
 }
 
 
@@ -289,6 +292,7 @@
 .hamburgerSubMenuItem {
   list-style: none;
   padding: $space-10 0 $space-10 $space-18;
+
   a {
     color: #626772;
     @include font-apply($font-noto, $fw-regular);
@@ -341,19 +345,6 @@
   display: flex;
   align-items: center;
   gap: 8px;
-
-  &::after {
-    content: '';
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    border-right: 2px solid currentColor;
-    border-bottom: 2px solid currentColor;
-    transform: rotate(45deg);
-    transition: transform 0.25s ease;
-    flex-shrink: 0;
-    margin-bottom: 4px;
-  }
 }
 
 .headerButton a {
@@ -364,18 +355,30 @@
   @include font-apply($font-noto, $fw-bold);
 }
 
-.headerButtonOpen::after {
-  transform: rotate(-135deg) !important;
-  margin-top: 8px;
-  margin-bottom: 0;
-}
-
 .dropdownWrapper {
   position: relative;
   display: flex;
 
   .headerButton {
     background-color: $secondary;
+
+    &::after {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      flex-shrink: 0;
+      margin-bottom: 4px;
+    }
+  }
+
+  .headerButtonOpen::after {
+    transform: rotate(-135deg) !important;
+    margin-top: 8px;
+    margin-bottom: 0;
   }
 }
 
@@ -398,6 +401,15 @@
   transform: translateY(-6px);
   animation: fadeDrop 0.25s ease forwards;
   z-index: 999;
+
+  position: fixed;
+  top: 60px;
+  width: 100%;
+  border-radius: 0;
+  box-shadow: rgba(80, 86, 98, 0.2) 0px 4px 12px 0px;
+  @include min-width('lg') {
+    min-width: 200px;
+  }
 }
 
 @keyframes fadeDrop {

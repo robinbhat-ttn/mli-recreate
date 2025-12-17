@@ -38,7 +38,7 @@ export const FooterLinks = (props: FooterLinksCollectionFragment) => {
           </div>
         ))}
       </div>
-      <hr className={styles.footerDivider} />
+      {/* <hr className={styles.footerDivider} /> */}
     </>
   );
 };
