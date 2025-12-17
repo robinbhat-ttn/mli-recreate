@@ -31,6 +31,11 @@ export const componentMap = {
       module => module.CtfVideoV2,
     ),
   ),
+  TabbedFormContainer: dynamic(() =>
+    import('@src/components/features/ctf-components/ctf-tabbed-form/ctf-tabbed-form').then(
+      module => module.CtfTabbedForm,
+    ),
+  ),
 };
 
 export const componentGqlMap = {
@@ -62,6 +67,11 @@ export const componentGqlMap = {
   VideoSection: dynamic(() =>
     import('@src/components/features/ctf-components/ctf-video-v2/ctf-video-v2-gql').then(
       module => module.CtfVideoV2Gql,
+    ),
+  ),
+  TabbedFormContainer: dynamic(() =>
+    import('@src/components/features/ctf-components/ctf-tabbed-form/ctf-tabbed-form-gql').then(
+      module => module.CtfTabbedFormGql,
     ),
   ),
 };

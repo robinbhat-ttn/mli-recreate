@@ -1,0 +1,121 @@
+
+fragment FormFieldFields on FormField {
+  label
+  placeholder
+  name
+  fieldType
+  required
+  options {
+    __typename
+    sys {
+      id
+    }
+    items
+  }
+}
+
+fragment FieldCollectionFields on FormFieldsCollection {
+  items {
+    __typename
+    sys {
+      id
+    }
+    ...FormFieldFields
+  }
+}
+
+fragment FormFields on Form {
+  title{
+    json
+    links{
+      entries{
+        block{
+          __typename
+          sys{
+            id
+          }
+        }
+      }
+      assets{
+        block{
+          ...AssetFields
+        }
+      }
+    }
+  }
+  description{
+    json
+    links{
+      entries{
+        block{
+          __typename
+          sys{
+            id
+          }
+        }
+      }
+      assets{
+        block{
+          ...AssetFields
+        }
+      }
+    }
+  }
+  formId
+  fieldsCollection {
+    ...FieldCollectionFields
+  }
+}
+
+fragment TabsFields on FormTab {
+  __typename
+  sys {
+    id
+  }
+  tabLabel{
+    json
+    links{
+      entries{
+        block{
+          __typename
+          sys{
+            id
+          }
+        }
+      }
+      assets{
+        block{
+          ...AssetFields
+        }
+      }
+    }
+  }
+  form {
+    __typename
+    sys {
+      id
+    }
+    ...FormFields
+  }
+}
+
+fragment TabbedFormContainerFields on TabbedFormContainer {
+  __typename
+  sys {
+    id
+  }
+  formImage{
+    ...AssetFields
+  }
+  tabsCollection(limit: 3) {
+    items {
+      ...TabsFields
+    }
+  }
+}
+
+query CtfTabbedFormContainer($id: String!, $locale: String, $preview: Boolean) {
+  tabbedFormContainer(id: $id, locale: $locale, preview: $preview) {
+    ...TabbedFormContainerFields
+  }
+}
