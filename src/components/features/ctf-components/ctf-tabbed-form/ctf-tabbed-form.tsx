@@ -14,7 +14,26 @@ export const CtfTabbedForm = (props: Props) => {
 
   const [activeTab, setActiveTab] = useState(0);
   const activeForm = tabs[activeTab]?.form;
-  const [formData, setFormData] = useState<Record<string, any>>({});
+
+  // Initialize form data with default values
+  const getInitialFormData = () => {
+    const initialData: Record<string, any> = {};
+
+    // Find the NRI field and set "No" as default
+    activeForm?.fieldsCollection?.items.forEach(field => {
+      if (field?.label?.toLowerCase().includes('nri') && field?.fieldType === 'Radio') {
+        // Set the first option as default (should be "No")
+        const firstOption = field?.options?.items?.[0];
+        if (firstOption) {
+          initialData[field.name || ''] = firstOption.value;
+        }
+      }
+    });
+
+    return initialData;
+  };
+
+  const [formData, setFormData] = useState<Record<string, any>>(getInitialFormData());
 
   if (!tabs.length || !activeForm) return null;
 
@@ -29,7 +48,7 @@ export const CtfTabbedForm = (props: Props) => {
 
   return (
     <section className={styles.tabbedForm}>
-      <Box className={styles.tabbedForm__container}>
+      <Box className={`container-sec ${styles.tabbedForm__container}`}>
         <Box className={styles.tabbedForm__wrapper}>
           {/* Left: Form Content */}
           <Box className={styles.tabbedForm__content}>
@@ -113,8 +132,9 @@ export const CtfTabbedForm = (props: Props) => {
                       return (
                         <div key={field.sys.id} className={styles.tabbedForm__field}>
                           <input
-                            type="date"
+                            type="text"
                             name={field.name || ''}
+                            placeholder={field.placeholder || ''}
                             required={!!field.required}
                             className={styles.tabbedForm__input}
                             onChange={e => handleInputChange(field.name || '', e.target.value)}
@@ -157,6 +177,7 @@ export const CtfTabbedForm = (props: Props) => {
                                   type="radio"
                                   name={field.name || ''}
                                   value={opt.value}
+                                  checked={formData[field.name || ''] === opt.value}
                                   onChange={e =>
                                     handleInputChange(field.name || '', e.target.value)
                                   }
@@ -167,7 +188,6 @@ export const CtfTabbedForm = (props: Props) => {
                           </div>
                         </div>
                       );
-
                     default:
                       return null;
                   }
