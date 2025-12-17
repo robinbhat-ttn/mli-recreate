@@ -13,7 +13,10 @@ export type HamburgerMenuFieldsFragment = { __typename: 'HamburgerMenu', menuTit
 
 export type ButtonCollectionFieldsFragment = { __typename?: 'HeaderButtonCollection', items: Array<
     | { __typename: 'Button', buttonText?: string | null, buttonLink?: string | null, sys: { __typename?: 'Sys', id: string } }
-    | { __typename: 'ButtonWithLinks', buttonText?: string | null, sys: { __typename?: 'Sys', id: string }, buttonDropDownLinksCollection?: { __typename?: 'ButtonWithLinksButtonDropDownLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null }
+    | { __typename: 'ButtonWithLinks', buttonText?: string | null, sys: { __typename?: 'Sys', id: string }, buttonDropDownLinksCollection?: { __typename?: 'ButtonWithLinksButtonDropDownLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: (
+            { __typename?: 'Asset' }
+            & AssetFieldsFragment
+          ) | null } | null> } | null }
    | null> };
 
 export type HeaderFieldsFragment = { __typename: 'Header', sys: { __typename?: 'Sys', id: string }, logo?: (
@@ -62,6 +65,9 @@ export const ButtonCollectionFieldsFragmentDoc = `
           linkHeading
           linkUrl
           slug
+          icon {
+            ...AssetFields
+          }
         }
       }
     }

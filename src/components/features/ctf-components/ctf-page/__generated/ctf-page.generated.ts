@@ -24,6 +24,8 @@ export type PageContentFields_ComponentTextBlock_Fragment = { __typename: 'Compo
 
 export type PageContentFields_Link_Fragment = { __typename: 'Link' };
 
+export type PageContentFields_TabbedFormContainer_Fragment = { __typename: 'TabbedFormContainer' };
+
 export type PageContentFields_VideoSection_Fragment = { __typename: 'VideoSection' };
 
 export type PageContentFieldsFragment =
@@ -33,6 +35,7 @@ export type PageContentFieldsFragment =
   | PageContentFields_Carousel_Fragment
   | PageContentFields_ComponentTextBlock_Fragment
   | PageContentFields_Link_Fragment
+  | PageContentFields_TabbedFormContainer_Fragment
   | PageContentFields_VideoSection_Fragment
 ;
 
@@ -63,6 +66,10 @@ export type CtfPageFieldsFragment = { __typename: 'Page', pageName?: string | nu
       | (
         { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
         & PageContentFields_Link_Fragment
+      )
+      | (
+        { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
+        & PageContentFields_TabbedFormContainer_Fragment
       )
       | (
         { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }

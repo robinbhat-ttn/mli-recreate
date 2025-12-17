@@ -21,6 +21,9 @@ fragment NavigationFields on HeaderNavigationItemsCollection {
           linkHeading
           linkUrl
           slug
+          icon{
+            ...AssetFields
+          }
         }
         secondaryLinksCollection(limit: 10) {
           items {

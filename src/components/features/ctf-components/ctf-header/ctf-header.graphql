@@ -64,6 +64,9 @@ fragment ButtonCollectionFields on HeaderButtonCollection{
             linkHeading
             linkUrl
             slug
+            icon{
+              ...AssetFields
+            }
           }
         }
       }
