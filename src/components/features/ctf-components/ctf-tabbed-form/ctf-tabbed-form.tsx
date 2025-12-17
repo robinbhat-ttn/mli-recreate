@@ -194,15 +194,21 @@ export const CtfTabbedForm = (props: Props) => {
                 })}
               </div>
 
-              {/* <div className={styles.tabbedForm__footer}>
+              <div className={styles.tabbedForm__footer}>
                 <button type="submit" className={styles.tabbedForm__submit}>
-                  Check Premium
+                  Hard coded Submit
                 </button>
                 <label className={styles.tabbedForm__checkbox}>
                   <input type="checkbox" defaultChecked />
-                  <span>I've read and accepted all Terms and Conditions. I authorize Axis Max Life Insurance to contact me via SMS/Email/Phone/Whatsapp/Facebook or any other modes overriding my DND. T&C Apply. For more details, terms and conditions please refer to the end of this page in the disclaimers section.</span>
+                  <span>
+                    HARDCODED TEXT - I&apos;ve read and accepted all Terms and Conditions. I
+                    authorize Axis Max Life Insurance to contact me via
+                    SMS/Email/Phone/Whatsapp/Facebook or any other modes overriding my DND. T&C
+                    Apply. For more details, terms and conditions please refer to the end of this
+                    page in the disclaimers section.
+                  </span>
                 </label>
-              </div> */}
+              </div>
             </form>
           </Box>
 
