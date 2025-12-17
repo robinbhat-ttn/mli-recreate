@@ -4,54 +4,54 @@
     padding: 3rem 0;
 }
 .footerLinks{
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: $space-16;
+    padding-right: $space-16;
     display: flex;
     justify-content: flex-start;
     max-width: 67.25rem;
     width: 100%;
     margin: 0 auto;
-    gap: 40px;
+    gap: $space-40;
 }
 .mainLink{
     color: $text-primary;
     text-decoration: none;
     font-weight: 700;
     @include font-apply($font-noto, $fw-bold);
-    line-height: 18px;
-    font-size: 13px;
+    line-height: $lh-loose;
+    font-size: $fs-13;
 }
 .secondaryLinks{
     list-style: none;
     padding-left: 0;
-    margin-top: 1.5rem;
+    margin-top: $space-24;
     li {
-        margin-bottom: 0.5rem;
+        margin-bottom: $margin-secondary-link;
     }
 }
 .secondaryLink{
     text-decoration: none;
-    color: #505662;
-    font-size: 13px;
+    color: $nav-secondary-text;
+    font-size: $fs-13;
     @include font-apply($font-noto);
-    line-height: 18px;
+    line-height: $lh-loose;
 }
 .footerDivider{
-    margin:1rem 4rem;
+    margin:$space-16 $space-64;
 }
 
 /*******Social Media Section******/
 
 .socialLinksContainer{
-    padding: 1.5rem 0;
+    padding: $space-24 0;
     display: flex;
     justify-content: flex-end;
-    gap: 2rem;
+    gap: $space-32;
     max-width: 67.25rem;
     width: 100%;
-    margin: 3rem auto 0;
-    border-top: 1px solid #e5e7eb;
-    border-bottom: 1px solid #e5e7eb;
+    margin: $space-48 auto 0;
+    border-top: 1px solid $gray-200;
+    border-bottom: 1px solid $gray-200;
 }
 .socialLinksContainer a{
     text-decoration: none;
@@ -65,26 +65,26 @@
 /*******Button Section*******/
 .buttonContainer {
     display: flex;
-    gap: 1rem;
+    gap: $space-16;
     flex-wrap: wrap;
     justify-content: center;
     max-width: 67.25rem;
     width: 100%;
     margin: 0 auto;
-    border-bottom: 1px solid #e5e7eb;
-    padding: 1.5rem 1rem;
+    border-bottom: 1px solid $gray-200;
+    padding: $space-24 $space-16;
 }
 .buttonContainer a {
     text-decoration: none;
-    padding: 10px 16px;
-    color: #505662;
-    font-size: 13px;
-    border-radius: 9999px;
-    font-weight: 600;
-    border: 1px solid #e5e7eb;
+    padding: $space-10 $space-16;
+    color: $nav-secondary-text;
+    font-size: $fs-13;
+    border-radius: $radius-32;
+    font-weight: $fw-semi-bold;
+    border: 1px solid $gray-200;
     @include font-apply($font-noto, $fw-regular);
     display: inline-block;
-    line-height: 18px;
+    line-height: $lh-loose;
 }
 
 /******Group Sites Links Section******/
@@ -98,23 +98,23 @@
     margin: 0 auto;
 }
 .groupSitesLinks span{
-    font-size: 12.8px;
+    font-size: $fs-13;
     @include font-apply($font-lato, $fw-bold);
     color: $text-primary;
 }
 .groupSitesLinks a{
     text-decoration: none;
-    font-size: 13px;
-    color: #505662;
+    font-size: $fs-13;
+    color: $nav-secondary-text;
     @include font-apply($font-noto, $fw-bold);
 }
 
 /*******Footer Information Section*******/
 .footerInformation{
-    padding: 1.5rem 0;
-    background-color: #D0D8E3;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding: $space-24 0;
+    background-color: $footer-info-bg;
+    padding-top: $space-32;
+    padding-bottom: $space-32;
 
     &Inner {
         max-width: 67.25rem;
@@ -122,8 +122,8 @@
         margin: 0 auto;
         color: $text-primary;
         @include font-apply($font-noto, $fw-regular);
-        font-size: 12px;
-        padding: 0 1rem;
+        font-size: $fs-12;
+        padding: 0 $space-16;
         p {
             margin-top: 0;
         }
@@ -143,19 +143,19 @@
 }
 
 .arrow {
-    width: 24px;
-    height: 24px;
+    width: $space-24;
+    height: $space-24;
     position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    transition: transform 0.3s ease;
+    transition: transform $transition-medium;
 
     &::after {
         content: '';
-        width: 8px;
-        height: 8px;
+        width: $space-8;
+        height: $space-8;
         border-right: 2px solid currentColor;
         border-bottom: 2px solid currentColor;
         transform: rotate(45deg);

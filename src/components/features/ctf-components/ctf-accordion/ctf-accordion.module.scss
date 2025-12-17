@@ -51,7 +51,7 @@
   padding-bottom: $space-24; 
   color: $text-primary;
   font-size: $fs-16;
-  line-height: 1.5rem; // 24px
+  line-height: $lh-loose;
   @include font-apply($font-noto, $fw-regular);
 }
 
@@ -64,18 +64,18 @@
 .accordion__content table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 12px;
+  margin-bottom: $space-12;
 }
 
 @media (max-width: 1024px) {
   .accordion {
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: $space-24;
+    padding-right: $space-24;
   }
   .accordion__title {
-    font-size: 15px;
+    font-size: $fs-15;
   }
   .accordion__content {
-    padding-left: 18px;
+    padding-left: $space-18;
   }
 }

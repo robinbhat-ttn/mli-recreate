@@ -1,4 +1,5 @@
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
+import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState, useRef } from 'react';
 
@@ -48,7 +49,16 @@ export const ButtonContainer = (props: ButtonCollectionFieldsFragment) => {
                     className={styles.dropdownLink}
                     {...inspectorMode({ entryId: linkItem?.sys.id, fieldId: 'link' })}
                   >
-                    {linkItem?.linkHeading}
+                    {linkItem?.icon?.url && (
+                      <Image
+                        src={linkItem.icon.url}
+                        alt={linkItem.icon.title ?? linkItem.linkHeading ?? 'Link icon'}
+                        width={linkItem.icon.width || 24}
+                        height={linkItem.icon.height || 24}
+                        className={styles.dropdownLinkIcon}
+                      />
+                    )}
+                    <span>{linkItem?.linkHeading}</span>
                   </Link>
                 ))}
               </div>

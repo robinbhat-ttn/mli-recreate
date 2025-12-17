@@ -18,6 +18,7 @@ $bg-muted: #f1f6fa;
 // Text
 $text-primary: #171a21;
 $text-secondary: #414d63;
+$text-tertiary: #626772;
 $text-muted: #626772;
 $text-light: #f3f4f6;
 
@@ -68,6 +69,7 @@ $fs-15: 0.9375rem; // 15px
 $fs-16: 1rem; // 16px
 $fs-18: 1.125rem; // 18px
 $fs-20: 1.25rem; // 20px
+$fs-28: 1.75rem; // 28px
 $fs-32: 2rem; // 32px
 $fs-40: 2.5rem; // 40px
 
@@ -85,10 +87,14 @@ $space-18: 1.125rem; // 18px
 $space-20: 1.25rem; // 20px
 $space-21: 1.3125rem; // 21px
 $space-24: 1.5rem; // 24px
+$space-28: 1.75rem; // 28px
+$space-30: 1.875rem; // 30px
 $space-32: 2rem; // 32px
+$space-36: 2.25rem; // 36px
 $space-40: 2.5rem; // 40px
 $space-44: 2.75rem; // 44px
 $space-48: 3rem; // 48px
+$space-50: 3.125rem; // 50px
 $space-56: 3.5rem; // 56px
 $space-64: 4rem; // 64px
 $space-72: 4.5rem; // 72px
@@ -114,3 +120,94 @@ $radius-8: 0.5rem; // 8px
 $radius-12: 0.75rem; // 12px
 $radius-16: 1rem; // 16px
 $radius-32: 2rem; // 32px
+
+// Additional colors
+$footer-info-bg: #D0D8E3; // Footer information section background
+$nav-secondary-text: #626772; // Secondary navigation text
+$nav-link-active: #3597EC; // Navigation link active color
+$dropdown-bg: #f1f6fa; // Dropdown background
+$dot-inactive: #d0d0d0; // Carousel inactive dot
+$banner-pill-bg: #cef5e1; // Banner pill background
+$banner-pill-text: #099A4F; // Banner pill text color
+$blur-circle: #3597ec; // Blur circle color
+$blur-border: #c1ddf5; // Blur circle border color
+
+// Transitions
+$transition-fast: 0.2s ease;
+$transition-standard: 0.25s ease;
+$transition-medium: 0.3s ease;
+
+// Line heights
+$lh-tight: 1; // Used for some title elements
+$lh-normal: 1.25rem; // 20px
+$lh-relaxed: 1.44; // Used for headings
+$lh-loose: 1.5rem; // 24px
+$lh-xl: 1.75rem; // 28px
+$lh-10: 10.5px; // Pill & line height
+$lh-16: 16px; // Card line height
+$lh-21: 1.3125rem; // Card title large
+
+// Shadow
+$shadow-sm: 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 6px 18px rgba(0, 0, 0, 0.15);
+$shadow-dropdown: rgba(80, 86, 98, 0.2) 0px 4px 12px 0px;
+$shadow-card: 0px 4px 8px;
+$shadow-card-accent: 0px 4px 8px rgba($accent, 0.16);
+$shadow-banner-text: 0px 4px 8px rgba($text-primary, 0.12);
+$shadow-hamburger: -2px 0 10px rgba(0, 0, 0, 0.15);
+$shadow-video-play: 0 0 30px rgba(0, 0, 0, 0.6);
+
+// Opacity & transparency
+$opacity-hover-dark: 0.07;
+$opacity-banner-bg: 0.08;
+$opacity-disabled: 0.25;
+$opacity-video-play-icon: 0.75;
+$opacity-border-light: 0.2;
+
+// Video dimensions
+$video-height-sm: 12rem;
+$video-width-sm: 21.5rem;
+$video-height-lg: 26rem;
+$video-width-lg: 46.125rem;
+$video-height-full: 45rem;
+$video-width-full: 75rem;
+$video-height-mobile: 30rem;
+$video-border-radius: 1.75rem;
+$video-play-icon-width: 68px;
+$video-play-icon-height: 48px;
+$video-play-icon-border: 10px 0 10px 18px;
+$video-focus-color: #1a73e8;
+
+// Banner dimensions & colors
+$banner-max-width: 75rem;
+$banner-texts-percent: 70%;
+$banner-left-width: 60%;
+$banner-card-flex: calc(33.333% - 1rem);
+$banner-card-flex-gap: calc(50% - 1.5rem);
+$banner-top-position: -48px;
+$banner-blur-circle-width: 150px;
+$banner-blur-circle-height: 128px;
+$banner-blur-circle-width-lg: 26.456rem;
+$banner-blur-circle-height-lg: 26.456rem;
+$banner-blur-circle-right: -10px;
+$banner-blur-circle-right-lg: -2.5rem;
+$banner-blur-circle-top: -22%;
+$banner-blur-circle-border-width: 5px;
+$banner-blur-circle-border-width-lg: 20px;
+$banner-blur-circle-top-lg: 8px;
+
+// Header colors & styles
+$header-border-color: #DCDDE0;
+$header-submenu-border: #ebedf0;
+$header-padding-top: 0.725rem;
+
+// Margin & padding specifics
+$margin-secondary-link: 0.5rem;
+$padding-video-mobile: 2.75rem;
+
+// Border colors
+$border-hamburger-submenu: lightgray;
+
+// Focus styles
+$focus-outline-offset: 3px;

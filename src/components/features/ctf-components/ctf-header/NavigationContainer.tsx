@@ -1,12 +1,14 @@
-import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 import { Box } from '@mui/material';
+import Image from 'next/image';
 import Link from 'next/link';
+import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
-import styles from './ctf-header.module.scss';
 import type { NavigationFieldsFragment } from '../ctf-navigation/__generated/ctf-navigation.generated';
+import styles from './ctf-header.module.scss';
 
 export const NavigationContainer = (props: NavigationFieldsFragment) => {
   const inspectorMode = useContentfulInspectorMode();
+  console.log('NavigationContainer props:', props);
   return (
     <Box
       component="nav"
@@ -49,7 +51,20 @@ export const NavigationContainer = (props: NavigationFieldsFragment) => {
                       href={subItem?.mainLink?.slug ?? subItem?.mainLink?.linkUrl ?? '/'}
                       {...inspectorMode({ entryId: subItem?.sys.id, fieldId: 'link' })}
                     >
-                      {subItem?.mainLink?.linkHeading}
+                      {subItem?.mainLink?.icon?.url && (
+                        <Image
+                          src={subItem.mainLink.icon.url}
+                          alt={
+                            subItem.mainLink.icon.title ??
+                            subItem.mainLink.linkHeading ??
+                            'Navigation icon'
+                          }
+                          width={subItem.mainLink.icon.width || 24}
+                          height={subItem.mainLink.icon.height || 24}
+                          className={styles.subNavigationItemIcon}
+                        />
+                      )}
+                      <span>{subItem?.mainLink?.linkHeading}</span>
                     </Link>
                   </div>
                   <>

@@ -12,7 +12,7 @@
   }
 
   &__inner {
-    max-width: 75rem;
+    max-width: $banner-max-width;
     margin: $space-32 auto 0;
     display: flex;
     gap: $space-24;
@@ -34,12 +34,12 @@
     row-gap: $space-16;
     padding: $space-16 $space-16 $space-20;
     position: relative;
-    top: -48px;
+    top: $banner-top-position;
     z-index: 2;
-    background: #f1f6fa 0% 0% no-repeat padding-box;
+    background: $dropdown-bg 0% 0% no-repeat padding-box;
 
     @include min-width('sm') {
-      width: 70%;
+      width: $banner-texts-percent;
     }
 
     @include min-width('lg') {
@@ -76,7 +76,7 @@
     display: flex;
     flex-direction: column;
     gap: $space-32;
-    width: 60%;
+    width: $banner-left-width;
     @include min-width('lg') {
       width: auto;
     }
@@ -109,9 +109,9 @@
       gap: $space-10;
       color: $text-primary;
       font-size: $fs-18;
-      flex: 0 0 calc(50% - 1.5rem); // 24px
-      max-width: calc(50% - 1.5rem); // 24px
-      line-height: 1.75rem; // 28px
+      flex: 0 0 $banner-card-flex-gap;
+      max-width: $banner-card-flex-gap;
+      line-height: $lh-xl;
       @include font-apply($font-noto);
 
       .banner__text-icon {
@@ -131,7 +131,7 @@
     position: relative;
     z-index: 2;
     padding: 0;
-    top: -48px;  
+    top: $banner-top-position;
     @include min-width('lg') {
       top: -$space-190;
     }
@@ -143,7 +143,7 @@
     background: $white;
     border-radius: 0;
     justify-content: center;
-    box-shadow: 0px 4px 8px rgba($text-primary, 0.12);
+    box-shadow: $shadow-banner-text;
     flex-wrap: wrap;
     row-gap: $space-20;
     padding: $space-24 $space-10;  
@@ -162,10 +162,10 @@
     color: inherit;
     border-radius: $radius-12;
     background: $white;
-    box-shadow: 0px 4px 8px rgba($accent, 0.16);
+    box-shadow: $shadow-card-accent;
     border: 1px solid $border-light;
     width: 100%;
-    flex: 0 0 calc(33.333% - 1rem);
+    flex: 0 0 $banner-card-flex;
     @include min-width('lg') {
       min-width: $space-104;
       max-width: $space-174;
@@ -186,15 +186,15 @@
       display: inline-block;
       padding: $space-4;
       border-radius: $radius-12;
-      background: #cef5e1;
-      color: #099A4F;
+      background: $banner-pill-bg;
+      color: $banner-pill-text;
       @include font-apply($font-noto, $fw-bold);
       position: absolute;
       top: -$space-10;
       left: 0;
       width: 100%;
       font-size: $fs-10;
-      line-height: 10.5px;
+      line-height: $lh-10;
       p {
         margin: 0;
       }
@@ -209,7 +209,7 @@
       
       @include min-width('lg') {
         min-width: $space-174;
-        max-width: 6.25rem; // 100px
+        max-width: 6.25rem;
         padding: $space-16 0;
       }
     }
@@ -228,11 +228,11 @@
       font-size: $fs-13;
       text-align: center;
       color: $text-primary;
-      line-height: 16px;
+      line-height: $lh-loose;
       @include font-apply($font-noto, $fw-medium);
       @include min-width('lg') {
         font-size: $fs-16;
-        line-height: 1.3125rem;
+        line-height: $lh-21;
         padding: 0 $space-16;
       }
     }
@@ -259,21 +259,21 @@
       &::before {
         content: "";
         border-radius: 50%;
-        background: #3597ec;
-        width: 150px;
-        height: 128px;
+        background: $blur-circle;
+        width: $banner-blur-circle-width;
+        height: $banner-blur-circle-height;
         border-radius: 50%;
-        opacity: 0.08;
+        opacity: $opacity-banner-bg;
         position: absolute;
-        right: -10px;
-        border: solid #c1ddf5 5px;
-        top: -22%;
+        right: $banner-blur-circle-right;
+        border: solid $blur-border $banner-blur-circle-border-width;
+        top: $banner-blur-circle-top;
         @include min-width('lg') {
-          width: 26.456rem;
-          height: 26.456rem;
-          right: -2.5rem;
-          border: solid #c1ddf5 20px;
-          top: 8px;
+          width: $banner-blur-circle-width-lg;
+          height: $banner-blur-circle-height-lg;
+          right: $banner-blur-circle-right-lg;
+          border: solid $blur-border $banner-blur-circle-border-width-lg;
+          top: $banner-blur-circle-top-lg;
         }
       }
     }

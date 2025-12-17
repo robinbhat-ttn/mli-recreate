@@ -297,6 +297,7 @@ export const SettingsForm: React.FC<SettingsFormPropsInterface> = props => {
     <Root>
       <Header>
         <Logo />
+        <span>Punsay2</span>
         <HeaderTitle variant="h1">Editorial Toolbox</HeaderTitle>
       </Header>
       <ContainerRoot>
