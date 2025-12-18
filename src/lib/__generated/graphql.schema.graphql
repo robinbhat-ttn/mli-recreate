@@ -497,6 +497,8 @@ enum ButtonWithLinksButtonDropDownLinksCollectionOrder {
   internalName_DESC
   linkHeading_ASC
   linkHeading_DESC
+  linkSubHeading_ASC
+  linkSubHeading_DESC
   linkUrl_ASC
   linkUrl_DESC
   slug_ASC
@@ -1191,6 +1193,8 @@ enum FooterButtonsCollectionOrder {
   internalName_DESC
   linkHeading_ASC
   linkHeading_DESC
+  linkSubHeading_ASC
+  linkSubHeading_DESC
   linkUrl_ASC
   linkUrl_DESC
   slug_ASC
@@ -1313,6 +1317,8 @@ enum FooterGroupSitesLinksCollectionOrder {
   internalName_DESC
   linkHeading_ASC
   linkHeading_DESC
+  linkSubHeading_ASC
+  linkSubHeading_DESC
   linkUrl_ASC
   linkUrl_DESC
   slug_ASC
@@ -1378,6 +1384,8 @@ enum FooterSocialLinksCollectionOrder {
   internalName_DESC
   linkHeading_ASC
   linkHeading_DESC
+  linkSubHeading_ASC
+  linkSubHeading_DESC
   linkUrl_ASC
   linkUrl_DESC
   slug_ASC
@@ -2191,6 +2199,7 @@ type Link implements Entry & _Node {
   icon(locale: String, preview: Boolean, useFallbackLocale: Boolean): Asset
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkHeading(locale: String, useFallbackLocale: Boolean): String
+  linkSubHeading(locale: String, useFallbackLocale: Boolean): String
   linkUrl(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): LinkLinkingCollections
   slug(locale: String, useFallbackLocale: Boolean): String
@@ -2223,6 +2232,13 @@ input LinkFilter {
   linkHeading_not: String
   linkHeading_not_contains: String
   linkHeading_not_in: [String]
+  linkSubHeading: String
+  linkSubHeading_contains: String
+  linkSubHeading_exists: Boolean
+  linkSubHeading_in: [String]
+  linkSubHeading_not: String
+  linkSubHeading_not_contains: String
+  linkSubHeading_not_in: [String]
   linkUrl: String
   linkUrl_contains: String
   linkUrl_exists: Boolean
@@ -2333,6 +2349,8 @@ enum LinkOrder {
   internalName_DESC
   linkHeading_ASC
   linkHeading_DESC
+  linkSubHeading_ASC
+  linkSubHeading_DESC
   linkUrl_ASC
   linkUrl_DESC
   slug_ASC
@@ -3064,6 +3082,8 @@ enum SubNavigationItemSecondaryLinksCollectionOrder {
   internalName_DESC
   linkHeading_ASC
   linkHeading_DESC
+  linkSubHeading_ASC
+  linkSubHeading_DESC
   linkUrl_ASC
   linkUrl_DESC
   slug_ASC
@@ -3587,6 +3607,13 @@ input cfLinkNestedFilter {
   linkHeading_not: String
   linkHeading_not_contains: String
   linkHeading_not_in: [String]
+  linkSubHeading: String
+  linkSubHeading_contains: String
+  linkSubHeading_exists: Boolean
+  linkSubHeading_in: [String]
+  linkSubHeading_not: String
+  linkSubHeading_not_contains: String
+  linkSubHeading_not_in: [String]
   linkUrl: String
   linkUrl_contains: String
   linkUrl_exists: Boolean
