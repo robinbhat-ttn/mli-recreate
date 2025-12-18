@@ -86,7 +86,7 @@ export const CtfTabbedForm = (props: Props) => {
             </Tabs>
 
             {/* Title */}
-            {activeForm.title && (
+            {/* {activeForm.title && (
               <div className={styles.tabbedForm__title}>
                 <CtfRichtext
                   disableContainer={true}
@@ -94,7 +94,7 @@ export const CtfTabbedForm = (props: Props) => {
                   links={activeForm.title.links}
                 />
               </div>
-            )}
+            )} */}
 
             {/* Benefits */}
             {activeForm.description && (

@@ -1,4 +1,3 @@
-
 fragment FormFieldFields on FormField {
   label
   placeholder
@@ -12,6 +11,7 @@ fragment FormFieldFields on FormField {
     }
     items
   }
+  conditionalRule
 }
 
 fragment FieldCollectionFields on FormFieldsCollection {
@@ -25,24 +25,7 @@ fragment FieldCollectionFields on FormFieldsCollection {
 }
 
 fragment FormFields on Form {
-  title{
-    json
-    links{
-      entries{
-        block{
-          __typename
-          sys{
-            id
-          }
-        }
-      }
-      assets{
-        block{
-          ...AssetFields
-        }
-      }
-    }
-  }
+  title
   description{
     json
     links{
@@ -64,6 +47,9 @@ fragment FormFields on Form {
   formId
   fieldsCollection {
     ...FieldCollectionFields
+  }
+  submitButton{
+    ...LinkFields
   }
 }
 
@@ -113,7 +99,6 @@ fragment TabbedFormContainerFields on TabbedFormContainer {
     }
   }
 }
-
 query CtfTabbedFormContainer($id: String!, $locale: String, $preview: Boolean) {
   tabbedFormContainer(id: $id, locale: $locale, preview: $preview) {
     ...TabbedFormContainerFields
