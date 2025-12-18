@@ -1411,8 +1411,9 @@ type Form implements Entry & _Node {
   formId(locale: String, useFallbackLocale: Boolean): String
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): FormLinkingCollections
+  submitButton(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: LinkFilter): Link
   sys: Sys!
-  title(locale: String, useFallbackLocale: Boolean): FormTitle
+  title(locale: String, useFallbackLocale: Boolean): String
 }
 
 type FormCollection {
@@ -1467,6 +1468,7 @@ Field content type for form fields [See type definition](https://app.contentful.
 """
 type FormField implements Entry & _Node {
   _id: ID!
+  conditionalRule(locale: String, useFallbackLocale: Boolean): JSON
   contentfulMetadata: ContentfulMetadata!
   fieldType(locale: String, useFallbackLocale: Boolean): String
   internalName(locale: String, useFallbackLocale: Boolean): String
@@ -1489,6 +1491,7 @@ type FormFieldCollection {
 input FormFieldFilter {
   AND: [FormFieldFilter]
   OR: [FormFieldFilter]
+  conditionalRule_exists: Boolean
   contentfulMetadata: ContentfulMetadataFilter
   fieldType: String
   fieldType_contains: String
@@ -1551,6 +1554,8 @@ enum FormFieldLinkingCollectionsFormCollectionOrder {
   sys_publishedAt_DESC
   sys_publishedVersion_ASC
   sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
 }
 
 enum FormFieldOrder {
@@ -1629,10 +1634,16 @@ input FormFilter {
   internalName_not: String
   internalName_not_contains: String
   internalName_not_in: [String]
+  submitButton: cfLinkNestedFilter
+  submitButton_exists: Boolean
   sys: SysFilter
+  title: String
   title_contains: String
   title_exists: Boolean
+  title_in: [String]
+  title_not: String
   title_not_contains: String
+  title_not_in: [String]
 }
 
 type FormLinkingCollections {
@@ -1666,6 +1677,8 @@ enum FormOrder {
   sys_publishedAt_DESC
   sys_publishedVersion_ASC
   sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
 }
 
 """
@@ -1775,46 +1788,6 @@ type FormTabTabLabelResourcesHyperlink implements ResourceLink {
 }
 
 type FormTabTabLabelResourcesInline implements ResourceLink {
-  sys: ResourceSys!
-}
-
-type FormTitle {
-  json: JSON!
-  links: FormTitleLinks!
-}
-
-type FormTitleAssets {
-  block: [Asset]!
-  hyperlink: [Asset]!
-}
-
-type FormTitleEntries {
-  block: [Entry]!
-  hyperlink: [Entry]!
-  inline: [Entry]!
-}
-
-type FormTitleLinks {
-  assets: FormTitleAssets!
-  entries: FormTitleEntries!
-  resources: FormTitleResources!
-}
-
-type FormTitleResources {
-  block: [FormTitleResourcesBlock!]!
-  hyperlink: [FormTitleResourcesHyperlink!]!
-  inline: [FormTitleResourcesInline!]!
-}
-
-type FormTitleResourcesBlock implements ResourceLink {
-  sys: ResourceSys!
-}
-
-type FormTitleResourcesHyperlink implements ResourceLink {
-  sys: ResourceSys!
-}
-
-type FormTitleResourcesInline implements ResourceLink {
   sys: ResourceSys!
 }
 
@@ -2260,6 +2233,7 @@ type LinkLinkingCollections {
   buttonWithLinksCollection(limit: Int = 100, locale: String, order: [LinkLinkingCollectionsButtonWithLinksCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): ButtonWithLinksCollection
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
   footerCollection(limit: Int = 100, locale: String, order: [LinkLinkingCollectionsFooterCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): FooterCollection
+  formCollection(limit: Int = 100, locale: String, order: [LinkLinkingCollectionsFormCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): FormCollection
   hamburgerMenuCollection(limit: Int = 100, locale: String, order: [LinkLinkingCollectionsHamburgerMenuCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): HamburgerMenuCollection
   pageCollection(limit: Int = 100, locale: String, order: [LinkLinkingCollectionsPageCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): PageCollection
   subNavigationItemCollection(limit: Int = 100, locale: String, order: [LinkLinkingCollectionsSubNavigationItemCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): SubNavigationItemCollection
@@ -2291,6 +2265,23 @@ enum LinkLinkingCollectionsFooterCollectionOrder {
   sys_publishedAt_DESC
   sys_publishedVersion_ASC
   sys_publishedVersion_DESC
+}
+
+enum LinkLinkingCollectionsFormCollectionOrder {
+  formId_ASC
+  formId_DESC
+  internalName_ASC
+  internalName_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+  title_ASC
+  title_DESC
 }
 
 enum LinkLinkingCollectionsHamburgerMenuCollectionOrder {
@@ -3459,6 +3450,7 @@ input cfFooterNestedFilter {
 input cfFormFieldNestedFilter {
   AND: [cfFormFieldNestedFilter]
   OR: [cfFormFieldNestedFilter]
+  conditionalRule_exists: Boolean
   contentfulMetadata: ContentfulMetadataFilter
   fieldType: String
   fieldType_contains: String
@@ -3524,10 +3516,15 @@ input cfFormNestedFilter {
   internalName_not: String
   internalName_not_contains: String
   internalName_not_in: [String]
+  submitButton_exists: Boolean
   sys: SysFilter
+  title: String
   title_contains: String
   title_exists: Boolean
+  title_in: [String]
+  title_not: String
   title_not_contains: String
+  title_not_in: [String]
 }
 
 input cfFormTabNestedFilter {
