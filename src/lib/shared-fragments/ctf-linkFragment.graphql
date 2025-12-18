@@ -1,0 +1,13 @@
+fragment LinkFields on Link {
+  __typename
+  sys {
+    id
+  }
+  linkHeading
+  linkSubHeading
+  linkUrl
+  slug
+  icon {
+    ...AssetFields
+  }
+}

@@ -1,22 +1,33 @@
 import * as Types from '../../../../../lib/__generated/graphql.types';
 
+import { LinkFieldsFragment } from '../../../../../lib/shared-fragments/__generated/ctf-linkFragment.generated';
 import { AssetFieldsFragment } from '../../ctf-asset/__generated/ctf-asset.generated';
 import { NavigationFieldsFragment } from '../../ctf-navigation/__generated/ctf-navigation.generated';
+import { LinkFieldsFragmentDoc } from '../../../../../lib/shared-fragments/__generated/ctf-linkFragment.generated';
 import { AssetFieldsFragmentDoc } from '../../ctf-asset/__generated/ctf-asset.generated';
 import { NavigationFieldsFragmentDoc } from '../../ctf-navigation/__generated/ctf-navigation.generated';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { customFetcher } from '@src/lib/fetchConfig';
 export type HamburgerMenuFieldsFragment = { __typename: 'HamburgerMenu', menuTitle?: string | null, sys: { __typename?: 'Sys', id: string }, menuItemsCollection?: { __typename?: 'HamburgerMenuMenuItemsCollection', items: Array<
-      | { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } }
-      | { __typename: 'SubNavigationItem', subNavigationItemTitle?: string | null, sys: { __typename?: 'Sys', id: string }, mainLink?: { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null, secondaryLinksCollection?: { __typename?: 'SubNavigationItemSecondaryLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null }
+      | (
+        { __typename: 'Link' }
+        & LinkFieldsFragment
+      )
+      | { __typename: 'SubNavigationItem', subNavigationItemTitle?: string | null, sys: { __typename?: 'Sys', id: string }, mainLink?: (
+          { __typename?: 'Link' }
+          & LinkFieldsFragment
+        ) | null, secondaryLinksCollection?: { __typename?: 'SubNavigationItemSecondaryLinksCollection', items: Array<(
+            { __typename?: 'Link' }
+            & LinkFieldsFragment
+          ) | null> } | null }
      | null> } | null };
 
 export type ButtonCollectionFieldsFragment = { __typename?: 'HeaderButtonCollection', items: Array<
     | { __typename: 'Button', buttonText?: string | null, buttonLink?: string | null, sys: { __typename?: 'Sys', id: string } }
-    | { __typename: 'ButtonWithLinks', buttonText?: string | null, sys: { __typename?: 'Sys', id: string }, buttonDropDownLinksCollection?: { __typename?: 'ButtonWithLinksButtonDropDownLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: (
-            { __typename?: 'Asset' }
-            & AssetFieldsFragment
-          ) | null } | null> } | null }
+    | { __typename: 'ButtonWithLinks', buttonText?: string | null, sys: { __typename?: 'Sys', id: string }, buttonDropDownLinksCollection?: { __typename?: 'ButtonWithLinksButtonDropDownLinksCollection', items: Array<(
+          { __typename?: 'Link' }
+          & LinkFieldsFragment
+        ) | null> } | null }
    | null> };
 
 export type HeaderFieldsFragment = { __typename: 'Header', sys: { __typename?: 'Sys', id: string }, logo?: (
@@ -58,16 +69,7 @@ export const ButtonCollectionFieldsFragmentDoc = `
       buttonText
       buttonDropDownLinksCollection(limit: 5) {
         items {
-          __typename
-          sys {
-            id
-          }
-          linkHeading
-          linkUrl
-          slug
-          icon {
-            ...AssetFields
-          }
+          ...LinkFields
         }
       }
     }
@@ -93,13 +95,7 @@ export const HamburgerMenuFieldsFragmentDoc = `
     items {
       __typename
       ... on Link {
-        __typename
-        sys {
-          id
-        }
-        linkHeading
-        linkUrl
-        slug
+        ...LinkFields
       }
       ... on SubNavigationItem {
         __typename
@@ -108,23 +104,11 @@ export const HamburgerMenuFieldsFragmentDoc = `
         }
         subNavigationItemTitle
         mainLink {
-          __typename
-          sys {
-            id
-          }
-          linkHeading
-          linkUrl
-          slug
+          ...LinkFields
         }
         secondaryLinksCollection(limit: 10) {
           items {
-            __typename
-            sys {
-              id
-            }
-            linkHeading
-            linkUrl
-            slug
+            ...LinkFields
           }
         }
       }
@@ -162,6 +146,7 @@ export const CtfHeaderDocument = `
 ${AssetFieldsFragmentDoc}
 ${NavigationFieldsFragmentDoc}
 ${ButtonCollectionFieldsFragmentDoc}
+${LinkFieldsFragmentDoc}
 ${HamburgerMenuFieldsFragmentDoc}`;
 
 export const useCtfHeaderQuery = <

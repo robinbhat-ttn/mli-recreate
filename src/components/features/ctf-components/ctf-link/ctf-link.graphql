@@ -3,15 +3,3 @@ query CtfLink($id: String!, $locale: String, $preview: Boolean){
     ...LinkFields
   }
 }
-fragment LinkFields on Link{
-  	__typename
-    sys{
-      id
-    }
-    linkHeading
-    linkUrl
-    slug
-    icon{
-      ...AssetFields
-    }
-}

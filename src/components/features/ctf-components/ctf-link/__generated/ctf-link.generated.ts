@@ -1,6 +1,8 @@
 import * as Types from '../../../../../lib/__generated/graphql.types';
 
+import { LinkFieldsFragment } from '../../../../../lib/shared-fragments/__generated/ctf-linkFragment.generated';
 import { AssetFieldsFragment } from '../../ctf-asset/__generated/ctf-asset.generated';
+import { LinkFieldsFragmentDoc } from '../../../../../lib/shared-fragments/__generated/ctf-linkFragment.generated';
 import { AssetFieldsFragmentDoc } from '../../ctf-asset/__generated/ctf-asset.generated';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { customFetcher } from '@src/lib/fetchConfig';
@@ -16,26 +18,8 @@ export type CtfLinkQuery = { __typename?: 'Query', link?: (
     & LinkFieldsFragment
   ) | null };
 
-export type LinkFieldsFragment = { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: (
-    { __typename?: 'Asset' }
-    & AssetFieldsFragment
-  ) | null };
 
 
-export const LinkFieldsFragmentDoc = `
-    fragment LinkFields on Link {
-  __typename
-  sys {
-    id
-  }
-  linkHeading
-  linkUrl
-  slug
-  icon {
-    ...AssetFields
-  }
-}
-    `;
 export const CtfLinkDocument = `
     query CtfLink($id: String!, $locale: String, $preview: Boolean) {
   link(id: $id, locale: $locale, preview: $preview) {

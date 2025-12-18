@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { LinkFieldsFragment } from './__generated/ctf-link.generated';
+import { LinkFieldsFragment } from '../../../../lib/shared-fragments/__generated/ctf-linkFragment.generated';
 
 export const CtfLink = (props: LinkFieldsFragment) => {
   return (

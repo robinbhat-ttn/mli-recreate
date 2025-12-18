@@ -8,13 +8,7 @@ fragment HamburgerMenuFields on HamburgerMenu{
       items {
         __typename
         ... on Link {
-          __typename
-          sys {
-            id
-          }
-          linkHeading
-          linkUrl
-          slug
+          ...LinkFields
         }
         ... on SubNavigationItem {
           __typename
@@ -23,23 +17,11 @@ fragment HamburgerMenuFields on HamburgerMenu{
           }
           subNavigationItemTitle
           mainLink {
-            __typename
-            sys {
-              id
-            }
-            linkHeading
-            linkUrl
-            slug
+            ...LinkFields
           }
           secondaryLinksCollection (limit : 10) {
             items {
-              __typename
-              sys {
-                id
-              }
-              linkHeading
-              linkUrl
-              slug
+              ...LinkFields
             }
           }
         }
@@ -57,16 +39,7 @@ fragment ButtonCollectionFields on HeaderButtonCollection{
         buttonText
         buttonDropDownLinksCollection (limit : 5) {
           items {
-            __typename
-            sys {
-              id
-            }
-            linkHeading
-            linkUrl
-            slug
-            icon{
-              ...AssetFields
-            }
+            ...LinkFields
           }
         }
       }
