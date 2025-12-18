@@ -19,6 +19,8 @@ export const getServerSideProps: GetServerSideProps = async ({ res, locale }) =>
             <url>
               <loc>${baseUrl}/${locale === 'en-US' ? '' : locale + '/'}${page.slug === '/' ? '' : page.slug}</loc>
               <lastmod>${page.sys.publishedAt}</lastmod>
+              <changefreq>${page.changeFrequency}</changefreq>
+              <priority>${page.priority}</priority>
             </url>
           `;
         })

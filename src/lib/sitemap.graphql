@@ -5,6 +5,8 @@ query SitemapPages($locale: String, $preview: Boolean) {
       sys {
         publishedAt
       }
+      changeFrequency
+      priority
     }
   }
 }

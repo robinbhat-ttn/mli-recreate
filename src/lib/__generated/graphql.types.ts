@@ -128,10 +128,14 @@ export type AccordionLinkingCollectionsPageCollectionArgs = {
 };
 
 export enum AccordionLinkingCollectionsPageCollectionOrder {
+  ChangeFrequencyAsc = 'changeFrequency_ASC',
+  ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
+  PriorityAsc = 'priority_ASC',
+  PriorityDesc = 'priority_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -574,10 +578,14 @@ export type BannerLinkingCollectionsPageCollectionArgs = {
 };
 
 export enum BannerLinkingCollectionsPageCollectionOrder {
+  ChangeFrequencyAsc = 'changeFrequency_ASC',
+  ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
+  PriorityAsc = 'priority_ASC',
+  PriorityDesc = 'priority_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -757,10 +765,14 @@ export enum ButtonLinkingCollectionsHeaderCollectionOrder {
 }
 
 export enum ButtonLinkingCollectionsPageCollectionOrder {
+  ChangeFrequencyAsc = 'changeFrequency_ASC',
+  ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
+  PriorityAsc = 'priority_ASC',
+  PriorityDesc = 'priority_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -1283,10 +1295,14 @@ export type CarouselLinkingCollectionsPageCollectionArgs = {
 };
 
 export enum CarouselLinkingCollectionsPageCollectionOrder {
+  ChangeFrequencyAsc = 'changeFrequency_ASC',
+  ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
+  PriorityAsc = 'priority_ASC',
+  PriorityDesc = 'priority_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -1485,10 +1501,14 @@ export enum ComponentTextBlockLinkingCollectionsBannerCollectionOrder {
 }
 
 export enum ComponentTextBlockLinkingCollectionsPageCollectionOrder {
+  ChangeFrequencyAsc = 'changeFrequency_ASC',
+  ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
+  PriorityAsc = 'priority_ASC',
+  PriorityDesc = 'priority_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -2040,10 +2060,14 @@ export type FooterLinkingCollectionsPageCollectionArgs = {
 };
 
 export enum FooterLinkingCollectionsPageCollectionOrder {
+  ChangeFrequencyAsc = 'changeFrequency_ASC',
+  ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
+  PriorityAsc = 'priority_ASC',
+  PriorityDesc = 'priority_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -3035,10 +3059,14 @@ export type HeaderLinkingCollectionsPageCollectionArgs = {
 };
 
 export enum HeaderLinkingCollectionsPageCollectionOrder {
+  ChangeFrequencyAsc = 'changeFrequency_ASC',
+  ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
+  PriorityAsc = 'priority_ASC',
+  PriorityDesc = 'priority_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -3398,10 +3426,14 @@ export enum LinkLinkingCollectionsHamburgerMenuCollectionOrder {
 }
 
 export enum LinkLinkingCollectionsPageCollectionOrder {
+  ChangeFrequencyAsc = 'changeFrequency_ASC',
+  ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
+  PriorityAsc = 'priority_ASC',
+  PriorityDesc = 'priority_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -3735,6 +3767,7 @@ export enum OptionSetOrder {
 export type Page = Entry & _Node & {
   __typename?: 'Page';
   _id: Scalars['ID']['output'];
+  changeFrequency?: Maybe<Scalars['String']['output']>;
   contentCollection?: Maybe<PageContentCollection>;
   contentfulMetadata: ContentfulMetadata;
   footer?: Maybe<Footer>;
@@ -3742,9 +3775,17 @@ export type Page = Entry & _Node & {
   internalName?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<PageLinkingCollections>;
   pageName?: Maybe<Scalars['String']['output']>;
+  priority?: Maybe<Scalars['Float']['output']>;
   seo?: Maybe<Seo>;
   slug?: Maybe<Scalars['String']['output']>;
   sys: Sys;
+};
+
+
+/** AMLI Page Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
+export type PageChangeFrequencyArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -3798,6 +3839,13 @@ export type PagePageNameArgs = {
 
 
 /** AMLI Page Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
+export type PagePriorityArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** AMLI Page Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
 export type PageSeoArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -3840,6 +3888,13 @@ export type PageContentItem = Accordion | Banner | Button | Carousel | Component
 export type PageFilter = {
   AND?: InputMaybe<Array<InputMaybe<PageFilter>>>;
   OR?: InputMaybe<Array<InputMaybe<PageFilter>>>;
+  changeFrequency?: InputMaybe<Scalars['String']['input']>;
+  changeFrequency_contains?: InputMaybe<Scalars['String']['input']>;
+  changeFrequency_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  changeFrequency_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  changeFrequency_not?: InputMaybe<Scalars['String']['input']>;
+  changeFrequency_not_contains?: InputMaybe<Scalars['String']['input']>;
+  changeFrequency_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   content?: InputMaybe<CfcontentMultiTypeNestedFilter>;
   contentCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
@@ -3861,6 +3916,15 @@ export type PageFilter = {
   pageName_not?: InputMaybe<Scalars['String']['input']>;
   pageName_not_contains?: InputMaybe<Scalars['String']['input']>;
   pageName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  priority?: InputMaybe<Scalars['Float']['input']>;
+  priority_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  priority_gt?: InputMaybe<Scalars['Float']['input']>;
+  priority_gte?: InputMaybe<Scalars['Float']['input']>;
+  priority_in?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  priority_lt?: InputMaybe<Scalars['Float']['input']>;
+  priority_lte?: InputMaybe<Scalars['Float']['input']>;
+  priority_not?: InputMaybe<Scalars['Float']['input']>;
+  priority_not_in?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
   seo?: InputMaybe<CfSeoNestedFilter>;
   seo_exists?: InputMaybe<Scalars['Boolean']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
@@ -3888,10 +3952,14 @@ export type PageLinkingCollectionsEntryCollectionArgs = {
 };
 
 export enum PageOrder {
+  ChangeFrequencyAsc = 'changeFrequency_ASC',
+  ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
+  PriorityAsc = 'priority_ASC',
+  PriorityDesc = 'priority_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -4757,10 +4825,14 @@ export type SeoLinkingCollectionsPageCollectionArgs = {
 };
 
 export enum SeoLinkingCollectionsPageCollectionOrder {
+  ChangeFrequencyAsc = 'changeFrequency_ASC',
+  ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
+  PriorityAsc = 'priority_ASC',
+  PriorityDesc = 'priority_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -5160,10 +5232,14 @@ export type TabbedFormContainerLinkingCollectionsPageCollectionArgs = {
 };
 
 export enum TabbedFormContainerLinkingCollectionsPageCollectionOrder {
+  ChangeFrequencyAsc = 'changeFrequency_ASC',
+  ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
+  PriorityAsc = 'priority_ASC',
+  PriorityDesc = 'priority_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -5327,10 +5403,14 @@ export type VideoSectionLinkingCollectionsPageCollectionArgs = {
 };
 
 export enum VideoSectionLinkingCollectionsPageCollectionOrder {
+  ChangeFrequencyAsc = 'changeFrequency_ASC',
+  ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
+  PriorityAsc = 'priority_ASC',
+  PriorityDesc = 'priority_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -6879,4 +6959,4 @@ export type SitemapPagesQueryVariables = Exact<{
 }>;
 
 
-export type SitemapPagesQuery = { __typename?: 'Query', pageCollection?: { __typename?: 'PageCollection', items: Array<{ __typename?: 'Page', slug?: string | null, sys: { __typename?: 'Sys', publishedAt?: any | null } } | null> } | null };
+export type SitemapPagesQuery = { __typename?: 'Query', pageCollection?: { __typename?: 'PageCollection', items: Array<{ __typename?: 'Page', slug?: string | null, changeFrequency?: string | null, priority?: number | null, sys: { __typename?: 'Sys', publishedAt?: any | null } } | null> } | null };

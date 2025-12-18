@@ -8,7 +8,7 @@ export type SitemapPagesQueryVariables = Types.Exact<{
 }>;
 
 
-export type SitemapPagesQuery = { __typename?: 'Query', pageCollection?: { __typename?: 'PageCollection', items: Array<{ __typename?: 'Page', slug?: string | null, sys: { __typename?: 'Sys', publishedAt?: any | null } } | null> } | null };
+export type SitemapPagesQuery = { __typename?: 'Query', pageCollection?: { __typename?: 'PageCollection', items: Array<{ __typename?: 'Page', slug?: string | null, changeFrequency?: string | null, priority?: number | null, sys: { __typename?: 'Sys', publishedAt?: any | null } } | null> } | null };
 
 
 
@@ -20,6 +20,8 @@ export const SitemapPagesDocument = `
       sys {
         publishedAt
       }
+      changeFrequency
+      priority
     }
   }
 }
