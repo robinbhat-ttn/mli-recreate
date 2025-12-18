@@ -65,10 +65,14 @@ type AccordionLinkingCollections {
 }
 
 enum AccordionLinkingCollectionsPageCollectionOrder {
+  changeFrequency_ASC
+  changeFrequency_DESC
   internalName_ASC
   internalName_DESC
   pageName_ASC
   pageName_DESC
+  priority_ASC
+  priority_DESC
   slug_ASC
   slug_DESC
   sys_firstPublishedAt_ASC
@@ -302,10 +306,14 @@ type BannerLinkingCollections {
 }
 
 enum BannerLinkingCollectionsPageCollectionOrder {
+  changeFrequency_ASC
+  changeFrequency_DESC
   internalName_ASC
   internalName_DESC
   pageName_ASC
   pageName_DESC
+  priority_ASC
+  priority_DESC
   slug_ASC
   slug_DESC
   sys_firstPublishedAt_ASC
@@ -427,10 +435,14 @@ enum ButtonLinkingCollectionsHeaderCollectionOrder {
 }
 
 enum ButtonLinkingCollectionsPageCollectionOrder {
+  changeFrequency_ASC
+  changeFrequency_DESC
   internalName_ASC
   internalName_DESC
   pageName_ASC
   pageName_DESC
+  priority_ASC
+  priority_DESC
   slug_ASC
   slug_DESC
   sys_firstPublishedAt_ASC
@@ -774,10 +786,14 @@ type CarouselLinkingCollections {
 }
 
 enum CarouselLinkingCollectionsPageCollectionOrder {
+  changeFrequency_ASC
+  changeFrequency_DESC
   internalName_ASC
   internalName_DESC
   pageName_ASC
   pageName_DESC
+  priority_ASC
+  priority_DESC
   slug_ASC
   slug_DESC
   sys_firstPublishedAt_ASC
@@ -911,10 +927,14 @@ enum ComponentTextBlockLinkingCollectionsBannerCollectionOrder {
 }
 
 enum ComponentTextBlockLinkingCollectionsPageCollectionOrder {
+  changeFrequency_ASC
+  changeFrequency_DESC
   internalName_ASC
   internalName_DESC
   pageName_ASC
   pageName_DESC
+  priority_ASC
+  priority_DESC
   slug_ASC
   slug_DESC
   sys_firstPublishedAt_ASC
@@ -1313,10 +1333,14 @@ type FooterLinkingCollections {
 }
 
 enum FooterLinkingCollectionsPageCollectionOrder {
+  changeFrequency_ASC
+  changeFrequency_DESC
   internalName_ASC
   internalName_DESC
   pageName_ASC
   pageName_DESC
+  priority_ASC
+  priority_DESC
   slug_ASC
   slug_DESC
   sys_firstPublishedAt_ASC
@@ -1964,10 +1988,14 @@ type HeaderLinkingCollections {
 }
 
 enum HeaderLinkingCollectionsPageCollectionOrder {
+  changeFrequency_ASC
+  changeFrequency_DESC
   internalName_ASC
   internalName_DESC
   pageName_ASC
   pageName_DESC
+  priority_ASC
+  priority_DESC
   slug_ASC
   slug_DESC
   sys_firstPublishedAt_ASC
@@ -2265,10 +2293,14 @@ enum LinkLinkingCollectionsHamburgerMenuCollectionOrder {
 }
 
 enum LinkLinkingCollectionsPageCollectionOrder {
+  changeFrequency_ASC
+  changeFrequency_DESC
   internalName_ASC
   internalName_DESC
   pageName_ASC
   pageName_DESC
+  priority_ASC
+  priority_DESC
   slug_ASC
   slug_DESC
   sys_firstPublishedAt_ASC
@@ -2503,6 +2535,7 @@ AMLI Page Content Type [See type definition](https://app.contentful.com/spaces/t
 """
 type Page implements Entry & _Node {
   _id: ID!
+  changeFrequency(locale: String, useFallbackLocale: Boolean): String
   contentCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: PageContentFilter): PageContentCollection
   contentfulMetadata: ContentfulMetadata!
   footer(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: FooterFilter): Footer
@@ -2510,6 +2543,7 @@ type Page implements Entry & _Node {
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): PageLinkingCollections
   pageName(locale: String, useFallbackLocale: Boolean): String
+  priority(locale: String, useFallbackLocale: Boolean): Float
   seo(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: SeoFilter): Seo
   slug(locale: String, useFallbackLocale: Boolean): String
   sys: Sys!
@@ -2541,6 +2575,13 @@ union PageContentItem = Accordion | Banner | Button | Carousel | ComponentTextBl
 input PageFilter {
   AND: [PageFilter]
   OR: [PageFilter]
+  changeFrequency: String
+  changeFrequency_contains: String
+  changeFrequency_exists: Boolean
+  changeFrequency_in: [String]
+  changeFrequency_not: String
+  changeFrequency_not_contains: String
+  changeFrequency_not_in: [String]
   content: cfcontentMultiTypeNestedFilter
   contentCollection_exists: Boolean
   contentfulMetadata: ContentfulMetadataFilter
@@ -2562,6 +2603,15 @@ input PageFilter {
   pageName_not: String
   pageName_not_contains: String
   pageName_not_in: [String]
+  priority: Float
+  priority_exists: Boolean
+  priority_gt: Float
+  priority_gte: Float
+  priority_in: [Float]
+  priority_lt: Float
+  priority_lte: Float
+  priority_not: Float
+  priority_not_in: [Float]
   seo: cfSeoNestedFilter
   seo_exists: Boolean
   slug: String
@@ -2579,10 +2629,14 @@ type PageLinkingCollections {
 }
 
 enum PageOrder {
+  changeFrequency_ASC
+  changeFrequency_DESC
   internalName_ASC
   internalName_DESC
   pageName_ASC
   pageName_DESC
+  priority_ASC
+  priority_DESC
   slug_ASC
   slug_DESC
   sys_firstPublishedAt_ASC
@@ -2844,10 +2898,14 @@ type SeoLinkingCollections {
 }
 
 enum SeoLinkingCollectionsPageCollectionOrder {
+  changeFrequency_ASC
+  changeFrequency_DESC
   internalName_ASC
   internalName_DESC
   pageName_ASC
   pageName_DESC
+  priority_ASC
+  priority_DESC
   slug_ASC
   slug_DESC
   sys_firstPublishedAt_ASC
@@ -3112,10 +3170,14 @@ type TabbedFormContainerLinkingCollections {
 }
 
 enum TabbedFormContainerLinkingCollectionsPageCollectionOrder {
+  changeFrequency_ASC
+  changeFrequency_DESC
   internalName_ASC
   internalName_DESC
   pageName_ASC
   pageName_DESC
+  priority_ASC
+  priority_DESC
   slug_ASC
   slug_DESC
   sys_firstPublishedAt_ASC
@@ -3231,10 +3293,14 @@ type VideoSectionLinkingCollections {
 }
 
 enum VideoSectionLinkingCollectionsPageCollectionOrder {
+  changeFrequency_ASC
+  changeFrequency_DESC
   internalName_ASC
   internalName_DESC
   pageName_ASC
   pageName_DESC
+  priority_ASC
+  priority_DESC
   slug_ASC
   slug_DESC
   sys_firstPublishedAt_ASC
