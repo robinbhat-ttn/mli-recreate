@@ -1,9 +1,6 @@
 .tabbedForm {
+  contain: layout style;
   padding: $space-64 $space-16;
-
-  // &__container {
-
-  // }
 
   &__wrapper {
     display: flex;
@@ -330,12 +327,24 @@
     flex: 1;
     text-align: left;
   }
-
   &__dropdownArrow {
-    font-size: $fs-12;
-    color: $text-tertiary;
-    transition: transform $transition-standard;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    position: relative;
+
+    &::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-right: 2px solid $primary;
+      border-bottom: 2px solid $primary;
+      transform: rotate(45deg);
+      margin-top: -2px;
+    }
   }
 
   &__dropdownOptions {

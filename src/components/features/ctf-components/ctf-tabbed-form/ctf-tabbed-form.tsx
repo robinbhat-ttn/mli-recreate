@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
 import { Tabs, Tab, Box } from '@mui/material';
+import React, { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
 
-import styles from './ctf-tabbed-form.module.scss';
 import { TabbedFormContainerFieldsFragment } from './__generated/ctf-tabbed-form.generated';
-
 import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtext/ctf-richtext';
+import styles from './ctf-tabbed-form.module.scss';
 
 type Props = TabbedFormContainerFieldsFragment;
 
@@ -14,7 +14,7 @@ const getFlagClass = (countryName: string): string => {
 };
 
 export const CtfTabbedForm = (props: Props) => {
-  console.log('CtfTabbedForm props:', props);
+  //console.log('CtfTabbedForm props:', props);
   const { tabsCollection, formImage } = props;
   const tabs = tabsCollection?.items || [];
 
@@ -107,17 +107,6 @@ export const CtfTabbedForm = (props: Props) => {
               })}
             </Tabs>
 
-            {/* Title */}
-            {/* {activeForm.title && (
-              <div className={styles.tabbedForm__title}>
-                <CtfRichtext
-                  disableContainer={true}
-                  json={activeForm.title.json}
-                  links={activeForm.title.links}
-                />
-              </div>
-            )}
-
             {/* Benefits */}
             {activeForm.description && (
               <div className={styles.tabbedForm__benefits}>
@@ -154,7 +143,6 @@ export const CtfTabbedForm = (props: Props) => {
                         const selectedOption = field.options.items.find(
                           (opt: any) => opt.countryCode === formData[fieldName],
                         );
-                        //const flagClass = selectedOption ? getFlagClass(selectedOption.countryCode) : '';
                         return (
                           <div
                             key={field.sys.id}
@@ -174,7 +162,7 @@ export const CtfTabbedForm = (props: Props) => {
                                   <span className={styles.tabbedForm__dropdownValue}>
                                     <span
                                       className={`fflag ff-md ${getFlagClass(selectedOption.countryCode)}`}
-                                    ></span>
+                                    />
                                     <span>{selectedOption.countryName}</span>
                                   </span>
                                 ) : (
@@ -182,7 +170,7 @@ export const CtfTabbedForm = (props: Props) => {
                                     Select an option
                                   </span>
                                 )}
-                                <span className={styles.tabbedForm__dropdownArrow}>▼</span>
+                                <span className={styles.tabbedForm__dropdownArrow} />
                               </button>
 
                               {isOpen && (
@@ -218,7 +206,7 @@ export const CtfTabbedForm = (props: Props) => {
                                             setSearchQuery('');
                                           }}
                                         >
-                                          <span className={`fflag ff-md ${optFlagClass}`}></span>
+                                          <span className={`fflag ff-md ${optFlagClass}`} />
                                           <span>{opt.countryName}</span>
                                         </button>
                                       );
@@ -349,10 +337,10 @@ export const CtfTabbedForm = (props: Props) => {
           {/* Right: Image */}
           {formImage?.url && (
             <div className={styles.tabbedForm__imageContainer}>
-              <img
+              <Image
                 src={formImage.url}
-                width={formImage.width || undefined}
-                height={formImage.height || undefined}
+                width={formImage.width || 270}
+                height={formImage.height || 464}
                 alt={formImage.description || 'Form Image'}
               />
             </div>
