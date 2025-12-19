@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Tabs, Tab, Box } from '@mui/material';
 
 import styles from './ctf-tabbed-form.module.scss';
@@ -8,11 +8,21 @@ import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtex
 
 type Props = TabbedFormContainerFieldsFragment;
 
+// Helper function to generate flag class name from country code
+const getFlagClass = (countryName: string): string => {
+  return `fflag-${countryName}`;
+};
+
 export const CtfTabbedForm = (props: Props) => {
+  console.log('CtfTabbedForm props:', props);
   const { tabsCollection, formImage } = props;
   const tabs = tabsCollection?.items || [];
 
   const [activeTab, setActiveTab] = useState(0);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
   const activeForm = tabs[activeTab]?.form;
 
   // Initialize form data with default values
@@ -34,6 +44,18 @@ export const CtfTabbedForm = (props: Props) => {
   };
 
   const [formData, setFormData] = useState<Record<string, any>>(getInitialFormData());
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setOpenDropdown(null);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   if (!tabs.length || !activeForm) return null;
 
@@ -94,7 +116,7 @@ export const CtfTabbedForm = (props: Props) => {
                   links={activeForm.title.links}
                 />
               </div>
-            )} */}
+            )}
 
             {/* Benefits */}
             {activeForm.description && (
@@ -113,8 +135,102 @@ export const CtfTabbedForm = (props: Props) => {
                 {activeForm.fieldsCollection?.items.map(field => {
                   if (!field) return null;
 
+                  // Check if field should be visible based on conditional rules
+                  const shouldShowField = () => {
+                    if (!field.conditionalRule) return true;
+
+                    const { dependsOn, value } = field.conditionalRule;
+                    return formData[dependsOn] === value;
+                  };
+
+                  if (!shouldShowField()) return null;
+
                   switch (field.fieldType) {
                     case 'Text':
+                      // If Text field has options, render as custom dropdown
+                      if (field.options?.items && field.options.items.length > 0) {
+                        const fieldName = field.name || '';
+                        const isOpen = openDropdown === fieldName;
+                        const selectedOption = field.options.items.find(
+                          (opt: any) => opt.countryCode === formData[fieldName],
+                        );
+                        //const flagClass = selectedOption ? getFlagClass(selectedOption.countryCode) : '';
+                        return (
+                          <div
+                            key={field.sys.id}
+                            className={styles.tabbedForm__field}
+                            ref={dropdownRef}
+                          >
+                            {field.label && (
+                              <label className={styles.tabbedForm__fieldLabel}>{field.label}</label>
+                            )}
+                            <div className={styles.tabbedForm__customDropdown}>
+                              <button
+                                type="button"
+                                className={`${styles.tabbedForm__dropdownButton} ${isOpen ? styles.tabbedForm__dropdownButtonOpen : ''}`}
+                                onClick={() => setOpenDropdown(isOpen ? null : fieldName)}
+                              >
+                                {selectedOption ? (
+                                  <span className={styles.tabbedForm__dropdownValue}>
+                                    <span
+                                      className={`fflag ff-md ${getFlagClass(selectedOption.countryCode)}`}
+                                    ></span>
+                                    <span>{selectedOption.countryName}</span>
+                                  </span>
+                                ) : (
+                                  <span className={styles.tabbedForm__placeholder}>
+                                    Select an option
+                                  </span>
+                                )}
+                                <span className={styles.tabbedForm__dropdownArrow}>▼</span>
+                              </button>
+
+                              {isOpen && (
+                                <div className={styles.tabbedForm__dropdownOptions}>
+                                  <input
+                                    type="text"
+                                    placeholder="Search"
+                                    className={styles.tabbedForm__dropdownSearch}
+                                    value={searchQuery}
+                                    onChange={e => setSearchQuery(e.target.value)}
+                                    onClick={e => e.stopPropagation()}
+                                  />
+                                  {field.options.items
+                                    .filter((opt: any) =>
+                                      opt.countryName
+                                        .toLowerCase()
+                                        .includes(searchQuery.toLowerCase()),
+                                    )
+                                    .map((opt: any) => {
+                                      const optFlagClass = getFlagClass(opt.countryCode);
+                                      return (
+                                        <button
+                                          key={opt.countryCode}
+                                          type="button"
+                                          className={`${styles.tabbedForm__dropdownOption} ${
+                                            formData[fieldName] === opt.countryCode
+                                              ? styles.tabbedForm__dropdownOptionSelected
+                                              : ''
+                                          }`}
+                                          onClick={() => {
+                                            handleInputChange(fieldName, opt.countryCode);
+                                            setOpenDropdown(null);
+                                            setSearchQuery('');
+                                          }}
+                                        >
+                                          <span className={`fflag ff-md ${optFlagClass}`}></span>
+                                          <span>{opt.countryName}</span>
+                                        </button>
+                                      );
+                                    })}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      }
+
+                      // Otherwise render as text input
                       return (
                         <div key={field.sys.id} className={styles.tabbedForm__field}>
                           <input
@@ -157,6 +273,20 @@ export const CtfTabbedForm = (props: Props) => {
                         </div>
                       );
 
+                    case 'Email':
+                      return (
+                        <div key={field.sys.id} className={styles.tabbedForm__field}>
+                          <input
+                            type="email"
+                            name={field.name || ''}
+                            placeholder={field.placeholder || ''}
+                            required={!!field.required}
+                            className={styles.tabbedForm__input}
+                            onChange={e => handleInputChange(field.name || '', e.target.value)}
+                          />
+                        </div>
+                      );
+
                     case 'Radio':
                       return (
                         <div
@@ -188,6 +318,7 @@ export const CtfTabbedForm = (props: Props) => {
                           </div>
                         </div>
                       );
+
                     default:
                       return null;
                   }
@@ -195,9 +326,12 @@ export const CtfTabbedForm = (props: Props) => {
               </div>
 
               <div className={styles.tabbedForm__footer}>
-                <button type="submit" className={styles.tabbedForm__submit}>
-                  Hard coded Submit
-                </button>
+                {activeForm.submitButton && (
+                  <button type="submit" className={styles.tabbedForm__submit}>
+                    {activeForm.submitButton.linkHeading}
+                  </button>
+                )}
+
                 <label className={styles.tabbedForm__checkbox}>
                   <input type="checkbox" defaultChecked />
                   <span>
