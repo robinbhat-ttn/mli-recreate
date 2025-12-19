@@ -8,16 +8,9 @@ import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtex
 
 type Props = TabbedFormContainerFieldsFragment;
 
-// Mapping of country codes to flag CSS classes (Freak Flags)
-const COUNTRY_FLAGS: Record<string, string> = {
-  '+971': 'fflag-AE', // UAE
-  '+966': 'fflag-SA', // Saudi Arabia
-  '+974': 'fflag-QA', // Qatar
-  '+1': 'fflag-US', // United States
-  '+965': 'fflag-KW', // Kuwait
-  '+973': 'fflag-BH', // Bahrain
-  '+1-CA': 'fflag-CA', // Canada
-  '+91': 'fflag-IN', // India
+// Helper function to generate flag class name from country code
+const getFlagClass = (countryName: string): string => {
+  return `fflag-${countryName}`;
 };
 
 export const CtfTabbedForm = (props: Props) => {
@@ -27,6 +20,7 @@ export const CtfTabbedForm = (props: Props) => {
 
   const [activeTab, setActiveTab] = useState(0);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const activeForm = tabs[activeTab]?.form;
@@ -160,10 +154,7 @@ export const CtfTabbedForm = (props: Props) => {
                         const selectedOption = field.options.items.find(
                           (opt: any) => opt.countryCode === formData[fieldName],
                         );
-                        const flagClass = selectedOption
-                          ? COUNTRY_FLAGS[selectedOption.countryCode] || 'fflag-AE'
-                          : '';
-
+                        //const flagClass = selectedOption ? getFlagClass(selectedOption.countryCode) : '';
                         return (
                           <div
                             key={field.sys.id}
@@ -181,7 +172,9 @@ export const CtfTabbedForm = (props: Props) => {
                               >
                                 {selectedOption ? (
                                   <span className={styles.tabbedForm__dropdownValue}>
-                                    <span className={`fflag ff-md ${flagClass}`}></span>
+                                    <span
+                                      className={`fflag ff-md ${getFlagClass(selectedOption.countryCode)}`}
+                                    ></span>
                                     <span>{selectedOption.countryName}</span>
                                   </span>
                                 ) : (
@@ -194,28 +187,42 @@ export const CtfTabbedForm = (props: Props) => {
 
                               {isOpen && (
                                 <div className={styles.tabbedForm__dropdownOptions}>
-                                  {field.options.items.map((opt: any) => {
-                                    const optFlagClass =
-                                      COUNTRY_FLAGS[opt.countryCode] || 'fflag-AE';
-                                    return (
-                                      <button
-                                        key={opt.countryCode}
-                                        type="button"
-                                        className={`${styles.tabbedForm__dropdownOption} ${
-                                          formData[fieldName] === opt.countryCode
-                                            ? styles.tabbedForm__dropdownOptionSelected
-                                            : ''
-                                        }`}
-                                        onClick={() => {
-                                          handleInputChange(fieldName, opt.countryCode);
-                                          setOpenDropdown(null);
-                                        }}
-                                      >
-                                        <span className={`fflag ff-md ${optFlagClass}`}></span>
-                                        <span>{opt.countryName}</span>
-                                      </button>
-                                    );
-                                  })}
+                                  <input
+                                    type="text"
+                                    placeholder="Search"
+                                    className={styles.tabbedForm__dropdownSearch}
+                                    value={searchQuery}
+                                    onChange={e => setSearchQuery(e.target.value)}
+                                    onClick={e => e.stopPropagation()}
+                                  />
+                                  {field.options.items
+                                    .filter((opt: any) =>
+                                      opt.countryName
+                                        .toLowerCase()
+                                        .includes(searchQuery.toLowerCase()),
+                                    )
+                                    .map((opt: any) => {
+                                      const optFlagClass = getFlagClass(opt.countryCode);
+                                      return (
+                                        <button
+                                          key={opt.countryCode}
+                                          type="button"
+                                          className={`${styles.tabbedForm__dropdownOption} ${
+                                            formData[fieldName] === opt.countryCode
+                                              ? styles.tabbedForm__dropdownOptionSelected
+                                              : ''
+                                          }`}
+                                          onClick={() => {
+                                            handleInputChange(fieldName, opt.countryCode);
+                                            setOpenDropdown(null);
+                                            setSearchQuery('');
+                                          }}
+                                        >
+                                          <span className={`fflag ff-md ${optFlagClass}`}></span>
+                                          <span>{opt.countryName}</span>
+                                        </button>
+                                      );
+                                    })}
                                 </div>
                               )}
                             </div>
