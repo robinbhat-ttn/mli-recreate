@@ -43,14 +43,7 @@ fragment ButtonCollectionFields on HeaderButtonCollection{
           }
         }
       }
-      ... on Button {
-        __typename
-        sys {
-          id
-        }
-        buttonText
-        buttonLink
-      }
+      ...LinkFields
   }
 }
 fragment HeaderFields on Header {

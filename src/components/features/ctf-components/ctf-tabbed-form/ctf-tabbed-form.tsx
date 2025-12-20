@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Tabs, Tab, Box } from '@mui/material';
+import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
 import styles from './ctf-tabbed-form.module.scss';
 import { TabbedFormContainerFieldsFragment } from './__generated/ctf-tabbed-form.generated';
@@ -15,6 +16,7 @@ const getFlagClass = (countryName: string): string => {
 
 export const CtfTabbedForm = (props: Props) => {
   console.log('CtfTabbedForm props:', props);
+  const inspectorMode = useContentfulInspectorMode();
   const { tabsCollection, formImage } = props;
   const tabs = tabsCollection?.items || [];
 
@@ -70,7 +72,10 @@ export const CtfTabbedForm = (props: Props) => {
 
   return (
     <section className={styles.tabbedForm}>
-      <Box className={`container-sec ${styles.tabbedForm__container}`}>
+      <Box
+        className={`container-sec ${styles.tabbedForm__container}`}
+        {...inspectorMode({ entryId: props.sys.id, fieldId: 'tabbedFormContainer' })}
+      >
         <Box className={styles.tabbedForm__wrapper}>
           {/* Left: Form Content */}
           <Box className={styles.tabbedForm__content}>
@@ -102,6 +107,7 @@ export const CtfTabbedForm = (props: Props) => {
                         'Tab'
                       )
                     }
+                    {...inspectorMode({ entryId: tab.sys.id, fieldId: 'formTab' })}
                   />
                 );
               })}
@@ -130,7 +136,11 @@ export const CtfTabbedForm = (props: Props) => {
             )}
 
             {/* Form */}
-            <form className={styles.tabbedForm__form} onSubmit={handleSubmit}>
+            <form
+              className={styles.tabbedForm__form}
+              onSubmit={handleSubmit}
+              {...inspectorMode({ entryId: activeForm.sys.id, fieldId: 'form' })}
+            >
               <div className={styles.tabbedForm__formGrid}>
                 {activeForm.fieldsCollection?.items.map(field => {
                   if (!field) return null;
@@ -160,6 +170,7 @@ export const CtfTabbedForm = (props: Props) => {
                             key={field.sys.id}
                             className={styles.tabbedForm__field}
                             ref={dropdownRef}
+                            {...inspectorMode({ entryId: field.sys.id, fieldId: 'formField' })}
                           >
                             {field.label && (
                               <label className={styles.tabbedForm__fieldLabel}>{field.label}</label>
@@ -232,7 +243,11 @@ export const CtfTabbedForm = (props: Props) => {
 
                       // Otherwise render as text input
                       return (
-                        <div key={field.sys.id} className={styles.tabbedForm__field}>
+                        <div
+                          key={field.sys.id}
+                          className={styles.tabbedForm__field}
+                          {...inspectorMode({ entryId: field.sys.id, fieldId: 'formField' })}
+                        >
                           <input
                             type="text"
                             name={field.name || ''}
@@ -246,7 +261,11 @@ export const CtfTabbedForm = (props: Props) => {
 
                     case 'Date':
                       return (
-                        <div key={field.sys.id} className={styles.tabbedForm__field}>
+                        <div
+                          key={field.sys.id}
+                          className={styles.tabbedForm__field}
+                          {...inspectorMode({ entryId: field.sys.id, fieldId: 'formField' })}
+                        >
                           <input
                             type="text"
                             name={field.name || ''}
@@ -260,7 +279,11 @@ export const CtfTabbedForm = (props: Props) => {
 
                     case 'Phone Number':
                       return (
-                        <div key={field.sys.id} className={styles.tabbedForm__phoneField}>
+                        <div
+                          key={field.sys.id}
+                          className={styles.tabbedForm__phoneField}
+                          {...inspectorMode({ entryId: field.sys.id, fieldId: 'formField' })}
+                        >
                           <span className={styles.tabbedForm__phonePrefix}>+91</span>
                           <input
                             type="tel"
@@ -275,7 +298,11 @@ export const CtfTabbedForm = (props: Props) => {
 
                     case 'Email':
                       return (
-                        <div key={field.sys.id} className={styles.tabbedForm__field}>
+                        <div
+                          key={field.sys.id}
+                          className={styles.tabbedForm__field}
+                          {...inspectorMode({ entryId: field.sys.id, fieldId: 'formField' })}
+                        >
                           <input
                             type="email"
                             name={field.name || ''}
@@ -296,6 +323,7 @@ export const CtfTabbedForm = (props: Props) => {
                               ? styles.tabbedForm__radioGroupMultiRow
                               : ''
                           }`}
+                          {...inspectorMode({ entryId: field.sys.id, fieldId: 'formField' })}
                         >
                           {field.label && (
                             <p className={styles.tabbedForm__fieldLabel}>{field.label}</p>
@@ -327,7 +355,11 @@ export const CtfTabbedForm = (props: Props) => {
 
               <div className={styles.tabbedForm__footer}>
                 {activeForm.submitButton && (
-                  <button type="submit" className={styles.tabbedForm__submit}>
+                  <button
+                    type="submit"
+                    className={styles.tabbedForm__submit}
+                    {...inspectorMode({ entryId: activeForm.submitButton.sys.id, fieldId: 'link' })}
+                  >
                     {activeForm.submitButton.linkHeading}
                   </button>
                 )}
