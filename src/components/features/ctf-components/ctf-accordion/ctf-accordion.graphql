@@ -12,6 +12,10 @@ fragment AccordionCollectionFields on AccordionAccordionItemsCollection {
           block {
             ...ComponentReferenceFields
           }
+          inline {
+            ...ComponentReferenceFields
+            ...LinkFields
+          }
         }
         assets {
           block {
@@ -33,7 +37,7 @@ fragment AccordionFields on Accordion {
   }
 }
 
-query CtfAccordion($id: String!, $locale: String, $preview: Boolean){
+query CtfAccordion($id: String!, $locale: String, $preview: Boolean) {
   accordion(id: $id, locale: $locale, preview: $preview) {
     ...AccordionFields
   }

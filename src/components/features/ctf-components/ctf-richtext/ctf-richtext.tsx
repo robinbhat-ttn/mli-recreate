@@ -8,6 +8,7 @@ import clsx from 'clsx';
 import React, { useMemo, useCallback } from 'react';
 
 import { CtfAsset } from '../ctf-asset/ctf-asset';
+import { CtfLink } from '../ctf-link/ctf-link';
 
 import { AssetFieldsFragment } from '@src/components/features/ctf-components/ctf-asset/__generated/ctf-asset.generated';
 import { useCtfRichTextHyperlinkQuery } from '@src/components/features/ctf-components/ctf-richtext/__generated/ctf-richtext.generated';
@@ -259,6 +260,12 @@ export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
         if (id) {
           // NOTE: As the Ninetailed mergetag is the only inline entry used on the content model we don't have to setup the check through the links array.
           // If there will come additional inline entries this needs to be done.
+          if (__typename === 'Link') {
+            const linkProps = links?.entries?.inline.filter(
+              inlineLink => inlineLink?.sys?.id === id,
+            )[0];
+            return <CtfLink {...linkProps} />;
+          }
           return (
             <ComponentResolver componentProps={{ sys: { id }, __typename }} className="" inline />
           );
