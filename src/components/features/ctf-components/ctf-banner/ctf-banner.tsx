@@ -1,5 +1,4 @@
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import Box from '@mui/material/Box';
 import Image from 'next/image';
 import React from 'react';
@@ -27,38 +26,24 @@ export const CtfBanner = (props: Props) => {
         <div className={styles['banner__left']}>
           <h1 className={styles['banner__title']}>{title}</h1>
 
-          <ul className={`hidden-mobile ${styles['banner__texts']}`}>
+          <Box
+            component="ul"
+            className={styles['banner__texts']}
+            sx={{ display: { xs: 'none', md: 'none', lg: 'flex' } }}
+          >
             {texts.map((t: any) => {
               const iconBlock = t.body?.links?.assets?.block?.[0];
-              const firstNode = t?.body?.json?.content?.[0];
-              const isSimpleParagraph =
-                firstNode &&
-                firstNode.nodeType === 'paragraph' &&
-                firstNode.content.every(c => c.nodeType === 'text');
               return (
                 <li
                   key={t.sys?.id}
                   className={styles['banner__text-item']}
                   {...inspectorMode({ entryId: t.sys?.id, fieldId: 'componentTextBlock' })}
                 >
-                  {iconBlock?.url && (
-                    <Image
-                      src={iconBlock?.url}
-                      alt="icon"
-                      className={styles['banner__text-icon']}
-                      height={iconBlock?.height}
-                      width={iconBlock?.width}
-                    />
-                  )}
-                  {isSimpleParagraph ? (
-                    <span>{firstNode.content.map(c => c.value).join('')}</span>
-                  ) : (
-                    <CtfRichtext {...t.body} />
-                  )}
+                  <CtfRichtext {...t.body} disableContainer />
                 </li>
               );
             })}
-          </ul>
+          </Box>
         </div>
 
         <div className={styles['banner__right']}>
@@ -77,38 +62,19 @@ export const CtfBanner = (props: Props) => {
           )}
         </div>
       </div>
-      <ul className={styles['banner__texts--mobile']}>
+      <div className={styles['banner__texts--mobile']}>
         {texts.map((t: any) => {
           const iconBlock = t.body?.links?.assets?.block?.[0];
-          const firstNode = t?.body?.json?.content?.[0];
-          const isSimpleParagraph =
-            firstNode &&
-            firstNode.nodeType === 'paragraph' &&
-            firstNode.content.every(c => c.nodeType === 'text');
           return (
-            <li
+            <React.Fragment
               key={t.sys?.id}
-              className={styles['banner__text-item']}
               {...inspectorMode({ entryId: t.sys?.id, fieldId: 'componentTextBlock' })}
             >
-              {iconBlock?.url && (
-                <Image
-                  src={iconBlock?.url}
-                  alt="icon"
-                  className={styles['banner__text-icon']}
-                  height={iconBlock?.height || 24}
-                  width={iconBlock?.width || 24}
-                />
-              )}
-              {isSimpleParagraph ? (
-                <span>{firstNode.content.map(c => c.value).join('')}</span>
-              ) : (
-                <CtfRichtext {...t.body} />
-              )}
-            </li>
+              <CtfRichtext {...t.body} disableContainer />
+            </React.Fragment>
           );
         })}
-      </ul>
+      </div>
       <div className={`container-sec ${styles['banner__cards-wrapper']}`}>
         <div className={styles['banner__cards']}>
           {cards.map((c: any) => {
@@ -122,9 +88,10 @@ export const CtfBanner = (props: Props) => {
               >
                 <div className={styles['banner__card-top']}>
                   <span className={styles['banner__card-pill']}>
-                    {documentToReactComponents(c.cardContent.json)}
+                    <CtfRichtext {...c.cardContent} disableContainer />
                   </span>
                 </div>
+
                 <div className={styles['banner__card-body']}>
                   {cardImg && (
                     <div className={styles['banner__card-icon']}>

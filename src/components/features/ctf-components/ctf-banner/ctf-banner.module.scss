@@ -1,11 +1,10 @@
-
-
 .banner {
   padding: $space-64 0 0;
   background: $bg-muted;
   height: $space-480;
   margin-bottom: $space-190;
   position: relative;
+
   @include min-width('lg') {
     padding: $space-80 0 0;
     margin-bottom: $space-130;
@@ -27,10 +26,8 @@
   &__texts--mobile {
     display: flex;
     flex-wrap: wrap;
-    list-style: none;
     justify-content: center;
     width: 100%;
-    margin: 0 auto;
     row-gap: $space-16;
     padding: $space-16 $space-16 $space-20;
     position: relative;
@@ -38,15 +35,7 @@
     z-index: 2;
     background: $dropdown-bg 0% 0% no-repeat padding-box;
 
-    @include min-width('sm') {
-      width: $banner-texts-percent;
-    }
-
-    @include min-width('lg') {
-      display: none;
-    }
-
-    &>.banner__text-item {
+    >div {
       display: flex;
       align-items: center;
       gap: $space-10;
@@ -56,19 +45,24 @@
       line-height: 1.5;
       @include font-apply($font-noto);
 
-      span {
-        color: $gray-500;
-      }
-
-      .banner__text-icon {
+      figure {
         max-width: 100%;
         height: auto;
         display: inline-block;
       }
 
-      >div>p {
+      p {
         margin: 0;
+        color: $gray-500;
       }
+    }
+
+    @include min-width('sm') {
+      width: $banner-texts-percent;
+    }
+
+    @include min-width('lg') {
+      display: none;
     }
   }
 
@@ -77,6 +71,7 @@
     flex-direction: column;
     gap: $space-32;
     width: $banner-left-width;
+
     @include min-width('lg') {
       width: auto;
     }
@@ -96,32 +91,38 @@
   }
 
   &__texts {
-    display: flex;
     flex-wrap: wrap;
     gap: $space-24;
     list-style: none;
     padding: 0;
     margin: 0;
 
-    &>.banner__text-item {
+    >.banner__text-item {
       display: flex;
-      align-items: center;
-      gap: $space-10;
-      color: $text-primary;
-      font-size: $fs-18;
+      //align-items: center;
+      //gap: $space-10;
       flex: 0 0 $banner-card-flex-gap;
       max-width: $banner-card-flex-gap;
-      line-height: $lh-xl;
-      @include font-apply($font-noto);
 
-      .banner__text-icon {
-        max-width: 100%;
-        height: auto;
-        display: inline-block;
-      }
+      >div {
+        display: flex;
+        align-items: center;
+        gap: $space-10;
 
-      >div>p {
-        margin: 0;
+        figure {
+          max-width: 100%;
+          height: auto;
+          display: inline-block;
+        }
+
+        p {
+          margin: 0;
+          line-height: $lh-xl;
+          font-size: $fs-18;
+          color: $text-primary;
+          @include font-apply($font-noto);
+        }
+
       }
     }
   }
@@ -132,6 +133,7 @@
     z-index: 2;
     padding: 0;
     top: $banner-top-position;
+
     @include min-width('lg') {
       top: -$space-190;
     }
@@ -146,7 +148,7 @@
     box-shadow: $shadow-banner-text;
     flex-wrap: wrap;
     row-gap: $space-20;
-    padding: $space-24 $space-10;  
+    padding: $space-24 $space-10;
 
     @include min-width('md') {
       padding: $space-32 $space-48;
@@ -166,6 +168,7 @@
     border: 1px solid $border-light;
     width: 100%;
     flex: 0 0 $banner-card-flex;
+
     @include min-width('lg') {
       min-width: $space-104;
       max-width: $space-174;
@@ -184,19 +187,20 @@
 
     &-pill {
       display: inline-block;
-      padding: $space-4;
+      padding: $space-6;
       border-radius: $radius-12;
       background: $banner-pill-bg;
-      color: $banner-pill-text;
-      @include font-apply($font-noto, $fw-bold);
       position: absolute;
       top: -$space-10;
       left: 0;
       width: 100%;
-      font-size: $fs-10;
-      line-height: $lh-10;
+
       p {
         margin: 0;
+        font-size: $fs-10;
+        line-height: $lh-10;
+        color: $banner-pill-text;
+        @include font-apply($font-noto, $fw-bold);
       }
     }
 
@@ -206,7 +210,7 @@
       flex-direction: column;
       align-items: center;
       gap: $space-10;
-      
+
       @include min-width('lg') {
         min-width: $space-174;
         max-width: 6.25rem;
@@ -230,6 +234,7 @@
       color: $text-primary;
       line-height: $lh-loose;
       @include font-apply($font-noto, $fw-medium);
+
       @include min-width('lg') {
         font-size: $fs-16;
         line-height: $lh-21;
@@ -252,6 +257,7 @@
     .banner__image-wrap {
       position: relative;
       z-index: 2;
+
       @include min-width('lg') {
         padding-top: $space-56;
       }
@@ -268,6 +274,7 @@
         right: $banner-blur-circle-right;
         border: solid $blur-border $banner-blur-circle-border-width;
         top: $banner-blur-circle-top;
+
         @include min-width('lg') {
           width: $banner-blur-circle-width-lg;
           height: $banner-blur-circle-height-lg;
@@ -284,6 +291,7 @@
       position: relative;
       z-index: 3;
       display: block;
+
       @include min-width('lg') {
         width: $space-348;
       }
