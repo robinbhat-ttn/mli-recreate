@@ -23,11 +23,14 @@ export type HamburgerMenuFieldsFragment = { __typename: 'HamburgerMenu', menuTit
      | null> } | null };
 
 export type ButtonCollectionFieldsFragment = { __typename?: 'HeaderButtonCollection', items: Array<
-    | { __typename: 'Button', buttonText?: string | null, buttonLink?: string | null, sys: { __typename?: 'Sys', id: string } }
     | { __typename: 'ButtonWithLinks', buttonText?: string | null, sys: { __typename?: 'Sys', id: string }, buttonDropDownLinksCollection?: { __typename?: 'ButtonWithLinksButtonDropDownLinksCollection', items: Array<(
           { __typename?: 'Link' }
           & LinkFieldsFragment
         ) | null> } | null }
+    | (
+      { __typename: 'Link' }
+      & LinkFieldsFragment
+    )
    | null> };
 
 export type HeaderFieldsFragment = { __typename: 'Header', sys: { __typename?: 'Sys', id: string }, logo?: (
@@ -73,14 +76,7 @@ export const ButtonCollectionFieldsFragmentDoc = `
         }
       }
     }
-    ... on Button {
-      __typename
-      sys {
-        id
-      }
-      buttonText
-      buttonLink
-    }
+    ...LinkFields
   }
 }
     `;

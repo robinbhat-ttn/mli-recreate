@@ -1915,13 +1915,6 @@ type HeaderButtonCollection {
 input HeaderButtonFilter {
   AND: [HeaderButtonFilter]
   OR: [HeaderButtonFilter]
-  buttonText: String
-  buttonText_contains: String
-  buttonText_exists: Boolean
-  buttonText_in: [String]
-  buttonText_not: String
-  buttonText_not_contains: String
-  buttonText_not_in: [String]
   contentfulMetadata: ContentfulMetadataFilter
   internalName: String
   internalName_contains: String
@@ -1933,7 +1926,7 @@ input HeaderButtonFilter {
   sys: SysFilter
 }
 
-union HeaderButtonItem = Button | ButtonWithLinks
+union HeaderButtonItem = Button | ButtonWithLinks | Link
 
 type HeaderCollection {
   items: [Header]!
@@ -2235,6 +2228,7 @@ type LinkLinkingCollections {
   footerCollection(limit: Int = 100, locale: String, order: [LinkLinkingCollectionsFooterCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): FooterCollection
   formCollection(limit: Int = 100, locale: String, order: [LinkLinkingCollectionsFormCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): FormCollection
   hamburgerMenuCollection(limit: Int = 100, locale: String, order: [LinkLinkingCollectionsHamburgerMenuCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): HamburgerMenuCollection
+  headerCollection(limit: Int = 100, locale: String, order: [LinkLinkingCollectionsHeaderCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): HeaderCollection
   pageCollection(limit: Int = 100, locale: String, order: [LinkLinkingCollectionsPageCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): PageCollection
   subNavigationItemCollection(limit: Int = 100, locale: String, order: [LinkLinkingCollectionsSubNavigationItemCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): SubNavigationItemCollection
 }
@@ -2289,6 +2283,19 @@ enum LinkLinkingCollectionsHamburgerMenuCollectionOrder {
   internalName_DESC
   menuTitle_ASC
   menuTitle_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+}
+
+enum LinkLinkingCollectionsHeaderCollectionOrder {
+  internalName_ASC
+  internalName_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -3757,13 +3764,6 @@ input cfSubNavigationItemNestedFilter {
 input cfbuttonMultiTypeNestedFilter {
   AND: [cfbuttonMultiTypeNestedFilter]
   OR: [cfbuttonMultiTypeNestedFilter]
-  buttonText: String
-  buttonText_contains: String
-  buttonText_exists: Boolean
-  buttonText_in: [String]
-  buttonText_not: String
-  buttonText_not_contains: String
-  buttonText_not_in: [String]
   contentfulMetadata: ContentfulMetadataFilter
   internalName: String
   internalName_contains: String

@@ -1,6 +1,7 @@
 import { Tabs, Tab, Box } from '@mui/material';
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
 import { TabbedFormContainerFieldsFragment } from './__generated/ctf-tabbed-form.generated';
 import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtext/ctf-richtext';
@@ -15,6 +16,7 @@ const getFlagClass = (countryName: string): string => {
 
 export const CtfTabbedForm = (props: Props) => {
   //console.log('CtfTabbedForm props:', props);
+  const inspectorMode = useContentfulInspectorMode();
   const { tabsCollection, formImage } = props;
   const tabs = tabsCollection?.items || [];
 
@@ -70,7 +72,10 @@ export const CtfTabbedForm = (props: Props) => {
 
   return (
     <section className={styles.tabbedForm}>
-      <Box className={`container-sec ${styles.tabbedForm__wrapper}`}>
+      <Box
+        className={`container-sec ${styles.tabbedForm__wrapper}`}
+        {...inspectorMode({ entryId: props.sys.id, fieldId: 'tabbedFormContainer' })}
+      >
         {/* Left: Form Content */}
         <Box className={styles.tabbedForm__content}>
           {/* Tabs */}
@@ -99,6 +104,19 @@ export const CtfTabbedForm = (props: Props) => {
                       'Tab'
                     )
                   }
+                  {...inspectorMode({ entryId: tab.sys.id, fieldId: 'formTab' })}
+                />
+              );
+            })}
+          </Tabs>
+
+          {/* Title */}
+          {/* {activeForm.title && (
+              <div className={styles.tabbedForm__title}>
+                <CtfRichtext
+                  disableContainer={true}
+                  json={activeForm.title.json}
+                  links={activeForm.title.links}
                 />
               );
             })}
@@ -112,7 +130,11 @@ export const CtfTabbedForm = (props: Props) => {
           )}
 
           {/* Form */}
-          <form className={styles.tabbedForm__form} onSubmit={handleSubmit}>
+          <form
+            className={styles.tabbedForm__form}
+            onSubmit={handleSubmit}
+            {...inspectorMode({ entryId: activeForm.sys.id, fieldId: 'form' })}
+          >
             <div className={styles.tabbedForm__formGrid}>
               {activeForm.fieldsCollection?.items.map(field => {
                 if (!field) return null;
@@ -136,11 +158,13 @@ export const CtfTabbedForm = (props: Props) => {
                       const selectedOption = field.options.items.find(
                         (opt: any) => opt.countryCode === formData[fieldName],
                       );
+
                       return (
                         <div
                           key={field.sys.id}
                           className={styles.tabbedForm__field}
                           ref={dropdownRef}
+                          {...inspectorMode({ entryId: field.sys.id, fieldId: 'formField' })}
                         >
                           {field.label && (
                             <label className={styles.tabbedForm__fieldLabel}>{field.label}</label>
@@ -155,7 +179,7 @@ export const CtfTabbedForm = (props: Props) => {
                                 <span className={styles.tabbedForm__dropdownValue}>
                                   <span
                                     className={`fflag ff-md ${getFlagClass(selectedOption.countryCode)}`}
-                                  />
+                                  ></span>
                                   <span>{selectedOption.countryName}</span>
                                 </span>
                               ) : (
@@ -163,7 +187,6 @@ export const CtfTabbedForm = (props: Props) => {
                                   Select an option
                                 </span>
                               )}
-                              <span className={styles.tabbedForm__dropdownArrow} />
                             </button>
 
                             {isOpen && (
@@ -199,7 +222,7 @@ export const CtfTabbedForm = (props: Props) => {
                                           setSearchQuery('');
                                         }}
                                       >
-                                        <span className={`fflag ff-md ${optFlagClass}`} />
+                                        <span className={`fflag ff-md ${optFlagClass}`}></span>
                                         <span>{opt.countryName}</span>
                                       </button>
                                     );
@@ -213,7 +236,11 @@ export const CtfTabbedForm = (props: Props) => {
 
                     // Otherwise render as text input
                     return (
-                      <div key={field.sys.id} className={styles.tabbedForm__field}>
+                      <div
+                        key={field.sys.id}
+                        className={styles.tabbedForm__field}
+                        {...inspectorMode({ entryId: field.sys.id, fieldId: 'formField' })}
+                      >
                         <input
                           type="text"
                           name={field.name || ''}
@@ -227,7 +254,11 @@ export const CtfTabbedForm = (props: Props) => {
 
                   case 'Date':
                     return (
-                      <div key={field.sys.id} className={styles.tabbedForm__field}>
+                      <div
+                        key={field.sys.id}
+                        className={styles.tabbedForm__field}
+                        {...inspectorMode({ entryId: field.sys.id, fieldId: 'formField' })}
+                      >
                         <input
                           type="text"
                           name={field.name || ''}
@@ -241,7 +272,11 @@ export const CtfTabbedForm = (props: Props) => {
 
                   case 'Phone Number':
                     return (
-                      <div key={field.sys.id} className={styles.tabbedForm__phoneField}>
+                      <div
+                        key={field.sys.id}
+                        className={styles.tabbedForm__phoneField}
+                        {...inspectorMode({ entryId: field.sys.id, fieldId: 'formField' })}
+                      >
                         <span className={styles.tabbedForm__phonePrefix}>+91</span>
                         <input
                           type="tel"
@@ -256,7 +291,11 @@ export const CtfTabbedForm = (props: Props) => {
 
                   case 'Email':
                     return (
-                      <div key={field.sys.id} className={styles.tabbedForm__field}>
+                      <div
+                        key={field.sys.id}
+                        className={styles.tabbedForm__field}
+                        {...inspectorMode({ entryId: field.sys.id, fieldId: 'formField' })}
+                      >
                         <input
                           type="email"
                           name={field.name || ''}
@@ -306,7 +345,11 @@ export const CtfTabbedForm = (props: Props) => {
 
             <div className={styles.tabbedForm__footer}>
               {activeForm.submitButton && (
-                <button type="submit" className={styles.tabbedForm__submit}>
+                <button
+                  type="submit"
+                  className={styles.tabbedForm__submit}
+                  {...inspectorMode({ entryId: activeForm.submitButton.sys.id, fieldId: 'link' })}
+                >
                   {activeForm.submitButton.linkHeading}
                 </button>
               )}
