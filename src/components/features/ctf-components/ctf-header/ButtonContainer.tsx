@@ -51,7 +51,7 @@ export const ButtonContainer = (props: ButtonCollectionFieldsFragment) => {
                       <Link
                         key={i}
                         href={linkItem?.slug ?? linkItem?.linkUrl ?? '/'}
-                        className={styles.dropdownLink}
+                        className={styles.dropdownLinkTextContainer}
                         {...inspectorMode({ entryId: linkItem?.sys.id, fieldId: 'link' })}
                       >
                         {linkItem?.icon?.url && (
@@ -63,7 +63,12 @@ export const ButtonContainer = (props: ButtonCollectionFieldsFragment) => {
                             className={styles.dropdownLinkIcon}
                           />
                         )}
-                        <span>{linkItem?.linkHeading}</span>
+                        <div className={styles.dropdownLinkTextwprapper}>
+                          <span className={styles.dropdownLinkText}>{linkItem?.linkHeading}</span>
+                          <span className={styles.dropdownLinkSubText}>
+                            {linkItem?.linkSubHeading}
+                          </span>
+                        </div>
                       </Link>
                     ))}
                   </div>

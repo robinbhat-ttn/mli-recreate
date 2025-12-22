@@ -172,6 +172,10 @@
     @include min-width('lg') {
       min-width: $space-104;
       max-width: $space-174;
+
+      &:hover {
+        box-shadow: 0 6px 24px 0 rgba(23,26,33,0.12);
+      }
     }
 
     &-top {
