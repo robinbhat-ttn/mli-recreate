@@ -21,51 +21,59 @@ export const ButtonContainer = (props: ButtonCollectionFieldsFragment) => {
   }, []);
   return (
     <div className={styles.buttonsContainer}>
-      {props.items.map((button, btnIndex) =>
-        button?.__typename == 'Button' ? (
-          <button
-            key={btnIndex}
-            className={` hidden-mobile ${styles.headerButton}`}
-            {...inspectorMode({ entryId: button.sys.id, fieldId: 'button' })}
-          >
-            <Link href={button.buttonLink ?? '/'}>{button.buttonText}</Link>
-          </button>
-        ) : (
-          <div key={btnIndex} className={styles.dropdownWrapper} ref={dropdownRef}>
-            <button
-              className={`${styles.headerButton} ${isOpen ? styles.headerButtonOpen : ''}`}
-              onClick={() => setIsOpen(prev => !prev)}
-              {...inspectorMode({ entryId: button?.sys.id, fieldId: 'buttonWithLinks' })}
-            >
-              {button?.buttonText}
-            </button>
+      {props.items.map((button, btnIndex) => {
+        switch (button?.__typename) {
+          case 'Link':
+            return (
+              <button
+                key={btnIndex}
+                className={` hidden-mobile ${styles.headerButton}`}
+                {...inspectorMode({ entryId: button.sys.id, fieldId: 'link' })}
+              >
+                <Link href={button.slug ?? button.linkUrl ?? '/'}>{button.linkHeading}</Link>
+              </button>
+            );
 
-            {isOpen && (
-              <div className={styles.dropdownContent}>
-                {button?.buttonDropDownLinksCollection?.items.map((linkItem, i) => (
-                  <Link
-                    key={i}
-                    href={linkItem?.slug ?? linkItem?.linkUrl ?? '/'}
-                    className={styles.dropdownLink}
-                    {...inspectorMode({ entryId: linkItem?.sys.id, fieldId: 'link' })}
-                  >
-                    {linkItem?.icon?.url && (
-                      <Image
-                        src={linkItem.icon.url}
-                        alt={linkItem.icon.title ?? linkItem.linkHeading ?? 'Link icon'}
-                        width={linkItem.icon.width || 24}
-                        height={linkItem.icon.height || 24}
-                        className={styles.dropdownLinkIcon}
-                      />
-                    )}
-                    <span>{linkItem?.linkHeading}</span>
-                  </Link>
-                ))}
+          case 'ButtonWithLinks':
+            return (
+              <div key={btnIndex} className={styles.dropdownWrapper} ref={dropdownRef}>
+                <button
+                  className={`${styles.headerButton} ${isOpen ? styles.headerButtonOpen : ''}`}
+                  onClick={() => setIsOpen(prev => !prev)}
+                  {...inspectorMode({ entryId: button?.sys.id, fieldId: 'buttonWithLinks' })}
+                >
+                  {button?.buttonText}
+                </button>
+
+                {isOpen && (
+                  <div className={styles.dropdownContent}>
+                    {button?.buttonDropDownLinksCollection?.items.map((linkItem, i) => (
+                      <Link
+                        key={i}
+                        href={linkItem?.slug ?? linkItem?.linkUrl ?? '/'}
+                        className={styles.dropdownLink}
+                        {...inspectorMode({ entryId: linkItem?.sys.id, fieldId: 'link' })}
+                      >
+                        {linkItem?.icon?.url && (
+                          <Image
+                            src={linkItem.icon.url}
+                            alt={linkItem.icon.title ?? linkItem.linkHeading ?? 'Link icon'}
+                            width={linkItem.icon.width || 24}
+                            height={linkItem.icon.height || 24}
+                            className={styles.dropdownLinkIcon}
+                          />
+                        )}
+                        <span>{linkItem?.linkHeading}</span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        ),
-      )}
+            );
+          default:
+            return null;
+        }
+      })}
     </div>
   );
 };
