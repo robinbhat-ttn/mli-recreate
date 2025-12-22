@@ -1,13 +1,11 @@
 .disclaimer-wrapper {
-  contain: layout style;
+  margin-bottom: $space-80;
   
   p {
     color: $black;
     font-size: $fs-10;
     line-height: $lh-normal;
     @include font-apply($font-noto, $fw-regular);
-    padding: 0;
-    margin-top: $space-48;
 
     @include min-width('lg') {
       padding: 0 $space-32;
@@ -18,8 +16,6 @@
 }
 
 .life-insurance-wrapper {
-  contain: layout style;
-  
   @include min-width('lg') {
     padding: $space-48;
   }

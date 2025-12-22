@@ -1,55 +1,36 @@
 // --- Font-face declarations ---
 // Roboto Regular
-// @font-face {
-//   font-family: 'Roboto';
-//   src: url('/assets/fonts/roboto-400.woff2') format('woff2');
-//   font-weight: $fw-regular;
-//   font-style: normal;
-//   font-display: swap;
-// }
-
-// Noto Sans (regular subsets)
 @font-face {
-  font-family: 'Noto Sans';
-  src: url('/assets/fonts/noto-sans-400-latin.woff2') format('woff2');
-  font-weight: 400;
+  font-family: 'Roboto';
+  src: url('/assets/fonts/roboto-400.woff2') format('woff2');
+  font-weight: $fw-regular;
   font-style: normal;
   font-display: swap;
-  ascent-override: 110%;
-  descent-override: 27%;
-  line-gap-override: 0%;
-}
-@font-face {
-  font-family: 'Noto Sans';
-  src: url('/assets/fonts/noto-sans-400-latin-ext.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-  ascent-override: 110%;
-  descent-override: 27%;
-  line-gap-override: 0%;
 }
 
-// Lato Regular
+// Noto Sans,  variable google font
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('/assets/fonts/NotoSans-VariableFont_wdth,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+// // Lato Regular
 @font-face {
   font-family: 'Lato';
   src: url('/assets/fonts/lato-400.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  ascent-override: 105%;
-  descent-override: 28%;
-  line-gap-override: 0%;
 }
 
-// Lato Bold
+// // Lato Bold
 @font-face {
   font-family: 'Lato';
   src: url('/assets/fonts/lato-700.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
-  ascent-override: 105%;
-  descent-override: 28%;
-  line-gap-override: 0%;
 }

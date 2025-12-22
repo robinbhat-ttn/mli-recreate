@@ -19,10 +19,10 @@ export const CtfTextBlock = ({ sys, body, variations }: TextBlockFieldsFragment)
   return (
     <Box
       className={`container-sec ${isDisclaimer ? styles['disclaimer-wrapper'] : styles['life-insurance-wrapper']}`}
-      sx={isDisclaimer ? { pt: 1 } : { p: 6 }}
+      //sx={isDisclaimer ? { pt: 1 } : { p: 6 }}
       {...inspectorMode({ entryId: sys.id, fieldId: 'componentTextBlock' })}
     >
-      {body && <CtfRichtext {...body} disableContainer={true} />}
+      {body && <CtfRichtext {...body} disableContainer />}
     </Box>
   );
 };

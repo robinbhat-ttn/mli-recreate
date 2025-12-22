@@ -35,7 +35,7 @@ export const ButtonContainer = (props: ButtonCollectionFieldsFragment) => {
             <button
               className={`${styles.headerButton} ${isOpen ? styles.headerButtonOpen : ''}`}
               onClick={() => setIsOpen(prev => !prev)}
-              {...inspectorMode({ entryId: button?.sys.id, fieldId: 'buttonWithLinks' })}
+              {...inspectorMode({ entryId: button?.sys?.id, fieldId: 'buttonWithLinks' })}
             >
               {button?.buttonText}
             </button>
