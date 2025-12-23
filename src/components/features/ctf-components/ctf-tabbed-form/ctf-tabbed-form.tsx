@@ -1,10 +1,11 @@
+import Image from 'next/image';
 import { Tabs, Tab, Box } from '@mui/material';
 import React, { useState, useRef, useEffect } from 'react';
-import Image from 'next/image';
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
 import { TabbedFormContainerFieldsFragment } from './__generated/ctf-tabbed-form.generated';
 import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtext/ctf-richtext';
+import chevronIcon from '@src/icons/chevron_down_navigate_blue.webp';
 import styles from './ctf-tabbed-form.module.scss';
 
 type Props = TabbedFormContainerFieldsFragment;
@@ -15,15 +16,19 @@ const getFlagClass = (countryName: string): string => {
 };
 
 export const CtfTabbedForm = (props: Props) => {
-  //console.log('CtfTabbedForm props:', props);
+  console.log('CtfTabbedForm props:', props);
   const inspectorMode = useContentfulInspectorMode();
   const { tabsCollection, formImage } = props;
   const tabs = tabsCollection?.items || [];
 
   const [activeTab, setActiveTab] = useState(0);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [openPhoneCountryDropdown, setOpenPhoneCountryDropdown] = useState(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [phoneCountrySearchQuery, setPhoneCountrySearchQuery] = useState<string>('');
+  const [focusedFields, setFocusedFields] = useState<Set<string>>(new Set());
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const phoneCountryDropdownRef = useRef<HTMLDivElement>(null);
 
   const activeForm = tabs[activeTab]?.form;
 
@@ -31,13 +36,12 @@ export const CtfTabbedForm = (props: Props) => {
   const getInitialFormData = () => {
     const initialData: Record<string, any> = {};
 
-    // Find the NRI field and set "No" as default
     activeForm?.fieldsCollection?.items.forEach(field => {
+      // Set NRI default to 'no'
       if (field?.label?.toLowerCase().includes('nri') && field?.fieldType === 'Radio') {
-        // Set the first option as default (should be "No")
-        const firstOption = field?.options?.items?.[0];
-        if (firstOption) {
-          initialData[field.name || ''] = firstOption.value;
+        const noOption = field?.options?.items?.find((opt: any) => opt.value === 'no');
+        if (noOption) {
+          initialData[field.name || ''] = noOption.value;
         }
       }
     });
@@ -52,6 +56,12 @@ export const CtfTabbedForm = (props: Props) => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setOpenDropdown(null);
+      }
+      if (
+        phoneCountryDropdownRef.current &&
+        !phoneCountryDropdownRef.current.contains(event.target as Node)
+      ) {
+        setOpenPhoneCountryDropdown(false);
       }
     };
 
@@ -155,9 +165,18 @@ export const CtfTabbedForm = (props: Props) => {
                     if (field.options?.items && field.options.items.length > 0) {
                       const fieldName = field.name || '';
                       const isOpen = openDropdown === fieldName;
-                      const selectedOption = field.options.items.find(
-                        (opt: any) => opt.countryCode === formData[fieldName],
-                      );
+
+                      // Use first option as default if no value is set
+                      const defaultValue =
+                        formData[fieldName] || field.options.items[0]?.countryCode;
+                      const selectedOption =
+                        field.options.items.find((opt: any) => opt.countryCode === defaultValue) ||
+                        field.options.items[0];
+
+                      // Update form data with default if not set
+                      if (!formData[fieldName] && selectedOption) {
+                        handleInputChange(fieldName, selectedOption.countryCode);
+                      }
 
                       return (
                         <div
@@ -182,11 +201,18 @@ export const CtfTabbedForm = (props: Props) => {
                                   ></span>
                                   <span>{selectedOption.countryName}</span>
                                 </span>
-                              ) : (
-                                <span className={styles.tabbedForm__placeholder}>
-                                  Select an option
-                                </span>
-                              )}
+                              ) : null}
+                              <span
+                                className={`${styles.tabbedForm__dropdownArrow} ${isOpen ? styles.tabbedForm__dropdownArrowOpen : ''}`}
+                              >
+                                <Image
+                                  src={chevronIcon}
+                                  alt="dropdown arrow"
+                                  width={20}
+                                  height={20}
+                                  priority
+                                />
+                              </span>
                             </button>
 
                             {isOpen && (
@@ -208,23 +234,31 @@ export const CtfTabbedForm = (props: Props) => {
                                   .map((opt: any) => {
                                     const optFlagClass = getFlagClass(opt.countryCode);
                                     return (
-                                      <button
+                                      <div
                                         key={opt.countryCode}
-                                        type="button"
                                         className={`${styles.tabbedForm__dropdownOption} ${
                                           formData[fieldName] === opt.countryCode
                                             ? styles.tabbedForm__dropdownOptionSelected
                                             : ''
                                         }`}
+                                        role="button"
+                                        tabIndex={0}
                                         onClick={() => {
                                           handleInputChange(fieldName, opt.countryCode);
                                           setOpenDropdown(null);
                                           setSearchQuery('');
                                         }}
+                                        onKeyDown={e => {
+                                          if (e.key === 'Enter' || e.key === ' ') {
+                                            handleInputChange(fieldName, opt.countryCode);
+                                            setOpenDropdown(null);
+                                            setSearchQuery('');
+                                          }
+                                        }}
                                       >
                                         <span className={`fflag ff-md ${optFlagClass}`}></span>
                                         <span>{opt.countryName}</span>
-                                      </button>
+                                      </div>
                                     );
                                   })}
                               </div>
@@ -235,75 +269,319 @@ export const CtfTabbedForm = (props: Props) => {
                     }
 
                     // Otherwise render as text input
+                    const fieldName = field.name || '';
                     return (
                       <div
                         key={field.sys.id}
                         className={styles.tabbedForm__field}
                         {...inspectorMode({ entryId: field.sys.id, fieldId: 'formField' })}
                       >
-                        <input
-                          type="text"
-                          name={field.name || ''}
-                          placeholder={field.placeholder || ''}
-                          required={!!field.required}
-                          className={styles.tabbedForm__input}
-                          onChange={e => handleInputChange(field.name || '', e.target.value)}
-                        />
+                        <div
+                          className={`${styles.tabbedForm__inputWrapper} ${styles.tabbedForm__floatingLabel}`}
+                        >
+                          <input
+                            type="text"
+                            name={fieldName}
+                            placeholder={field.placeholder || ''}
+                            required={!!field.required}
+                            className={styles.tabbedForm__input}
+                            onChange={e => handleInputChange(fieldName, e.target.value)}
+                            onFocus={() => setFocusedFields(prev => new Set(prev).add(fieldName))}
+                            onBlur={() => {
+                              if (!formData[fieldName]) {
+                                setFocusedFields(prev => {
+                                  const next = new Set(prev);
+                                  next.delete(fieldName);
+                                  return next;
+                                });
+                              }
+                            }}
+                          />
+                          <label>{field.placeholder || ''}</label>
+                        </div>
                       </div>
                     );
 
                   case 'Date':
+                    const dateFieldName = field.name || '';
                     return (
                       <div
                         key={field.sys.id}
                         className={styles.tabbedForm__field}
                         {...inspectorMode({ entryId: field.sys.id, fieldId: 'formField' })}
                       >
-                        <input
-                          type="text"
-                          name={field.name || ''}
-                          placeholder={field.placeholder || ''}
-                          required={!!field.required}
-                          className={styles.tabbedForm__input}
-                          onChange={e => handleInputChange(field.name || '', e.target.value)}
-                        />
+                        <div
+                          className={`${styles.tabbedForm__inputWrapper} ${styles.tabbedForm__floatingLabel}`}
+                        >
+                          <input
+                            type="text"
+                            name={dateFieldName}
+                            placeholder={field.placeholder || ''}
+                            required={!!field.required}
+                            className={styles.tabbedForm__input}
+                            onChange={e => handleInputChange(dateFieldName, e.target.value)}
+                            onFocus={() =>
+                              setFocusedFields(prev => new Set(prev).add(dateFieldName))
+                            }
+                            onBlur={() => {
+                              if (!formData[dateFieldName]) {
+                                setFocusedFields(prev => {
+                                  const next = new Set(prev);
+                                  next.delete(dateFieldName);
+                                  return next;
+                                });
+                              }
+                            }}
+                          />
+                          <label>{field.placeholder || ''}</label>
+                        </div>
                       </div>
                     );
 
                   case 'Phone Number':
-                    return (
-                      <div
-                        key={field.sys.id}
-                        className={styles.tabbedForm__phoneField}
-                        {...inspectorMode({ entryId: field.sys.id, fieldId: 'formField' })}
-                      >
-                        <span className={styles.tabbedForm__phonePrefix}>+91</span>
-                        <input
-                          type="tel"
-                          name={field.name || ''}
-                          placeholder={field.placeholder || 'Phone Number'}
-                          required={!!field.required}
-                          className={styles.tabbedForm__phoneInput}
-                          onChange={e => handleInputChange(field.name || '', e.target.value)}
-                        />
-                      </div>
-                    );
+                    // Find NRI field to check if user is NRI
+                    let isNri = false;
+                    let residencyField: any = null;
 
-                  case 'Email':
+                    activeForm?.fieldsCollection?.items.forEach((f: any) => {
+                      if (f?.label?.toLowerCase().includes('nri') && f?.fieldType === 'Radio') {
+                        isNri = formData[f.name || ''] === 'yes';
+                      }
+                      if (
+                        f?.fieldType === 'Text' &&
+                        f?.options?.items &&
+                        f?.options?.items.length > 0
+                      ) {
+                        residencyField = f;
+                      }
+                    });
+
+                    // Get phone country options from field.options or residency field
+                    const residenceCountryCode = residencyField
+                      ? formData[residencyField.name || '']
+                      : undefined;
+                    const allPhoneOptions = field?.options?.items || [];
+
+                    // Filter options based on NRI status
+                    let displayedPhoneOptions = allPhoneOptions;
+                    if (isNri && residenceCountryCode) {
+                      // When NRI = yes, show residence country + India
+                      const residenceOption = allPhoneOptions.find(
+                        (opt: any) => opt.countryCode === residenceCountryCode,
+                      );
+                      const indiaOption = allPhoneOptions.find(
+                        (opt: any) => opt.countryCode === 'IN',
+                      );
+                      displayedPhoneOptions = [];
+                      if (residenceOption) displayedPhoneOptions.push(residenceOption);
+                      if (indiaOption && indiaOption.countryCode !== residenceCountryCode)
+                        displayedPhoneOptions.push(indiaOption);
+                    }
+
+                    // Select current country or default to first displayed option
+                    const currentPhoneOption =
+                      displayedPhoneOptions.find(
+                        (c: any) => c.countryCode === formData['phoneCountryCode'],
+                      ) || displayedPhoneOptions[0];
+
                     return (
                       <div
                         key={field.sys.id}
                         className={styles.tabbedForm__field}
                         {...inspectorMode({ entryId: field.sys.id, fieldId: 'formField' })}
                       >
-                        <input
-                          type="email"
-                          name={field.name || ''}
-                          placeholder={field.placeholder || ''}
-                          required={!!field.required}
-                          className={styles.tabbedForm__input}
-                          onChange={e => handleInputChange(field.name || '', e.target.value)}
-                        />
+                        {field.label && (
+                          <label className={styles.tabbedForm__fieldLabel}>{field.label}</label>
+                        )}
+
+                        {isNri ? (
+                          // Show dropdown when NRI is Yes
+                          <div
+                            className={styles.tabbedForm__phoneFieldFull}
+                            ref={phoneCountryDropdownRef}
+                          >
+                            <div className={styles.tabbedForm__phonePrefixDropdownFull}>
+                              <button
+                                type="button"
+                                className={`${styles.tabbedForm__phonePrefixButton} ${
+                                  openPhoneCountryDropdown
+                                    ? styles.tabbedForm__phonePrefixButtonOpen
+                                    : ''
+                                }`}
+                                onClick={() =>
+                                  setOpenPhoneCountryDropdown(!openPhoneCountryDropdown)
+                                }
+                              >
+                                <span className={styles.tabbedForm__phonePrefixValue}>
+                                  {currentPhoneOption?.dialCode}
+                                </span>
+                                <span
+                                  className={`${styles.tabbedForm__phonePrefixArrow} ${
+                                    openPhoneCountryDropdown
+                                      ? styles.tabbedForm__phonePrefixArrowOpen
+                                      : ''
+                                  }`}
+                                >
+                                  <Image
+                                    src={chevronIcon}
+                                    alt="dropdown arrow"
+                                    width={16}
+                                    height={16}
+                                    priority
+                                  />
+                                </span>
+                              </button>
+                            </div>
+
+                            {openPhoneCountryDropdown && (
+                              <div className={styles.tabbedForm__phonePrefixDropdownOptions}>
+                                <input
+                                  type="text"
+                                  placeholder="Search"
+                                  className={styles.tabbedForm__dropdownSearch}
+                                  value={phoneCountrySearchQuery}
+                                  onChange={e => setPhoneCountrySearchQuery(e.target.value)}
+                                  onClick={e => e.stopPropagation()}
+                                />
+                                {displayedPhoneOptions
+                                  .filter(
+                                    (country: any) =>
+                                      country.countryName
+                                        .toLowerCase()
+                                        .includes(phoneCountrySearchQuery.toLowerCase()) ||
+                                      country.dialCode
+                                        .toLowerCase()
+                                        .includes(phoneCountrySearchQuery.toLowerCase()),
+                                  )
+                                  .map((country: any) => (
+                                    <div
+                                      key={country.countryCode}
+                                      className={`${styles.tabbedForm__dropdownOption} ${
+                                        formData['phoneCountryCode'] === country.countryCode
+                                          ? styles.tabbedForm__dropdownOptionSelected
+                                          : ''
+                                      }`}
+                                      role="button"
+                                      tabIndex={0}
+                                      onClick={() => {
+                                        handleInputChange('phoneCountryCode', country.countryCode);
+                                        setOpenPhoneCountryDropdown(false);
+                                        setPhoneCountrySearchQuery('');
+                                      }}
+                                      onKeyDown={e => {
+                                        if (e.key === 'Enter' || e.key === ' ') {
+                                          handleInputChange(
+                                            'phoneCountryCode',
+                                            country.countryCode,
+                                          );
+                                          setOpenPhoneCountryDropdown(false);
+                                          setPhoneCountrySearchQuery('');
+                                        }
+                                      }}
+                                    >
+                                      <span
+                                        className={`fflag ff-md ${getFlagClass(country.countryCode)}`}
+                                      ></span>
+                                      <span>{country.dialCode}</span>
+                                      <span>{country.countryName}</span>
+                                    </div>
+                                  ))}
+                              </div>
+                            )}
+
+                            <div
+                              className={`${styles.tabbedForm__phoneInputWrapperFull} ${styles.tabbedForm__floatingLabel}`}
+                            >
+                              <input
+                                type="tel"
+                                name={field.name || ''}
+                                placeholder={'Enter phone number'}
+                                required={!!field.required}
+                                className={styles.tabbedForm__phoneInputFull}
+                                onChange={e => handleInputChange(field.name || '', e.target.value)}
+                                onFocus={() =>
+                                  setFocusedFields(prev => new Set(prev).add(field.name || ''))
+                                }
+                                onBlur={() => {
+                                  if (!formData[field.name || '']) {
+                                    setFocusedFields(prev => {
+                                      const next = new Set(prev);
+                                      next.delete(field.name || '');
+                                      return next;
+                                    });
+                                  }
+                                }}
+                              />
+                              <label>{'Phone Number'}</label>
+                            </div>
+                          </div>
+                        ) : (
+                          // Show static +91 when NRI is No
+                          <div className={styles.tabbedForm__phoneField}>
+                            <span className={styles.tabbedForm__phonePrefix}>+91</span>
+                            <div
+                              className={`${styles.tabbedForm__phoneInputWrapper} ${styles.tabbedForm__floatingLabel}`}
+                            >
+                              <input
+                                type="tel"
+                                name={field.name || ''}
+                                placeholder={'Enter phone number'}
+                                required={!!field.required}
+                                className={styles.tabbedForm__phoneInput}
+                                onChange={e => handleInputChange(field.name || '', e.target.value)}
+                                onFocus={() =>
+                                  setFocusedFields(prev => new Set(prev).add(field.name || ''))
+                                }
+                                onBlur={() => {
+                                  if (!formData[field.name || '']) {
+                                    setFocusedFields(prev => {
+                                      const next = new Set(prev);
+                                      next.delete(field.name || '');
+                                      return next;
+                                    });
+                                  }
+                                }}
+                              />
+                              <label>{'Phone Number'}</label>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+
+                  case 'Email':
+                    const emailFieldName = field.name || '';
+                    return (
+                      <div
+                        key={field.sys.id}
+                        className={styles.tabbedForm__field}
+                        {...inspectorMode({ entryId: field.sys.id, fieldId: 'formField' })}
+                      >
+                        <div
+                          className={`${styles.tabbedForm__inputWrapper} ${styles.tabbedForm__floatingLabel}`}
+                        >
+                          <input
+                            type="email"
+                            name={emailFieldName}
+                            placeholder={'Enter email'}
+                            required={!!field.required}
+                            className={styles.tabbedForm__input}
+                            onChange={e => handleInputChange(emailFieldName, e.target.value)}
+                            onFocus={() =>
+                              setFocusedFields(prev => new Set(prev).add(emailFieldName))
+                            }
+                            onBlur={() => {
+                              if (!formData[emailFieldName]) {
+                                setFocusedFields(prev => {
+                                  const next = new Set(prev);
+                                  next.delete(emailFieldName);
+                                  return next;
+                                });
+                              }
+                            }}
+                          />
+                          <label>{'Email'}</label>
+                        </div>
                       </div>
                     );
 
