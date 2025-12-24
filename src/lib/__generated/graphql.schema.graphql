@@ -1479,6 +1479,7 @@ type FormField implements Entry & _Node {
   placeholder(locale: String, useFallbackLocale: Boolean): String
   required(locale: String, useFallbackLocale: Boolean): Boolean
   sys: Sys!
+  validationRule(locale: String, useFallbackLocale: Boolean): JSON
 }
 
 type FormFieldCollection {
@@ -1534,6 +1535,7 @@ input FormFieldFilter {
   required_exists: Boolean
   required_not: Boolean
   sys: SysFilter
+  validationRule_exists: Boolean
 }
 
 type FormFieldLinkingCollections {
@@ -3499,6 +3501,7 @@ input cfFormFieldNestedFilter {
   required_exists: Boolean
   required_not: Boolean
   sys: SysFilter
+  validationRule_exists: Boolean
 }
 
 input cfFormNestedFilter {

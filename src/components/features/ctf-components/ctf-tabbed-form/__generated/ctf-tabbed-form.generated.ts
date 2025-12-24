@@ -6,7 +6,7 @@ import { AssetFieldsFragmentDoc } from '../../ctf-asset/__generated/ctf-asset.ge
 import { LinkFieldsFragmentDoc } from '../../../../../lib/shared-fragments/__generated/ctf-linkFragment.generated';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { customFetcher } from '@src/lib/fetchConfig';
-export type FormFieldFieldsFragment = { __typename?: 'FormField', label?: string | null, placeholder?: string | null, name?: string | null, fieldType?: string | null, required?: boolean | null, conditionalRule?: any | null, options?: { __typename: 'OptionSet', items?: any | null, sys: { __typename?: 'Sys', id: string } } | null };
+export type FormFieldFieldsFragment = { __typename?: 'FormField', label?: string | null, placeholder?: string | null, name?: string | null, fieldType?: string | null, required?: boolean | null, conditionalRule?: any | null, validationRule?: any | null, options?: { __typename: 'OptionSet', items?: any | null, sys: { __typename?: 'Sys', id: string } } | null };
 
 export type FieldCollectionFieldsFragment = { __typename?: 'FormFieldsCollection', items: Array<(
     { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
@@ -116,6 +116,7 @@ export const FormFieldFieldsFragmentDoc = `
     items
   }
   conditionalRule
+  validationRule
 }
     `;
 export const FieldCollectionFieldsFragmentDoc = `

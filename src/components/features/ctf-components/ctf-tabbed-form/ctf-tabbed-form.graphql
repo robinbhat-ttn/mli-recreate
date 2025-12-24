@@ -12,6 +12,7 @@ fragment FormFieldFields on FormField {
     items
   }
   conditionalRule
+  validationRule
 }
 
 fragment FieldCollectionFields on FormFieldsCollection {
