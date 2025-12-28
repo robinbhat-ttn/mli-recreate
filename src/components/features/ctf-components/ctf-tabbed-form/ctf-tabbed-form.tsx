@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import { Tabs, Tab, Box } from '@mui/material';
 import React, { useState, useRef, useEffect } from 'react';
+import { Tabs, Tab, Box } from '@mui/material';
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
 import { TabbedFormContainerFieldsFragment } from './__generated/ctf-tabbed-form.generated';
@@ -15,6 +15,63 @@ const getFlagClass = (countryName: string): string => {
   return `fflag-${countryName}`;
 };
 
+// Helper function to determine if floating label should be shown
+const shouldFloatLabel = (
+  fieldName: string,
+  fieldValue: any,
+  focusedField: string | null,
+): boolean => {
+  return focusedField === fieldName || (fieldValue && fieldValue.toString().trim() !== '');
+};
+
+// Format DOB input: 12022000 -> 12/02/2000
+const formatDOB = (value: string): string => {
+  const digits = value.replace(/\D/g, '');
+  if (digits.length === 0) return '';
+  if (digits.length <= 2) return digits;
+  if (digits.length <= 4) return `${digits.slice(0, 2)}/${digits.slice(2)}`;
+  return `${digits.slice(0, 2)}/${digits.slice(2, 4)}/${digits.slice(4, 8)}`;
+};
+
+// Validate DOB: valid date format and age 18-60
+const validateDOB = (dob: string): string | null => {
+  if (!dob) return 'Please enter your Date of Birth';
+
+  const parts = dob.split('/');
+  if (parts.length !== 3) return 'Please enter valid Date of Birth (dd/mm/yyyy)';
+
+  const [day, month, year] = parts.map(Number);
+
+  if (!day || !month || !year) return 'Please enter valid Date of Birth (dd/mm/yyyy)';
+  if (day < 1 || day > 31 || month < 1 || month > 12)
+    return 'Please enter valid Date of Birth (dd/mm/yyyy)';
+  if (year < 1900 || year > new Date().getFullYear())
+    return 'Please enter valid Date of Birth (dd/mm/yyyy)';
+
+  const date = new Date(year, month - 1, day);
+  if (date.getDate() !== day || date.getMonth() !== month - 1 || date.getFullYear() !== year) {
+    return 'Please enter valid Date of Birth (dd/mm/yyyy)';
+  }
+
+  const age = new Date().getFullYear() - year;
+  const birthMonth = month - 1;
+  const birthDay = day;
+  const today = new Date();
+
+  let calculatedAge = age;
+  if (
+    today.getMonth() < birthMonth ||
+    (today.getMonth() === birthMonth && today.getDate() < birthDay)
+  ) {
+    calculatedAge = age - 1;
+  }
+
+  if (calculatedAge < 18) return 'You must be at least 18 years old';
+  if (calculatedAge > 60) return 'Age must be between 18 and 60 years';
+
+  return null;
+};
+
 export const CtfTabbedForm = (props: Props) => {
   console.log('CtfTabbedForm props:', props);
   const inspectorMode = useContentfulInspectorMode();
@@ -26,7 +83,9 @@ export const CtfTabbedForm = (props: Props) => {
   const [openPhoneCountryDropdown, setOpenPhoneCountryDropdown] = useState(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [phoneCountrySearchQuery, setPhoneCountrySearchQuery] = useState<string>('');
-  const [focusedFields, setFocusedFields] = useState<Set<string>>(new Set());
+  const [focusedField, setFocusedField] = useState<string | null>(null);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const phoneCountryDropdownRef = useRef<HTMLDivElement>(null);
 
@@ -42,6 +101,15 @@ export const CtfTabbedForm = (props: Props) => {
         const noOption = field?.options?.items?.find((opt: any) => opt.value === 'no');
         if (noOption) {
           initialData[field.name || ''] = noOption.value;
+        }
+      }
+      // Set Annual Income default to '<5'
+      if (field?.label?.toLowerCase().includes('annual income') && field?.fieldType === 'Radio') {
+        const lessThanFiveOption = field?.options?.items?.find(
+          (opt: any) => opt.value === 'lessThanFiveLacs',
+        );
+        if (lessThanFiveOption) {
+          initialData[field.name || ''] = lessThanFiveOption.value;
         }
       }
     });
@@ -73,11 +141,99 @@ export const CtfTabbedForm = (props: Props) => {
 
   const handleInputChange = (name: string, value: any) => {
     setFormData(prev => ({ ...prev, [name]: value }));
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+  };
+
+  const clearFieldError = (fieldName: string) => {
+    if (errors[fieldName]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[fieldName];
+        return newErrors;
+      });
+    }
+  };
+
+  const validateSingleField = (
+    fieldName: string,
+    fieldType: string,
+    fieldValue: any,
+    isRequired: boolean,
+  ) => {
+    // Only validate on blur if form has been submitted
+    if (!isSubmitted) return;
+
+    let error: string | null = null;
+
+    if (fieldName === 'dob' && fieldType === 'Date') {
+      error = validateDOB(fieldValue);
+    } else if (isRequired && (!fieldValue || fieldValue.toString().trim() === '')) {
+      error = `Please enter your field`;
+    }
+
+    if (error) {
+      setErrors(prev => ({ ...prev, [fieldName]: error as string }));
+    } else {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[fieldName];
+        return newErrors;
+      });
+    }
+  };
+
+  const validateForm = (): boolean => {
+    const newErrors: Record<string, string> = {};
+
+    activeForm?.fieldsCollection?.items.forEach(field => {
+      if (!field) return;
+
+      // Check if field should be visible based on conditional rules
+      const shouldShowField = () => {
+        if (!field.conditionalRule) return true;
+        const { dependsOn, value } = field.conditionalRule;
+        return formData[dependsOn] === value;
+      };
+
+      if (!shouldShowField()) return;
+
+      const fieldName = field.name || '';
+      const fieldValue = formData[fieldName];
+
+      // Special validation for DOB field
+      if (fieldName === 'dob' && field.fieldType === 'Date') {
+        const dobError = validateDOB(fieldValue);
+        if (dobError) {
+          newErrors[fieldName] = dobError;
+        }
+        return;
+      }
+
+      // Check required fields
+      if (field.required) {
+        if (!fieldValue || fieldValue.toString().trim() === '') {
+          newErrors[fieldName] = `Please enter your ${field.label?.toLowerCase() || 'field'}`;
+        }
+      }
+    });
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    setIsSubmitted(true);
+    if (validateForm()) {
+      console.log('Form submitted:', formData);
+    }
   };
 
   return (
@@ -128,9 +284,9 @@ export const CtfTabbedForm = (props: Props) => {
                   json={activeForm.title.json}
                   links={activeForm.title.links}
                 />
-              );
-            })}
-          </Tabs>
+              </div>
+            )}
+          */}
 
           {/* Benefits */}
           {activeForm.description && (
@@ -270,6 +426,12 @@ export const CtfTabbedForm = (props: Props) => {
 
                     // Otherwise render as text input
                     const fieldName = field.name || '';
+                    const shouldFloat = shouldFloatLabel(
+                      fieldName,
+                      formData[fieldName],
+                      focusedField,
+                    );
+                    const hasError = errors[fieldName];
                     return (
                       <div
                         key={field.sys.id}
@@ -277,33 +439,59 @@ export const CtfTabbedForm = (props: Props) => {
                         {...inspectorMode({ entryId: field.sys.id, fieldId: 'formField' })}
                       >
                         <div
-                          className={`${styles.tabbedForm__inputWrapper} ${styles.tabbedForm__floatingLabel}`}
+                          className={`${styles.tabbedForm__inputWrapper} ${shouldFloat ? styles.tabbedForm__floatingLabel : ''} ${hasError ? styles.tabbedForm__inputWrapperError : ''}`}
                         >
                           <input
                             type="text"
                             name={fieldName}
                             placeholder={field.placeholder || ''}
-                            required={!!field.required}
-                            className={styles.tabbedForm__input}
+                            className={`${styles.tabbedForm__input} ${hasError ? styles.tabbedForm__inputError : ''}`}
                             onChange={e => handleInputChange(fieldName, e.target.value)}
-                            onFocus={() => setFocusedFields(prev => new Set(prev).add(fieldName))}
-                            onBlur={() => {
-                              if (!formData[fieldName]) {
-                                setFocusedFields(prev => {
-                                  const next = new Set(prev);
-                                  next.delete(fieldName);
-                                  return next;
-                                });
-                              }
+                            onFocus={() => {
+                              setFocusedField(fieldName);
+                              clearFieldError(fieldName);
                             }}
+                            onBlur={() => {
+                              setFocusedField(null);
+                              validateSingleField(
+                                fieldName,
+                                'Text',
+                                formData[fieldName],
+                                field.required === true,
+                              );
+                            }}
+                            value={formData[fieldName] || ''}
                           />
-                          <label>{field.placeholder || ''}</label>
+                          <label className={hasError ? styles.tabbedForm__fieldLabelError : ''}>
+                            {field.label || ''}
+                          </label>
                         </div>
+                        {hasError && (
+                          <span className={styles.tabbedForm__errorMessage}>
+                            {errors[fieldName]}
+                          </span>
+                        )}
                       </div>
                     );
 
                   case 'Date':
                     const dateFieldName = field.name || '';
+                    const isDOB = dateFieldName === 'dob';
+                    const shouldFloatDate = shouldFloatLabel(
+                      dateFieldName,
+                      formData[dateFieldName],
+                      focusedField,
+                    );
+                    const hasErrorDate = errors[dateFieldName];
+
+                    const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+                      let value = e.target.value;
+                      if (isDOB) {
+                        value = formatDOB(value);
+                      }
+                      handleInputChange(dateFieldName, value);
+                    };
+
                     return (
                       <div
                         key={field.sys.id}
@@ -311,30 +499,39 @@ export const CtfTabbedForm = (props: Props) => {
                         {...inspectorMode({ entryId: field.sys.id, fieldId: 'formField' })}
                       >
                         <div
-                          className={`${styles.tabbedForm__inputWrapper} ${styles.tabbedForm__floatingLabel}`}
+                          className={`${styles.tabbedForm__inputWrapper} ${shouldFloatDate ? styles.tabbedForm__floatingLabel : ''} ${hasErrorDate ? styles.tabbedForm__inputWrapperError : ''}`}
                         >
                           <input
                             type="text"
                             name={dateFieldName}
                             placeholder={field.placeholder || ''}
-                            required={!!field.required}
-                            className={styles.tabbedForm__input}
-                            onChange={e => handleInputChange(dateFieldName, e.target.value)}
-                            onFocus={() =>
-                              setFocusedFields(prev => new Set(prev).add(dateFieldName))
-                            }
-                            onBlur={() => {
-                              if (!formData[dateFieldName]) {
-                                setFocusedFields(prev => {
-                                  const next = new Set(prev);
-                                  next.delete(dateFieldName);
-                                  return next;
-                                });
-                              }
+                            className={`${styles.tabbedForm__input} ${hasErrorDate ? styles.tabbedForm__inputError : ''}`}
+                            onChange={handleDateChange}
+                            onFocus={() => {
+                              setFocusedField(dateFieldName);
+                              clearFieldError(dateFieldName);
                             }}
+                            onBlur={() => {
+                              setFocusedField(null);
+                              validateSingleField(
+                                dateFieldName,
+                                'Date',
+                                formData[dateFieldName],
+                                field.required === true,
+                              );
+                            }}
+                            value={formData[dateFieldName] || ''}
+                            maxLength={isDOB ? 10 : undefined}
                           />
-                          <label>{field.placeholder || ''}</label>
+                          <label className={hasErrorDate ? styles.tabbedForm__fieldLabelError : ''}>
+                            {field.label || ''}
+                          </label>
                         </div>
+                        {hasErrorDate && (
+                          <span className={styles.tabbedForm__errorMessage}>
+                            {errors[dateFieldName]}
+                          </span>
+                        )}
                       </div>
                     );
 
@@ -384,20 +581,24 @@ export const CtfTabbedForm = (props: Props) => {
                         (c: any) => c.countryCode === formData['phoneCountryCode'],
                       ) || displayedPhoneOptions[0];
 
+                    const phoneFieldName = field.name || '';
+                    const shouldFloatPhone = shouldFloatLabel(
+                      phoneFieldName,
+                      formData[phoneFieldName],
+                      focusedField,
+                    );
+                    const hasErrorPhone = errors[phoneFieldName];
+
                     return (
                       <div
                         key={field.sys.id}
-                        className={styles.tabbedForm__field}
+                        className={`${styles.tabbedForm__field} ${hasErrorPhone ? styles.tabbedForm__fieldError : ''}`}
                         {...inspectorMode({ entryId: field.sys.id, fieldId: 'formField' })}
                       >
-                        {field.label && (
-                          <label className={styles.tabbedForm__fieldLabel}>{field.label}</label>
-                        )}
-
                         {isNri ? (
                           // Show dropdown when NRI is Yes
                           <div
-                            className={styles.tabbedForm__phoneFieldFull}
+                            className={`${styles.tabbedForm__phoneFieldFull} ${hasErrorPhone ? styles.tabbedForm__phoneFieldFullError : ''}`}
                             ref={phoneCountryDropdownRef}
                           >
                             <div className={styles.tabbedForm__phonePrefixDropdownFull}>
@@ -490,67 +691,90 @@ export const CtfTabbedForm = (props: Props) => {
                             )}
 
                             <div
-                              className={`${styles.tabbedForm__phoneInputWrapperFull} ${styles.tabbedForm__floatingLabel}`}
+                              className={`${styles.tabbedForm__phoneInputWrapperFull} ${shouldFloatPhone ? styles.tabbedForm__floatingLabel : ''} ${hasErrorPhone ? styles.tabbedForm__phoneInputWrapperFullError : ''}`}
                             >
                               <input
                                 type="tel"
                                 name={field.name || ''}
                                 placeholder={'Enter phone number'}
-                                required={!!field.required}
-                                className={styles.tabbedForm__phoneInputFull}
+                                className={`${styles.tabbedForm__phoneInputFull} ${hasErrorPhone ? styles.tabbedForm__phoneInputFullError : ''}`}
                                 onChange={e => handleInputChange(field.name || '', e.target.value)}
-                                onFocus={() =>
-                                  setFocusedFields(prev => new Set(prev).add(field.name || ''))
-                                }
-                                onBlur={() => {
-                                  if (!formData[field.name || '']) {
-                                    setFocusedFields(prev => {
-                                      const next = new Set(prev);
-                                      next.delete(field.name || '');
-                                      return next;
-                                    });
-                                  }
+                                onFocus={() => {
+                                  setFocusedField(field.name || '');
+                                  clearFieldError(field.name || '');
                                 }}
+                                onBlur={() => {
+                                  setFocusedField(null);
+                                  validateSingleField(
+                                    field.name || '',
+                                    'Phone Number',
+                                    formData[field.name || ''],
+                                    field.required === true,
+                                  );
+                                }}
+                                value={formData[field.name || ''] || ''}
                               />
-                              <label>{'Phone Number'}</label>
+                              <label
+                                className={hasErrorPhone ? styles.tabbedForm__fieldLabelError : ''}
+                              >
+                                {field.label || ''}
+                              </label>
                             </div>
                           </div>
                         ) : (
                           // Show static +91 when NRI is No
-                          <div className={styles.tabbedForm__phoneField}>
+                          <div
+                            className={`${styles.tabbedForm__phoneField} ${hasErrorPhone ? styles.tabbedForm__phoneFieldError : ''}`}
+                          >
                             <span className={styles.tabbedForm__phonePrefix}>+91</span>
                             <div
-                              className={`${styles.tabbedForm__phoneInputWrapper} ${styles.tabbedForm__floatingLabel}`}
+                              className={`${styles.tabbedForm__phoneInputWrapper} ${shouldFloatPhone ? styles.tabbedForm__floatingLabel : ''}`}
                             >
                               <input
                                 type="tel"
                                 name={field.name || ''}
                                 placeholder={'Enter phone number'}
-                                required={!!field.required}
-                                className={styles.tabbedForm__phoneInput}
+                                className={`${styles.tabbedForm__phoneInput} ${hasErrorPhone ? styles.tabbedForm__phoneInputError : ''}`}
                                 onChange={e => handleInputChange(field.name || '', e.target.value)}
-                                onFocus={() =>
-                                  setFocusedFields(prev => new Set(prev).add(field.name || ''))
-                                }
-                                onBlur={() => {
-                                  if (!formData[field.name || '']) {
-                                    setFocusedFields(prev => {
-                                      const next = new Set(prev);
-                                      next.delete(field.name || '');
-                                      return next;
-                                    });
-                                  }
+                                onFocus={() => {
+                                  setFocusedField(field.name || '');
+                                  clearFieldError(field.name || '');
                                 }}
+                                onBlur={() => {
+                                  setFocusedField(null);
+                                  validateSingleField(
+                                    field.name || '',
+                                    'Phone Number',
+                                    formData[field.name || ''],
+                                    field.required === true,
+                                  );
+                                }}
+                                value={formData[field.name || ''] || ''}
                               />
-                              <label>{'Phone Number'}</label>
+                              <label
+                                className={hasErrorPhone ? styles.tabbedForm__fieldLabelError : ''}
+                              >
+                                {field.label || ''}
+                              </label>
                             </div>
                           </div>
+                        )}
+                        {hasErrorPhone && (
+                          <span className={styles.tabbedForm__errorMessage}>
+                            {errors[phoneFieldName]}
+                          </span>
                         )}
                       </div>
                     );
 
                   case 'Email':
                     const emailFieldName = field.name || '';
+                    const shouldFloatEmail = shouldFloatLabel(
+                      emailFieldName,
+                      formData[emailFieldName],
+                      focusedField,
+                    );
+                    const hasErrorEmail = errors[emailFieldName];
                     return (
                       <div
                         key={field.sys.id}
@@ -558,30 +782,40 @@ export const CtfTabbedForm = (props: Props) => {
                         {...inspectorMode({ entryId: field.sys.id, fieldId: 'formField' })}
                       >
                         <div
-                          className={`${styles.tabbedForm__inputWrapper} ${styles.tabbedForm__floatingLabel}`}
+                          className={`${styles.tabbedForm__inputWrapper} ${shouldFloatEmail ? styles.tabbedForm__floatingLabel : ''} ${hasErrorEmail ? styles.tabbedForm__inputWrapperError : ''}`}
                         >
                           <input
                             type="email"
                             name={emailFieldName}
                             placeholder={'Enter email'}
-                            required={!!field.required}
-                            className={styles.tabbedForm__input}
+                            className={`${styles.tabbedForm__input} ${hasErrorEmail ? styles.tabbedForm__inputError : ''}`}
                             onChange={e => handleInputChange(emailFieldName, e.target.value)}
-                            onFocus={() =>
-                              setFocusedFields(prev => new Set(prev).add(emailFieldName))
-                            }
-                            onBlur={() => {
-                              if (!formData[emailFieldName]) {
-                                setFocusedFields(prev => {
-                                  const next = new Set(prev);
-                                  next.delete(emailFieldName);
-                                  return next;
-                                });
-                              }
+                            onFocus={() => {
+                              setFocusedField(emailFieldName);
+                              clearFieldError(emailFieldName);
                             }}
+                            onBlur={() => {
+                              setFocusedField(null);
+                              validateSingleField(
+                                emailFieldName,
+                                'Email',
+                                formData[emailFieldName],
+                                field.required === true,
+                              );
+                            }}
+                            value={formData[emailFieldName] || ''}
                           />
-                          <label>{'Email'}</label>
+                          <label
+                            className={hasErrorEmail ? styles.tabbedForm__fieldLabelError : ''}
+                          >
+                            {'Email'}
+                          </label>
                         </div>
+                        {hasErrorEmail && (
+                          <span className={styles.tabbedForm__errorMessage}>
+                            {errors[emailFieldName]}
+                          </span>
+                        )}
                       </div>
                     );
 
