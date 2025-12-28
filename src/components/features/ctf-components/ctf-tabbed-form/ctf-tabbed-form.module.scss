@@ -140,15 +140,18 @@
   &__formGrid {
     display: flex;
     flex-wrap: wrap;
-    gap: $space-20;
-    align-items: end;
+    column-gap: $space-24;
+    align-items: start;
+    row-gap: 30px;
   }
 
   &__field {
     display: flex;
     flex-direction: column;
-    flex: 1 1 calc(50% - 10px);
-    min-width: 200px;
+    flex: 1 1 calc(50% - $space-24);
+    //min-width: 200px;
+    position: relative;
+    padding-bottom: 24px; // Reserve space for error message
 
     @media (max-width: 639px) {
       flex: 1 1 100%;
@@ -157,6 +160,7 @@
 
   &__input {
     padding: $space-16;
+    //padding-bottom: 5px;
     border-radius: $radius-8;
     border: 1px solid $border-light;
     font-size: $fs-16;
@@ -170,24 +174,24 @@
 
     &::placeholder {
       color: $gray-475;
+      //transform: translateY(-3px);
     }
 
     &:focus {
       outline: none;
       border-color: $accent;
-      padding-bottom: 1px;
+     // padding-bottom: 1px;
       transition: all 0.2s ease;
     }
   }
 
   &__inputWrapper {
     position: relative;
-  }
 
-  &__floatingLabel {
     label {
       position: absolute;
       left: $space-16;
+      top: -10px;
       font-size: $fs-13;
       color: $gray-475;
       padding: $space-4 0;
@@ -196,14 +200,55 @@
       transform: translateY(8px);
       transition: opacity 0.3s ease, transform 0.3s ease;
       pointer-events: none;
+      background: $white;
+      padding: 0 $space-4;
     }
+  }
 
-    &:has(.tabbedForm__input:focus) label,
-    &:has(.tabbedForm__input:not(:placeholder-shown)) label,
-    &:has(.tabbedForm__phoneInput:focus) label,
-    &:has(.tabbedForm__phoneInput:not(:placeholder-shown)) label,
-    &:has(.tabbedForm__phoneInputFull:focus) label,
-    &:has(.tabbedForm__phoneInputFull:not(:placeholder-shown)) label {
+  &__phoneInputWrapper {
+    position: relative;
+    flex: 1;
+
+    label {
+      position: absolute;
+      left: $space-16;
+      top: -10px;
+      font-size: $fs-13;
+      color: $gray-475;
+      padding: $space-4 0;
+      line-height: $space-18;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+      background: $white;
+      padding: 0 $space-4;
+    }
+  }
+
+  &__phoneInputWrapperFull {
+    position: relative;
+    flex: 1;
+
+    label {
+      position: absolute;
+      left: $space-16;
+      top: -10px;
+      font-size: $fs-13;
+      color: $gray-475;
+      padding: $space-4 0;
+      line-height: $space-18;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+      background: $white;
+      padding: 0 $space-4;
+    }
+  }
+
+  &__floatingLabel {
+    label {
       opacity: 1;
       transform: translateY(0);
       pointer-events: auto;
@@ -217,22 +262,13 @@
     border: 1px solid #d0d0d0;
     border-radius: $radius-8;
     background: $white;
-    //flex: 1 1 calc(50% - 10px);
     min-width: 0;
-    height: auto;
     position: relative;
     height: $space-56;
+    margin-top: $space-32;
 
     @media (max-width: 639px) {
       flex: 1 1 100%;
-    }
-
-    &:has(.tabbedForm__input:focus) label,
-    &:has(.tabbedForm__input:not(:placeholder-shown)) label,
-    &:has(.tabbedForm__phoneInput:focus) label,
-    &:has(.tabbedForm__phoneInput:not(:placeholder-shown)) label {
-      left: -42px;
-      top: -14px;
     }
   }
 
@@ -251,13 +287,6 @@
 
     @media (max-width: 639px) {
       flex: 1 1 100%;
-    }
-
-    &:has(.tabbedForm__input:focus) label,
-    &:has(.tabbedForm__input:not(:placeholder-shown)) label,
-    &:has(.tabbedForm__phoneInputFull:focus) label,
-    &:has(.tabbedForm__phoneInputFull:not(:placeholder-shown)) label {
-      left: -78px;
     }
   }
 
@@ -371,7 +400,7 @@
 
     &:focus {
       outline: none;
-      padding-bottom: 1px;
+      //padding-bottom: 1px;
     }
   }
 
@@ -407,7 +436,7 @@
     &:focus {
       outline: none;
       background: rgba($primary, 0.02);
-      padding-bottom: 1px;
+      //padding-bottom: 1px;
     }
   }
 
@@ -680,10 +709,10 @@
     flex-direction: column;
     flex-grow: 1;
     flex-shrink: 1;
-    flex-basis: calc(50% - 10px);
+    flex-basis: calc(50% - $space-24);
 
     &:first-of-type {
-      flex: 1 1 calc(50% - 10px);
+      flex: 1 1 calc(50% - $space-24);
       min-width: 0;
 
       @media (max-width: 639px) {
@@ -715,8 +744,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: $space-8;
-    padding: $space-12 $space-16;
+    // gap: $space-8;
+    // padding: $space-12 $space-16;
     border: 1px solid $gray-525;
     border-radius: 0;
     cursor: pointer;
@@ -858,5 +887,92 @@
       position: relative;
       z-index: 1;
     }
+  }
+
+  // Error States
+  &__fieldError {
+    position: relative;
+  }
+
+  &__inputError {
+    border-color: #ef5350 !important;
+    background-color: #ffebee;
+
+    &::placeholder {
+      color: #ef5350;
+    }
+  }
+
+  &__inputWrapperError {
+    .tabbedForm__input {
+      border-color: #ef5350 !important;
+      background-color: #ffebee;
+    }
+
+    .tabbedForm__phoneInput {
+      border-color: #ef5350 !important;
+      background-color: #ffebee;
+    }
+
+    .tabbedForm__phoneInputFull {
+      border-color: #ef5350 !important;
+      background-color: #ffebee;
+    }
+  }
+
+  &__phoneFieldError {
+    border-color: #ef5350 !important;
+    background-color: #ffebee;
+  }
+
+  &__phoneFieldFullError {
+    border-color: #ef5350 !important;
+    background-color: #ffebee;
+  }
+
+  &__phoneInputWrapperFullError {
+    .tabbedForm__phoneInputFull {
+      border-color: #ef5350 !important;
+      background-color: #ffebee;
+    }
+  }
+
+  &__phoneInputFullError {
+    border-color: #ef5350 !important;
+    background-color: #ffebee;
+  }
+
+  &__phoneInputError {
+    border-color: #ef5350 !important;
+    background-color: #ffebee;
+  }
+
+  &__errorMessage {
+    display: block;
+    color: #ef5350;
+    font-size: $fs-13;
+    @include font-apply($font-noto, $fw-regular);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    line-height: 1.4;
+  }
+
+  &__radioGroupError {
+    .tabbedForm__fieldLabel {
+      color: #ef5350;
+    }
+
+    .tabbedForm__radioOptions {
+      border: 1px solid #ef5350;
+      border-radius: $radius-8;
+      padding: $space-8;
+      background-color: #ffebee;
+    }
+  }
+
+  &__fieldLabelError {
+    color: #ef5350 !important;
   }
 }
