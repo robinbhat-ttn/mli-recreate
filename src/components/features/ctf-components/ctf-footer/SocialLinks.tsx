@@ -12,7 +12,7 @@ export const SocialLinks = (props: SocialLinksCollectionFieldsFragment) => {
       <div className={styles.socialLinksContainer}>
         {props.items.map((socialLink, index) => (
           <Link
-            href={socialLink?.slug ?? socialLink?.linkUrl ?? '/'}
+            href={socialLink?.pageLink?.slug ?? socialLink?.linkUrl ?? '/'}
             key={index}
             {...inspectorMode({ entryId: socialLink?.sys.id, fieldId: 'link' })}
           >

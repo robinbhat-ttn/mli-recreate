@@ -46,7 +46,7 @@ export const NavigationContainer = (props: NavigationFieldsFragment) => {
                 >
                   <div key={subIndex} className={styles.subNavigationItemMainLink}>
                     <Link
-                      href={subItem?.mainLink?.slug ?? subItem?.mainLink?.linkUrl ?? '/'}
+                      href={subItem?.mainLink?.pageLink?.slug ?? subItem?.mainLink?.linkUrl ?? '/'}
                       {...inspectorMode({ entryId: subItem?.sys.id, fieldId: 'link' })}
                     >
                       {subItem?.mainLink?.icon?.url && (
@@ -69,7 +69,7 @@ export const NavigationContainer = (props: NavigationFieldsFragment) => {
                     {subItem?.secondaryLinksCollection?.items.map((secItem, secIndex) => (
                       <div key={secIndex} className={styles.subNavigationItemSecondaryLink}>
                         <Link
-                          href={secItem?.slug ?? secItem?.linkUrl ?? '/'}
+                          href={secItem?.pageLink?.slug ?? secItem?.linkUrl ?? '/'}
                           {...inspectorMode({ entryId: secItem?.sys.id ?? '', fieldId: 'link' })}
                         >
                           {secItem?.linkHeading}

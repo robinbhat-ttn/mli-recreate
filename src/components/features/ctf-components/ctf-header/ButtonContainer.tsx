@@ -30,7 +30,9 @@ export const ButtonContainer = (props: ButtonCollectionFieldsFragment) => {
                 className={` hidden-mobile ${styles.headerButton}`}
                 {...inspectorMode({ entryId: button.sys.id, fieldId: 'link' })}
               >
-                <Link href={button.slug ?? button.linkUrl ?? '/'}>{button.linkHeading}</Link>
+                <Link href={button?.pageLink?.slug ?? button.linkUrl ?? '/'}>
+                  {button.linkHeading}
+                </Link>
               </button>
             );
 
@@ -50,7 +52,7 @@ export const ButtonContainer = (props: ButtonCollectionFieldsFragment) => {
                     {button?.buttonDropDownLinksCollection?.items.map((linkItem, i) => (
                       <Link
                         key={i}
-                        href={linkItem?.slug ?? linkItem?.linkUrl ?? '/'}
+                        href={linkItem?.pageLink?.slug ?? linkItem?.linkUrl ?? '/'}
                         className={styles.dropdownLinkTextContainer}
                         {...inspectorMode({ entryId: linkItem?.sys.id, fieldId: 'link' })}
                       >

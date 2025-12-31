@@ -499,10 +499,10 @@ enum ButtonWithLinksButtonDropDownLinksCollectionOrder {
   linkHeading_DESC
   linkSubHeading_ASC
   linkSubHeading_DESC
+  linkType_ASC
+  linkType_DESC
   linkUrl_ASC
   linkUrl_DESC
-  slug_ASC
-  slug_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -1195,10 +1195,10 @@ enum FooterButtonsCollectionOrder {
   linkHeading_DESC
   linkSubHeading_ASC
   linkSubHeading_DESC
+  linkType_ASC
+  linkType_DESC
   linkUrl_ASC
   linkUrl_DESC
-  slug_ASC
-  slug_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -1319,10 +1319,10 @@ enum FooterGroupSitesLinksCollectionOrder {
   linkHeading_DESC
   linkSubHeading_ASC
   linkSubHeading_DESC
+  linkType_ASC
+  linkType_DESC
   linkUrl_ASC
   linkUrl_DESC
-  slug_ASC
-  slug_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -1386,10 +1386,10 @@ enum FooterSocialLinksCollectionOrder {
   linkHeading_DESC
   linkSubHeading_ASC
   linkSubHeading_DESC
+  linkType_ASC
+  linkType_DESC
   linkUrl_ASC
   linkUrl_DESC
-  slug_ASC
-  slug_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -2168,9 +2168,10 @@ type Link implements Entry & _Node {
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkHeading(locale: String, useFallbackLocale: Boolean): String
   linkSubHeading(locale: String, useFallbackLocale: Boolean): String
+  linkType(locale: String, useFallbackLocale: Boolean): String
   linkUrl(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): LinkLinkingCollections
-  slug(locale: String, useFallbackLocale: Boolean): String
+  pageLink(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: PageFilter): Page
   sys: Sys!
 }
 
@@ -2207,6 +2208,13 @@ input LinkFilter {
   linkSubHeading_not: String
   linkSubHeading_not_contains: String
   linkSubHeading_not_in: [String]
+  linkType: String
+  linkType_contains: String
+  linkType_exists: Boolean
+  linkType_in: [String]
+  linkType_not: String
+  linkType_not_contains: String
+  linkType_not_in: [String]
   linkUrl: String
   linkUrl_contains: String
   linkUrl_exists: Boolean
@@ -2214,13 +2222,8 @@ input LinkFilter {
   linkUrl_not: String
   linkUrl_not_contains: String
   linkUrl_not_in: [String]
-  slug: String
-  slug_contains: String
-  slug_exists: Boolean
-  slug_in: [String]
-  slug_not: String
-  slug_not_contains: String
-  slug_not_in: [String]
+  pageLink: cfPageNestedFilter
+  pageLink_exists: Boolean
   sys: SysFilter
 }
 
@@ -2351,10 +2354,10 @@ enum LinkOrder {
   linkHeading_DESC
   linkSubHeading_ASC
   linkSubHeading_DESC
+  linkType_ASC
+  linkType_DESC
   linkUrl_ASC
   linkUrl_DESC
-  slug_ASC
-  slug_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -2644,6 +2647,28 @@ input PageFilter {
 
 type PageLinkingCollections {
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
+  linkCollection(limit: Int = 100, locale: String, order: [PageLinkingCollectionsLinkCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): LinkCollection
+}
+
+enum PageLinkingCollectionsLinkCollectionOrder {
+  internalName_ASC
+  internalName_DESC
+  linkHeading_ASC
+  linkHeading_DESC
+  linkSubHeading_ASC
+  linkSubHeading_DESC
+  linkType_ASC
+  linkType_DESC
+  linkUrl_ASC
+  linkUrl_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
 }
 
 enum PageOrder {
@@ -3084,10 +3109,10 @@ enum SubNavigationItemSecondaryLinksCollectionOrder {
   linkHeading_DESC
   linkSubHeading_ASC
   linkSubHeading_DESC
+  linkType_ASC
+  linkType_DESC
   linkUrl_ASC
   linkUrl_DESC
-  slug_ASC
-  slug_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -3621,6 +3646,13 @@ input cfLinkNestedFilter {
   linkSubHeading_not: String
   linkSubHeading_not_contains: String
   linkSubHeading_not_in: [String]
+  linkType: String
+  linkType_contains: String
+  linkType_exists: Boolean
+  linkType_in: [String]
+  linkType_not: String
+  linkType_not_contains: String
+  linkType_not_in: [String]
   linkUrl: String
   linkUrl_contains: String
   linkUrl_exists: Boolean
@@ -3628,13 +3660,7 @@ input cfLinkNestedFilter {
   linkUrl_not: String
   linkUrl_not_contains: String
   linkUrl_not_in: [String]
-  slug: String
-  slug_contains: String
-  slug_exists: Boolean
-  slug_in: [String]
-  slug_not: String
-  slug_not_contains: String
-  slug_not_in: [String]
+  pageLink_exists: Boolean
   sys: SysFilter
 }
 
@@ -3679,6 +3705,54 @@ input cfOptionSetNestedFilter {
   internalName_not_contains: String
   internalName_not_in: [String]
   items_exists: Boolean
+  sys: SysFilter
+}
+
+input cfPageNestedFilter {
+  AND: [cfPageNestedFilter]
+  OR: [cfPageNestedFilter]
+  changeFrequency: String
+  changeFrequency_contains: String
+  changeFrequency_exists: Boolean
+  changeFrequency_in: [String]
+  changeFrequency_not: String
+  changeFrequency_not_contains: String
+  changeFrequency_not_in: [String]
+  contentCollection_exists: Boolean
+  contentfulMetadata: ContentfulMetadataFilter
+  footer_exists: Boolean
+  header_exists: Boolean
+  internalName: String
+  internalName_contains: String
+  internalName_exists: Boolean
+  internalName_in: [String]
+  internalName_not: String
+  internalName_not_contains: String
+  internalName_not_in: [String]
+  pageName: String
+  pageName_contains: String
+  pageName_exists: Boolean
+  pageName_in: [String]
+  pageName_not: String
+  pageName_not_contains: String
+  pageName_not_in: [String]
+  priority: Float
+  priority_exists: Boolean
+  priority_gt: Float
+  priority_gte: Float
+  priority_in: [Float]
+  priority_lt: Float
+  priority_lte: Float
+  priority_not: Float
+  priority_not_in: [Float]
+  seo_exists: Boolean
+  slug: String
+  slug_contains: String
+  slug_exists: Boolean
+  slug_in: [String]
+  slug_not: String
+  slug_not_contains: String
+  slug_not_in: [String]
   sys: SysFilter
 }
 

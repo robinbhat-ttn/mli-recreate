@@ -11,7 +11,7 @@ export const ButtonContainer = (props: FooterButtonCollectionFieldsFragment) => 
       <div className={styles.buttonContainer}>
         {props.items.map((button, index) => (
           <Link
-            href={button?.slug ?? button?.linkUrl ?? '/'}
+            href={button?.pageLink?.slug ?? button?.linkUrl ?? '/'}
             key={index}
             {...inspectorMode({ entryId: button?.sys.id, fieldId: 'link' })}
           >

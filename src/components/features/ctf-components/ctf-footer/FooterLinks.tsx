@@ -16,7 +16,7 @@ export const FooterLinks = (props: FooterLinksCollectionFragment) => {
             {...inspectorMode({ entryId: linkItem?.sys.id, fieldId: 'subNavigationItem' })}
           >
             <Link
-              href={linkItem?.mainLink?.slug ?? linkItem?.mainLink?.linkUrl ?? '/'}
+              href={linkItem?.mainLink?.pageLink?.slug ?? linkItem?.mainLink?.linkUrl ?? '/'}
               className={styles.mainLink}
               {...inspectorMode({ entryId: linkItem?.mainLink?.sys.id, fieldId: 'link' })}
             >
@@ -26,7 +26,7 @@ export const FooterLinks = (props: FooterLinksCollectionFragment) => {
               {linkItem?.secondaryLinksCollection?.items.map((secondaryLink, secondaryIndex) => (
                 <li key={secondaryIndex}>
                   <Link
-                    href={secondaryLink?.slug ?? secondaryLink?.linkUrl ?? '/'}
+                    href={secondaryLink?.pageLink?.slug ?? secondaryLink?.linkUrl ?? '/'}
                     className={styles.secondaryLink}
                     {...inspectorMode({ entryId: secondaryLink?.sys.id, fieldId: 'link' })}
                   >

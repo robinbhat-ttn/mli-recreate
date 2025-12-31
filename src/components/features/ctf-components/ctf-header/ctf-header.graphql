@@ -4,7 +4,7 @@ fragment HamburgerMenuFields on HamburgerMenu{
       id
     }
     menuTitle
-    menuItemsCollection (limit : 10) {
+    menuItemsCollection (limit : 5) {
       items {
         __typename
         ... on Link {
@@ -19,7 +19,7 @@ fragment HamburgerMenuFields on HamburgerMenu{
           mainLink {
             ...LinkFields
           }
-          secondaryLinksCollection (limit : 10) {
+          secondaryLinksCollection (limit : 5) {
             items {
               ...LinkFields
             }

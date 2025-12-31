@@ -12,7 +12,7 @@ export const GroupSiteLinks = (props: GroupSitesLinksCollectionFieldsFragment) =
       {props.items.map((groupLink, index) => (
         <Link
           key={index}
-          href={groupLink?.slug ?? groupLink?.linkUrl ?? '/'}
+          href={groupLink?.pageLink?.slug ?? groupLink?.linkUrl ?? '/'}
           className={styles.groupSitesLink}
           {...inspectorMode({ entryId: groupLink?.sys.id, fieldId: 'link' })}
         >

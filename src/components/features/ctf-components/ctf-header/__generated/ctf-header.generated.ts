@@ -23,6 +23,7 @@ export type HamburgerMenuFieldsFragment = { __typename: 'HamburgerMenu', menuTit
      | null> } | null };
 
 export type ButtonCollectionFieldsFragment = { __typename?: 'HeaderButtonCollection', items: Array<
+    | { __typename: 'Button' }
     | { __typename: 'ButtonWithLinks', buttonText?: string | null, sys: { __typename?: 'Sys', id: string }, buttonDropDownLinksCollection?: { __typename?: 'ButtonWithLinksButtonDropDownLinksCollection', items: Array<(
           { __typename?: 'Link' }
           & LinkFieldsFragment
@@ -87,7 +88,7 @@ export const HamburgerMenuFieldsFragmentDoc = `
     id
   }
   menuTitle
-  menuItemsCollection(limit: 10) {
+  menuItemsCollection(limit: 5) {
     items {
       __typename
       ... on Link {
@@ -102,7 +103,7 @@ export const HamburgerMenuFieldsFragmentDoc = `
         mainLink {
           ...LinkFields
         }
-        secondaryLinksCollection(limit: 10) {
+        secondaryLinksCollection(limit: 5) {
           items {
             ...LinkFields
           }
@@ -141,8 +142,8 @@ export const CtfHeaderDocument = `
     ${HeaderFieldsFragmentDoc}
 ${AssetFieldsFragmentDoc}
 ${NavigationFieldsFragmentDoc}
-${ButtonCollectionFieldsFragmentDoc}
 ${LinkFieldsFragmentDoc}
+${ButtonCollectionFieldsFragmentDoc}
 ${HamburgerMenuFieldsFragmentDoc}`;
 
 export const useCtfHeaderQuery = <
