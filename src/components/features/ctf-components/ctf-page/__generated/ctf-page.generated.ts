@@ -41,7 +41,7 @@ export type PageContentFieldsFragment =
   | PageContentFields_VideoSection_Fragment
 ;
 
-export type CtfPageFieldsFragment = { __typename: 'Page', pageName?: string | null, slug?: string | null, internalName?: string | null, sys: { __typename?: 'Sys', id: string }, seo?: { __typename?: 'Seo', title?: string | null, description?: string | null, noIndex?: boolean | null, noFollow?: boolean | null, image?: (
+export type CtfPageFieldsFragment = { __typename: 'Page', pageName?: string | null, pageLayout?: string | null, slug?: string | null, internalName?: string | null, sys: { __typename?: 'Sys', id: string }, seo?: { __typename?: 'Seo', title?: string | null, description?: string | null, noIndex?: boolean | null, noFollow?: boolean | null, image?: (
       { __typename?: 'Asset' }
       & AssetFieldsFragment
     ) | null } | null, contentCollection?: { __typename?: 'PageContentCollection', items: Array<
@@ -110,6 +110,7 @@ export const CtfPageFieldsFragmentDoc = `
     id
   }
   pageName
+  pageLayout
   internalName: pageName
   slug
   seo {

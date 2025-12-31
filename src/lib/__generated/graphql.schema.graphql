@@ -69,6 +69,8 @@ enum AccordionLinkingCollectionsPageCollectionOrder {
   changeFrequency_DESC
   internalName_ASC
   internalName_DESC
+  pageLayout_ASC
+  pageLayout_DESC
   pageName_ASC
   pageName_DESC
   priority_ASC
@@ -310,6 +312,8 @@ enum BannerLinkingCollectionsPageCollectionOrder {
   changeFrequency_DESC
   internalName_ASC
   internalName_DESC
+  pageLayout_ASC
+  pageLayout_DESC
   pageName_ASC
   pageName_DESC
   priority_ASC
@@ -439,6 +443,8 @@ enum ButtonLinkingCollectionsPageCollectionOrder {
   changeFrequency_DESC
   internalName_ASC
   internalName_DESC
+  pageLayout_ASC
+  pageLayout_DESC
   pageName_ASC
   pageName_DESC
   priority_ASC
@@ -792,6 +798,8 @@ enum CarouselLinkingCollectionsPageCollectionOrder {
   changeFrequency_DESC
   internalName_ASC
   internalName_DESC
+  pageLayout_ASC
+  pageLayout_DESC
   pageName_ASC
   pageName_DESC
   priority_ASC
@@ -933,6 +941,8 @@ enum ComponentTextBlockLinkingCollectionsPageCollectionOrder {
   changeFrequency_DESC
   internalName_ASC
   internalName_DESC
+  pageLayout_ASC
+  pageLayout_DESC
   pageName_ASC
   pageName_DESC
   priority_ASC
@@ -1343,6 +1353,8 @@ enum FooterLinkingCollectionsPageCollectionOrder {
   changeFrequency_DESC
   internalName_ASC
   internalName_DESC
+  pageLayout_ASC
+  pageLayout_DESC
   pageName_ASC
   pageName_DESC
   priority_ASC
@@ -1968,6 +1980,8 @@ enum HeaderLinkingCollectionsPageCollectionOrder {
   changeFrequency_DESC
   internalName_ASC
   internalName_DESC
+  pageLayout_ASC
+  pageLayout_DESC
   pageName_ASC
   pageName_DESC
   priority_ASC
@@ -2316,6 +2330,8 @@ enum LinkLinkingCollectionsPageCollectionOrder {
   changeFrequency_DESC
   internalName_ASC
   internalName_DESC
+  pageLayout_ASC
+  pageLayout_DESC
   pageName_ASC
   pageName_DESC
   priority_ASC
@@ -2563,6 +2579,7 @@ type Page implements Entry & _Node {
   header(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: HeaderFilter): Header
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): PageLinkingCollections
+  pageLayout(locale: String, useFallbackLocale: Boolean): String
   pageName(locale: String, useFallbackLocale: Boolean): String
   priority(locale: String, useFallbackLocale: Boolean): Float
   seo(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: SeoFilter): Seo
@@ -2617,6 +2634,13 @@ input PageFilter {
   internalName_not: String
   internalName_not_contains: String
   internalName_not_in: [String]
+  pageLayout: String
+  pageLayout_contains: String
+  pageLayout_exists: Boolean
+  pageLayout_in: [String]
+  pageLayout_not: String
+  pageLayout_not_contains: String
+  pageLayout_not_in: [String]
   pageName: String
   pageName_contains: String
   pageName_exists: Boolean
@@ -2676,6 +2700,8 @@ enum PageOrder {
   changeFrequency_DESC
   internalName_ASC
   internalName_DESC
+  pageLayout_ASC
+  pageLayout_DESC
   pageName_ASC
   pageName_DESC
   priority_ASC
@@ -2945,6 +2971,8 @@ enum SeoLinkingCollectionsPageCollectionOrder {
   changeFrequency_DESC
   internalName_ASC
   internalName_DESC
+  pageLayout_ASC
+  pageLayout_DESC
   pageName_ASC
   pageName_DESC
   priority_ASC
@@ -3219,6 +3247,8 @@ enum TabbedFormContainerLinkingCollectionsPageCollectionOrder {
   changeFrequency_DESC
   internalName_ASC
   internalName_DESC
+  pageLayout_ASC
+  pageLayout_DESC
   pageName_ASC
   pageName_DESC
   priority_ASC
@@ -3342,6 +3372,8 @@ enum VideoSectionLinkingCollectionsPageCollectionOrder {
   changeFrequency_DESC
   internalName_ASC
   internalName_DESC
+  pageLayout_ASC
+  pageLayout_DESC
   pageName_ASC
   pageName_DESC
   priority_ASC
@@ -3729,6 +3761,13 @@ input cfPageNestedFilter {
   internalName_not: String
   internalName_not_contains: String
   internalName_not_in: [String]
+  pageLayout: String
+  pageLayout_contains: String
+  pageLayout_exists: Boolean
+  pageLayout_in: [String]
+  pageLayout_not: String
+  pageLayout_not_contains: String
+  pageLayout_not_in: [String]
   pageName: String
   pageName_contains: String
   pageName_exists: Boolean
