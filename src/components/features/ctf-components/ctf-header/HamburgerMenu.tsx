@@ -30,7 +30,7 @@ export const HamburgerMenu = (props: HamburgerMenuProps) => {
             <li key={index} className={styles.hamburgerMenuItem}>
               {item?.__typename === 'Link' ? (
                 <Link
-                  href={item.slug ?? item.linkUrl ?? '/'}
+                  href={item?.pageLink?.slug ?? item.linkUrl ?? '/'}
                   {...inspectorMode({ entryId: item.sys.id, fieldId: 'link' })}
                 >
                   {item.linkHeading}
@@ -54,7 +54,7 @@ export const HamburgerMenu = (props: HamburgerMenuProps) => {
                         className={styles.hamburgerSubMenuItem}
                         {...inspectorMode({ entryId: subItem?.sys.id, fieldId: 'link' })}
                       >
-                        <Link href={subItem?.slug ?? subItem?.linkUrl ?? '/'}>
+                        <Link href={subItem?.pageLink?.slug ?? subItem?.linkUrl ?? '/'}>
                           {subItem?.linkHeading}
                         </Link>
                       </li>

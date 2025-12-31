@@ -1,6 +1,6 @@
 fragment DisclaimerSectionFields on Disclaimer {
   __typename
-  sys{
+  sys {
     id
   }
   heading
@@ -52,73 +52,19 @@ fragment FooterInformationFields on FooterFooterInformation {
 
 fragment GroupSitesLinksCollectionFields on FooterGroupSitesLinksCollection {
   items {
-    __typename
-    sys {
-      id
-    }
-    linkHeading
-    linkUrl
-    slug
-    icon {
-      __typename
-      sys {
-        id
-      }
-      contentType
-      title
-      description
-      width
-      height
-      url
-    }
+    ...LinkFields
   }
 }
 
 fragment SocialLinksCollectionFields on FooterSocialLinksCollection {
   items {
-    __typename
-    sys {
-      id
-    }
-    linkHeading
-    linkUrl
-    slug
-    icon {
-      __typename
-      sys {
-        id
-      }
-      contentType
-      title
-      description
-      width
-      height
-      url
-    }
+    ...LinkFields
   }
 }
 
 fragment FooterButtonCollectionFields on FooterButtonsCollection {
   items {
-    __typename
-    sys {
-      id
-    }
-    linkHeading
-    linkUrl
-    slug
-    icon {
-      __typename
-      sys {
-        id
-      }
-      contentType
-      title
-      description
-      width
-      height
-      url
-    }
+    ...LinkFields
   }
 }
 
@@ -130,25 +76,7 @@ fragment FooterLinksCollection on FooterFooterLinksCollection {
     }
     subNavigationItemTitle
     mainLink {
-      __typename
-      sys {
-        id
-      }
-      linkHeading
-      linkUrl
-      slug
-      icon {
-        __typename
-        sys {
-          id
-        }
-        contentType
-        title
-        description
-        width
-        height
-        url
-      }
+      ...LinkFields
     }
     secondaryLinksCollection(limit: 20) {
       items {
@@ -156,9 +84,13 @@ fragment FooterLinksCollection on FooterFooterLinksCollection {
         sys {
           id
         }
+        linkType
         linkHeading
+        linkSubHeading
+        pageLink {
+          slug
+        }
         linkUrl
-        slug
       }
     }
   }

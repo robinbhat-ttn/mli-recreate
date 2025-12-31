@@ -3,10 +3,13 @@ fragment LinkFields on Link {
   sys {
     id
   }
+  linkType
   linkHeading
   linkSubHeading
+  pageLink {
+    slug
+  }
   linkUrl
-  slug
   icon {
     ...AssetFields
   }

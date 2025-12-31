@@ -158,8 +158,8 @@ ${AssetFieldsFragmentDoc}
 ${PageContentFieldsFragmentDoc}
 ${HeaderFieldsFragmentDoc}
 ${NavigationFieldsFragmentDoc}
-${ButtonCollectionFieldsFragmentDoc}
 ${LinkFieldsFragmentDoc}
+${ButtonCollectionFieldsFragmentDoc}
 ${HamburgerMenuFieldsFragmentDoc}
 ${FooterFieldsFragmentDoc}
 ${FooterLinksCollectionFragmentDoc}

@@ -2,8 +2,10 @@ import * as Types from '../../../../../lib/__generated/graphql.types';
 
 import { ComponentReferenceFields_Accordion_Fragment, ComponentReferenceFields_Banner_Fragment, ComponentReferenceFields_Button_Fragment, ComponentReferenceFields_ButtonWithLinks_Fragment, ComponentReferenceFields_Card_Fragment, ComponentReferenceFields_Carousel_Fragment, ComponentReferenceFields_ComponentTextBlock_Fragment, ComponentReferenceFields_Disclaimer_Fragment, ComponentReferenceFields_Footer_Fragment, ComponentReferenceFields_Form_Fragment, ComponentReferenceFields_FormField_Fragment, ComponentReferenceFields_FormTab_Fragment, ComponentReferenceFields_HamburgerMenu_Fragment, ComponentReferenceFields_Header_Fragment, ComponentReferenceFields_Link_Fragment, ComponentReferenceFields_NavigationItems_Fragment, ComponentReferenceFields_OptionSet_Fragment, ComponentReferenceFields_Page_Fragment, ComponentReferenceFields_Question_Fragment, ComponentReferenceFields_Seo_Fragment, ComponentReferenceFields_SubNavigationItem_Fragment, ComponentReferenceFields_TabbedFormContainer_Fragment, ComponentReferenceFields_VideoSection_Fragment } from '../../../../../lib/shared-fragments/__generated/ctf-componentMap.generated';
 import { AssetFieldsFragment } from '../../ctf-asset/__generated/ctf-asset.generated';
+import { LinkFieldsFragment } from '../../../../../lib/shared-fragments/__generated/ctf-linkFragment.generated';
 import { ComponentReferenceFieldsFragmentDoc } from '../../../../../lib/shared-fragments/__generated/ctf-componentMap.generated';
 import { AssetFieldsFragmentDoc } from '../../ctf-asset/__generated/ctf-asset.generated';
+import { LinkFieldsFragmentDoc } from '../../../../../lib/shared-fragments/__generated/ctf-linkFragment.generated';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { customFetcher } from '@src/lib/fetchConfig';
 export type DisclaimerSectionFieldsFragment = { __typename: 'Disclaimer', heading?: string | null, sys: { __typename?: 'Sys', id: string }, content?: { __typename?: 'DisclaimerContent', json: any, links: { __typename?: 'DisclaimerContentLinks', entries: { __typename?: 'DisclaimerContentEntries', block: Array<
@@ -130,13 +132,25 @@ export type FooterInformationFieldsFragment = { __typename: 'FooterFooterInforma
         & AssetFieldsFragment
       ) | null> } } };
 
-export type GroupSitesLinksCollectionFieldsFragment = { __typename?: 'FooterGroupSitesLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> };
+export type GroupSitesLinksCollectionFieldsFragment = { __typename?: 'FooterGroupSitesLinksCollection', items: Array<(
+    { __typename?: 'Link' }
+    & LinkFieldsFragment
+  ) | null> };
 
-export type SocialLinksCollectionFieldsFragment = { __typename?: 'FooterSocialLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> };
+export type SocialLinksCollectionFieldsFragment = { __typename?: 'FooterSocialLinksCollection', items: Array<(
+    { __typename?: 'Link' }
+    & LinkFieldsFragment
+  ) | null> };
 
-export type FooterButtonCollectionFieldsFragment = { __typename?: 'FooterButtonsCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> };
+export type FooterButtonCollectionFieldsFragment = { __typename?: 'FooterButtonsCollection', items: Array<(
+    { __typename?: 'Link' }
+    & LinkFieldsFragment
+  ) | null> };
 
-export type FooterLinksCollectionFragment = { __typename?: 'FooterFooterLinksCollection', items: Array<{ __typename: 'SubNavigationItem', subNavigationItemTitle?: string | null, sys: { __typename?: 'Sys', id: string }, mainLink?: { __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null, secondaryLinksCollection?: { __typename?: 'SubNavigationItemSecondaryLinksCollection', items: Array<{ __typename: 'Link', linkHeading?: string | null, linkUrl?: string | null, slug?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null } | null> };
+export type FooterLinksCollectionFragment = { __typename?: 'FooterFooterLinksCollection', items: Array<{ __typename: 'SubNavigationItem', subNavigationItemTitle?: string | null, sys: { __typename?: 'Sys', id: string }, mainLink?: (
+      { __typename?: 'Link' }
+      & LinkFieldsFragment
+    ) | null, secondaryLinksCollection?: { __typename?: 'SubNavigationItemSecondaryLinksCollection', items: Array<{ __typename: 'Link', linkType?: string | null, linkHeading?: string | null, linkSubHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string }, pageLink?: { __typename?: 'Page', slug?: string | null } | null } | null> } | null } | null> };
 
 export type FooterFieldsFragment = { __typename: 'Footer', sys: { __typename?: 'Sys', id: string }, footerLinksCollection?: (
     { __typename?: 'FooterFooterLinksCollection' }
@@ -180,25 +194,7 @@ export const FooterLinksCollectionFragmentDoc = `
     }
     subNavigationItemTitle
     mainLink {
-      __typename
-      sys {
-        id
-      }
-      linkHeading
-      linkUrl
-      slug
-      icon {
-        __typename
-        sys {
-          id
-        }
-        contentType
-        title
-        description
-        width
-        height
-        url
-      }
+      ...LinkFields
     }
     secondaryLinksCollection(limit: 20) {
       items {
@@ -206,9 +202,13 @@ export const FooterLinksCollectionFragmentDoc = `
         sys {
           id
         }
+        linkType
         linkHeading
+        linkSubHeading
+        pageLink {
+          slug
+        }
         linkUrl
-        slug
       }
     }
   }
@@ -217,75 +217,21 @@ export const FooterLinksCollectionFragmentDoc = `
 export const FooterButtonCollectionFieldsFragmentDoc = `
     fragment FooterButtonCollectionFields on FooterButtonsCollection {
   items {
-    __typename
-    sys {
-      id
-    }
-    linkHeading
-    linkUrl
-    slug
-    icon {
-      __typename
-      sys {
-        id
-      }
-      contentType
-      title
-      description
-      width
-      height
-      url
-    }
+    ...LinkFields
   }
 }
     `;
 export const SocialLinksCollectionFieldsFragmentDoc = `
     fragment SocialLinksCollectionFields on FooterSocialLinksCollection {
   items {
-    __typename
-    sys {
-      id
-    }
-    linkHeading
-    linkUrl
-    slug
-    icon {
-      __typename
-      sys {
-        id
-      }
-      contentType
-      title
-      description
-      width
-      height
-      url
-    }
+    ...LinkFields
   }
 }
     `;
 export const GroupSitesLinksCollectionFieldsFragmentDoc = `
     fragment GroupSitesLinksCollectionFields on FooterGroupSitesLinksCollection {
   items {
-    __typename
-    sys {
-      id
-    }
-    linkHeading
-    linkUrl
-    slug
-    icon {
-      __typename
-      sys {
-        id
-      }
-      contentType
-      title
-      description
-      width
-      height
-      url
-    }
+    ...LinkFields
   }
 }
     `;
@@ -377,12 +323,13 @@ export const CtfFooterDocument = `
 }
     ${FooterFieldsFragmentDoc}
 ${FooterLinksCollectionFragmentDoc}
+${LinkFieldsFragmentDoc}
+${AssetFieldsFragmentDoc}
 ${FooterButtonCollectionFieldsFragmentDoc}
 ${SocialLinksCollectionFieldsFragmentDoc}
 ${GroupSitesLinksCollectionFieldsFragmentDoc}
 ${FooterInformationFieldsFragmentDoc}
 ${ComponentReferenceFieldsFragmentDoc}
-${AssetFieldsFragmentDoc}
 ${DisclaimerSectionFieldsFragmentDoc}`;
 
 export const useCtfFooterQuery = <

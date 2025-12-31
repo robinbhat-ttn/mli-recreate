@@ -14,26 +14,21 @@ fragment NavigationFields on HeaderNavigationItemsCollection {
         }
         subNavigationItemTitle
         mainLink {
-          __typename
-          sys {
-            id
-          }
-          linkHeading
-          linkUrl
-          slug
-          icon{
-            ...AssetFields
-          }
+          ...LinkFields
         }
-        secondaryLinksCollection(limit: 10) {
+        secondaryLinksCollection(limit: 5) {
           items {
             __typename
             sys {
               id
             }
+            linkType
             linkHeading
+            linkSubHeading
+            pageLink {
+              slug
+            }
             linkUrl
-            slug
           }
         }
       }
