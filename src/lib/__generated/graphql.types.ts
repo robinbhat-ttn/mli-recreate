@@ -132,6 +132,8 @@ export enum AccordionLinkingCollectionsPageCollectionOrder {
   ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
+  PageLayoutAsc = 'pageLayout_ASC',
+  PageLayoutDesc = 'pageLayout_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
   PriorityAsc = 'priority_ASC',
@@ -582,6 +584,8 @@ export enum BannerLinkingCollectionsPageCollectionOrder {
   ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
+  PageLayoutAsc = 'pageLayout_ASC',
+  PageLayoutDesc = 'pageLayout_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
   PriorityAsc = 'priority_ASC',
@@ -769,6 +773,8 @@ export enum ButtonLinkingCollectionsPageCollectionOrder {
   ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
+  PageLayoutAsc = 'pageLayout_ASC',
+  PageLayoutDesc = 'pageLayout_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
   PriorityAsc = 'priority_ASC',
@@ -1301,6 +1307,8 @@ export enum CarouselLinkingCollectionsPageCollectionOrder {
   ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
+  PageLayoutAsc = 'pageLayout_ASC',
+  PageLayoutDesc = 'pageLayout_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
   PriorityAsc = 'priority_ASC',
@@ -1507,6 +1515,8 @@ export enum ComponentTextBlockLinkingCollectionsPageCollectionOrder {
   ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
+  PageLayoutAsc = 'pageLayout_ASC',
+  PageLayoutDesc = 'pageLayout_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
   PriorityAsc = 'priority_ASC',
@@ -2070,6 +2080,8 @@ export enum FooterLinkingCollectionsPageCollectionOrder {
   ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
+  PageLayoutAsc = 'pageLayout_ASC',
+  PageLayoutDesc = 'pageLayout_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
   PriorityAsc = 'priority_ASC',
@@ -3054,6 +3066,8 @@ export enum HeaderLinkingCollectionsPageCollectionOrder {
   ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
+  PageLayoutAsc = 'pageLayout_ASC',
+  PageLayoutDesc = 'pageLayout_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
   PriorityAsc = 'priority_ASC',
@@ -3500,6 +3514,8 @@ export enum LinkLinkingCollectionsPageCollectionOrder {
   ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
+  PageLayoutAsc = 'pageLayout_ASC',
+  PageLayoutDesc = 'pageLayout_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
   PriorityAsc = 'priority_ASC',
@@ -3846,6 +3862,7 @@ export type Page = Entry & _Node & {
   header?: Maybe<Header>;
   internalName?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<PageLinkingCollections>;
+  pageLayout?: Maybe<Scalars['String']['output']>;
   pageName?: Maybe<Scalars['String']['output']>;
   priority?: Maybe<Scalars['Float']['output']>;
   seo?: Maybe<Seo>;
@@ -3900,6 +3917,13 @@ export type PageInternalNameArgs = {
 /** AMLI Page Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
 export type PageLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+
+/** AMLI Page Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
+export type PagePageLayoutArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -3981,6 +4005,13 @@ export type PageFilter = {
   internalName_not?: InputMaybe<Scalars['String']['input']>;
   internalName_not_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  pageLayout?: InputMaybe<Scalars['String']['input']>;
+  pageLayout_contains?: InputMaybe<Scalars['String']['input']>;
+  pageLayout_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  pageLayout_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  pageLayout_not?: InputMaybe<Scalars['String']['input']>;
+  pageLayout_not_contains?: InputMaybe<Scalars['String']['input']>;
+  pageLayout_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   pageName?: InputMaybe<Scalars['String']['input']>;
   pageName_contains?: InputMaybe<Scalars['String']['input']>;
   pageName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -4060,6 +4091,8 @@ export enum PageOrder {
   ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
+  PageLayoutAsc = 'pageLayout_ASC',
+  PageLayoutDesc = 'pageLayout_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
   PriorityAsc = 'priority_ASC',
@@ -4933,6 +4966,8 @@ export enum SeoLinkingCollectionsPageCollectionOrder {
   ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
+  PageLayoutAsc = 'pageLayout_ASC',
+  PageLayoutDesc = 'pageLayout_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
   PriorityAsc = 'priority_ASC',
@@ -5342,6 +5377,8 @@ export enum TabbedFormContainerLinkingCollectionsPageCollectionOrder {
   ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
+  PageLayoutAsc = 'pageLayout_ASC',
+  PageLayoutDesc = 'pageLayout_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
   PriorityAsc = 'priority_ASC',
@@ -5513,6 +5550,8 @@ export enum VideoSectionLinkingCollectionsPageCollectionOrder {
   ChangeFrequencyDesc = 'changeFrequency_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
+  PageLayoutAsc = 'pageLayout_ASC',
+  PageLayoutDesc = 'pageLayout_DESC',
   PageNameAsc = 'pageName_ASC',
   PageNameDesc = 'pageName_DESC',
   PriorityAsc = 'priority_ASC',
@@ -5900,6 +5939,13 @@ export type CfPageNestedFilter = {
   internalName_not?: InputMaybe<Scalars['String']['input']>;
   internalName_not_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  pageLayout?: InputMaybe<Scalars['String']['input']>;
+  pageLayout_contains?: InputMaybe<Scalars['String']['input']>;
+  pageLayout_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  pageLayout_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  pageLayout_not?: InputMaybe<Scalars['String']['input']>;
+  pageLayout_not_contains?: InputMaybe<Scalars['String']['input']>;
+  pageLayout_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   pageName?: InputMaybe<Scalars['String']['input']>;
   pageName_contains?: InputMaybe<Scalars['String']['input']>;
   pageName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -6658,7 +6704,7 @@ export type PageContentFieldsFragment =
   | PageContentFields_VideoSection_Fragment
 ;
 
-export type CtfPageFieldsFragment = { __typename: 'Page', pageName?: string | null, slug?: string | null, internalName?: string | null, sys: { __typename?: 'Sys', id: string }, seo?: { __typename?: 'Seo', title?: string | null, description?: string | null, noIndex?: boolean | null, noFollow?: boolean | null, image?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null, contentCollection?: { __typename?: 'PageContentCollection', items: Array<
+export type CtfPageFieldsFragment = { __typename: 'Page', pageName?: string | null, pageLayout?: string | null, slug?: string | null, internalName?: string | null, sys: { __typename?: 'Sys', id: string }, seo?: { __typename?: 'Seo', title?: string | null, description?: string | null, noIndex?: boolean | null, noFollow?: boolean | null, image?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null, contentCollection?: { __typename?: 'PageContentCollection', items: Array<
       | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
@@ -6731,7 +6777,7 @@ export type CtfPageQueryVariables = Exact<{
 }>;
 
 
-export type CtfPageQuery = { __typename?: 'Query', pageCollection?: { __typename?: 'PageCollection', items: Array<{ __typename: 'Page', pageName?: string | null, slug?: string | null, internalName?: string | null, sys: { __typename?: 'Sys', id: string }, seo?: { __typename?: 'Seo', title?: string | null, description?: string | null, noIndex?: boolean | null, noFollow?: boolean | null, image?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null, contentCollection?: { __typename?: 'PageContentCollection', items: Array<
+export type CtfPageQuery = { __typename?: 'Query', pageCollection?: { __typename?: 'PageCollection', items: Array<{ __typename: 'Page', pageName?: string | null, pageLayout?: string | null, slug?: string | null, internalName?: string | null, sys: { __typename?: 'Sys', id: string }, seo?: { __typename?: 'Seo', title?: string | null, description?: string | null, noIndex?: boolean | null, noFollow?: boolean | null, image?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null, contentCollection?: { __typename?: 'PageContentCollection', items: Array<
           | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }

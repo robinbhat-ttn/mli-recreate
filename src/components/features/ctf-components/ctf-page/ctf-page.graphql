@@ -8,6 +8,7 @@ fragment CtfPageFields on Page {
     id
   }
   pageName
+  pageLayout
   internalName: pageName
   slug
   seo {
