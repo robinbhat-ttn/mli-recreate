@@ -2148,6 +2148,7 @@ export type Form = Entry & _Node & {
   description?: Maybe<FormDescription>;
   fieldsCollection?: Maybe<FormFieldsCollection>;
   formId?: Maybe<Scalars['String']['output']>;
+  formType?: Maybe<Scalars['String']['output']>;
   internalName?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<FormLinkingCollections>;
   submitButton?: Maybe<Link>;
@@ -2177,6 +2178,13 @@ export type FormFieldsCollectionArgs = {
 
 /** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/form) */
 export type FormFormIdArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/form) */
+export type FormFormTypeArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
@@ -2440,6 +2448,8 @@ export type FormFieldLinkingCollectionsFormCollectionArgs = {
 export enum FormFieldLinkingCollectionsFormCollectionOrder {
   FormIdAsc = 'formId_ASC',
   FormIdDesc = 'formId_DESC',
+  FormTypeAsc = 'formType_ASC',
+  FormTypeDesc = 'formType_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -2524,6 +2534,13 @@ export type FormFilter = {
   formId_not?: InputMaybe<Scalars['String']['input']>;
   formId_not_contains?: InputMaybe<Scalars['String']['input']>;
   formId_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  formType?: InputMaybe<Scalars['String']['input']>;
+  formType_contains?: InputMaybe<Scalars['String']['input']>;
+  formType_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  formType_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  formType_not?: InputMaybe<Scalars['String']['input']>;
+  formType_not_contains?: InputMaybe<Scalars['String']['input']>;
+  formType_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2547,6 +2564,7 @@ export type FormLinkingCollections = {
   __typename?: 'FormLinkingCollections';
   entryCollection?: Maybe<EntryCollection>;
   formTabCollection?: Maybe<FormTabCollection>;
+  pageCollection?: Maybe<PageCollection>;
 };
 
 
@@ -2568,6 +2586,16 @@ export type FormLinkingCollectionsFormTabCollectionArgs = {
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+
+export type FormLinkingCollectionsPageCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<FormLinkingCollectionsPageCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 export enum FormLinkingCollectionsFormTabCollectionOrder {
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
@@ -2581,9 +2609,34 @@ export enum FormLinkingCollectionsFormTabCollectionOrder {
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
+export enum FormLinkingCollectionsPageCollectionOrder {
+  ChangeFrequencyAsc = 'changeFrequency_ASC',
+  ChangeFrequencyDesc = 'changeFrequency_DESC',
+  InternalNameAsc = 'internalName_ASC',
+  InternalNameDesc = 'internalName_DESC',
+  PageLayoutAsc = 'pageLayout_ASC',
+  PageLayoutDesc = 'pageLayout_DESC',
+  PageNameAsc = 'pageName_ASC',
+  PageNameDesc = 'pageName_DESC',
+  PriorityAsc = 'priority_ASC',
+  PriorityDesc = 'priority_DESC',
+  SlugAsc = 'slug_ASC',
+  SlugDesc = 'slug_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
+
 export enum FormOrder {
   FormIdAsc = 'formId_ASC',
   FormIdDesc = 'formId_DESC',
+  FormTypeAsc = 'formType_ASC',
+  FormTypeDesc = 'formType_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -3467,6 +3520,8 @@ export enum LinkLinkingCollectionsFooterCollectionOrder {
 export enum LinkLinkingCollectionsFormCollectionOrder {
   FormIdAsc = 'formId_ASC',
   FormIdDesc = 'formId_DESC',
+  FormTypeAsc = 'formType_ASC',
+  FormTypeDesc = 'formType_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -3979,7 +4034,7 @@ export type PageContentFilter = {
   sys?: InputMaybe<SysFilter>;
 };
 
-export type PageContentItem = Accordion | Banner | Button | Carousel | ComponentTextBlock | Link | TabbedFormContainer | VideoSection;
+export type PageContentItem = Accordion | Banner | Button | Carousel | ComponentTextBlock | Form | Link | TabbedFormContainer | VideoSection;
 
 export type PageFilter = {
   AND?: InputMaybe<Array<InputMaybe<PageFilter>>>;
@@ -5754,6 +5809,13 @@ export type CfFormNestedFilter = {
   formId_not?: InputMaybe<Scalars['String']['input']>;
   formId_not_contains?: InputMaybe<Scalars['String']['input']>;
   formId_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  formType?: InputMaybe<Scalars['String']['input']>;
+  formType_contains?: InputMaybe<Scalars['String']['input']>;
+  formType_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  formType_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  formType_not?: InputMaybe<Scalars['String']['input']>;
+  formType_not_contains?: InputMaybe<Scalars['String']['input']>;
+  formType_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -6630,6 +6692,39 @@ export type CtfFooterQuery = { __typename?: 'Query', footer?: { __typename: 'Foo
               | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
              | null> }, assets: { __typename?: 'DisclaimerContentAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null } | null };
 
+export type CtfFormQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+}>;
+
+
+export type CtfFormQuery = { __typename?: 'Query', form?: { __typename?: 'Form', formType?: string | null, title?: string | null, formId?: string | null, description?: { __typename?: 'FormDescription', json: any, links: { __typename?: 'FormDescriptionLinks', entries: { __typename?: 'FormDescriptionEntries', block: Array<
+            | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
+           | null> }, assets: { __typename?: 'FormDescriptionAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, fieldsCollection?: { __typename?: 'FormFieldsCollection', items: Array<{ __typename: 'FormField', label?: string | null, placeholder?: string | null, name?: string | null, fieldType?: string | null, required?: boolean | null, conditionalRule?: any | null, validationRule?: any | null, sys: { __typename?: 'Sys', id: string }, options?: { __typename: 'OptionSet', items?: any | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, submitButton?: { __typename: 'Link', linkType?: string | null, linkHeading?: string | null, linkSubHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string }, pageLink?: { __typename?: 'Page', slug?: string | null } | null, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null } | null };
+
 export type HamburgerMenuFieldsFragment = { __typename: 'HamburgerMenu', menuTitle?: string | null, sys: { __typename?: 'Sys', id: string }, menuItemsCollection?: { __typename?: 'HamburgerMenuMenuItemsCollection', items: Array<
       | { __typename: 'Link', linkType?: string | null, linkHeading?: string | null, linkSubHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string }, pageLink?: { __typename?: 'Page', slug?: string | null } | null, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null }
       | { __typename: 'SubNavigationItem', subNavigationItemTitle?: string | null, sys: { __typename?: 'Sys', id: string }, mainLink?: { __typename: 'Link', linkType?: string | null, linkHeading?: string | null, linkSubHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string }, pageLink?: { __typename?: 'Page', slug?: string | null } | null, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null, secondaryLinksCollection?: { __typename?: 'SubNavigationItemSecondaryLinksCollection', items: Array<{ __typename: 'Link', linkType?: string | null, linkHeading?: string | null, linkSubHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string }, pageLink?: { __typename?: 'Page', slug?: string | null } | null, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null }
@@ -6687,6 +6782,8 @@ type PageContentFields_Carousel_Fragment = { __typename: 'Carousel' };
 
 type PageContentFields_ComponentTextBlock_Fragment = { __typename: 'ComponentTextBlock' };
 
+type PageContentFields_Form_Fragment = { __typename: 'Form' };
+
 type PageContentFields_Link_Fragment = { __typename: 'Link' };
 
 type PageContentFields_TabbedFormContainer_Fragment = { __typename: 'TabbedFormContainer' };
@@ -6699,6 +6796,7 @@ export type PageContentFieldsFragment =
   | PageContentFields_Button_Fragment
   | PageContentFields_Carousel_Fragment
   | PageContentFields_ComponentTextBlock_Fragment
+  | PageContentFields_Form_Fragment
   | PageContentFields_Link_Fragment
   | PageContentFields_TabbedFormContainer_Fragment
   | PageContentFields_VideoSection_Fragment
@@ -6710,6 +6808,7 @@ export type CtfPageFieldsFragment = { __typename: 'Page', pageName?: string | nu
       | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+      | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
@@ -6783,6 +6882,7 @@ export type CtfPageQuery = { __typename?: 'Query', pageCollection?: { __typename
           | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
@@ -6849,6 +6949,7 @@ export type RichTextHyperlinkFieldsFragment = { __typename?: 'Query', page?: { _
         | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+        | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
@@ -6867,6 +6968,7 @@ export type CtfRichTextHyperlinkQuery = { __typename?: 'Query', page?: { __typen
         | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+        | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
         | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
@@ -6876,7 +6978,7 @@ export type FormFieldFieldsFragment = { __typename?: 'FormField', label?: string
 
 export type FieldCollectionFieldsFragment = { __typename?: 'FormFieldsCollection', items: Array<{ __typename: 'FormField', label?: string | null, placeholder?: string | null, name?: string | null, fieldType?: string | null, required?: boolean | null, conditionalRule?: any | null, validationRule?: any | null, sys: { __typename?: 'Sys', id: string }, options?: { __typename: 'OptionSet', items?: any | null, sys: { __typename?: 'Sys', id: string } } | null } | null> };
 
-export type FormFieldsFragment = { __typename?: 'Form', title?: string | null, formId?: string | null, description?: { __typename?: 'FormDescription', json: any, links: { __typename?: 'FormDescriptionLinks', entries: { __typename?: 'FormDescriptionEntries', block: Array<
+export type FormFieldsFragment = { __typename?: 'Form', formType?: string | null, title?: string | null, formId?: string | null, description?: { __typename?: 'FormDescription', json: any, links: { __typename?: 'FormDescriptionLinks', entries: { __typename?: 'FormDescriptionEntries', block: Array<
           | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
@@ -6926,7 +7028,7 @@ export type TabsFieldsFragment = { __typename: 'FormTab', sys: { __typename?: 'S
           | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
-         | null> }, assets: { __typename?: 'FormTabTabLabelAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, form?: { __typename: 'Form', title?: string | null, formId?: string | null, sys: { __typename?: 'Sys', id: string }, description?: { __typename?: 'FormDescription', json: any, links: { __typename?: 'FormDescriptionLinks', entries: { __typename?: 'FormDescriptionEntries', block: Array<
+         | null> }, assets: { __typename?: 'FormTabTabLabelAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, form?: { __typename: 'Form', formType?: string | null, title?: string | null, formId?: string | null, sys: { __typename?: 'Sys', id: string }, description?: { __typename?: 'FormDescription', json: any, links: { __typename?: 'FormDescriptionLinks', entries: { __typename?: 'FormDescriptionEntries', block: Array<
             | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
@@ -6976,7 +7078,7 @@ export type TabbedFormContainerFieldsFragment = { __typename: 'TabbedFormContain
               | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
-             | null> }, assets: { __typename?: 'FormTabTabLabelAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, form?: { __typename: 'Form', title?: string | null, formId?: string | null, sys: { __typename?: 'Sys', id: string }, description?: { __typename?: 'FormDescription', json: any, links: { __typename?: 'FormDescriptionLinks', entries: { __typename?: 'FormDescriptionEntries', block: Array<
+             | null> }, assets: { __typename?: 'FormTabTabLabelAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, form?: { __typename: 'Form', formType?: string | null, title?: string | null, formId?: string | null, sys: { __typename?: 'Sys', id: string }, description?: { __typename?: 'FormDescription', json: any, links: { __typename?: 'FormDescriptionLinks', entries: { __typename?: 'FormDescriptionEntries', block: Array<
                 | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
@@ -7033,7 +7135,7 @@ export type CtfTabbedFormContainerQuery = { __typename?: 'Query', tabbedFormCont
                 | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
-               | null> }, assets: { __typename?: 'FormTabTabLabelAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, form?: { __typename: 'Form', title?: string | null, formId?: string | null, sys: { __typename?: 'Sys', id: string }, description?: { __typename?: 'FormDescription', json: any, links: { __typename?: 'FormDescriptionLinks', entries: { __typename?: 'FormDescriptionEntries', block: Array<
+               | null> }, assets: { __typename?: 'FormTabTabLabelAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, form?: { __typename: 'Form', formType?: string | null, title?: string | null, formId?: string | null, sys: { __typename?: 'Sys', id: string }, description?: { __typename?: 'FormDescription', json: any, links: { __typename?: 'FormDescriptionLinks', entries: { __typename?: 'FormDescriptionEntries', block: Array<
                   | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
                   | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
                   | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
@@ -7183,6 +7285,7 @@ export type PageLinkFieldsFragment = { __typename: 'Page', slug?: string | null,
       | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+      | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }

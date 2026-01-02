@@ -13,7 +13,7 @@ export type FieldCollectionFieldsFragment = { __typename?: 'FormFieldsCollection
     & FormFieldFieldsFragment
   ) | null> };
 
-export type FormFieldsFragment = { __typename?: 'Form', title?: string | null, formId?: string | null, description?: { __typename?: 'FormDescription', json: any, links: { __typename?: 'FormDescriptionLinks', entries: { __typename?: 'FormDescriptionEntries', block: Array<
+export type FormFieldsFragment = { __typename?: 'Form', formType?: string | null, title?: string | null, formId?: string | null, description?: { __typename?: 'FormDescription', json: any, links: { __typename?: 'FormDescriptionLinks', entries: { __typename?: 'FormDescriptionEntries', block: Array<
           | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
@@ -132,6 +132,7 @@ export const FieldCollectionFieldsFragmentDoc = `
     `;
 export const FormFieldsFragmentDoc = `
     fragment FormFields on Form {
+  formType
   title
   description {
     json

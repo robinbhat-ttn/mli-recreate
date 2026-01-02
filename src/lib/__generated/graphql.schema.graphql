@@ -1421,6 +1421,7 @@ type Form implements Entry & _Node {
   description(locale: String, useFallbackLocale: Boolean): FormDescription
   fieldsCollection(limit: Int = 100, locale: String, order: [FormFieldsCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: FormFieldFilter): FormFieldsCollection
   formId(locale: String, useFallbackLocale: Boolean): String
+  formType(locale: String, useFallbackLocale: Boolean): String
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): FormLinkingCollections
   submitButton(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: LinkFilter): Link
@@ -1558,6 +1559,8 @@ type FormFieldLinkingCollections {
 enum FormFieldLinkingCollectionsFormCollectionOrder {
   formId_ASC
   formId_DESC
+  formType_ASC
+  formType_DESC
   internalName_ASC
   internalName_DESC
   sys_firstPublishedAt_ASC
@@ -1641,6 +1644,13 @@ input FormFilter {
   formId_not: String
   formId_not_contains: String
   formId_not_in: [String]
+  formType: String
+  formType_contains: String
+  formType_exists: Boolean
+  formType_in: [String]
+  formType_not: String
+  formType_not_contains: String
+  formType_not_in: [String]
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean
@@ -1663,6 +1673,7 @@ input FormFilter {
 type FormLinkingCollections {
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
   formTabCollection(limit: Int = 100, locale: String, order: [FormLinkingCollectionsFormTabCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): FormTabCollection
+  pageCollection(limit: Int = 100, locale: String, order: [FormLinkingCollectionsPageCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): PageCollection
 }
 
 enum FormLinkingCollectionsFormTabCollectionOrder {
@@ -1678,9 +1689,34 @@ enum FormLinkingCollectionsFormTabCollectionOrder {
   sys_publishedVersion_DESC
 }
 
+enum FormLinkingCollectionsPageCollectionOrder {
+  changeFrequency_ASC
+  changeFrequency_DESC
+  internalName_ASC
+  internalName_DESC
+  pageLayout_ASC
+  pageLayout_DESC
+  pageName_ASC
+  pageName_DESC
+  priority_ASC
+  priority_DESC
+  slug_ASC
+  slug_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+}
+
 enum FormOrder {
   formId_ASC
   formId_DESC
+  formType_ASC
+  formType_DESC
   internalName_ASC
   internalName_DESC
   sys_firstPublishedAt_ASC
@@ -2283,6 +2319,8 @@ enum LinkLinkingCollectionsFooterCollectionOrder {
 enum LinkLinkingCollectionsFormCollectionOrder {
   formId_ASC
   formId_DESC
+  formType_ASC
+  formType_DESC
   internalName_ASC
   internalName_DESC
   sys_firstPublishedAt_ASC
@@ -2608,7 +2646,7 @@ input PageContentFilter {
   sys: SysFilter
 }
 
-union PageContentItem = Accordion | Banner | Button | Carousel | ComponentTextBlock | Link | TabbedFormContainer | VideoSection
+union PageContentItem = Accordion | Banner | Button | Carousel | ComponentTextBlock | Form | Link | TabbedFormContainer | VideoSection
 
 input PageFilter {
   AND: [PageFilter]
@@ -3576,6 +3614,13 @@ input cfFormNestedFilter {
   formId_not: String
   formId_not_contains: String
   formId_not_in: [String]
+  formType: String
+  formType_contains: String
+  formType_exists: Boolean
+  formType_in: [String]
+  formType_not: String
+  formType_not_contains: String
+  formType_not_in: [String]
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean

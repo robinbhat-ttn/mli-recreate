@@ -29,9 +29,11 @@ export const CtfHeader = (props: HeaderFieldsFragment) => {
         <ImageContainer {...(props.logo as AssetFieldsFragment)} />
         <NavigationContainer {...(props.navigationItemsCollection as NavigationFieldsFragment)} />
         <ButtonContainer {...(props.buttonCollection as ButtonCollectionFieldsFragment)} />
-        <HamburgerIcon isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+        {props.hamburgerMenu && <HamburgerIcon isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />}
       </div>
-      <HamburgerMenu {...({ ...props.hamburgerMenu, isMenuOpen } as HamburgerMenuProps)} />
+      {props.hamburgerMenu && (
+        <HamburgerMenu {...({ ...props.hamburgerMenu, isMenuOpen } as HamburgerMenuProps)} />
+      )}
     </div>
   );
 };
