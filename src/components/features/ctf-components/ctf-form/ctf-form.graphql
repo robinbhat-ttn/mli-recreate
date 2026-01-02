@@ -1,0 +1,5 @@
+query CtfForm($id: String!, $locale: String, $preview: Boolean) {
+  form(id: $id, locale: $locale, preview: $preview) {
+    ...FormFields
+  }
+}

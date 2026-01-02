@@ -6,6 +6,7 @@ export type PageLinkFieldsFragment = { __typename: 'Page', slug?: string | null,
       | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+      | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
       | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
