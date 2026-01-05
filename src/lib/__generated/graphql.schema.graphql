@@ -233,6 +233,7 @@ type Banner implements Entry & _Node {
   bannerImageLink(locale: String, useFallbackLocale: Boolean): String
   bannerTextCollection(limit: Int = 100, locale: String, order: [BannerBannerTextCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: ComponentTextBlockFilter): BannerBannerTextCollection
   bannerTitle(locale: String, useFallbackLocale: Boolean): String
+  bannerType(locale: String, useFallbackLocale: Boolean): String
   contentfulMetadata: ContentfulMetadata!
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): BannerLinkingCollections
@@ -289,6 +290,13 @@ input BannerFilter {
   bannerTitle_not: String
   bannerTitle_not_contains: String
   bannerTitle_not_in: [String]
+  bannerType: String
+  bannerType_contains: String
+  bannerType_exists: Boolean
+  bannerType_in: [String]
+  bannerType_not: String
+  bannerType_not_contains: String
+  bannerType_not_in: [String]
   contentfulMetadata: ContentfulMetadataFilter
   internalName: String
   internalName_contains: String
@@ -335,6 +343,8 @@ enum BannerOrder {
   bannerImageLink_DESC
   bannerTitle_ASC
   bannerTitle_DESC
+  bannerType_ASC
+  bannerType_DESC
   internalName_ASC
   internalName_DESC
   sys_firstPublishedAt_ASC
@@ -426,6 +436,8 @@ type ButtonLinkingCollections {
 }
 
 enum ButtonLinkingCollectionsHeaderCollectionOrder {
+  headerType_ASC
+  headerType_DESC
   internalName_ASC
   internalName_DESC
   sys_firstPublishedAt_ASC
@@ -555,6 +567,8 @@ type ButtonWithLinksLinkingCollections {
 }
 
 enum ButtonWithLinksLinkingCollectionsHeaderCollectionOrder {
+  headerType_ASC
+  headerType_DESC
   internalName_ASC
   internalName_DESC
   sys_firstPublishedAt_ASC
@@ -687,6 +701,8 @@ enum CardLinkingCollectionsBannerCollectionOrder {
   bannerImageLink_DESC
   bannerTitle_ASC
   bannerTitle_DESC
+  bannerType_ASC
+  bannerType_DESC
   internalName_ASC
   internalName_DESC
   sys_firstPublishedAt_ASC
@@ -924,6 +940,8 @@ enum ComponentTextBlockLinkingCollectionsBannerCollectionOrder {
   bannerImageLink_DESC
   bannerTitle_ASC
   bannerTitle_DESC
+  bannerType_ASC
+  bannerType_DESC
   internalName_ASC
   internalName_DESC
   sys_firstPublishedAt_ASC
@@ -1890,6 +1908,8 @@ type HamburgerMenuLinkingCollections {
 }
 
 enum HamburgerMenuLinkingCollectionsHeaderCollectionOrder {
+  headerType_ASC
+  headerType_DESC
   internalName_ASC
   internalName_DESC
   sys_firstPublishedAt_ASC
@@ -1948,6 +1968,7 @@ type Header implements Entry & _Node {
   buttonCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: HeaderButtonFilter): HeaderButtonCollection
   contentfulMetadata: ContentfulMetadata!
   hamburgerMenu(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: HamburgerMenuFilter): HamburgerMenu
+  headerType(locale: String, useFallbackLocale: Boolean): String
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): HeaderLinkingCollections
   logo(locale: String, preview: Boolean, useFallbackLocale: Boolean): Asset
@@ -1993,6 +2014,13 @@ input HeaderFilter {
   contentfulMetadata: ContentfulMetadataFilter
   hamburgerMenu: cfHamburgerMenuNestedFilter
   hamburgerMenu_exists: Boolean
+  headerType: String
+  headerType_contains: String
+  headerType_exists: Boolean
+  headerType_in: [String]
+  headerType_not: String
+  headerType_not_contains: String
+  headerType_not_in: [String]
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean
@@ -2059,6 +2087,8 @@ enum HeaderNavigationItemsCollectionOrder {
 }
 
 enum HeaderOrder {
+  headerType_ASC
+  headerType_DESC
   internalName_ASC
   internalName_DESC
   sys_firstPublishedAt_ASC
@@ -2351,6 +2381,8 @@ enum LinkLinkingCollectionsHamburgerMenuCollectionOrder {
 }
 
 enum LinkLinkingCollectionsHeaderCollectionOrder {
+  headerType_ASC
+  headerType_DESC
   internalName_ASC
   internalName_DESC
   sys_firstPublishedAt_ASC
@@ -2479,6 +2511,8 @@ type NavigationItemsLinkingCollections {
 }
 
 enum NavigationItemsLinkingCollectionsHeaderCollectionOrder {
+  headerType_ASC
+  headerType_DESC
   internalName_ASC
   internalName_DESC
   sys_firstPublishedAt_ASC
@@ -3685,6 +3719,13 @@ input cfHeaderNestedFilter {
   buttonCollection_exists: Boolean
   contentfulMetadata: ContentfulMetadataFilter
   hamburgerMenu_exists: Boolean
+  headerType: String
+  headerType_contains: String
+  headerType_exists: Boolean
+  headerType_in: [String]
+  headerType_not: String
+  headerType_not_contains: String
+  headerType_not_in: [String]
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean

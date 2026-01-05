@@ -51,6 +51,7 @@ fragment HeaderFields on Header {
   sys{
     id
   }
+  headerType 
   logo {
     ...AssetFields
   }

@@ -4,6 +4,7 @@ query CtfBanner($id: String!, $locale: String, $preview: Boolean){
     sys{
       id
     }
+    bannerType
     bannerImage{
       ...AssetFields
     }

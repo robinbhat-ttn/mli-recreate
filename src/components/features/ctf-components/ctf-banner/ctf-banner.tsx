@@ -9,6 +9,7 @@ import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
 type Props = any;
 
 export const CtfBanner = (props: Props) => {
+  console.log('Banner Props: ', props);
   const inspectorMode = useContentfulInspectorMode();
   const data = props;
   const title = data?.bannerTitle || '';

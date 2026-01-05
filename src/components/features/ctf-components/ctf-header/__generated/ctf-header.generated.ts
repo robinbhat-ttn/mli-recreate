@@ -34,7 +34,7 @@ export type ButtonCollectionFieldsFragment = { __typename?: 'HeaderButtonCollect
     )
    | null> };
 
-export type HeaderFieldsFragment = { __typename: 'Header', sys: { __typename?: 'Sys', id: string }, logo?: (
+export type HeaderFieldsFragment = { __typename: 'Header', headerType?: string | null, sys: { __typename?: 'Sys', id: string }, logo?: (
     { __typename?: 'Asset' }
     & AssetFieldsFragment
   ) | null, navigationItemsCollection?: (
@@ -119,6 +119,7 @@ export const HeaderFieldsFragmentDoc = `
   sys {
     id
   }
+  headerType
   logo {
     ...AssetFields
   }

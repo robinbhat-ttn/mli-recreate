@@ -15,6 +15,7 @@ import type { AssetFieldsFragment } from '../ctf-asset/__generated/ctf-asset.gen
 import type { NavigationFieldsFragment } from '../ctf-navigation/__generated/ctf-navigation.generated';
 
 export const CtfHeader = (props: HeaderFieldsFragment) => {
+  console.log('Header Props: ', props);
   const inspectorMode = useContentfulInspectorMode();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const toggleMenu = () => {
