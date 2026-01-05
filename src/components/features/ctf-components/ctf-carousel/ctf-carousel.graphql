@@ -3,6 +3,8 @@ fragment CarouselFields on Carousel {
   sys {
     id
   }
+  carouselTitle
+  carouselType
   cardsCollection(limit: 10) {
     items {
       ...CardFields

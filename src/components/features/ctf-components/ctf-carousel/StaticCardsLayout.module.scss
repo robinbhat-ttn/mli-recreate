@@ -1,0 +1,50 @@
+.staticCardsWrapper {
+}
+.staticCardsContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 12px;
+  flex-direction: column;
+  
+  &__card-section-title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  &__card-container {
+    max-width: 53.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    &__card-wrapper {
+      box-sizing: border-box;
+      border: 0 solid #e2e8f0;
+      width: 25%;
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+      box-shadow: rgba(23, 26, 33, 0.06) 0px 6px 12px;
+      border-radius: 0.5rem;
+      padding: 1rem;
+
+      &__image {
+      }
+
+      &__title {
+        display: block;
+        min-height: 2.75rem;
+        margin-top: 0.25rem;
+        margin-bottom: 0.5rem;
+        line-height: 1.44;
+      }
+
+      &__content p {
+        font-size: 0.8rem;
+        color: #505662;
+      }
+    }
+  }
+}
