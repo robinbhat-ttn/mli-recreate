@@ -7,8 +7,9 @@ import type { Settings } from 'react-slick';
 
 import type { CarouselFieldsFragment } from './__generated/ctf-carousel.generated';
 import styles from './ctf-carousel.module.scss';
-import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
+import { FeatureCardsLayout } from './FeatureCardsLayout';
 import { StaticCardsLayout } from './StaticCardsLayout';
+import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
 
 const Slider = dynamic(() => import('react-slick'), { ssr: false });
 
@@ -164,6 +165,8 @@ export const CtfCarousel: FC<CarouselFieldsFragment> = props => {
 
     case 'Static Cards Layout':
       return <StaticCardsLayout {...props} />;
+    case 'Feature Cards Layout':
+      return <FeatureCardsLayout {...props} />;
     default:
       return null;
   }

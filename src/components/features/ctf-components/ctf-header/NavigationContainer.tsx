@@ -2,6 +2,7 @@ import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 import { Box } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
+
 import styles from './ctf-header.module.scss';
 import type { NavigationFieldsFragment } from '../ctf-navigation/__generated/ctf-navigation.generated';
 
