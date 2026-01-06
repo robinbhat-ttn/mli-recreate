@@ -424,6 +424,7 @@ export type Banner = Entry & _Node & {
   bannerImageLink?: Maybe<Scalars['String']['output']>;
   bannerTextCollection?: Maybe<BannerBannerTextCollection>;
   bannerTitle?: Maybe<Scalars['String']['output']>;
+  bannerType?: Maybe<Scalars['String']['output']>;
   contentfulMetadata: ContentfulMetadata;
   internalName?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<BannerLinkingCollections>;
@@ -461,6 +462,13 @@ export type BannerBannerTextCollectionArgs = {
 
 /** Banner Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
 export type BannerBannerTitleArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Banner Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
+export type BannerBannerTypeArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
@@ -541,6 +549,13 @@ export type BannerFilter = {
   bannerTitle_not?: InputMaybe<Scalars['String']['input']>;
   bannerTitle_not_contains?: InputMaybe<Scalars['String']['input']>;
   bannerTitle_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  bannerType?: InputMaybe<Scalars['String']['input']>;
+  bannerType_contains?: InputMaybe<Scalars['String']['input']>;
+  bannerType_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  bannerType_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  bannerType_not?: InputMaybe<Scalars['String']['input']>;
+  bannerType_not_contains?: InputMaybe<Scalars['String']['input']>;
+  bannerType_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
@@ -607,6 +622,8 @@ export enum BannerOrder {
   BannerImageLinkDesc = 'bannerImageLink_DESC',
   BannerTitleAsc = 'bannerTitle_ASC',
   BannerTitleDesc = 'bannerTitle_DESC',
+  BannerTypeAsc = 'bannerType_ASC',
+  BannerTypeDesc = 'bannerType_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -756,6 +773,8 @@ export type ButtonLinkingCollectionsPageCollectionArgs = {
 };
 
 export enum ButtonLinkingCollectionsHeaderCollectionOrder {
+  HeaderTypeAsc = 'headerType_ASC',
+  HeaderTypeDesc = 'headerType_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -938,6 +957,8 @@ export type ButtonWithLinksLinkingCollectionsHeaderCollectionArgs = {
 };
 
 export enum ButtonWithLinksLinkingCollectionsHeaderCollectionOrder {
+  HeaderTypeAsc = 'headerType_ASC',
+  HeaderTypeDesc = 'headerType_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -1150,6 +1171,8 @@ export enum CardLinkingCollectionsBannerCollectionOrder {
   BannerImageLinkDesc = 'bannerImageLink_DESC',
   BannerTitleAsc = 'bannerTitle_ASC',
   BannerTitleDesc = 'bannerTitle_DESC',
+  BannerTypeAsc = 'bannerType_ASC',
+  BannerTypeDesc = 'bannerType_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -1163,6 +1186,10 @@ export enum CardLinkingCollectionsBannerCollectionOrder {
 }
 
 export enum CardLinkingCollectionsCarouselCollectionOrder {
+  CarouselTitleAsc = 'carouselTitle_ASC',
+  CarouselTitleDesc = 'carouselTitle_DESC',
+  CarouselTypeAsc = 'carouselType_ASC',
+  CarouselTypeDesc = 'carouselType_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -1197,6 +1224,8 @@ export type Carousel = Entry & _Node & {
   __typename?: 'Carousel';
   _id: Scalars['ID']['output'];
   cardsCollection?: Maybe<CarouselCardsCollection>;
+  carouselTitle?: Maybe<Scalars['String']['output']>;
+  carouselType?: Maybe<Scalars['String']['output']>;
   contentfulMetadata: ContentfulMetadata;
   internalName?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<CarouselLinkingCollections>;
@@ -1213,6 +1242,20 @@ export type CarouselCardsCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<CardFilter>;
+};
+
+
+/** Carousel Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/carousel) */
+export type CarouselCarouselTitleArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Carousel Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/carousel) */
+export type CarouselCarouselTypeArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -1266,6 +1309,20 @@ export type CarouselFilter = {
   OR?: InputMaybe<Array<InputMaybe<CarouselFilter>>>;
   cards?: InputMaybe<CfCardNestedFilter>;
   cardsCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  carouselTitle?: InputMaybe<Scalars['String']['input']>;
+  carouselTitle_contains?: InputMaybe<Scalars['String']['input']>;
+  carouselTitle_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  carouselTitle_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  carouselTitle_not?: InputMaybe<Scalars['String']['input']>;
+  carouselTitle_not_contains?: InputMaybe<Scalars['String']['input']>;
+  carouselTitle_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  carouselType?: InputMaybe<Scalars['String']['input']>;
+  carouselType_contains?: InputMaybe<Scalars['String']['input']>;
+  carouselType_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  carouselType_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  carouselType_not?: InputMaybe<Scalars['String']['input']>;
+  carouselType_not_contains?: InputMaybe<Scalars['String']['input']>;
+  carouselType_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
@@ -1326,6 +1383,10 @@ export enum CarouselLinkingCollectionsPageCollectionOrder {
 }
 
 export enum CarouselOrder {
+  CarouselTitleAsc = 'carouselTitle_ASC',
+  CarouselTitleDesc = 'carouselTitle_DESC',
+  CarouselTypeAsc = 'carouselType_ASC',
+  CarouselTypeDesc = 'carouselType_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -1498,6 +1559,8 @@ export enum ComponentTextBlockLinkingCollectionsBannerCollectionOrder {
   BannerImageLinkDesc = 'bannerImageLink_DESC',
   BannerTitleAsc = 'bannerTitle_ASC',
   BannerTitleDesc = 'bannerTitle_DESC',
+  BannerTypeAsc = 'bannerType_ASC',
+  BannerTypeDesc = 'bannerType_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -2918,6 +2981,8 @@ export type HamburgerMenuLinkingCollectionsHeaderCollectionArgs = {
 };
 
 export enum HamburgerMenuLinkingCollectionsHeaderCollectionOrder {
+  HeaderTypeAsc = 'headerType_ASC',
+  HeaderTypeDesc = 'headerType_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -2976,6 +3041,7 @@ export type Header = Entry & _Node & {
   buttonCollection?: Maybe<HeaderButtonCollection>;
   contentfulMetadata: ContentfulMetadata;
   hamburgerMenu?: Maybe<HamburgerMenu>;
+  headerType?: Maybe<Scalars['String']['output']>;
   internalName?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<HeaderLinkingCollections>;
   logo?: Maybe<Asset>;
@@ -3001,6 +3067,13 @@ export type HeaderHamburgerMenuArgs = {
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
   where?: InputMaybe<HamburgerMenuFilter>;
+};
+
+
+/** Header of a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header) */
+export type HeaderHeaderTypeArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -3076,6 +3149,13 @@ export type HeaderFilter = {
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
   hamburgerMenu?: InputMaybe<CfHamburgerMenuNestedFilter>;
   hamburgerMenu_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  headerType?: InputMaybe<Scalars['String']['input']>;
+  headerType_contains?: InputMaybe<Scalars['String']['input']>;
+  headerType_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  headerType_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  headerType_not?: InputMaybe<Scalars['String']['input']>;
+  headerType_not_contains?: InputMaybe<Scalars['String']['input']>;
+  headerType_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -3163,6 +3243,8 @@ export enum HeaderNavigationItemsCollectionOrder {
 }
 
 export enum HeaderOrder {
+  HeaderTypeAsc = 'headerType_ASC',
+  HeaderTypeDesc = 'headerType_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -3552,6 +3634,8 @@ export enum LinkLinkingCollectionsHamburgerMenuCollectionOrder {
 }
 
 export enum LinkLinkingCollectionsHeaderCollectionOrder {
+  HeaderTypeAsc = 'headerType_ASC',
+  HeaderTypeDesc = 'headerType_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -3739,6 +3823,8 @@ export type NavigationItemsLinkingCollectionsHeaderCollectionArgs = {
 };
 
 export enum NavigationItemsLinkingCollectionsHeaderCollectionOrder {
+  HeaderTypeAsc = 'headerType_ASC',
+  HeaderTypeDesc = 'headerType_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
@@ -5880,6 +5966,13 @@ export type CfHeaderNestedFilter = {
   buttonCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
   hamburgerMenu_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  headerType?: InputMaybe<Scalars['String']['input']>;
+  headerType_contains?: InputMaybe<Scalars['String']['input']>;
+  headerType_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  headerType_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  headerType_not?: InputMaybe<Scalars['String']['input']>;
+  headerType_not_contains?: InputMaybe<Scalars['String']['input']>;
+  headerType_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -6368,7 +6461,7 @@ export type CtfBannerQuery = { __typename?: 'Query', banner?: { __typename: 'Ban
                 | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
                | null> }, assets: { __typename?: 'CardCardContentAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null } | null };
 
-export type CarouselFieldsFragment = { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string }, cardsCollection?: { __typename?: 'CarouselCardsCollection', items: Array<{ __typename: 'Card', cardTitle?: string | null, sys: { __typename?: 'Sys', id: string }, cardImage?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null, cardContent?: { __typename: 'CardCardContent', json: any, links: { __typename?: 'CardCardContentLinks', entries: { __typename?: 'CardCardContentEntries', block: Array<
+export type CarouselFieldsFragment = { __typename: 'Carousel', carouselTitle?: string | null, carouselType?: string | null, sys: { __typename?: 'Sys', id: string }, cardsCollection?: { __typename?: 'CarouselCardsCollection', items: Array<{ __typename: 'Card', cardTitle?: string | null, sys: { __typename?: 'Sys', id: string }, cardImage?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null, cardContent?: { __typename: 'CardCardContent', json: any, links: { __typename?: 'CardCardContentLinks', entries: { __typename?: 'CardCardContentEntries', block: Array<
               | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
@@ -6475,7 +6568,7 @@ export type CtfCarouselQueryVariables = Exact<{
 }>;
 
 
-export type CtfCarouselQuery = { __typename?: 'Query', carousel?: { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string }, cardsCollection?: { __typename?: 'CarouselCardsCollection', items: Array<{ __typename: 'Card', cardTitle?: string | null, sys: { __typename?: 'Sys', id: string }, cardImage?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null, cardContent?: { __typename: 'CardCardContent', json: any, links: { __typename?: 'CardCardContentLinks', entries: { __typename?: 'CardCardContentEntries', block: Array<
+export type CtfCarouselQuery = { __typename?: 'Query', carousel?: { __typename: 'Carousel', carouselTitle?: string | null, carouselType?: string | null, sys: { __typename?: 'Sys', id: string }, cardsCollection?: { __typename?: 'CarouselCardsCollection', items: Array<{ __typename: 'Card', cardTitle?: string | null, sys: { __typename?: 'Sys', id: string }, cardImage?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null, cardContent?: { __typename: 'CardCardContent', json: any, links: { __typename?: 'CardCardContentLinks', entries: { __typename?: 'CardCardContentEntries', block: Array<
                 | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }

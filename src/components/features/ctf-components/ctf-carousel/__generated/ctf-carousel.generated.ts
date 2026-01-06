@@ -8,7 +8,7 @@ import { ComponentReferenceFieldsFragmentDoc } from '../../../../../lib/shared-f
 import { LinkFieldsFragmentDoc } from '../../../../../lib/shared-fragments/__generated/ctf-linkFragment.generated';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { customFetcher } from '@src/lib/fetchConfig';
-export type CarouselFieldsFragment = { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string }, cardsCollection?: { __typename?: 'CarouselCardsCollection', items: Array<(
+export type CarouselFieldsFragment = { __typename: 'Carousel', carouselTitle?: string | null, carouselType?: string | null, sys: { __typename?: 'Sys', id: string }, cardsCollection?: { __typename?: 'CarouselCardsCollection', items: Array<(
       { __typename?: 'Card' }
       & CardFieldsFragment
     ) | null> } | null };
@@ -259,6 +259,8 @@ export const CarouselFieldsFragmentDoc = `
   sys {
     id
   }
+  carouselTitle
+  carouselType
   cardsCollection(limit: 10) {
     items {
       ...CardFields

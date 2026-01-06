@@ -8,6 +8,7 @@ import type { Settings } from 'react-slick';
 import type { CarouselFieldsFragment } from './__generated/ctf-carousel.generated';
 import styles from './ctf-carousel.module.scss';
 import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
+import { StaticCardsLayout } from './StaticCardsLayout';
 
 const Slider = dynamic(() => import('react-slick'), { ssr: false });
 
@@ -94,69 +95,78 @@ const settings: Settings = {
 };
 
 export const CtfCarousel: FC<CarouselFieldsFragment> = props => {
+  console.log('Carousel Props: ', props);
   const inspectorMode = useContentfulInspectorMode();
   const items = (props as any)?.cardsCollection?.items || [];
 
   if (!items || items.length === 0) return null;
 
-  return (
-    <div
-      className={`container-sec ${styles.carousel}`}
-      {...inspectorMode({ entryId: props.sys.id, fieldId: 'carousel' })}
-    >
-      <Slider {...settings}>
-        {items.map((card: any) => {
-          const id = card?.sys?.id ?? Math.random().toString(36).slice(2, 9);
-          const img = card?.cardImage;
-          const title = card?.cardTitle;
-          const content = card?.cardContent;
+  switch (props.carouselType) {
+    case 'Carousel Layout':
+      return (
+        <div
+          className={`container-sec ${styles.carousel}`}
+          {...inspectorMode({ entryId: props.sys.id, fieldId: 'carousel' })}
+        >
+          <Slider {...settings}>
+            {items.map((card: any) => {
+              const id = card?.sys?.id ?? Math.random().toString(36).slice(2, 9);
+              const img = card?.cardImage;
+              const title = card?.cardTitle;
+              const content = card?.cardContent;
 
-          return (
-            <div key={id} className={styles['carousel__slide']}>
-              <div
-                className={styles['carousel__card']}
-                aria-labelledby={`card-title-${id}`}
-                {...inspectorMode({ entryId: card?.sys?.id, fieldId: 'card' })}
-              >
-                <div className={styles['carousel__media']}>
-                  {img?.url ? (
-                    <div className={styles['carousel__image-wrap']}>
-                      <Image
-                        src={img.url}
-                        alt={img.title ?? title ?? ''}
-                        width={img.width}
-                        height={img.height}
-                        priority={false}
-                      />
-                      <span className={styles['carousel__media-underline']} />
+              return (
+                <div key={id} className={styles['carousel__slide']}>
+                  <div
+                    className={styles['carousel__card']}
+                    aria-labelledby={`card-title-${id}`}
+                    {...inspectorMode({ entryId: card?.sys?.id, fieldId: 'card' })}
+                  >
+                    <div className={styles['carousel__media']}>
+                      {img?.url ? (
+                        <div className={styles['carousel__image-wrap']}>
+                          <Image
+                            src={img.url}
+                            alt={img.title ?? title ?? ''}
+                            width={img.width}
+                            height={img.height}
+                            priority={false}
+                          />
+                          <span className={styles['carousel__media-underline']} />
+                        </div>
+                      ) : null}
                     </div>
-                  ) : null}
-                </div>
 
-                <div className={styles['carousel__body']}>
-                  {title && (
-                    <h3 id={`card-title-${id}`} className={styles['carousel__title']}>
-                      {title}
-                    </h3>
-                  )}
+                    <div className={styles['carousel__body']}>
+                      {title && (
+                        <h3 id={`card-title-${id}`} className={styles['carousel__title']}>
+                          {title}
+                        </h3>
+                      )}
 
-                  {content?.json && (
-                    <div className={styles['carousel__content']}>
-                      <CtfRichtext
-                        json={content.json}
-                        links={content.links}
-                        disableContainer={true}
-                      />
+                      {content?.json && (
+                        <div className={styles['carousel__content']}>
+                          <CtfRichtext
+                            json={content.json}
+                            links={content.links}
+                            disableContainer={true}
+                          />
+                        </div>
+                      )}
                     </div>
-                  )}
+                  </div>
                 </div>
-              </div>
-            </div>
-          );
-        })}
-      </Slider>
-    </div>
-  );
+              );
+            })}
+          </Slider>
+        </div>
+      );
+
+    case 'Static Cards Layout':
+      return <StaticCardsLayout {...props} />;
+    default:
+      return null;
+  }
 };
 
 export default CtfCarousel;
