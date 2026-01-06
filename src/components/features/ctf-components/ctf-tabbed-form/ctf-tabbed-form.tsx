@@ -1,12 +1,13 @@
+import { useContentfulInspectorMode } from '@contentful/live-preview/react';
+import { Tabs, Tab, Box } from '@mui/material';
 import Image from 'next/image';
 import React, { useState, useRef, useEffect } from 'react';
-import { Tabs, Tab, Box } from '@mui/material';
-import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
 import { TabbedFormContainerFieldsFragment } from './__generated/ctf-tabbed-form.generated';
+import styles from './ctf-tabbed-form.module.scss';
+
 import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtext/ctf-richtext';
 import chevronIcon from '@src/icons/chevron_down_navigate_blue.webp';
-import styles from './ctf-tabbed-form.module.scss';
 
 type Props = TabbedFormContainerFieldsFragment;
 
