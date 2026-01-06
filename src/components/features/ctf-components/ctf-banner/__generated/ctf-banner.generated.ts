@@ -13,7 +13,7 @@ export type CtfBannerQueryVariables = Types.Exact<{
 }>;
 
 
-export type CtfBannerQuery = { __typename?: 'Query', banner?: { __typename: 'Banner', bannerTitle?: string | null, bannerImageLink?: string | null, sys: { __typename?: 'Sys', id: string }, bannerImage?: (
+export type CtfBannerQuery = { __typename?: 'Query', banner?: { __typename: 'Banner', bannerType?: string | null, bannerTitle?: string | null, bannerImageLink?: string | null, sys: { __typename?: 'Sys', id: string }, bannerImage?: (
       { __typename?: 'Asset' }
       & AssetFieldsFragment
     ) | null, bannerTextCollection?: { __typename?: 'BannerBannerTextCollection', items: Array<{ __typename: 'ComponentTextBlock', variations?: string | null, sys: { __typename?: 'Sys', id: string }, body?: { __typename?: 'ComponentTextBlockBody', json: any, links: { __typename?: 'ComponentTextBlockBodyLinks', entries: { __typename?: 'ComponentTextBlockBodyEntries', block: Array<
@@ -222,6 +222,7 @@ export const CtfBannerDocument = `
     sys {
       id
     }
+    bannerType
     bannerImage {
       ...AssetFields
     }
