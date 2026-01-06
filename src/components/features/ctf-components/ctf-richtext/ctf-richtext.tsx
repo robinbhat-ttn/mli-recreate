@@ -205,7 +205,6 @@ const EntryHyperlink = ({ node }) => {
 
 export const CtfRichtext = (props: CtfRichtextPropsInterface) => {
   const { json, links, containerClassName, gridClassName, disableContainer } = props;
-  console.log('Json Received: ', json);
   const layout = useLayoutContext();
 
   const entryBlocks = useMemo(

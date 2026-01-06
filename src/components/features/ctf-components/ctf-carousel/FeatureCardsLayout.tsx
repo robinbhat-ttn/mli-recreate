@@ -6,9 +6,7 @@ export const FeatureCardsLayout = (props: CarouselFieldsFragment) => {
   const cards = props?.cardsCollection?.items || [];
   const mid = Math.ceil(cards.length / 2);
   const cardsTopRow = cards.slice(0, mid);
-  console.log('Cards Top Row: ', cardsTopRow);
   const cardsBottomRow = cards.slice(mid);
-  console.log('Cards Bottom Row: ', cardsBottomRow);
   return (
     <div className={styles.featureCardsLayoutContainer}>
       <div className={styles['featureCardsLayoutContainer__title']}>{title}</div>
