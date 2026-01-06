@@ -18,21 +18,32 @@ export const CtfHeader = (props: HeaderFieldsFragment) => {
   console.log('Header Props: ', props);
   const inspectorMode = useContentfulInspectorMode();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const isHomePageHeader = props.headerType === 'Home Page Header';
   const toggleMenu = () => {
     setIsMenuOpen(isMenuOpen => !isMenuOpen);
   };
   return (
-    <div className={styles.headerContainer}>
+    <div
+      className={`${styles.headerContainer} ${!isHomePageHeader ? styles['headerContainer--default'] : ''}`}
+    >
       <div
-        className={`container-sec ${styles.headerInner}`}
+        className={`${styles.headerInner}`}
         {...inspectorMode({ entryId: props.sys.id, fieldId: 'header' })}
       >
         <ImageContainer {...(props.logo as AssetFieldsFragment)} />
-        <NavigationContainer {...(props.navigationItemsCollection as NavigationFieldsFragment)} />
-        <ButtonContainer {...(props.buttonCollection as ButtonCollectionFieldsFragment)} />
-        {props.hamburgerMenu && <HamburgerIcon isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />}
+        {isHomePageHeader && (
+          <>
+            <NavigationContainer
+              {...(props.navigationItemsCollection as NavigationFieldsFragment)}
+            />
+            <ButtonContainer {...(props.buttonCollection as ButtonCollectionFieldsFragment)} />
+            {props.hamburgerMenu && (
+              <HamburgerIcon isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
+            )}
+          </>
+        )}
       </div>
-      {props.hamburgerMenu && (
+      {isHomePageHeader && props.hamburgerMenu && (
         <HamburgerMenu {...({ ...props.hamburgerMenu, isMenuOpen } as HamburgerMenuProps)} />
       )}
     </div>

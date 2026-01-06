@@ -1,0 +1,10 @@
+.testimonialCarousel {
+  padding: $space-32 0;
+
+  p {
+    margin: 0;
+    font-size: $fs-16;
+    color: $text-primary;
+    @include font-apply($font-noto, $fw-regular);
+  }
+}

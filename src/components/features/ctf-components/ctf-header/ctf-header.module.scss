@@ -5,15 +5,29 @@
   width: 100%;
   z-index: 3;
   border-bottom: 1px solid rgba($border-light, $opacity-border-light);
-
+  
   .headerInner {
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: $header-padding-top $space-12;
+    max-width: $space-1366;
+    margin: 0 auto;
 
     @include min-width('lg') {
       padding: 0 $space-12;
+    }
+  }
+
+  &--default {
+    padding: $space-16 0;
+    background-color: $white;
+    border-bottom: 1px solid $border-primary;
+    position: static;
+
+    .headerInner {
+      max-width: $space-1424;
+      padding: 0;
     }
   }
 }

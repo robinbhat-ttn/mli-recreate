@@ -1,0 +1,80 @@
+.defaultBanner {
+    padding: $space-20 0 0;
+    text-align: center;
+    background: $white;
+
+    @include min-width('md') {
+        // padding: $space-64 $space-32;
+    }
+
+    @include min-width('lg') {
+        // padding: $space-80 $space-48;
+    }
+
+    &__title {
+        margin-bottom: $space-16;
+
+        p {
+            font-size: $fs-26;
+            color: $text-primary;
+            line-height: $lh-relaxed;
+            @include font-apply($font-lato, $fw-bold);
+        }
+
+
+        @include min-width('md') {
+            // font-size: $fs-32;
+        }
+
+        @include min-width('lg') {
+            //font-size: $fs-40;
+        }
+
+        p {
+            margin: 0;
+        }
+    }
+
+    &__pills {
+        display: flex;
+        gap: $space-12;
+        justify-content: center;
+        align-items: center;
+
+        @include min-width('md') {
+          //  gap: $space-16;
+        }
+    }
+
+    &__pill {
+        display: inline-block;
+        padding: $space-4 $space-16;
+        border-radius: $radius-6;
+        font-size: $fs-12;
+        font-weight: $fw-bold;
+        line-height: $lh-loose;
+        @include font-apply($font-noto, $fw-bold);
+        white-space: nowrap;
+
+        @include min-width('md') {
+            // padding: $space-10 $space-20;
+            // font-size: $fs-14;
+        }
+
+        p {
+            margin: 0;
+            @include font-apply($font-roboto, $fw-semi-bold);
+            font-size: $fs-15;
+        }
+
+        &:nth-child(1) {
+            background-color: $secondary;
+            color: $white;
+        }
+
+        &:nth-child(2) {
+            background-color: $info;
+            color: #10498d;
+        }
+    }
+}
