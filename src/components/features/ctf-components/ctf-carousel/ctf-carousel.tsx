@@ -9,6 +9,7 @@ import type { CarouselFieldsFragment } from './__generated/ctf-carousel.generate
 import styles from './ctf-carousel.module.scss';
 import { FeatureCardsLayout } from './FeatureCardsLayout';
 import { StaticCardsLayout } from './StaticCardsLayout';
+import { TestimonialCarouselLayout } from './TestimonialCarouselLayout';
 import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
 
 const Slider = dynamic(() => import('react-slick'), { ssr: false });
@@ -167,6 +168,8 @@ export const CtfCarousel: FC<CarouselFieldsFragment> = props => {
       return <StaticCardsLayout {...props} />;
     case 'Feature Cards Layout':
       return <FeatureCardsLayout {...props} />;
+    case 'Testimonial Carousel Layout':
+      return <TestimonialCarouselLayout {...props} />;
     default:
       return null;
   }

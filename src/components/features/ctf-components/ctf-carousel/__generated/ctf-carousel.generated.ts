@@ -16,7 +16,7 @@ export type CarouselFieldsFragment = { __typename: 'Carousel', carouselTitle?: s
 export type CardFieldsFragment = { __typename: 'Card', cardTitle?: string | null, sys: { __typename?: 'Sys', id: string }, cardImage?: (
     { __typename?: 'Asset' }
     & AssetFieldsFragment
-  ) | null, cardContent?: { __typename: 'CardCardContent', json: any, links: { __typename?: 'CardCardContentLinks', entries: { __typename?: 'CardCardContentEntries', block: Array<
+  ) | null, preTitle?: { __typename: 'CardPreTitle', json: any } | null, cardContent?: { __typename: 'CardCardContent', json: any, links: { __typename?: 'CardCardContentLinks', entries: { __typename?: 'CardCardContentEntries', block: Array<
           | (
             { __typename?: 'Accordion' }
             & ComponentReferenceFields_Accordion_Fragment
@@ -230,6 +230,10 @@ export const CardFieldsFragmentDoc = `
   cardTitle
   cardImage {
     ...AssetFields
+  }
+  preTitle {
+    __typename
+    json
   }
   cardContent {
     __typename
