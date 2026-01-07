@@ -1,9 +1,21 @@
 directive @contentSourceMaps on QUERY
 
+directive @contentfulSchemaMetadata(contentTypePublishedCounters: JSON) on SCHEMA
+
+directive @delegatedResourceLink(contentTypeId: String, field: JSON) on FIELD_DEFINITION | OBJECT
+
+directive @enumMapper(value: JSON) on ENUM_VALUE
+
+directive @featureFlag(featureName: String) on FIELD
+
+directive @fieldResolver(data: JSON, kind: String) on FIELD_DEFINITION
+
 directive @timeline(where: TimelineFilterInput!) on QUERY
 
+directive @typeIdentifier(contentTypeId: String) on OBJECT
+
 """
-Accordion Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion)
+[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion)
 """
 type Accordion implements Entry & _Node {
   _id: ID!
@@ -225,7 +237,7 @@ enum AssetOrder {
 }
 
 """
-Banner Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner)
+[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner)
 """
 type Banner implements Entry & _Node {
   _id: ID!
@@ -382,7 +394,7 @@ enum BannerPolicyCardsCollectionOrder {
 }
 
 """
-Normal Button Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/button)
+[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/button)
 """
 type Button implements Entry & _Node {
   _id: ID!
@@ -491,7 +503,7 @@ enum ButtonOrder {
 }
 
 """
-Button with Links Content Type for Home Page Header Navigation Item [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/buttonWithLinks)
+[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/buttonWithLinks)
 """
 type ButtonWithLinks implements Entry & _Node {
   _id: ID!
@@ -597,7 +609,7 @@ enum ButtonWithLinksOrder {
 }
 
 """
-Card Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card)
+[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card)
 """
 type Card implements Entry & _Node {
   _id: ID!
@@ -608,6 +620,7 @@ type Card implements Entry & _Node {
   contentfulMetadata: ContentfulMetadata!
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): CardLinkingCollections
+  preTitle(locale: String, useFallbackLocale: Boolean): CardPreTitle
   sys: Sys!
 }
 
@@ -687,6 +700,9 @@ input CardFilter {
   internalName_not: String
   internalName_not_contains: String
   internalName_not_in: [String]
+  preTitle_contains: String
+  preTitle_exists: Boolean
+  preTitle_not_contains: String
   sys: SysFilter
 }
 
@@ -749,8 +765,48 @@ enum CardOrder {
   sys_publishedVersion_DESC
 }
 
+type CardPreTitle {
+  json: JSON!
+  links: CardPreTitleLinks!
+}
+
+type CardPreTitleAssets {
+  block: [Asset]!
+  hyperlink: [Asset]!
+}
+
+type CardPreTitleEntries {
+  block: [Entry]!
+  hyperlink: [Entry]!
+  inline: [Entry]!
+}
+
+type CardPreTitleLinks {
+  assets: CardPreTitleAssets!
+  entries: CardPreTitleEntries!
+  resources: CardPreTitleResources!
+}
+
+type CardPreTitleResources {
+  block: [CardPreTitleResourcesBlock!]!
+  hyperlink: [CardPreTitleResourcesHyperlink!]!
+  inline: [CardPreTitleResourcesInline!]!
+}
+
+type CardPreTitleResourcesBlock implements ResourceLink {
+  sys: ResourceSys!
+}
+
+type CardPreTitleResourcesHyperlink implements ResourceLink {
+  sys: ResourceSys!
+}
+
+type CardPreTitleResourcesInline implements ResourceLink {
+  sys: ResourceSys!
+}
+
 """
-Carousel Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/carousel)
+[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/carousel)
 """
 type Carousel implements Entry & _Node {
   _id: ID!
@@ -1070,7 +1126,7 @@ The 'Dimension' type represents dimensions as whole numeric values between `1` a
 scalar Dimension
 
 """
-Disclaimer Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/disclaimer)
+[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/disclaimer)
 """
 type Disclaimer implements Entry & _Node {
   _id: ID!
@@ -1217,7 +1273,7 @@ enum EntryOrder {
 }
 
 """
-Footer for a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer)
+[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer)
 """
 type Footer implements Entry & _Node {
   _id: ID!
@@ -1519,7 +1575,7 @@ type FormDescriptionResourcesInline implements ResourceLink {
 }
 
 """
-Field content type for form fields [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField)
+[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField)
 """
 type FormField implements Entry & _Node {
   _id: ID!
@@ -1884,7 +1940,7 @@ type FormTabTabLabelResourcesInline implements ResourceLink {
 }
 
 """
-Hamburger Menu Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/hamburgerMenu)
+[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/hamburgerMenu)
 """
 type HamburgerMenu implements Entry & _Node {
   _id: ID!
@@ -1985,7 +2041,7 @@ enum HamburgerMenuOrder {
 }
 
 """
-Header of a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header)
+[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header)
 """
 type Header implements Entry & _Node {
   _id: ID!
@@ -2263,7 +2319,7 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 scalar JSON
 
 """
-Content Type for Link [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link)
+[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link)
 """
 type Link implements Entry & _Node {
   _id: ID!
@@ -2479,7 +2535,7 @@ enum LinkOrder {
 }
 
 """
-Navigation Item for the Header [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/navigationItems)
+[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/navigationItems)
 """
 type NavigationItems implements Entry & _Node {
   _id: ID!
@@ -2664,7 +2720,7 @@ enum OptionSetOrder {
 }
 
 """
-AMLI Page Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page)
+[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page)
 """
 type Page implements Entry & _Node {
   _id: ID!
@@ -2874,7 +2930,7 @@ type Query {
 }
 
 """
-Question Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/question)
+[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/question)
 """
 type Question implements Entry & _Node {
   _id: ID!
@@ -3000,7 +3056,7 @@ type ResourceSys {
 }
 
 """
-Open Graph (OG) meta tags for optimizing SEO visibility [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/seo)
+[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/seo)
 """
 type Seo implements Entry & _Node {
   _id: ID!
@@ -3107,7 +3163,7 @@ enum SeoOrder {
 }
 
 """
-Sub Navigation Items for Home Page Header Navigation Items [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/subNavigationItem)
+[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/subNavigationItem)
 """
 type SubNavigationItem implements Entry & _Node {
   _id: ID!
@@ -3411,7 +3467,7 @@ input TimelineFilterInput {
 }
 
 """
-Video Section Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/videoSection)
+[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/videoSection)
 """
 type VideoSection implements Entry & _Node {
   _id: ID!
@@ -3536,6 +3592,9 @@ input cfCardNestedFilter {
   internalName_not: String
   internalName_not_contains: String
   internalName_not_in: [String]
+  preTitle_contains: String
+  preTitle_exists: Boolean
+  preTitle_not_contains: String
   sys: SysFilter
 }
 

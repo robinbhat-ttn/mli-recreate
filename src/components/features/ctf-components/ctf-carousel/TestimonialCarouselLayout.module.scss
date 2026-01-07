@@ -1,0 +1,100 @@
+.testimonialCarouselContainer {
+  width: 100%;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  &__title {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  &__slide {
+    flex: 0 0 100%;
+    max-width: 100%;
+    margin-right: 16px;
+    border: 1px solid #a8abb1;
+    color: #505662;
+    padding: 1rem;
+    border-radius: 0.375rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &__person-details {
+      display: flex;
+      &__image-wrap img {
+        border-radius: 3rem;
+        height: 48px;
+      }
+      &__details {
+        margin-left: 0.75rem;
+        div p:first-of-type {
+          color: rgba(45, 55, 72, 1);
+          margin-bottom: 0.25rem;
+          font-size: 16px;
+          line-height: 1.437rem;
+          font-weight: 500;
+        }
+
+        div p:nth-of-type(2) {
+          color: rgba(45, 55, 72, 1);
+          margin-bottom: 0.5rem;
+          font-size: 13px;
+          line-height: 1.125rem;
+          font-weight: 500;
+        }
+      }
+    }
+
+    &__body {
+      p {
+        color: #505662;
+        font-size: 13px;
+        line-height: 1.125rem;
+      }
+    }
+  }
+}
+
+.slider {
+  overflow: hidden;
+  width: 100%;
+  max-width: 53.5rem;
+  position: relative;
+  display: flex;
+
+  // slick-generated elements
+  :global(.slick-track) {
+    display: flex;
+    align-items: stretch;
+  }
+
+  :global(.slick-slide) {
+    height: auto; // allow content to define height
+    margin-right:16px;
+    display: flex;
+    align-items: stretch;
+  }
+
+}
+.slider button:first-of-type {
+  height: 100%;
+  display: flex;
+  background: white;
+  align-items: center;
+  border: none;
+  align-self: center;
+}
+.slider button:nth-of-type(2) {
+  height: 100%;
+  display: flex;
+  background: white;
+  align-items: center;
+  border: none;
+  align-self: center;
+}
+
