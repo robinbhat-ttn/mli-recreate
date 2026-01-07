@@ -5,7 +5,6 @@ import { DefaultBannerComponent } from './DefaultBannerComponent';
 type Props = any;
 
 export const CtfBanner = (props: Props) => {
-  console.log('Banner Props: ', props);
   const isHomePageBanner = props.bannerType === 'Home Page Banner';
 
   if (isHomePageBanner) {

@@ -8,8 +8,6 @@ import { TestimonialCarouselLayoutComponent } from './TestimonialCarouselLayoutC
 import { StaticCardsLayout } from './StaticCardsLayout';
 
 export const CtfCarousel: FC<CarouselFieldsFragment> = props => {
-  console.log('Carousel Props: ', props);
-
   switch (props.carouselType) {
     case 'Carousel Layout':
       return <CarouselLayoutComponent {...props} />;
