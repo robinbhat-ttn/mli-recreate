@@ -11,13 +11,15 @@ import { HamburgerIcon } from './HamburgerIcon';
 import { HamburgerMenu, HamburgerMenuProps } from './HamburgerMenu';
 import { ImageContainer } from './ImageContainer';
 import { NavigationContainer } from './NavigationContainer';
+import { useLayoutContext } from '@src/layout-context';
 import type { AssetFieldsFragment } from '../ctf-asset/__generated/ctf-asset.generated';
 import type { NavigationFieldsFragment } from '../ctf-navigation/__generated/ctf-navigation.generated';
 
 export const CtfHeader = (props: HeaderFieldsFragment) => {
   const inspectorMode = useContentfulInspectorMode();
+  const { layoutType } = useLayoutContext();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const isHomePageHeader = props.headerType === 'Home Page Header';
+  const isHomePageHeader = layoutType === 'HomePageLayout';
   const toggleMenu = () => {
     setIsMenuOpen(isMenuOpen => !isMenuOpen);
   };

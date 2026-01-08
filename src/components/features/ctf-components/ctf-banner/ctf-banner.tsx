@@ -1,14 +1,14 @@
 import React from 'react';
 import { HomePageBannerComponent } from './HomePageBannerComponent';
 import { DefaultBannerComponent } from './DefaultBannerComponent';
+import { useLayoutContext } from '@src/layout-context';
 
 type Props = any;
 
 export const CtfBanner = (props: Props) => {
-  const isHomePageBanner = props.bannerType === 'Home Page Banner';
-  console.log('CtfBanner props:', props);
+  const { layoutType } = useLayoutContext();
 
-  if (isHomePageBanner) {
+  if (layoutType === 'HomePageLayout') {
     return <HomePageBannerComponent {...props} />;
   }
 

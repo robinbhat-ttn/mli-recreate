@@ -11,11 +11,27 @@ import { PageContainer } from '@src/components/templates/page-container';
 import LayoutContext, { defaultLayout } from '@src/layout-context';
 
 const CtfPage = (props: CtfPageFieldsFragment) => {
+  console.log('CtfPage props:', props);
   const content = props.contentCollection && props.contentCollection.items.filter(it => !!it);
+
+  // Dynamic layout config based on pageLayout
+  const getLayoutConfig = (pageLayout?: string | null) => {
+    switch (pageLayout) {
+      case 'HomePageLayout':
+        return { containerWidth: 1262 };
+      case 'DefaultLayout':
+        return { containerWidth: 770 };
+      default:
+        return { containerWidth: 770 };
+    }
+  };
+
+  const config = getLayoutConfig(props.pageLayout);
 
   const layoutConfig = {
     ...defaultLayout,
-    containerWidth: 1262,
+    layoutType: props.pageLayout || 'DefaultLayout',
+    containerWidth: config.containerWidth,
   };
   const [isMenuOpen, setMenuOpen] = useState(false);
 
