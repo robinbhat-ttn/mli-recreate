@@ -6,6 +6,7 @@ type Props = any;
 
 export const CtfBanner = (props: Props) => {
   const isHomePageBanner = props.bannerType === 'Home Page Banner';
+  console.log('CtfBanner props:', props);
 
   if (isHomePageBanner) {
     return <HomePageBannerComponent {...props} />;

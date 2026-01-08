@@ -8,7 +8,6 @@ import styles from './ctf-tabbed-form.module.scss';
 type Props = TabbedFormContainerFieldsFragment;
 
 export const CtfTabbedForm = (props: Props) => {
-  const inspectorMode = useContentfulInspectorMode();
   const { tabsCollection, formImage } = props;
   const tabs = tabsCollection?.items || [];
 

@@ -42,7 +42,7 @@ export const CtfAccordion: React.FC<Props> = props => {
             square
             expanded={isExpanded}
             onChange={() => handleToggle(id)}
-            className={styles['accordion__item']}
+            className={`container-sec ${styles['accordion__item']}`}
             {...inspectorMode({ entryId: item?.sys.id, fieldId: 'question' })}
           >
             <AccordionSummary
