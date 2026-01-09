@@ -1,0 +1,300 @@
+.banner {
+  padding: $space-64 0 0;
+  background: $bg-muted;
+  height: $space-480;
+  margin-bottom: $space-190;
+  position: relative;
+
+  @include min-width('lg') {
+    padding: $space-80 0 0;
+    margin-bottom: $space-130;
+  }
+
+  &__inner {
+    max-width: $banner-max-width;
+    margin: $space-32 auto 0;
+    display: flex;
+    gap: $space-24;
+    align-items: flex-start;
+    justify-content: center;
+
+    @include min-width('lg') {
+      margin-top: 0;
+    }
+  }
+
+  &__texts--mobile {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    row-gap: $space-16;
+    padding: $space-16 $space-16 $space-20;
+    position: relative;
+    top: $banner-top-position;
+    z-index: 2;
+    background: $dropdown-bg 0% 0% no-repeat padding-box;
+
+    >div {
+      display: flex;
+      align-items: center;
+      gap: $space-10;
+      color: $text-primary;
+      font-size: $fs-10;
+      flex: 0 0 50%;
+      line-height: 1.5;
+      @include font-apply($font-noto);
+
+      figure {
+        max-width: 100%;
+        height: auto;
+        display: inline-block;
+      }
+
+      p {
+        margin: 0;
+        color: $gray-500;
+      }
+    }
+
+    @include min-width('sm') {
+      width: $banner-texts-percent;
+    }
+
+    @include min-width('lg') {
+      display: none;
+    }
+  }
+
+  &__left {
+    display: flex;
+    flex-direction: column;
+    gap: $space-32;
+    width: $banner-left-width;
+
+    @include min-width('lg') {
+      width: auto;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-size: $fs-20;
+    color: $text-primary;
+    @include font-apply($font-lato, $fw-bold);
+    line-height: 1.1;
+
+    @include min-width('lg') {
+      font-size: $fs-40;
+      padding-top: $space-56;
+    }
+  }
+
+  &__texts {
+    flex-wrap: wrap;
+    gap: $space-24;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    >.banner__text-item {
+      display: flex;
+      flex: 0 0 $banner-card-flex-gap;
+      max-width: $banner-card-flex-gap;
+
+      >div {
+        display: flex;
+        align-items: center;
+        gap: $space-10;
+
+        figure {
+          max-width: 100%;
+          height: auto;
+          display: inline-block;
+        }
+
+        p {
+          margin: 0;
+          line-height: $lh-xl;
+          font-size: $fs-18;
+          color: $text-primary;
+          @include font-apply($font-noto);
+        }
+      }
+    }
+  }
+
+  &__cards-wrapper {
+    position: relative;
+    z-index: 2;
+    padding: 0;
+    top: $banner-top-position;
+
+    @include min-width('lg') {
+      top: -$space-190;
+    }
+  }
+
+  &__cards {
+    display: flex;
+    column-gap: $space-10;
+    background: $white;
+    border-radius: 0;
+    justify-content: center;
+    box-shadow: $shadow-banner-text;
+    flex-wrap: wrap;
+    row-gap: $space-20;
+    padding: $space-24 $space-10;
+
+    @include min-width('md') {
+      padding: $space-32 $space-48;
+      row-gap: $space-40;
+      column-gap: $space-40;
+      border-radius: $radius-16;
+    }
+  }
+
+  &__card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: $radius-12;
+    background: $white;
+    box-shadow: $shadow-card-accent;
+    border: 1px solid $border-light;
+    width: 100%;
+    flex: 0 0 $banner-card-flex;
+
+    @include min-width('lg') {
+      min-width: $space-104;
+      max-width: $space-174;
+
+      &:hover {
+        box-shadow: 0 6px 24px 0 rgba(23,26,33,0.12);
+      }
+    }
+
+    &-top {
+      padding: $space-16;
+      text-align: center;
+      background: transparent;
+      position: relative;
+
+      @include min-width('lg') {
+        padding: $space-8;
+      }
+    }
+
+    &-pill {
+      display: inline-block;
+      padding: $space-6;
+      border-radius: $radius-12;
+      background: $banner-pill-bg;
+      position: absolute;
+      top: -$space-10;
+      left: 0;
+      width: 100%;
+
+      p {
+        margin: 0;
+        font-size: $fs-10;
+        line-height: $lh-10;
+        color: $banner-pill-text;
+        @include font-apply($font-noto, $fw-bold);
+      }
+    }
+
+    &-body {
+      padding: 0 0 $space-10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: $space-10;
+
+      @include min-width('lg') {
+        min-width: $space-174;
+        max-width: 6.25rem;
+        padding: $space-16 0;
+      }
+    }
+
+    &-icon img {
+      width: $space-44;
+      height: auto;
+      display: block;
+
+      @include min-width('lg') {
+        width: $space-56;
+      }
+    }
+
+    &-title {
+      font-size: $fs-13;
+      text-align: center;
+      color: $text-primary;
+      line-height: $lh-loose;
+      @include font-apply($font-noto, $fw-medium);
+
+      @include min-width('lg') {
+        font-size: $fs-16;
+        line-height: $lh-21;
+        padding: 0 $space-16;
+      }
+    }
+
+    &-sub {
+      font-size: $fs-13;
+      color: $text-primary;
+      text-align: center;
+    }
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .banner__image-wrap {
+      position: relative;
+      z-index: 2;
+
+      @include min-width('lg') {
+        padding-top: $space-56;
+      }
+
+      &::before {
+        content: "";
+        border-radius: 50%;
+        background: $blur-circle;
+        width: $banner-blur-circle-width;
+        height: $banner-blur-circle-height;
+        border-radius: 50%;
+        opacity: $opacity-banner-bg;
+        position: absolute;
+        right: $banner-blur-circle-right;
+        border: solid $blur-border $banner-blur-circle-border-width;
+        top: $banner-blur-circle-top;
+
+        @include min-width('lg') {
+          width: $banner-blur-circle-width-lg;
+          height: $banner-blur-circle-height-lg;
+          right: $banner-blur-circle-right-lg;
+          border: solid $blur-border $banner-blur-circle-border-width-lg;
+          top: $banner-blur-circle-top-lg;
+        }
+      }
+    }
+
+    .banner__image {
+      width: $space-110;
+      height: auto;
+      position: relative;
+      z-index: 3;
+      display: block;
+
+      @include min-width('lg') {
+        width: $space-348;
+      }
+    }
+  }
+}

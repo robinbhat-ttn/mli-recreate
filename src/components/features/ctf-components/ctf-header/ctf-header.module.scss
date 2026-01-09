@@ -5,15 +5,29 @@
   width: 100%;
   z-index: 3;
   border-bottom: 1px solid rgba($border-light, $opacity-border-light);
-
+  
   .headerInner {
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: $header-padding-top $space-12;
+    max-width: $space-1366;
+    margin: 0 auto;
 
     @include min-width('lg') {
       padding: 0 $space-12;
+    }
+  }
+
+  &--default {
+    padding: $space-16 0;
+    background-color: $white;
+    border-bottom: 1px solid $border-primary;
+    position: static;
+
+    .headerInner {
+      max-width: $space-1424;
+      padding: 0;
     }
   }
 }
@@ -38,14 +52,17 @@
 
 .subNavigationItem {
   display: flex;
-  row-gap: 20px;
+  row-gap: $space-16;
   flex-direction: column;
+  width: $space-246;
 }
 
 .subNavigationItemMainLink {
-  @include font-apply($font-noto, $fw-bold);
-  font-size: $fs-16;
-  line-height: 24px;
+  span {
+    @include font-apply($font-noto, $fw-bold);
+    font-size: $fs-16;
+    line-height: 24px;
+  }
 }
 
 /* Parent container */
@@ -119,18 +136,21 @@
   padding: $space-10 0;
   margin: 0;
   box-shadow: $shadow-md;
-  min-width: 180px;
+  min-width: 1200px;
   z-index: 999;
   column-gap: $space-32;
   border-radius: 0 0 $radius-16 $radius-16;
   border-top: 1px solid $header-border-color;
+  padding: $space-30 $space-24;
+  flex-direction: row;
+  flex-wrap: wrap;
+  row-gap: $space-24;
+  top: 83px;
 }
 
 /* Show submenu on hover of wrapper */
 .navigationItemWrapper:hover .subNavigationMenu {
   display: flex;
-  padding: $space-24 $space-30;
-  flex-direction: row;
 }
 
 /* --- UP ARROW ON HOVER --- */

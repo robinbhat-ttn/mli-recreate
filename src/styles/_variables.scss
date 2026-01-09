@@ -25,6 +25,7 @@ $text-muted: #626772;
 $text-light: #f3f4f6;
 
 // Borders
+$border-primary: #e2e8f0;
 $border-light: #e8ebf1;
 $border-medium: #d1d5db;
 $border-dark: #9ca3af;
@@ -33,7 +34,7 @@ $border-dark: #9ca3af;
 $success: #10b981;
 $warning: #f59e0b;
 $error: #ef4444;
-$info: #3b82f6;
+$info: #C0DDFF;
 
 // Neutral Colors
 $black: #000000;
@@ -76,6 +77,7 @@ $fs-16: 1rem; // 16px
 $fs-18: 1.125rem; // 18px
 $fs-20: 1.25rem; // 20px
 $fs-25: 1.5625rem; // 25px
+$fs-26: 1.625rem; // 26px
 $fs-28: 1.75rem; // 28px
 $fs-32: 2rem; // 32px
 $fs-40: 2.5rem; // 40px
@@ -114,11 +116,13 @@ $space-174: 10.875rem; // 174px
 $space-180: 11.25rem; // 180px
 $space-190: 11.875rem; // 190px
 $space-222: 13.875rem; // 222px
+$space-246: 15.375rem; // 246px
 $space-260: 16.25rem; // 260px
 $space-348: 21.75rem; // 348px
 $space-360: 22.5rem; // 360px
 $space-480: 30rem; // 480px
 $space-1366: 85.375rem; // 1366px
+$space-1424: 89rem; // 1424px
 
 // Border radius
 $radius-3: 0.1875rem; // 3px

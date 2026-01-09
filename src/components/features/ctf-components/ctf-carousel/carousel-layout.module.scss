@@ -1,0 +1,169 @@
+.carousel {
+  padding: $space-32 0;
+  position: relative;
+
+  /* Custom dots styling */
+  :global(.slick-dots) {
+    position: absolute;
+    bottom: $space-15;
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+  }
+
+  :global(.slick-dots li) {
+    position: relative;
+    display: inline-block;
+    width: $space-12;
+    height: $space-12;
+    margin: 0 $space-6;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  :global(.slick-dots li button) {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: none;
+    background: $dot-inactive;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0;
+    transition: background $transition-medium;
+
+    &:before {
+      content: none;
+    }
+  }
+
+  :global(.slick-dots li.slick-active button) {
+    background: $black;
+  }
+
+  :global(.slick-slider) {
+    position: relative;
+  }
+
+  &__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: 0;
+    width: $space-36;
+    height: $space-36;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1;
+
+    &--left {
+      left: -$space-50;
+    }
+
+    &--right {
+      right: -$space-50;
+    }
+
+    &:before {
+      content: none;
+    }
+
+    svg {
+      width: $space-32;
+      height: $space-32;
+    }
+  }
+
+  &__card {
+    background: $white;
+    margin: $space-16;
+    border-radius: $radius-6;
+    min-height: $space-260;
+    display: flex;
+    gap: $space-44;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  &__media {
+    padding-left: $space-16;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  &__image-wrap {
+    display: inline-block;
+    position: relative;
+    width: 4.125rem; // 66px
+    height: 4.8125rem; // 77px
+  }
+
+  &__media-underline {
+    display: block;
+    width: 3.75rem; // 60px
+    height: $space-6;
+    background: $bg-muted;
+    margin: $space-16 auto 0;
+    border-radius: $radius-3;
+  }
+
+  &__body {
+    border-left: 1px solid $border-light;
+    padding-left: $space-16;
+  }
+
+  &__title {
+    font-size: $fs-16;
+    color: $primary-dark;
+    @include font-apply($font-lato, $fw-bold);
+    margin: 0;
+  }
+
+  &__content {
+    color: $text-primary;
+    font-size: $fs-16;
+    padding: $space-20 0;
+    @include font-apply($font-noto, $fw-semi-bold);
+    p {
+      margin: 0 0 $space-12 0;
+      color: $text-primary;
+      font-size: $fs-16;
+      @include font-apply($font-noto, $fw-semi-bold);
+    }
+  }
+
+  :global(.slick-slide) {
+    pointer-events: auto;
+  }
+
+  :global(.slick-disabled) {
+    opacity: 0.25;
+    filter: grayscale(1);
+    pointer-events: none;
+    transition: opacity $transition-fast;
+  }
+}
+
+
+@media (max-width: 640px) {
+  .carousel {
+    &__card {
+      flex-direction: column;
+      align-items: flex-start;
+      min-height: auto;
+    }
+
+    &__media {
+      margin-bottom: $space-16;
+    }
+  }
+}

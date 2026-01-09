@@ -15,10 +15,7 @@ const variationToCssClassMap: Record<string, string> = {
 };
 
 export const CtfTextBlock = ({ sys, body, variations }: TextBlockFieldsFragment) => {
-  console.log('Styles: ', styles);
   const inspectorMode = useContentfulInspectorMode();
-  // const isDisclaimer = variationToCssClassMap[variations ?? ''] === 'disclaimer';
-  // Fallback to 'Default' when variations is null/unknown
   const variationKey = variations && variationToCssClassMap[variations] ? variations : 'Default';
   const variationClassKey = variationToCssClassMap[variationKey];
   const variationClass = styles[variationClassKey];

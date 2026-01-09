@@ -3,6 +3,7 @@ import React from 'react';
 export const defaultLayout = {
   containerWidth: 770,
   parent: '',
+  layoutType: 'DefaultLayout',
 };
 
 const LayoutContext = React.createContext(defaultLayout);
