@@ -14,7 +14,6 @@ export const CtfTabbedForm = (props: Props) => {
   const [activeTab, setActiveTab] = useState(0);
 
   const activeForm = tabs[activeTab]?.form;
-
   if (!tabs.length || !activeForm) return null;
 
   return (

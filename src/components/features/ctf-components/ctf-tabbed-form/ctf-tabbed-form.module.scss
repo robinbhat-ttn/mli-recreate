@@ -3,6 +3,15 @@
   margin: 0 0 $space-60;
   padding: 0 $space-16;
 
+  &.default--form {
+    display: flex;
+    justify-content: center;
+
+    .tabbedForm__footer {
+      align-items: center;
+    } 
+  }
+
   @include min-width('lg') {
     padding: 0;
   }
@@ -16,6 +25,11 @@
     border-radius: $radius-32;
     border: 1px solid #c2c7d1;
 
+    &.form-container--default {
+      width: 60%;
+      border: 0;
+      box-shadow: none;
+    }
 
     @media (min-width: 1024px) {
       flex-direction: row;
@@ -75,6 +89,13 @@
 
   &__title {
     margin-bottom: $space-24;
+    text-align: center;
+
+    h3 {
+      @include font-apply($font-noto, $fw-semi-bold);
+      font-size: $fs-18;
+      line-height: $lh-xl;
+    }
 
     h1 {
       font-size: $fs-32;
@@ -180,7 +201,7 @@
     &:focus {
       outline: none;
       border-color: $accent;
-     // padding-bottom: 1px;
+      // padding-bottom: 1px;
       transition: all 0.2s ease;
     }
   }
@@ -896,7 +917,7 @@
 
   &__inputError {
     border-color: #ef5350 !important;
-    background-color: #ffebee;
+    //background-color: #ffebee;
 
     &::placeholder {
       color: #ef5350;
@@ -906,45 +927,45 @@
   &__inputWrapperError {
     .tabbedForm__input {
       border-color: #ef5350 !important;
-      background-color: #ffebee;
+      //background-color: #ffebee;
     }
 
     .tabbedForm__phoneInput {
       border-color: #ef5350 !important;
-      background-color: #ffebee;
+      // background-color: #ffebee;
     }
 
     .tabbedForm__phoneInputFull {
       border-color: #ef5350 !important;
-      background-color: #ffebee;
+      //background-color: #ffebee;
     }
   }
 
   &__phoneFieldError {
     border-color: #ef5350 !important;
-    background-color: #ffebee;
+    //background-color: #ffebee;
   }
 
   &__phoneFieldFullError {
     border-color: #ef5350 !important;
-    background-color: #ffebee;
+    //background-color: #ffebee;
   }
 
   &__phoneInputWrapperFullError {
     .tabbedForm__phoneInputFull {
       border-color: #ef5350 !important;
-      background-color: #ffebee;
+      //background-color: #ffebee;
     }
   }
 
   &__phoneInputFullError {
     border-color: #ef5350 !important;
-    background-color: #ffebee;
+    //background-color: #ffebee;
   }
 
   &__phoneInputError {
     border-color: #ef5350 !important;
-    background-color: #ffebee;
+    //background-color: #ffebee;
   }
 
   &__errorMessage {
@@ -968,7 +989,7 @@
       border: 1px solid #ef5350;
       border-radius: $radius-8;
       padding: $space-8;
-      background-color: #ffebee;
+      // background-color: #ffebee;
     }
   }
 

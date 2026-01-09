@@ -8,7 +8,7 @@ type Props = any;
 export const CtfBanner = (props: Props) => {
   const { layoutType } = useLayoutContext();
 
-  if (layoutType === 'HomePageLayout') {
+  if (layoutType === 'Home Page Layout') {
     return <HomePageBannerComponent {...props} />;
   }
 

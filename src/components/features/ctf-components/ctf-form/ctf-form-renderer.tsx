@@ -4,6 +4,7 @@ import { Tabs, Tab, Box } from '@mui/material';
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
 import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtext/ctf-richtext';
+import { useLayoutContext } from '@src/layout-context';
 import chevronIcon from '@src/icons/chevron_down_navigate_blue.webp';
 import styles from '../ctf-tabbed-form/ctf-tabbed-form.module.scss';
 
@@ -79,10 +80,12 @@ interface CtfFormRendererProps {
   onTabChange?: (tabIndex: number) => void;
   inspectorModeId?: string;
   description?: any;
+  title?: string | any;
 }
 
 export const CtfFormRenderer = (props: CtfFormRendererProps) => {
   const inspectorMode = useContentfulInspectorMode();
+  const { layoutType } = useLayoutContext();
   const {
     fields,
     submitButton,
@@ -93,7 +96,11 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
     onTabChange,
     inspectorModeId,
     description,
+    title,
   } = props;
+
+  const containerClass =
+    layoutType === 'Home Page Layout' ? 'container-sec' : styles['form-container--default'];
 
   const [activeTab, setActiveTab] = useState(initialActiveTab);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -754,14 +761,22 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
   };
 
   return (
-    <section className={styles.tabbedForm}>
+    <section
+      className={`${styles.tabbedForm} ${layoutType !== 'Home Page Layout' ? styles['default--form'] : ''}`}
+    >
       <Box
-        className={`container-sec ${styles.tabbedForm__wrapper}`}
+        className={`${containerClass} ${styles.tabbedForm__wrapper}`}
         {...(inspectorModeId &&
           inspectorMode({ entryId: inspectorModeId, fieldId: 'tabbedFormContainer' }))}
       >
         {/* Left: Form Content */}
         <Box className={styles.tabbedForm__content}>
+          {title && layoutType !== 'HomePageLayout' && (
+            <div className={styles.tabbedForm__title}>
+              <h3>{title}</h3>
+            </div>
+          )}
+
           {/* Tabs - only render if tabbed form */}
           {isTabbedForm && tabs.length > 0 && (
             <Tabs
@@ -820,15 +835,18 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                 </button>
               )}
 
-              <label className={styles.tabbedForm__checkbox}>
-                <input type="checkbox" defaultChecked />
-                <span>
-                  HARDCODED TEXT - I&apos;ve read and accepted all Terms and Conditions. I authorize
-                  Axis Max Life Insurance to contact me via SMS/Email/Phone/Whatsapp/Facebook or any
-                  other modes overriding my DND. T&C Apply. For more details, terms and conditions
-                  please refer to the end of this page in the disclaimers section.
-                </span>
-              </label>
+              {layoutType === 'Home Page Layout' && (
+                <label className={styles.tabbedForm__checkbox}>
+                  <input type="checkbox" defaultChecked />
+                  <span>
+                    HARDCODED TEXT - I&apos;ve read and accepted all Terms and Conditions. I
+                    authorize Axis Max Life Insurance to contact me via
+                    SMS/Email/Phone/Whatsapp/Facebook or any other modes overriding my DND. T&C
+                    Apply. For more details, terms and conditions please refer to the end of this
+                    page in the disclaimers section.
+                  </span>
+                </label>
+              )}
             </div>
           </form>
         </Box>

@@ -10,6 +10,7 @@ export const CtfForm = (props: FormFieldsFragment) => {
         fields={props.fieldsCollection?.items || []}
         submitButton={props.submitButton}
         isTabbedForm={false}
+        title={props.title}
       />
     );
   }

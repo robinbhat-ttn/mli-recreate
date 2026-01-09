@@ -17,9 +17,8 @@ import type { NavigationFieldsFragment } from '../ctf-navigation/__generated/ctf
 
 export const CtfHeader = (props: HeaderFieldsFragment) => {
   const inspectorMode = useContentfulInspectorMode();
-  const { layoutType } = useLayoutContext();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const isHomePageHeader = layoutType === 'HomePageLayout';
+  const isHomePageHeader = props.headerType === 'Home Page Header';
   const toggleMenu = () => {
     setIsMenuOpen(isMenuOpen => !isMenuOpen);
   };

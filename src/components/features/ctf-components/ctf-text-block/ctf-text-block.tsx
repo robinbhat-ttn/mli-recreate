@@ -15,6 +15,7 @@ const variationToCssClassMap: Record<string, string> = {
 export const CtfTextBlock = ({ sys, body, variations }: TextBlockFieldsFragment) => {
   const inspectorMode = useContentfulInspectorMode();
   const isDisclaimer = variationToCssClassMap[variations ?? ''] === 'disclaimer';
+  console.log('variations:', variations);
 
   return (
     <Box
