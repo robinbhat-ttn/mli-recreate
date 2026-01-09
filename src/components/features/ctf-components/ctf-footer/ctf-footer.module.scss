@@ -13,6 +13,25 @@
     margin: 0 auto;
     gap: $space-40;
 }
+.footerLinkLeftSection{
+        display: flex;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 50%;
+    flex-wrap: wrap;
+}
+
+.footerLink{
+    width: 50%;
+}
+
+.footerLinkRightSection{
+        display: flex;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 50%;
+    flex-wrap: wrap;
+}
 .mainLink{
     color: $text-primary;
     text-decoration: none;
@@ -27,6 +46,7 @@
     margin-top: $space-24;
     li {
         margin-bottom: $margin-secondary-link;
+        line-height: 1.125rem;
     }
 }
 .secondaryLink{
@@ -34,8 +54,9 @@
     color: $nav-secondary-text;
     font-size: $fs-13;
     @include font-apply($font-noto);
-    line-height: $lh-loose;
+    // line-height: $lh-loose;
 }
+
 .footerDivider{
     margin:$space-16 $space-64;
 }
