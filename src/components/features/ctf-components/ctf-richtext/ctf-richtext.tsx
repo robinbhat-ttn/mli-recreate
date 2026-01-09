@@ -162,7 +162,7 @@ interface Block extends RichtextBlock {
 
 type Asset = OmitRecursive<AssetFieldsFragment, '__typename'>;
 
-interface CtfRichtextPropsInterface {
+export interface CtfRichtextPropsInterface {
   json: any;
   links?: {
     entries?: {

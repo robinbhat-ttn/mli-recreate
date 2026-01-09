@@ -20,6 +20,10 @@ fragment CardFields on Card {
   cardImage {
     ...AssetFields
   }
+  preTitle{
+    __typename
+    json
+  }
   cardContent {
     __typename
     json

@@ -1,6 +1,6 @@
 .disclaimer-wrapper {
   margin-bottom: $space-80;
-  
+
   p {
     color: $black;
     font-size: $fs-10;
@@ -55,4 +55,18 @@
     color: $accent;
     cursor: pointer;
   }
+}
+
+.form-text-block-wrapper {
+  margin: 0;
+  padding: 0;
+}
+
+.testimonial-carousel-text-block {
+  display: flex;
+  justify-content: center;
+  color: #505662;
+  font-size: 13px;
+  line-height: 1.125rem;
+  margin-top: -0.75rem;
 }

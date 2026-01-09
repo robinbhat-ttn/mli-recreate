@@ -6,6 +6,8 @@ import { CarouselLayoutComponent } from './CarouselLayoutComponent';
 import { FeatureCardsLayoutComponent } from './FeatureCardsLayoutComponent';
 import { TestimonialCarouselLayoutComponent } from './TestimonialCarouselLayoutComponent';
 import { StaticCardsLayout } from './StaticCardsLayout';
+import { TestimonialCarouselLayout } from './TestimonialCarouselLayout';
+import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
 
 export const CtfCarousel: FC<CarouselFieldsFragment> = props => {
   switch (props.carouselType) {
@@ -20,7 +22,6 @@ export const CtfCarousel: FC<CarouselFieldsFragment> = props => {
 
     case 'Static Cards Layout':
       return <StaticCardsLayout {...props} />;
-
     default:
       return null;
   }

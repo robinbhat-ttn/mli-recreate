@@ -1,4 +1,5 @@
 import Image from 'next/image';
+
 import { CarouselFieldsFragment } from './__generated/ctf-carousel.generated';
 import styles from './StaticCardsLayout.module.scss';
 import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
