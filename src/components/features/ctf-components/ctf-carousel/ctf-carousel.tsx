@@ -3,11 +3,9 @@ import type { FC } from 'react';
 
 import type { CarouselFieldsFragment } from './__generated/ctf-carousel.generated';
 import { CarouselLayoutComponent } from './CarouselLayoutComponent';
-import { FeatureCardsLayoutComponent } from './FeatureCardsLayoutComponent';
-import { TestimonialCarouselLayoutComponent } from './TestimonialCarouselLayoutComponent';
 import { StaticCardsLayout } from './StaticCardsLayout';
 import { TestimonialCarouselLayout } from './TestimonialCarouselLayout';
-import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
+import { FeatureCardsLayout } from './FeatureCardsLayout';
 
 export const CtfCarousel: FC<CarouselFieldsFragment> = props => {
   switch (props.carouselType) {
@@ -15,10 +13,10 @@ export const CtfCarousel: FC<CarouselFieldsFragment> = props => {
       return <CarouselLayoutComponent {...props} />;
 
     case 'Feature Cards Layout':
-      return <FeatureCardsLayoutComponent {...props} />;
+      return <FeatureCardsLayout {...props} />;
 
     case 'Testimonial Carousel Layout':
-      return <TestimonialCarouselLayoutComponent {...props} />;
+      return <TestimonialCarouselLayout {...props} />;
 
     case 'Static Cards Layout':
       return <StaticCardsLayout {...props} />;

@@ -1,21 +1,9 @@
 directive @contentSourceMaps on QUERY
 
-directive @contentfulSchemaMetadata(contentTypePublishedCounters: JSON) on SCHEMA
-
-directive @delegatedResourceLink(contentTypeId: String, field: JSON) on FIELD_DEFINITION | OBJECT
-
-directive @enumMapper(value: JSON) on ENUM_VALUE
-
-directive @featureFlag(featureName: String) on FIELD
-
-directive @fieldResolver(data: JSON, kind: String) on FIELD_DEFINITION
-
 directive @timeline(where: TimelineFilterInput!) on QUERY
 
-directive @typeIdentifier(contentTypeId: String) on OBJECT
-
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion)
+Accordion Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion)
 """
 type Accordion implements Entry & _Node {
   _id: ID!
@@ -237,7 +225,7 @@ enum AssetOrder {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner)
+Banner Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner)
 """
 type Banner implements Entry & _Node {
   _id: ID!
@@ -394,7 +382,7 @@ enum BannerPolicyCardsCollectionOrder {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/button)
+Normal Button Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/button)
 """
 type Button implements Entry & _Node {
   _id: ID!
@@ -503,7 +491,7 @@ enum ButtonOrder {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/buttonWithLinks)
+Button with Links Content Type for Home Page Header Navigation Item [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/buttonWithLinks)
 """
 type ButtonWithLinks implements Entry & _Node {
   _id: ID!
@@ -609,7 +597,7 @@ enum ButtonWithLinksOrder {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card)
+Card Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card)
 """
 type Card implements Entry & _Node {
   _id: ID!
@@ -806,7 +794,7 @@ type CardPreTitleResourcesInline implements ResourceLink {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/carousel)
+Carousel Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/carousel)
 """
 type Carousel implements Entry & _Node {
   _id: ID!
@@ -1126,7 +1114,7 @@ The 'Dimension' type represents dimensions as whole numeric values between `1` a
 scalar Dimension
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/disclaimer)
+Disclaimer Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/disclaimer)
 """
 type Disclaimer implements Entry & _Node {
   _id: ID!
@@ -1273,7 +1261,7 @@ enum EntryOrder {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer)
+Footer for a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer)
 """
 type Footer implements Entry & _Node {
   _id: ID!
@@ -1575,7 +1563,7 @@ type FormDescriptionResourcesInline implements ResourceLink {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField)
+Field content type for form fields [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField)
 """
 type FormField implements Entry & _Node {
   _id: ID!
@@ -1940,7 +1928,7 @@ type FormTabTabLabelResourcesInline implements ResourceLink {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/hamburgerMenu)
+Hamburger Menu Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/hamburgerMenu)
 """
 type HamburgerMenu implements Entry & _Node {
   _id: ID!
@@ -2041,7 +2029,7 @@ enum HamburgerMenuOrder {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header)
+Header of a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header)
 """
 type Header implements Entry & _Node {
   _id: ID!
@@ -2319,7 +2307,7 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 scalar JSON
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link)
+Content Type for Link [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link)
 """
 type Link implements Entry & _Node {
   _id: ID!
@@ -2535,7 +2523,7 @@ enum LinkOrder {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/navigationItems)
+Navigation Item for the Header [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/navigationItems)
 """
 type NavigationItems implements Entry & _Node {
   _id: ID!
@@ -2720,7 +2708,7 @@ enum OptionSetOrder {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page)
+AMLI Page Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page)
 """
 type Page implements Entry & _Node {
   _id: ID!
@@ -2930,7 +2918,7 @@ type Query {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/question)
+Question Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/question)
 """
 type Question implements Entry & _Node {
   _id: ID!
@@ -3056,7 +3044,7 @@ type ResourceSys {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/seo)
+Open Graph (OG) meta tags for optimizing SEO visibility [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/seo)
 """
 type Seo implements Entry & _Node {
   _id: ID!
@@ -3163,7 +3151,7 @@ enum SeoOrder {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/subNavigationItem)
+Sub Navigation Items for Home Page Header Navigation Items [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/subNavigationItem)
 """
 type SubNavigationItem implements Entry & _Node {
   _id: ID!
@@ -3467,7 +3455,7 @@ input TimelineFilterInput {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/videoSection)
+Video Section Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/videoSection)
 """
 type VideoSection implements Entry & _Node {
   _id: ID!

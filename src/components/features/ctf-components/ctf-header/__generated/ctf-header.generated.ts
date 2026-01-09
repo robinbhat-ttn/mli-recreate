@@ -88,7 +88,7 @@ export const HamburgerMenuFieldsFragmentDoc = `
     id
   }
   menuTitle
-  menuItemsCollection(limit: 5) {
+  menuItemsCollection(limit: 10) {
     items {
       __typename
       ... on Link {
