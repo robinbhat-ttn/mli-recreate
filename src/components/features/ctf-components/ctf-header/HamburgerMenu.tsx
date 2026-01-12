@@ -9,7 +9,7 @@ export interface HamburgerMenuProps extends HamburgerMenuFieldsFragment {
   isMenuOpen: boolean;
 }
 export const HamburgerMenu = (props: HamburgerMenuProps) => {
-  const inspectorMode = useContentfulInspectorMode();
+  // const inspectorMode = useContentfulInspectorMode();
 
   // State: { [item.sys.id]: boolean }
   const [openSubMenus, setOpenSubMenus] = useState<Record<string, boolean>>({});
@@ -24,7 +24,7 @@ export const HamburgerMenu = (props: HamburgerMenuProps) => {
   return (
     <div
       className={props.isMenuOpen ? styles.hamburgerMenu : styles.hamburgerMenuHidden}
-      {...inspectorMode({ entryId: props.sys.id, fieldId: 'hamburgerMenu' })}
+      // {...inspectorMode({ entryId: props.sys.id, fieldId: 'hamburgerMenu' })}
     >
       <h2>{props?.menuTitle}</h2>
       <ul>
@@ -34,7 +34,8 @@ export const HamburgerMenu = (props: HamburgerMenuProps) => {
               {item?.__typename === 'Link' ? (
                 <Link href={item?.pageLink?.slug ?? item.linkUrl ?? '/'}>{item.linkHeading}</Link>
               ) : (
-                <div {...inspectorMode({ entryId: item?.sys.id, fieldId: 'subNavigationItem' })}>
+                // <div {...inspectorMode({ entryId: item?.sys.id, fieldId: 'subNavigationItem' })}>
+                <div>
                   <button
                     onClick={() => toggleSubMenu(item?.sys.id ?? '')} // ← Pass unique item ID
                     className={openSubMenus[item?.sys.id ?? ''] ? styles.hamburgerSubmenuOpen : ''}
@@ -52,7 +53,7 @@ export const HamburgerMenu = (props: HamburgerMenuProps) => {
                       <li
                         key={subIndex}
                         className={styles.hamburgerSubMenuItem}
-                        {...inspectorMode({ entryId: subItem?.sys.id, fieldId: 'link' })}
+                        // {...inspectorMode({ entryId: subItem?.sys.id, fieldId: 'link' })}
                       >
                         <Link href={subItem?.pageLink?.slug ?? subItem?.linkUrl ?? '/'}>
                           {subItem?.linkHeading}
