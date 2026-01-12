@@ -1,14 +1,20 @@
+import { useContentfulInspectorMode } from '@contentful/live-preview/react';
+
 import { CtfRichtext, CtfRichtextPropsInterface } from '../ctf-richtext/ctf-richtext';
 import { CarouselFieldsFragment } from './__generated/ctf-carousel.generated';
 import styles from './FeatureCardsLayout.module.scss';
 export const FeatureCardsLayout = (props: CarouselFieldsFragment) => {
+  const inspectorMode = useContentfulInspectorMode();
   const title = props?.carouselTitle ?? 'Carousel Title';
   const cards = props?.cardsCollection?.items || [];
   const mid = Math.ceil(cards.length / 2);
   const cardsTopRow = cards.slice(0, mid);
   const cardsBottomRow = cards.slice(mid);
   return (
-    <div className={styles.featureCardsLayoutContainer}>
+    <div
+      className={styles.featureCardsLayoutContainer}
+      {...inspectorMode({ entryId: props?.sys.id, fieldId: 'carousel' })}
+    >
       <div className={styles['featureCardsLayoutContainer__title']}>{title}</div>
       <div className={styles['featureCardsLayoutContainer__container']}>
         <div className={styles['featureCardsLayoutContainer__container__wrapper']}>
@@ -19,6 +25,7 @@ export const FeatureCardsLayout = (props: CarouselFieldsFragment) => {
               <div
                 key={id}
                 className={styles['featureCardsLayoutContainer__container__wrapper__card']}
+                {...inspectorMode({ entryId: card?.sys?.id, fieldId: 'card' })}
               >
                 <CtfRichtext {...(cardContent as CtfRichtextPropsInterface)} disableContainer />
               </div>
@@ -35,6 +42,7 @@ export const FeatureCardsLayout = (props: CarouselFieldsFragment) => {
               <div
                 key={id}
                 className={styles['featureCardsLayoutContainer__container__wrapper__card']}
+                {...inspectorMode({ entryId: card?.sys?.id, fieldId: 'card' })}
               >
                 <CtfRichtext {...(cardContent as CtfRichtextPropsInterface)} disableContainer />
               </div>

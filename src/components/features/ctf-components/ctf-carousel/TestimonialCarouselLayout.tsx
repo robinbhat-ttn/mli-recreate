@@ -1,3 +1,5 @@
+import { useContentfulInspectorMode } from '@contentful/live-preview/react';
+
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import type { Settings } from 'react-slick';
@@ -64,10 +66,14 @@ const settings: Settings = {
 };
 
 export const TestimonialCarouselLayout = (props: CarouselFieldsFragment) => {
+  const inspectorMode = useContentfulInspectorMode();
   const title = props?.carouselTitle;
   const testimonialCards = props?.cardsCollection?.items ?? [];
   return (
-    <div className={styles.testimonialCarouselContainer}>
+    <div
+      className={styles.testimonialCarouselContainer}
+      {...inspectorMode({ entryId: props?.sys?.id, fieldId: 'carousel' })}
+    >
       <div className={styles['testimonialCarouselContainer__title']}>{title}</div>
       <Slider {...settings} className={styles.slider}>
         {testimonialCards.map(card => {
@@ -78,7 +84,11 @@ export const TestimonialCarouselLayout = (props: CarouselFieldsFragment) => {
           const content = card?.cardContent;
 
           return (
-            <div key={id} className={styles['testimonialCarouselContainer__slide']}>
+            <div
+              key={id}
+              className={styles['testimonialCarouselContainer__slide']}
+              {...inspectorMode({ entryId: card?.sys?.id, fieldId: 'card' })}
+            >
               <div
                 className={styles['testimonialCarouselContainer__slide__person-details']}
                 aria-labelledby={`card-title-${id}`}

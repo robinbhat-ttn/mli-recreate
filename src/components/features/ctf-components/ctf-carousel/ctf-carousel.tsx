@@ -3,9 +3,9 @@ import type { FC } from 'react';
 
 import type { CarouselFieldsFragment } from './__generated/ctf-carousel.generated';
 import { CarouselLayoutComponent } from './CarouselLayoutComponent';
+import { FeatureCardsLayout } from './FeatureCardsLayout';
 import { StaticCardsLayout } from './StaticCardsLayout';
 import { TestimonialCarouselLayout } from './TestimonialCarouselLayout';
-import { FeatureCardsLayout } from './FeatureCardsLayout';
 
 export const CtfCarousel: FC<CarouselFieldsFragment> = props => {
   switch (props.carouselType) {
