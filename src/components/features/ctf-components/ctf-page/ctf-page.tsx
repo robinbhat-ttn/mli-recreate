@@ -11,7 +11,6 @@ import { PageContainer } from '@src/components/templates/page-container';
 import LayoutContext, { defaultLayout } from '@src/layout-context';
 
 const CtfPage = (props: CtfPageFieldsFragment) => {
-  console.log('CtfPage props:', props);
   const content = props.contentCollection && props.contentCollection.items.filter(it => !!it);
 
   // Dynamic layout config based on pageLayout

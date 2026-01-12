@@ -1,9 +1,8 @@
-import { FormFieldsFragment } from '../ctf-tabbed-form/__generated/ctf-tabbed-form.generated';
 import { CtfFormRenderer } from './ctf-form-renderer';
 
-export const CtfForm = (props: FormFieldsFragment) => {
-  console.log('CtfForm props:', props);
+import { FormFieldsFragment } from '../ctf-tabbed-form/__generated/ctf-tabbed-form.generated';
 
+export const CtfForm = (props: FormFieldsFragment) => {
   if (props.formType && props.formType !== 'Home Page Form') {
     return (
       <CtfFormRenderer

@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import React, { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
 import { Tabs, Tab, Box } from '@mui/material';
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
@@ -168,16 +168,6 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
       setErrors(prev => {
         const newErrors = { ...prev };
         delete newErrors[name];
-        return newErrors;
-      });
-    }
-  };
-
-  const clearFieldError = (fieldName: string) => {
-    if (errors[fieldName]) {
-      setErrors(prev => {
-        const newErrors = { ...prev };
-        delete newErrors[fieldName];
         return newErrors;
       });
     }

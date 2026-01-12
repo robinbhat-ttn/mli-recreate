@@ -10,7 +10,7 @@ import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtex
 const variationToCssClassMap: Record<string, string> = {
   Disclaimer: 'disclaimer-wrapper',
   Default: 'life-insurance-wrapper',
-  'Term Insurance Page Form Text Block': 'form-text-block-wrapper',
+  'Term Insurance Page Form Text Block': 'agreement-wrapper',
   'Term Insurance Page Testimonial Carousel Text Block': 'testimonial-carousel-text-block',
 };
 
