@@ -7,7 +7,7 @@ import styles from './ctf-header.module.scss';
 import type { NavigationFieldsFragment } from '../ctf-navigation/__generated/ctf-navigation.generated';
 
 export const NavigationContainer = (props: NavigationFieldsFragment) => {
-  const inspectorMode = useContentfulInspectorMode();
+  // const inspectorMode = useContentfulInspectorMode();
   return (
     <Box
       component="nav"
@@ -19,7 +19,7 @@ export const NavigationContainer = (props: NavigationFieldsFragment) => {
           <div key={index} className={styles.navigationItemWrapper}>
             <div
               className={styles.navigationItem}
-              {...inspectorMode({ entryId: item?.sys.id, fieldId: 'navigationItems' })}
+              // {...inspectorMode({ entryId: item?.sys.id, fieldId: 'navigationItems' })}
             >
               <Link href={item?.navigationLink ?? '/'}>{item?.navigationTitle}</Link>
               <svg
@@ -43,12 +43,12 @@ export const NavigationContainer = (props: NavigationFieldsFragment) => {
                 <div
                   className={styles.subNavigationItem}
                   key={subIndex}
-                  {...inspectorMode({ entryId: item.sys.id, fieldId: 'SubNavigationItem' })}
+                  // {...inspectorMode({ entryId: item.sys.id, fieldId: 'SubNavigationItem' })}
                 >
                   <div key={subIndex} className={styles.subNavigationItemMainLink}>
                     <Link
                       href={subItem?.mainLink?.pageLink?.slug ?? subItem?.mainLink?.linkUrl ?? '/'}
-                      {...inspectorMode({ entryId: subItem?.sys.id, fieldId: 'link' })}
+                      // {...inspectorMode({ entryId: subItem?.sys.id, fieldId: 'link' })}
                     >
                       {subItem?.mainLink?.icon?.url && (
                         <Image
@@ -71,7 +71,7 @@ export const NavigationContainer = (props: NavigationFieldsFragment) => {
                       <div key={secIndex} className={styles.subNavigationItemSecondaryLink}>
                         <Link
                           href={secItem?.pageLink?.slug ?? secItem?.linkUrl ?? '/'}
-                          {...inspectorMode({ entryId: secItem?.sys.id ?? '', fieldId: 'link' })}
+                          // {...inspectorMode({ entryId: secItem?.sys.id ?? '', fieldId: 'link' })}
                         >
                           {secItem?.linkHeading}
                         </Link>
