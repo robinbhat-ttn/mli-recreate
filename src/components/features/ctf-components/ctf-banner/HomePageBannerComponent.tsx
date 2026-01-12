@@ -32,7 +32,6 @@ export const HomePageBannerComponent = (props: Props) => {
             sx={{ display: { xs: 'none', md: 'none', lg: 'flex' } }}
           >
             {texts.map((t: any) => {
-              const iconBlock = t.body?.links?.assets?.block?.[0];
               return (
                 <li
                   key={t.sys?.id}
@@ -64,7 +63,6 @@ export const HomePageBannerComponent = (props: Props) => {
       </div>
       <div className={styles['banner__texts--mobile']}>
         {texts.map((t: any) => {
-          const iconBlock = t.body?.links?.assets?.block?.[0];
           return (
             <React.Fragment
               key={t.sys?.id}

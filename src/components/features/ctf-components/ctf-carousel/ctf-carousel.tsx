@@ -2,7 +2,7 @@ import React from 'react';
 import type { FC } from 'react';
 
 import type { CarouselFieldsFragment } from './__generated/ctf-carousel.generated';
-import { CarouselLayoutComponent } from './CarouselLayoutComponent';
+import { CarouselLayoutComponent } from './CarouselLayout';
 import { FeatureCardsLayout } from './FeatureCardsLayout';
 import { StaticCardsLayout } from './StaticCardsLayout';
 import { TestimonialCarouselLayout } from './TestimonialCarouselLayout';

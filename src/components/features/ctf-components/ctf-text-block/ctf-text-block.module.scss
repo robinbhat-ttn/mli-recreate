@@ -26,6 +26,7 @@
     @include font-apply($font-lato, $fw-bold);
     position: relative;
     line-height: $lh-relaxed;
+
     @include min-width('lg') {
       font-size: $fs-32;
       line-height: $lh-relaxed;
@@ -57,9 +58,32 @@
   }
 }
 
-.form-text-block-wrapper {
+.agreement-wrapper {
   margin: 0;
   padding: 0;
+  width: 60%;
+  margin: 0 auto;
+
+  div {
+    text-align: center;
+
+    > figure {
+      display: inline-block;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    > p:first-of-type {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    > p:nth-of-type(n+2) {
+      display: block;
+      text-align: left;
+      margin-top: 16px;
+    }
+  }
 }
 
 .testimonial-carousel-text-block {

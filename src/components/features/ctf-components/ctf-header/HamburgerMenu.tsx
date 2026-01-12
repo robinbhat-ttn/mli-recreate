@@ -1,4 +1,3 @@
-import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 import Link from 'next/link';
 import React, { useState } from 'react';
 
@@ -9,8 +8,6 @@ export interface HamburgerMenuProps extends HamburgerMenuFieldsFragment {
   isMenuOpen: boolean;
 }
 export const HamburgerMenu = (props: HamburgerMenuProps) => {
-  // const inspectorMode = useContentfulInspectorMode();
-
   // State: { [item.sys.id]: boolean }
   const [openSubMenus, setOpenSubMenus] = useState<Record<string, boolean>>({});
 

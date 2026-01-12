@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
 import { TabbedFormContainerFieldsFragment } from './__generated/ctf-tabbed-form.generated';
 import { CtfFormRenderer } from '@src/components/features/ctf-components/ctf-form/ctf-form-renderer';
-import styles from './ctf-tabbed-form.module.scss';
 
 type Props = TabbedFormContainerFieldsFragment;
 
