@@ -3,9 +3,9 @@ import Image from 'next/image';
 import { Tabs, Tab, Box } from '@mui/material';
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
-import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtext/ctf-richtext';
-import { useLayoutContext } from '@src/layout-context';
 import chevronIcon from '@src/icons/chevron_down_navigate_blue.webp';
+import { useLayoutContext } from '@src/layout-context';
+import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtext/ctf-richtext';
 import styles from '../ctf-tabbed-form/ctf-tabbed-form.module.scss';
 
 // Validate DOB: valid date format and age 18-60

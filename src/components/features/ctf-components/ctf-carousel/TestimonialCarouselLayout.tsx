@@ -1,12 +1,11 @@
-import { useContentfulInspectorMode } from '@contentful/live-preview/react';
-
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import type { Settings } from 'react-slick';
+import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
 import type { CarouselFieldsFragment } from './__generated/ctf-carousel.generated';
-import styles from './TestimonialCarouselLayout.module.scss';
 import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
+import styles from './TestimonialCarouselLayout.module.scss';
 
 const Slider = dynamic(() => import('react-slick'), { ssr: false });
 

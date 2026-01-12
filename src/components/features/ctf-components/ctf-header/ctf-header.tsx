@@ -13,7 +13,6 @@ import { HamburgerMenu, HamburgerMenuProps } from './HamburgerMenu';
 import { ImageContainer } from './ImageContainer';
 import { NavigationContainer } from './NavigationContainer';
 import styles from './ctf-header.module.scss';
-import { useLayoutContext } from '@src/layout-context';
 
 export const CtfHeader = (props: HeaderFieldsFragment) => {
   const inspectorMode = useContentfulInspectorMode();
