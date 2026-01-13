@@ -1,6 +1,7 @@
 import { useCtfAccordionQuery } from '@src/components/features/ctf-components/ctf-accordion/__generated/ctf-accordion.generated';
 import { useCtfBannerQuery } from '@src/components/features/ctf-components/ctf-banner/__generated/ctf-banner.generated';
 import { useCtfCarouselQuery } from '@src/components/features/ctf-components/ctf-carousel/__generated/ctf-carousel.generated';
+import { useCtfFormWrapperQuery } from '@src/components/features/ctf-components/ctf-form-wrapper/__generated/ctf-form-wrapper.generated';
 import { useCtfFormQuery } from '@src/components/features/ctf-components/ctf-form/__generated/ctf-form.generated';
 import { useCtfLinkQuery } from '@src/components/features/ctf-components/ctf-link/__generated/ctf-link.generated';
 import { useCtfTabbedFormContainerQuery } from '@src/components/features/ctf-components/ctf-tabbed-form/__generated/ctf-tabbed-form.generated';
@@ -19,4 +20,5 @@ export const prefetchMap = {
   VideoSection: useCtfVideoQuery,
   TabbedFormContainer: useCtfTabbedFormContainerQuery,
   Form: useCtfFormQuery,
+  FormWrapper: useCtfFormWrapperQuery,
 };

@@ -26,6 +26,7 @@ export type FormFieldsFragment = { __typename?: 'Form', formType?: string | null
           | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'FormWrapper', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
@@ -61,6 +62,7 @@ export type TabsFieldsFragment = { __typename: 'FormTab', sys: { __typename?: 'S
           | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'FormWrapper', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }

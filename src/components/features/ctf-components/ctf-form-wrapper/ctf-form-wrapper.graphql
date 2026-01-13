@@ -1,0 +1,17 @@
+fragment FormWrapperFields on FormWrapper{
+  sys{
+      id
+    }
+    internalName
+    formsCollection(limit:5){
+      items{
+        ...FormFields
+      }
+    }
+}
+
+query CtfFormWrapper($id: String!, $locale: String, $preview: Boolean){
+  formWrapper(id: $id, locale: $locale, preview: $preview){
+    ...FormWrapperFields
+  }
+}

@@ -5,7 +5,7 @@ import { HeaderFieldsFragment, ButtonCollectionFieldsFragment, HamburgerMenuFiel
 import { NavigationFieldsFragment } from '../../ctf-navigation/__generated/ctf-navigation.generated';
 import { LinkFieldsFragment } from '../../../../../lib/shared-fragments/__generated/ctf-linkFragment.generated';
 import { FooterFieldsFragment, FooterLinksCollectionFragment, FooterButtonCollectionFieldsFragment, SocialLinksCollectionFieldsFragment, GroupSitesLinksCollectionFieldsFragment, FooterInformationFieldsFragment, DisclaimerSectionFieldsFragment } from '../../ctf-footer/__generated/ctf-footer.generated';
-import { ComponentReferenceFields_Accordion_Fragment, ComponentReferenceFields_Banner_Fragment, ComponentReferenceFields_Button_Fragment, ComponentReferenceFields_ButtonWithLinks_Fragment, ComponentReferenceFields_Card_Fragment, ComponentReferenceFields_Carousel_Fragment, ComponentReferenceFields_ComponentTextBlock_Fragment, ComponentReferenceFields_Disclaimer_Fragment, ComponentReferenceFields_Footer_Fragment, ComponentReferenceFields_Form_Fragment, ComponentReferenceFields_FormField_Fragment, ComponentReferenceFields_FormTab_Fragment, ComponentReferenceFields_HamburgerMenu_Fragment, ComponentReferenceFields_Header_Fragment, ComponentReferenceFields_Link_Fragment, ComponentReferenceFields_NavigationItems_Fragment, ComponentReferenceFields_OptionSet_Fragment, ComponentReferenceFields_Page_Fragment, ComponentReferenceFields_Question_Fragment, ComponentReferenceFields_Seo_Fragment, ComponentReferenceFields_SubNavigationItem_Fragment, ComponentReferenceFields_TabbedFormContainer_Fragment, ComponentReferenceFields_VideoSection_Fragment } from '../../../../../lib/shared-fragments/__generated/ctf-componentMap.generated';
+import { ComponentReferenceFields_Accordion_Fragment, ComponentReferenceFields_Banner_Fragment, ComponentReferenceFields_Button_Fragment, ComponentReferenceFields_ButtonWithLinks_Fragment, ComponentReferenceFields_Card_Fragment, ComponentReferenceFields_Carousel_Fragment, ComponentReferenceFields_ComponentTextBlock_Fragment, ComponentReferenceFields_Disclaimer_Fragment, ComponentReferenceFields_Footer_Fragment, ComponentReferenceFields_Form_Fragment, ComponentReferenceFields_FormField_Fragment, ComponentReferenceFields_FormTab_Fragment, ComponentReferenceFields_FormWrapper_Fragment, ComponentReferenceFields_HamburgerMenu_Fragment, ComponentReferenceFields_Header_Fragment, ComponentReferenceFields_Link_Fragment, ComponentReferenceFields_NavigationItems_Fragment, ComponentReferenceFields_OptionSet_Fragment, ComponentReferenceFields_Page_Fragment, ComponentReferenceFields_Question_Fragment, ComponentReferenceFields_Seo_Fragment, ComponentReferenceFields_SubNavigationItem_Fragment, ComponentReferenceFields_TabbedFormContainer_Fragment, ComponentReferenceFields_VideoSection_Fragment } from '../../../../../lib/shared-fragments/__generated/ctf-componentMap.generated';
 import { AssetFieldsFragmentDoc } from '../../ctf-asset/__generated/ctf-asset.generated';
 import { HeaderFieldsFragmentDoc, ButtonCollectionFieldsFragmentDoc, HamburgerMenuFieldsFragmentDoc } from '../../ctf-header/__generated/ctf-header.generated';
 import { NavigationFieldsFragmentDoc } from '../../ctf-navigation/__generated/ctf-navigation.generated';
@@ -26,6 +26,8 @@ export type PageContentFields_ComponentTextBlock_Fragment = { __typename: 'Compo
 
 export type PageContentFields_Form_Fragment = { __typename: 'Form' };
 
+export type PageContentFields_FormWrapper_Fragment = { __typename: 'FormWrapper' };
+
 export type PageContentFields_Link_Fragment = { __typename: 'Link' };
 
 export type PageContentFields_TabbedFormContainer_Fragment = { __typename: 'TabbedFormContainer' };
@@ -39,6 +41,7 @@ export type PageContentFieldsFragment =
   | PageContentFields_Carousel_Fragment
   | PageContentFields_ComponentTextBlock_Fragment
   | PageContentFields_Form_Fragment
+  | PageContentFields_FormWrapper_Fragment
   | PageContentFields_Link_Fragment
   | PageContentFields_TabbedFormContainer_Fragment
   | PageContentFields_VideoSection_Fragment
@@ -71,6 +74,10 @@ export type CtfPageFieldsFragment = { __typename: 'Page', pageName?: string | nu
       | (
         { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
         & PageContentFields_Form_Fragment
+      )
+      | (
+        { __typename: 'FormWrapper', sys: { __typename?: 'Sys', id: string } }
+        & PageContentFields_FormWrapper_Fragment
       )
       | (
         { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
