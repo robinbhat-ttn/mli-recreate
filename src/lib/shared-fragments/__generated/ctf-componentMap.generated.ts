@@ -24,6 +24,8 @@ export type ComponentReferenceFields_FormField_Fragment = { __typename: 'FormFie
 
 export type ComponentReferenceFields_FormTab_Fragment = { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } };
 
+export type ComponentReferenceFields_FormWrapper_Fragment = { __typename: 'FormWrapper', sys: { __typename?: 'Sys', id: string } };
+
 export type ComponentReferenceFields_HamburgerMenu_Fragment = { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } };
 
 export type ComponentReferenceFields_Header_Fragment = { __typename: 'Header', sys: { __typename?: 'Sys', id: string } };
@@ -59,6 +61,7 @@ export type ComponentReferenceFieldsFragment =
   | ComponentReferenceFields_Form_Fragment
   | ComponentReferenceFields_FormField_Fragment
   | ComponentReferenceFields_FormTab_Fragment
+  | ComponentReferenceFields_FormWrapper_Fragment
   | ComponentReferenceFields_HamburgerMenu_Fragment
   | ComponentReferenceFields_Header_Fragment
   | ComponentReferenceFields_Link_Fragment
