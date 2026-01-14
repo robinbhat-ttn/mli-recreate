@@ -157,7 +157,7 @@ export type FooterLinksCollectionFragment = { __typename?: 'FooterFooterLinksCol
       & LinkFieldsFragment
     ) | null, secondaryLinksCollection?: { __typename?: 'SubNavigationItemSecondaryLinksCollection', items: Array<{ __typename: 'Link', linkType?: string | null, linkHeading?: string | null, linkSubHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string }, pageLink?: { __typename?: 'Page', slug?: string | null } | null } | null> } | null } | null> };
 
-export type FooterFieldsFragment = { __typename: 'Footer', sys: { __typename?: 'Sys', id: string }, footerLinksCollection?: (
+export type FooterFieldsFragment = { __typename: 'Footer', footerTemplateType?: Array<string | null> | null, sys: { __typename?: 'Sys', id: string }, footerLinksCollection?: (
     { __typename?: 'FooterFooterLinksCollection' }
     & FooterLinksCollectionFragment
   ) | null, buttonsCollection?: (
@@ -300,6 +300,7 @@ export const FooterFieldsFragmentDoc = `
   sys {
     id
   }
+  footerTemplateType
   footerLinksCollection(limit: 20) {
     ...FooterLinksCollection
   }
