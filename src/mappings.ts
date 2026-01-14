@@ -1,6 +1,16 @@
 import dynamic from 'next/dynamic';
 
 export const componentMap = {
+  Header: dynamic(() =>
+    import('@src/components/features/ctf-components/ctf-header/ctf-header').then(
+      module => module.CtfHeader,
+    ),
+  ),
+  Footer: dynamic(() =>
+    import('@src/components/features/ctf-components/ctf-footer/ctf-footer').then(
+      module => module.CtfFooter,
+    ),
+  ),
   ComponentTextBlock: dynamic(() =>
     import('@src/components/features/ctf-components/ctf-text-block/ctf-text-block').then(
       module => module.CtfTextBlock,
@@ -49,6 +59,16 @@ export const componentMap = {
 };
 
 export const componentGqlMap = {
+  Header: dynamic(() =>
+    import('@src/components/features/ctf-components/ctf-header/ctf-header-gql').then(
+      module => module.CtfHeaderGql,
+    ),
+  ),
+  Footer: dynamic(() =>
+    import('@src/components/features/ctf-components/ctf-footer/ctf-footer-gql').then(
+      module => module.CtfFooterGql,
+    ),
+  ),
   ComponentTextBlock: dynamic(() =>
     import('@src/components/features/ctf-components/ctf-text-block/ctf-text-block-gql').then(
       module => module.CtfTextBlockGql,

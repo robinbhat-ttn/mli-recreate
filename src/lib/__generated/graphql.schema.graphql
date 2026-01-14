@@ -1,21 +1,9 @@
 directive @contentSourceMaps on QUERY
 
-directive @contentfulSchemaMetadata(contentTypePublishedCounters: JSON) on SCHEMA
-
-directive @delegatedResourceLink(contentTypeId: String, field: JSON) on FIELD_DEFINITION | OBJECT
-
-directive @enumMapper(value: JSON) on ENUM_VALUE
-
-directive @featureFlag(featureName: String) on FIELD
-
-directive @fieldResolver(data: JSON, kind: String) on FIELD_DEFINITION
-
 directive @timeline(where: TimelineFilterInput!) on QUERY
 
-directive @typeIdentifier(contentTypeId: String) on OBJECT
-
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion)
+Accordion Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion)
 """
 type Accordion implements Entry & _Node {
   _id: ID!
@@ -97,6 +85,8 @@ enum AccordionLinkingCollectionsPageCollectionOrder {
   sys_publishedAt_DESC
   sys_publishedVersion_ASC
   sys_publishedVersion_DESC
+  templateType_ASC
+  templateType_DESC
 }
 
 enum AccordionOrder {
@@ -237,7 +227,7 @@ enum AssetOrder {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner)
+Banner Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner)
 """
 type Banner implements Entry & _Node {
   _id: ID!
@@ -348,6 +338,8 @@ enum BannerLinkingCollectionsPageCollectionOrder {
   sys_publishedAt_DESC
   sys_publishedVersion_ASC
   sys_publishedVersion_DESC
+  templateType_ASC
+  templateType_DESC
 }
 
 enum BannerOrder {
@@ -394,7 +386,7 @@ enum BannerPolicyCardsCollectionOrder {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/button)
+Normal Button Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/button)
 """
 type Button implements Entry & _Node {
   _id: ID!
@@ -483,6 +475,8 @@ enum ButtonLinkingCollectionsPageCollectionOrder {
   sys_publishedAt_DESC
   sys_publishedVersion_ASC
   sys_publishedVersion_DESC
+  templateType_ASC
+  templateType_DESC
 }
 
 enum ButtonOrder {
@@ -503,7 +497,7 @@ enum ButtonOrder {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/buttonWithLinks)
+Button with Links Content Type for Home Page Header Navigation Item [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/buttonWithLinks)
 """
 type ButtonWithLinks implements Entry & _Node {
   _id: ID!
@@ -609,7 +603,7 @@ enum ButtonWithLinksOrder {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card)
+Card Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card)
 """
 type Card implements Entry & _Node {
   _id: ID!
@@ -806,7 +800,7 @@ type CardPreTitleResourcesInline implements ResourceLink {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/carousel)
+Carousel Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/carousel)
 """
 type Carousel implements Entry & _Node {
   _id: ID!
@@ -906,6 +900,8 @@ enum CarouselLinkingCollectionsPageCollectionOrder {
   sys_publishedAt_DESC
   sys_publishedVersion_ASC
   sys_publishedVersion_DESC
+  templateType_ASC
+  templateType_DESC
 }
 
 enum CarouselOrder {
@@ -1055,6 +1051,8 @@ enum ComponentTextBlockLinkingCollectionsPageCollectionOrder {
   sys_publishedAt_DESC
   sys_publishedVersion_ASC
   sys_publishedVersion_DESC
+  templateType_ASC
+  templateType_DESC
 }
 
 enum ComponentTextBlockOrder {
@@ -1126,7 +1124,7 @@ The 'Dimension' type represents dimensions as whole numeric values between `1` a
 scalar Dimension
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/disclaimer)
+Disclaimer Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/disclaimer)
 """
 type Disclaimer implements Entry & _Node {
   _id: ID!
@@ -1273,7 +1271,7 @@ enum EntryOrder {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer)
+Footer for a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer)
 """
 type Footer implements Entry & _Node {
   _id: ID!
@@ -1282,6 +1280,7 @@ type Footer implements Entry & _Node {
   disclaimerSection(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: DisclaimerFilter): Disclaimer
   footerInformation(locale: String, useFallbackLocale: Boolean): FooterFooterInformation
   footerLinksCollection(limit: Int = 100, locale: String, order: [FooterFooterLinksCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: SubNavigationItemFilter): FooterFooterLinksCollection
+  footerTemplateType(locale: String, useFallbackLocale: Boolean): [String]
   groupSitesLinksCollection(limit: Int = 100, locale: String, order: [FooterGroupSitesLinksCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: LinkFilter): FooterGroupSitesLinksCollection
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): FooterLinkingCollections
@@ -1337,6 +1336,10 @@ input FooterFilter {
   footerInformation_not_contains: String
   footerLinks: cfSubNavigationItemNestedFilter
   footerLinksCollection_exists: Boolean
+  footerTemplateType_contains_all: [String]
+  footerTemplateType_contains_none: [String]
+  footerTemplateType_contains_some: [String]
+  footerTemplateType_exists: Boolean
   groupSitesLinks: cfLinkNestedFilter
   groupSitesLinksCollection_exists: Boolean
   internalName: String
@@ -1443,30 +1446,6 @@ enum FooterGroupSitesLinksCollectionOrder {
 
 type FooterLinkingCollections {
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
-  pageCollection(limit: Int = 100, locale: String, order: [FooterLinkingCollectionsPageCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): PageCollection
-}
-
-enum FooterLinkingCollectionsPageCollectionOrder {
-  changeFrequency_ASC
-  changeFrequency_DESC
-  internalName_ASC
-  internalName_DESC
-  pageLayout_ASC
-  pageLayout_DESC
-  pageName_ASC
-  pageName_DESC
-  priority_ASC
-  priority_DESC
-  slug_ASC
-  slug_DESC
-  sys_firstPublishedAt_ASC
-  sys_firstPublishedAt_DESC
-  sys_id_ASC
-  sys_id_DESC
-  sys_publishedAt_ASC
-  sys_publishedAt_DESC
-  sys_publishedVersion_ASC
-  sys_publishedVersion_DESC
 }
 
 enum FooterOrder {
@@ -1575,7 +1554,7 @@ type FormDescriptionResourcesInline implements ResourceLink {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField)
+Field content type for form fields [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField)
 """
 type FormField implements Entry & _Node {
   _id: ID!
@@ -1822,6 +1801,8 @@ enum FormLinkingCollectionsPageCollectionOrder {
   sys_publishedAt_DESC
   sys_publishedVersion_ASC
   sys_publishedVersion_DESC
+  templateType_ASC
+  templateType_DESC
 }
 
 enum FormOrder {
@@ -2040,6 +2021,8 @@ enum FormWrapperLinkingCollectionsPageCollectionOrder {
   sys_publishedAt_DESC
   sys_publishedVersion_ASC
   sys_publishedVersion_DESC
+  templateType_ASC
+  templateType_DESC
 }
 
 enum FormWrapperOrder {
@@ -2056,7 +2039,7 @@ enum FormWrapperOrder {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/hamburgerMenu)
+Hamburger Menu Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/hamburgerMenu)
 """
 type HamburgerMenu implements Entry & _Node {
   _id: ID!
@@ -2157,13 +2140,14 @@ enum HamburgerMenuOrder {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header)
+Header of a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header)
 """
 type Header implements Entry & _Node {
   _id: ID!
   buttonCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: HeaderButtonFilter): HeaderButtonCollection
   contentfulMetadata: ContentfulMetadata!
   hamburgerMenu(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: HamburgerMenuFilter): HamburgerMenu
+  headerTemplateType(locale: String, useFallbackLocale: Boolean): [String]
   headerType(locale: String, useFallbackLocale: Boolean): String
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): HeaderLinkingCollections
@@ -2210,6 +2194,10 @@ input HeaderFilter {
   contentfulMetadata: ContentfulMetadataFilter
   hamburgerMenu: cfHamburgerMenuNestedFilter
   hamburgerMenu_exists: Boolean
+  headerTemplateType_contains_all: [String]
+  headerTemplateType_contains_none: [String]
+  headerTemplateType_contains_some: [String]
+  headerTemplateType_exists: Boolean
   headerType: String
   headerType_contains: String
   headerType_exists: Boolean
@@ -2232,30 +2220,6 @@ input HeaderFilter {
 
 type HeaderLinkingCollections {
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
-  pageCollection(limit: Int = 100, locale: String, order: [HeaderLinkingCollectionsPageCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): PageCollection
-}
-
-enum HeaderLinkingCollectionsPageCollectionOrder {
-  changeFrequency_ASC
-  changeFrequency_DESC
-  internalName_ASC
-  internalName_DESC
-  pageLayout_ASC
-  pageLayout_DESC
-  pageName_ASC
-  pageName_DESC
-  priority_ASC
-  priority_DESC
-  slug_ASC
-  slug_DESC
-  sys_firstPublishedAt_ASC
-  sys_firstPublishedAt_DESC
-  sys_id_ASC
-  sys_id_DESC
-  sys_publishedAt_ASC
-  sys_publishedAt_DESC
-  sys_publishedVersion_ASC
-  sys_publishedVersion_DESC
 }
 
 type HeaderNavigationItemsCollection {
@@ -2435,7 +2399,7 @@ The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://
 scalar JSON
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link)
+Content Type for Link [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link)
 """
 type Link implements Entry & _Node {
   _id: ID!
@@ -2612,6 +2576,8 @@ enum LinkLinkingCollectionsPageCollectionOrder {
   sys_publishedAt_DESC
   sys_publishedVersion_ASC
   sys_publishedVersion_DESC
+  templateType_ASC
+  templateType_DESC
 }
 
 enum LinkLinkingCollectionsSubNavigationItemCollectionOrder {
@@ -2651,7 +2617,7 @@ enum LinkOrder {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/navigationItems)
+Navigation Item for the Header [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/navigationItems)
 """
 type NavigationItems implements Entry & _Node {
   _id: ID!
@@ -2836,15 +2802,13 @@ enum OptionSetOrder {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page)
+AMLI Page Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page)
 """
 type Page implements Entry & _Node {
   _id: ID!
   changeFrequency(locale: String, useFallbackLocale: Boolean): String
   contentCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: PageContentFilter): PageContentCollection
   contentfulMetadata: ContentfulMetadata!
-  footer(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: FooterFilter): Footer
-  header(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: HeaderFilter): Header
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): PageLinkingCollections
   pageLayout(locale: String, useFallbackLocale: Boolean): String
@@ -2853,6 +2817,7 @@ type Page implements Entry & _Node {
   seo(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: SeoFilter): Seo
   slug(locale: String, useFallbackLocale: Boolean): String
   sys: Sys!
+  templateType(locale: String, useFallbackLocale: Boolean): String
 }
 
 type PageCollection {
@@ -2891,10 +2856,6 @@ input PageFilter {
   content: cfcontentMultiTypeNestedFilter
   contentCollection_exists: Boolean
   contentfulMetadata: ContentfulMetadataFilter
-  footer: cfFooterNestedFilter
-  footer_exists: Boolean
-  header: cfHeaderNestedFilter
-  header_exists: Boolean
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean
@@ -2935,6 +2896,13 @@ input PageFilter {
   slug_not_contains: String
   slug_not_in: [String]
   sys: SysFilter
+  templateType: String
+  templateType_contains: String
+  templateType_exists: Boolean
+  templateType_in: [String]
+  templateType_not: String
+  templateType_not_contains: String
+  templateType_not_in: [String]
 }
 
 type PageLinkingCollections {
@@ -2984,6 +2952,8 @@ enum PageOrder {
   sys_publishedAt_DESC
   sys_publishedVersion_ASC
   sys_publishedVersion_DESC
+  templateType_ASC
+  templateType_DESC
 }
 
 """
@@ -3048,7 +3018,7 @@ type Query {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/question)
+Question Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/question)
 """
 type Question implements Entry & _Node {
   _id: ID!
@@ -3174,7 +3144,7 @@ type ResourceSys {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/seo)
+Open Graph (OG) meta tags for optimizing SEO visibility [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/seo)
 """
 type Seo implements Entry & _Node {
   _id: ID!
@@ -3257,6 +3227,8 @@ enum SeoLinkingCollectionsPageCollectionOrder {
   sys_publishedAt_DESC
   sys_publishedVersion_ASC
   sys_publishedVersion_DESC
+  templateType_ASC
+  templateType_DESC
 }
 
 enum SeoOrder {
@@ -3281,7 +3253,7 @@ enum SeoOrder {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/subNavigationItem)
+Sub Navigation Items for Home Page Header Navigation Items [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/subNavigationItem)
 """
 type SubNavigationItem implements Entry & _Node {
   _id: ID!
@@ -3533,6 +3505,8 @@ enum TabbedFormContainerLinkingCollectionsPageCollectionOrder {
   sys_publishedAt_DESC
   sys_publishedVersion_ASC
   sys_publishedVersion_DESC
+  templateType_ASC
+  templateType_DESC
 }
 
 enum TabbedFormContainerOrder {
@@ -3585,7 +3559,7 @@ input TimelineFilterInput {
 }
 
 """
-[See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/videoSection)
+Video Section Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/videoSection)
 """
 type VideoSection implements Entry & _Node {
   _id: ID!
@@ -3658,6 +3632,8 @@ enum VideoSectionLinkingCollectionsPageCollectionOrder {
   sys_publishedAt_DESC
   sys_publishedVersion_ASC
   sys_publishedVersion_DESC
+  templateType_ASC
+  templateType_DESC
 }
 
 enum VideoSectionOrder {
@@ -3761,28 +3737,6 @@ input cfDisclaimerNestedFilter {
   internalName_not: String
   internalName_not_contains: String
   internalName_not_in: [String]
-  sys: SysFilter
-}
-
-input cfFooterNestedFilter {
-  AND: [cfFooterNestedFilter]
-  OR: [cfFooterNestedFilter]
-  buttonsCollection_exists: Boolean
-  contentfulMetadata: ContentfulMetadataFilter
-  disclaimerSection_exists: Boolean
-  footerInformation_contains: String
-  footerInformation_exists: Boolean
-  footerInformation_not_contains: String
-  footerLinksCollection_exists: Boolean
-  groupSitesLinksCollection_exists: Boolean
-  internalName: String
-  internalName_contains: String
-  internalName_exists: Boolean
-  internalName_in: [String]
-  internalName_not: String
-  internalName_not_contains: String
-  internalName_not_in: [String]
-  socialLinksCollection_exists: Boolean
   sys: SysFilter
 }
 
@@ -3914,31 +3868,6 @@ input cfHamburgerMenuNestedFilter {
   sys: SysFilter
 }
 
-input cfHeaderNestedFilter {
-  AND: [cfHeaderNestedFilter]
-  OR: [cfHeaderNestedFilter]
-  buttonCollection_exists: Boolean
-  contentfulMetadata: ContentfulMetadataFilter
-  hamburgerMenu_exists: Boolean
-  headerType: String
-  headerType_contains: String
-  headerType_exists: Boolean
-  headerType_in: [String]
-  headerType_not: String
-  headerType_not_contains: String
-  headerType_not_in: [String]
-  internalName: String
-  internalName_contains: String
-  internalName_exists: Boolean
-  internalName_in: [String]
-  internalName_not: String
-  internalName_not_contains: String
-  internalName_not_in: [String]
-  logo_exists: Boolean
-  navigationItemsCollection_exists: Boolean
-  sys: SysFilter
-}
-
 input cfLinkNestedFilter {
   AND: [cfLinkNestedFilter]
   OR: [cfLinkNestedFilter]
@@ -4039,8 +3968,6 @@ input cfPageNestedFilter {
   changeFrequency_not_in: [String]
   contentCollection_exists: Boolean
   contentfulMetadata: ContentfulMetadataFilter
-  footer_exists: Boolean
-  header_exists: Boolean
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean
@@ -4080,6 +4007,13 @@ input cfPageNestedFilter {
   slug_not_contains: String
   slug_not_in: [String]
   sys: SysFilter
+  templateType: String
+  templateType_contains: String
+  templateType_exists: Boolean
+  templateType_in: [String]
+  templateType_not: String
+  templateType_not_contains: String
+  templateType_not_in: [String]
 }
 
 input cfQuestionNestedFilter {
