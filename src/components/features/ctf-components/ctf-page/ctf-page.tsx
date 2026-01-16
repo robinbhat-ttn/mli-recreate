@@ -2,12 +2,8 @@ import { Container } from '@mui/material';
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
 
-import { CtfFooter } from '@src/components/features/ctf-components/ctf-footer/ctf-footer';
-import { CtfHeader } from '@src/components/features/ctf-components/ctf-header/ctf-header';
-import { CtfMobileMenu } from '@src/components/features/ctf-components/ctf-mobile-menu/ctf-mobile-menu';
 import type {
   CtfPageFieldsFragment,
-  CtfPageQuery,
   ReducedFooterFieldsFragment,
   ReducedHeaderFieldsFragment,
 } from '@src/components/features/ctf-components/ctf-page/__generated/ctf-page.generated';
@@ -20,49 +16,8 @@ export type CtfPageFieldsFragmentWithHeadersAndFooters = CtfPageFieldsFragment &
   footerCollection?: Array<ReducedFooterFieldsFragment | null>;
 };
 
-const templateTypeToHeaderTypeMap = {
-  'Home Page Template': 'Home Page Header',
-  'Default Template': 'Default Header',
-};
-const templateTypeToFooterTypeMap = {
-  'Home Page Template': 'Home Page Footer',
-};
-
-const findHeaderEntry = (
-  headerCollection: Array<ReducedHeaderFieldsFragment | null>,
-  templateType: string,
-) => {
-  const headerType = templateTypeToHeaderTypeMap[templateType];
-  const requiredHeader = headerCollection?.find((entry: ReducedHeaderFieldsFragment | null) =>
-    entry?.headerTemplateType?.includes(headerType),
-  );
-  return requiredHeader;
-};
-
-const findFooterEntry = (
-  footerCollection: Array<ReducedFooterFieldsFragment | null>,
-  templateType: string,
-) => {
-  const footerType = templateTypeToFooterTypeMap[templateType];
-  const requiredFooter = footerCollection?.find((entry: ReducedFooterFieldsFragment | null) =>
-    entry?.footerTemplateType?.includes(footerType),
-  );
-  return requiredFooter;
-};
-
 const CtfPage = (props: CtfPageFieldsFragmentWithHeadersAndFooters) => {
   const content = props.contentCollection && props.contentCollection.items.filter(it => !!it);
-  const templateType = props?.templateType;
-  const headerCollection = props.headerCollection;
-  const footerCollection = props.footerCollection;
-
-  //Find Appropriate Header and Footer for the page using templateType
-
-  const headerEntry: any =
-    headerCollection && templateType && findHeaderEntry(headerCollection, templateType);
-
-  const footerEntry: any =
-    footerCollection && templateType && findFooterEntry(footerCollection, templateType);
 
   // Dynamic layout config based on pageLayout
   const getLayoutConfig = (pageLayout?: string | null) => {
@@ -107,7 +62,9 @@ const CtfPage = (props: CtfPageFieldsFragmentWithHeadersAndFooters) => {
     <PageContainer>
       {/* header */}
       {/* {props.header && <CtfHeader {...props.header} />} */}
-      {headerEntry && <ComponentResolver componentProps={headerEntry} forceGql />}
+      {props?.headerCollection && props?.headerCollection?.length > 0 && (
+        <ComponentResolver componentProps={props.headerCollection[0] as any} forceGql />
+      )}
 
       {/* page content */}
       <Container
@@ -125,7 +82,9 @@ const CtfPage = (props: CtfPageFieldsFragmentWithHeadersAndFooters) => {
 
       {/* footer */}
       {/* {props.footer && <CtfFooter {...props.footer} />} */}
-      {footerEntry && <ComponentResolver componentProps={footerEntry} forceGql />}
+      {props?.footerCollection && props?.footerCollection?.length > 0 && (
+        <ComponentResolver componentProps={props.footerCollection[0] as any} forceGql />
+      )}
 
       {/* mobile menu
       {props?.header?.navigationItemsCollection && (
