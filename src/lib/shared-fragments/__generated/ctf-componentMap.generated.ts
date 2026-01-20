@@ -46,6 +46,8 @@ export type ComponentReferenceFields_SubNavigationItem_Fragment = { __typename: 
 
 export type ComponentReferenceFields_TabbedFormContainer_Fragment = { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } };
 
+export type ComponentReferenceFields_Template_Fragment = { __typename: 'Template', sys: { __typename?: 'Sys', id: string } };
+
 export type ComponentReferenceFields_VideoSection_Fragment = { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } };
 
 export type ComponentReferenceFieldsFragment =
@@ -72,6 +74,7 @@ export type ComponentReferenceFieldsFragment =
   | ComponentReferenceFields_Seo_Fragment
   | ComponentReferenceFields_SubNavigationItem_Fragment
   | ComponentReferenceFields_TabbedFormContainer_Fragment
+  | ComponentReferenceFields_Template_Fragment
   | ComponentReferenceFields_VideoSection_Fragment
 ;
 

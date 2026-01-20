@@ -3,11 +3,7 @@ import Head from 'next/head';
 
 import CtfPage from './ctf-page';
 
-import {
-  CtfPageFieldsFragment,
-  ReducedHeaderFieldsFragment,
-  useCtfPageQuery,
-} from '@src/components/features/ctf-components/ctf-page/__generated/ctf-page.generated';
+import { useCtfPageQuery } from '@src/components/features/ctf-components/ctf-page/__generated/ctf-page.generated';
 import { PageError } from '@src/components/features/errors/page-error';
 import { useContentfulContext } from '@src/contentful-context';
 import { tryget } from '@src/utils';
@@ -30,13 +26,6 @@ const CtfPageGgl = ({ slug: slugFromProps }: Props) => {
   });
 
   const page = useContentfulLiveUpdates(tryget(() => data?.pageCollection!.items[0]));
-
-  const headers = useContentfulLiveUpdates(tryget(() => data?.headerCollection!.items));
-  const footers = useContentfulLiveUpdates(tryget(() => data?.footerCollection!.items));
-  if (page) {
-    page['headerCollection'] = headers;
-    page['footerCollection'] = footers;
-  }
 
   if (isLoading) return <></>;
   if (!page) {

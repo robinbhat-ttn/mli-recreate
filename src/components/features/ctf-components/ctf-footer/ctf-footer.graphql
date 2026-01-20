@@ -101,7 +101,6 @@ fragment FooterFields on Footer {
   sys {
     id
   }
-  footerTemplateType
   footerLinksCollection(limit: 20) {
     ...FooterLinksCollection
   }

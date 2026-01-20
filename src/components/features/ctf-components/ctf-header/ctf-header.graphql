@@ -52,7 +52,6 @@ fragment HeaderFields on Header {
     id
   }
   headerType
-  headerTemplateType 
   logo {
     ...AssetFields
   }

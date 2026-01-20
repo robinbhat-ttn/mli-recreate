@@ -37,6 +37,7 @@ export type FormFieldsFragment = { __typename?: 'Form', formType?: string | null
           | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
          | null> }, assets: { __typename?: 'FormDescriptionAssets', block: Array<(
           { __typename?: 'Asset' }
@@ -73,6 +74,7 @@ export type TabsFieldsFragment = { __typename: 'FormTab', sys: { __typename?: 'S
           | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
          | null> }, assets: { __typename?: 'FormTabTabLabelAssets', block: Array<(
           { __typename?: 'Asset' }
