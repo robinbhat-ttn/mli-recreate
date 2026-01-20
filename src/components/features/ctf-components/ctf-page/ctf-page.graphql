@@ -1,14 +1,15 @@
 fragment PageContentFields on PageContentItem {
   __typename
 }
-
 fragment CtfPageFields on Page {
   __typename
   sys {
     id
   }
   pageName
-  templateType
+  template{
+    ...TemplateFields
+  }
   pageLayout
   internalName: pageName
   slug
@@ -33,34 +34,10 @@ fragment CtfPageFields on Page {
     }
   }
 }
-fragment ReducedHeaderFields on Header {
-  __typename
-  sys{
-    id
-  }
-  headerTemplateType 
-}
-fragment ReducedFooterFields on Footer{
-  __typename
-  sys{
-    id
-  }
-  footerTemplateType
-}
 query CtfPage($slug: String!, $locale: String, $preview: Boolean) {
   pageCollection(where: { slug: $slug }, locale: $locale, preview: $preview, limit: 1) {
     items {
       ...CtfPageFields
-    }
-  }
-  headerCollection{
-    items{
-      ...ReducedHeaderFields
-    }
-  }
-  footerCollection{
-    items{
-      ...ReducedFooterFields
     }
   }
 }

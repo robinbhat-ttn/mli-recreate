@@ -2,21 +2,12 @@ import { Container } from '@mui/material';
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
 
-import type {
-  CtfPageFieldsFragment,
-  ReducedFooterFieldsFragment,
-  ReducedHeaderFieldsFragment,
-} from '@src/components/features/ctf-components/ctf-page/__generated/ctf-page.generated';
 import { ComponentResolver } from '@src/components/shared/component-resolver';
 import { PageContainer } from '@src/components/templates/page-container';
 import LayoutContext, { defaultLayout } from '@src/layout-context';
+import { CtfPageFieldsFragment } from './__generated/ctf-page.generated';
 
-export type CtfPageFieldsFragmentWithHeadersAndFooters = CtfPageFieldsFragment & {
-  headerCollection?: Array<ReducedHeaderFieldsFragment | null>;
-  footerCollection?: Array<ReducedFooterFieldsFragment | null>;
-};
-
-const CtfPage = (props: CtfPageFieldsFragmentWithHeadersAndFooters) => {
+const CtfPage = (props: CtfPageFieldsFragment) => {
   const content = props.contentCollection && props.contentCollection.items.filter(it => !!it);
 
   // Dynamic layout config based on pageLayout
@@ -62,8 +53,8 @@ const CtfPage = (props: CtfPageFieldsFragmentWithHeadersAndFooters) => {
     <PageContainer>
       {/* header */}
       {/* {props.header && <CtfHeader {...props.header} />} */}
-      {props?.headerCollection && props?.headerCollection?.length > 0 && (
-        <ComponentResolver componentProps={props.headerCollection[0] as any} forceGql />
+      {props?.template?.header && (
+        <ComponentResolver componentProps={props?.template?.header as any} forceGql />
       )}
 
       {/* page content */}
@@ -82,8 +73,8 @@ const CtfPage = (props: CtfPageFieldsFragmentWithHeadersAndFooters) => {
 
       {/* footer */}
       {/* {props.footer && <CtfFooter {...props.footer} />} */}
-      {props?.footerCollection && props?.footerCollection?.length > 0 && (
-        <ComponentResolver componentProps={props.footerCollection[0] as any} forceGql />
+      {props?.template?.footer && (
+        <ComponentResolver componentProps={props?.template?.footer as any} forceGql />
       )}
 
       {/* mobile menu

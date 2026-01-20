@@ -1,0 +1,17 @@
+fragment TemplateFields on Template{
+  __typename
+  sys{
+    id
+  }
+  header{
+    ...ComponentReferenceFields
+  }
+  footer{
+    ...ComponentReferenceFields
+  }
+}
+query CtfTemplate($id: String!, $locale: String, $preview: Boolean){
+  template(id: $id, locale: $locale, preview: $preview){
+    ...TemplateFields
+  }
+}
