@@ -31,6 +31,14 @@
       box-shadow: none;
     }
 
+    &.tabbedForm__wrapper--modal {
+      border: 0;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+      width: 100%;
+    }
+
     @media (min-width: 1024px) {
       flex-direction: row;
       align-items: stretch;
@@ -43,6 +51,11 @@
     padding: $space-32 $space-16;
     flex: 1;
     width: 100%;
+
+    &--modal {
+      padding: 0;
+      background: transparent;
+    }
   }
 
   &__tabs {
@@ -89,7 +102,10 @@
 
   &__title {
     margin-bottom: $space-24;
+    padding-bottom: $space-24;
     text-align: center;
+    border-bottom: 1px solid $border-light;
+    width: 100%;
 
     h3 {
       @include font-apply($font-noto, $fw-semi-bold);
@@ -164,6 +180,14 @@
     column-gap: $space-24;
     align-items: start;
     row-gap: 30px;
+
+    .tabbedForm__wrapper--modal & {
+      flex-direction: column;
+
+      .tabbedForm__field {
+        flex: 1 1 100%;
+      }
+    }
   }
 
   &__field {
@@ -478,6 +502,11 @@
       flex: 1 1 100% !important;
     }
 
+    .tabbedForm__wrapper--modal & {
+      flex: 1 1 100% !important;
+      min-width: auto;
+    }
+
     :global(.MuiOutlinedInput-root) {
       padding: 0 !important;
       border: 1px solid $border-light;
@@ -526,6 +555,11 @@
 
     @media (max-width: 639px) {
       flex: 1 1 100%;
+    }
+
+    .tabbedForm__wrapper--modal & {
+      flex: 1 1 100%;
+      min-width: auto;
     }
   }
 
@@ -746,6 +780,19 @@
       width: 100%;
     }
 
+    .tabbedForm__wrapper--modal & {
+      flex: 1 1 100% !important;
+      width: 100%;
+
+      &:first-of-type {
+        flex: 1 1 100% !important;
+      }
+
+      &:nth-of-type(2) {
+        flex: 1 1 100% !important;
+      }
+    }
+
     &.tabbedForm__radioGroupMultiRow {
       .tabbedForm__radioOptions {
         display: flex;
@@ -835,12 +882,18 @@
     transition: $transition-standard background-color;
     width: 20.438rem;
 
-    &:hover {
+    &:hover:not(:disabled) {
       background: #E51264;
     }
 
-    &:active {
+    &:active:not(:disabled) {
       transform: scale(0.98);
+    }
+
+    &:disabled {
+      background: #a8abb1;
+      cursor: not-allowed;
+      opacity: 0.6;
     }
   }
 

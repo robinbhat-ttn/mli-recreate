@@ -81,6 +81,12 @@ interface CtfFormRendererProps {
   inspectorModeId?: string;
   description?: any;
   title?: string | any;
+  isInModal?: boolean;
+  onFormValidationChange?: (isValid: boolean) => void;
+  isSubmitDisabled?: boolean;
+  onSubmitClick?: () => void;
+  isLastStep?: boolean;
+  onSaveFormData?: (formData: Record<string, any>) => void;
 }
 
 export const CtfFormRenderer = (props: CtfFormRendererProps) => {
@@ -97,10 +103,20 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
     inspectorModeId,
     description,
     title,
+    isInModal = false,
+    onFormValidationChange,
+    isSubmitDisabled = false,
+    onSubmitClick,
+    isLastStep = false,
+    onSaveFormData,
   } = props;
 
   const containerClass =
-    layoutType === 'Home Page Layout' ? 'container-sec' : styles['form-container--default'];
+    layoutType === 'Home Page Layout'
+      ? 'container-sec'
+      : isInModal
+        ? ''
+        : styles['form-container--default'];
 
   const [activeTab, setActiveTab] = useState(initialActiveTab);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -110,11 +126,24 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const phoneCountryDropdownRef = useRef<HTMLDivElement>(null);
 
-  // Initialize form data with default values
+  // Initialize form data with default values and localStorage
   const getInitialFormData = () => {
+    // Try to load from localStorage first (only on client-side)
+    if (isInModal && typeof window !== 'undefined') {
+      try {
+        const savedData = localStorage.getItem(`form_data_step_${title}`);
+        if (savedData) {
+          return JSON.parse(savedData);
+        }
+      } catch (error) {
+        console.error('Error loading form data from localStorage:', error);
+      }
+    }
+
     const initialData: Record<string, any> = {};
 
     fields.forEach(field => {
@@ -140,6 +169,27 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
   };
 
   const [formData, setFormData] = useState<Record<string, any>>(getInitialFormData());
+
+  // Notify parent when form validation changes
+  useEffect(() => {
+    const hasErrors = Object.keys(errors).length > 0;
+
+    // Check if all required fields are filled
+    const requiredFields = fields.filter(field => field?.required);
+    const allRequiredFieldsFilled = requiredFields.every(field => {
+      const fieldValue = formData[field.name || ''];
+      return (
+        fieldValue !== null && fieldValue !== undefined && fieldValue !== '' && fieldValue !== false
+      );
+    });
+
+    const isValid = !hasErrors && allRequiredFieldsFilled;
+    setIsFormValid(isValid);
+
+    if (isInModal && onFormValidationChange) {
+      onFormValidationChange(isValid);
+    }
+  }, [errors, formData, isInModal, onFormValidationChange, fields]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -755,13 +805,15 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
       className={`${styles.tabbedForm} ${layoutType !== 'Home Page Layout' ? styles['default--form'] : ''}`}
     >
       <Box
-        className={`${containerClass} ${styles.tabbedForm__wrapper}`}
+        className={`${containerClass} ${styles.tabbedForm__wrapper} ${isInModal ? styles['tabbedForm__wrapper--modal'] : ''}`}
         {...(inspectorModeId &&
           inspectorMode({ entryId: inspectorModeId, fieldId: 'tabbedFormContainer' }))}
       >
         {/* Left: Form Content */}
-        <Box className={styles.tabbedForm__content}>
-          {title && layoutType !== 'HomePageLayout' && (
+        <Box
+          className={`${styles.tabbedForm__content} ${isInModal ? styles['tabbedForm__content--modal'] : ''}`}
+        >
+          {title && layoutType !== 'HomePageLayout' && !isInModal && (
             <div className={styles.tabbedForm__title}>
               <h3>{title}</h3>
             </div>
@@ -816,13 +868,44 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
 
             <div className={styles.tabbedForm__footer}>
               {submitButton && (
-                <button
-                  type="submit"
-                  className={styles.tabbedForm__submit}
-                  {...inspectorMode({ entryId: submitButton.sys.id, fieldId: 'link' })}
-                >
-                  {submitButton.linkHeading}
-                </button>
+                <>
+                  {/* For modal last step: always show button but disabled when form invalid */}
+                  {isInModal && isLastStep ? (
+                    <button
+                      type="submit"
+                      className={styles.tabbedForm__submit}
+                      disabled={!isFormValid}
+                      onClick={() => onSaveFormData?.(formData)}
+                      {...inspectorMode({ entryId: submitButton.sys.id, fieldId: 'link' })}
+                    >
+                      {submitButton.linkHeading}
+                    </button>
+                  ) : isInModal ? (
+                    /* For modal non-last steps: show button only when form valid */
+                    isFormValid && (
+                      <button
+                        type="button"
+                        className={styles.tabbedForm__submit}
+                        onClick={() => {
+                          onSaveFormData?.(formData);
+                          onSubmitClick?.();
+                        }}
+                        {...inspectorMode({ entryId: submitButton.sys.id, fieldId: 'link' })}
+                      >
+                        {submitButton.linkHeading}
+                      </button>
+                    )
+                  ) : (
+                    /* For non-modal: always show button */
+                    <button
+                      type="submit"
+                      className={styles.tabbedForm__submit}
+                      {...inspectorMode({ entryId: submitButton.sys.id, fieldId: 'link' })}
+                    >
+                      {submitButton.linkHeading}
+                    </button>
+                  )}
+                </>
               )}
 
               {layoutType === 'Home Page Layout' && (
