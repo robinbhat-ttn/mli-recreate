@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { Tabs, Tab, Box } from '@mui/material';
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
@@ -87,10 +88,13 @@ interface CtfFormRendererProps {
   onSubmitClick?: () => void;
   isLastStep?: boolean;
   onSaveFormData?: (formData: Record<string, any>) => void;
+  currentStep?: number;
+  formType?: 'lead' | 'quote';
 }
 
 export const CtfFormRenderer = (props: CtfFormRendererProps) => {
   const inspectorMode = useContentfulInspectorMode();
+  const router = useRouter();
   const { layoutType } = useLayoutContext();
   const {
     fields,
@@ -109,6 +113,8 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
     onSubmitClick,
     isLastStep = false,
     onSaveFormData,
+    currentStep = 0,
+    formType = 'lead',
   } = props;
 
   const containerClass =
@@ -130,20 +136,21 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const phoneCountryDropdownRef = useRef<HTMLDivElement>(null);
 
-  // Initialize form data with default values and localStorage
-  const getInitialFormData = () => {
-    // Try to load from localStorage first (only on client-side)
-    if (isInModal && typeof window !== 'undefined') {
-      try {
-        const savedData = localStorage.getItem(`form_data_step_${title}`);
-        if (savedData) {
-          return JSON.parse(savedData);
-        }
-      } catch (error) {
-        console.error('Error loading form data from localStorage:', error);
-      }
+  // Generate storage key based on form type
+  const getStorageKey = (step = 0): string => {
+    if (formType === 'quote') {
+      return `quote_form_data_step_${step}`;
     }
+    return 'lead_form_data';
+  };
 
+  // Generate random lead ID
+  const generateLeadId = (): string => {
+    return 'LEAD_' + Math.random().toString(36).substr(2, 9).toUpperCase();
+  };
+
+  // Get default form data (without localStorage)
+  const getDefaultFormData = () => {
     const initialData: Record<string, any> = {};
 
     fields.forEach(field => {
@@ -168,7 +175,35 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
     return initialData;
   };
 
-  const [formData, setFormData] = useState<Record<string, any>>(getInitialFormData());
+  // Initialize form data with default values only (to avoid hydration issues)
+  const [formData, setFormData] = useState<Record<string, any>>(getDefaultFormData());
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  // Load from localStorage after hydration (for lead forms and quote forms on currentStep change)
+  useEffect(() => {
+    setIsHydrated(true);
+
+    if (typeof window !== 'undefined') {
+      try {
+        const storageKey = getStorageKey(currentStep);
+        const savedData = localStorage.getItem(storageKey);
+        if (savedData) {
+          setFormData(JSON.parse(savedData));
+          // Reset errors when loading new data
+          setErrors({});
+          setIsSubmitted(false);
+          return;
+        }
+      } catch (error) {
+        console.error('Error loading form data from localStorage:', error);
+      }
+    }
+
+    // If no saved data, use defaults
+    setFormData(getDefaultFormData());
+    setErrors({});
+    setIsSubmitted(false);
+  }, [currentStep, isInModal]);
 
   // Notify parent when form validation changes
   useEffect(() => {
@@ -208,6 +243,27 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  // Auto-save lead form data and manage lead ID
+  useEffect(() => {
+    if (!isInModal && formType === 'lead' && typeof window !== 'undefined') {
+      const saveTimer = setTimeout(() => {
+        try {
+          // Generate and save lead ID if not exists
+          if (!localStorage.getItem('lead_id')) {
+            const newLeadId = generateLeadId();
+            localStorage.setItem('lead_id', newLeadId);
+          }
+          // Auto-save form data
+          localStorage.setItem(getStorageKey(currentStep), JSON.stringify(formData));
+        } catch (error) {
+          console.error('Error auto-saving lead form data:', error);
+        }
+      }, 500); // Debounce saves to every 500ms
+
+      return () => clearTimeout(saveTimer);
+    }
+  }, [formData, isInModal, formType, currentStep]);
 
   if (!fields.length) return null;
 
@@ -295,6 +351,15 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
     setIsSubmitted(true);
     if (validateForm()) {
       console.log('Form submitted:', formData);
+
+      // If this is a lead form, redirect to add ?stage=quote param
+      if (!isInModal && formType === 'lead') {
+        router.push(
+          { pathname: router.pathname, query: { ...router.query, stage: 'quote' } },
+          undefined,
+          { shallow: true },
+        );
+      }
     }
   };
 

@@ -1,13 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { FormWrapperFieldsFragment } from './__generated/ctf-form-wrapper.generated';
 import { CtfFormRenderer } from '@src/components/features/ctf-components/ctf-form/ctf-form-renderer';
 import styles from './ctf-form-wrapper.module.scss';
 
 export const CtfFormWrapper = (props: FormWrapperFieldsFragment) => {
+  const router = useRouter();
   const forms = props.formsCollection?.items || [];
   const [currentStep, setCurrentStep] = useState(0);
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
+
+  // Check for stage=quote query parameter
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const stage = router.query.stage;
+      setIsOpen(stage === 'quote');
+    }
+  }, [router.query.stage]);
 
   if (!forms.length || !isOpen) return null;
 
@@ -25,7 +35,7 @@ export const CtfFormWrapper = (props: FormWrapperFieldsFragment) => {
   const handleSaveFormData = (formData: Record<string, any>) => {
     try {
       if (typeof window !== 'undefined') {
-        localStorage.setItem(`form_data_step_${currentStep}`, JSON.stringify(formData));
+        localStorage.setItem(`quote_form_data_step_${currentStep}`, JSON.stringify(formData));
       }
     } catch (error) {
       console.error('Error saving form data:', error);
@@ -83,6 +93,8 @@ export const CtfFormWrapper = (props: FormWrapperFieldsFragment) => {
             onSubmitClick={!isLastStep ? handleSubmitClick : undefined}
             isLastStep={isLastStep}
             onSaveFormData={handleSaveFormData}
+            currentStep={currentStep}
+            formType="quote"
           />
         </div>
       </div>
