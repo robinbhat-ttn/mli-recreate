@@ -1,0 +1,149 @@
+.form-wrapper__backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: $space-16;
+
+  @include min-width('md') {
+    padding: 0;
+  }
+}
+
+.form-wrapper__modal {
+  position: relative;
+  background-color: $white;
+  border-radius: $radius-16;
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 600px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: $space-24;
+  display: flex;
+  flex-direction: column;
+  gap: $space-20;
+
+  @include min-width('md') {
+    padding: $space-24;
+    gap: $space-24;
+  }
+}
+
+.form-wrapper__progress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: $space-8;
+  padding-top: $space-8;
+}
+
+.form-wrapper__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: $border-light;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &--active {
+    background-color: $text-primary;
+    width: 12px;
+    height: 6px;
+    border-radius: 3px;
+  }
+
+  &--completed {
+    background-color: $text-primary;
+  }
+}
+
+.form-wrapper__close {
+  position: absolute;
+  top: $space-16;
+  right: $space-16;
+  background: none;
+  border: none;
+  font-size: $fs-28;
+  color: $text-muted;
+  cursor: pointer;
+  padding: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: $text-primary;
+  }
+}
+
+.form-wrapper__header {
+  display: flex;
+  align-items: center;
+  min-height: $space-20;
+}
+
+.form-wrapper__back {
+  display: flex;
+  align-items: center;
+  gap: $space-6;
+  background: none;
+  border: none;
+  color: $text-primary;
+  cursor: pointer;
+  @include font-apply($font-noto, $fw-semi-bold);
+  font-size: $fs-16;
+  padding: 0;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: $text-secondary;
+  }
+}
+
+.form-wrapper__title {
+  margin: 0;
+  text-align: center;
+  @include font-apply($font-noto, $fw-semi-bold);
+  font-size: $fs-18;
+  color: $text-primary;
+  line-height: $lh-xl;
+}
+
+.form-wrapper__content {
+  display: flex;
+  flex-direction: column;
+  gap: $space-20;
+  flex: 1;
+}
+
+.form-wrapper__submit {
+  width: 100%;
+  padding: $space-14 $space-24;
+  border-radius: $radius-32;
+  @include font-apply($font-noto, $fw-semi-bold);
+  font-size: $fs-16;
+  cursor: pointer;
+  border: none;
+  background-color: #a8abb1;
+  color: $white;
+  transition: all 0.2s ease;
+  margin-top: $space-8;
+
+  &:hover {
+    background-color: #8a8d91;
+  }
+
+  &:active {
+    background-color: #6f7176;
+  }
+}

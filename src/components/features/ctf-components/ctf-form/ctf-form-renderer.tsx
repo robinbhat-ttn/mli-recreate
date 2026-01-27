@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { Tabs, Tab, Box } from '@mui/material';
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
@@ -81,10 +82,19 @@ interface CtfFormRendererProps {
   inspectorModeId?: string;
   description?: any;
   title?: string | any;
+  isInModal?: boolean;
+  onFormValidationChange?: (isValid: boolean) => void;
+  isSubmitDisabled?: boolean;
+  onSubmitClick?: () => void;
+  isLastStep?: boolean;
+  onSaveFormData?: (formData: Record<string, any>) => void;
+  currentStep?: number;
+  formType?: 'lead' | 'quote';
 }
 
 export const CtfFormRenderer = (props: CtfFormRendererProps) => {
   const inspectorMode = useContentfulInspectorMode();
+  const router = useRouter();
   const { layoutType } = useLayoutContext();
   const {
     fields,
@@ -97,10 +107,22 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
     inspectorModeId,
     description,
     title,
+    isInModal = false,
+    onFormValidationChange,
+    isSubmitDisabled = false,
+    onSubmitClick,
+    isLastStep = false,
+    onSaveFormData,
+    currentStep = 0,
+    formType = 'lead',
   } = props;
 
   const containerClass =
-    layoutType === 'Home Page Layout' ? 'container-sec' : styles['form-container--default'];
+    layoutType === 'Home Page Layout'
+      ? 'container-sec'
+      : isInModal
+        ? ''
+        : styles['form-container--default'];
 
   const [activeTab, setActiveTab] = useState(initialActiveTab);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -110,11 +132,25 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const phoneCountryDropdownRef = useRef<HTMLDivElement>(null);
 
-  // Initialize form data with default values
-  const getInitialFormData = () => {
+  // Generate storage key based on form type
+  const getStorageKey = (step = 0): string => {
+    if (formType === 'quote') {
+      return `quote_form_data_step_${step}`;
+    }
+    return 'lead_form_data';
+  };
+
+  // Generate random lead ID
+  const generateLeadId = (): string => {
+    return 'LEAD_' + Math.random().toString(36).substr(2, 9).toUpperCase();
+  };
+
+  // Get default form data (without localStorage)
+  const getDefaultFormData = () => {
     const initialData: Record<string, any> = {};
 
     fields.forEach(field => {
@@ -139,7 +175,56 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
     return initialData;
   };
 
-  const [formData, setFormData] = useState<Record<string, any>>(getInitialFormData());
+  // Initialize form data with default values only (to avoid hydration issues)
+  const [formData, setFormData] = useState<Record<string, any>>(getDefaultFormData());
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  // Load from localStorage after hydration (for lead forms and quote forms on currentStep change)
+  useEffect(() => {
+    setIsHydrated(true);
+
+    if (typeof window !== 'undefined') {
+      try {
+        const storageKey = getStorageKey(currentStep);
+        const savedData = localStorage.getItem(storageKey);
+        if (savedData) {
+          setFormData(JSON.parse(savedData));
+          // Reset errors when loading new data
+          setErrors({});
+          setIsSubmitted(false);
+          return;
+        }
+      } catch (error) {
+        console.error('Error loading form data from localStorage:', error);
+      }
+    }
+
+    // If no saved data, use defaults
+    setFormData(getDefaultFormData());
+    setErrors({});
+    setIsSubmitted(false);
+  }, [currentStep, isInModal]);
+
+  // Notify parent when form validation changes
+  useEffect(() => {
+    const hasErrors = Object.keys(errors).length > 0;
+
+    // Check if all required fields are filled
+    const requiredFields = fields.filter(field => field?.required);
+    const allRequiredFieldsFilled = requiredFields.every(field => {
+      const fieldValue = formData[field.name || ''];
+      return (
+        fieldValue !== null && fieldValue !== undefined && fieldValue !== '' && fieldValue !== false
+      );
+    });
+
+    const isValid = !hasErrors && allRequiredFieldsFilled;
+    setIsFormValid(isValid);
+
+    if (isInModal && onFormValidationChange) {
+      onFormValidationChange(isValid);
+    }
+  }, [errors, formData, isInModal, onFormValidationChange, fields]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -158,6 +243,27 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  // Auto-save lead form data and manage lead ID
+  useEffect(() => {
+    if (!isInModal && formType === 'lead' && typeof window !== 'undefined') {
+      const saveTimer = setTimeout(() => {
+        try {
+          // Generate and save lead ID if not exists
+          if (!localStorage.getItem('lead_id')) {
+            const newLeadId = generateLeadId();
+            localStorage.setItem('lead_id', newLeadId);
+          }
+          // Auto-save form data
+          localStorage.setItem(getStorageKey(currentStep), JSON.stringify(formData));
+        } catch (error) {
+          console.error('Error auto-saving lead form data:', error);
+        }
+      }, 500); // Debounce saves to every 500ms
+
+      return () => clearTimeout(saveTimer);
+    }
+  }, [formData, isInModal, formType, currentStep]);
 
   if (!fields.length) return null;
 
@@ -245,6 +351,15 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
     setIsSubmitted(true);
     if (validateForm()) {
       console.log('Form submitted:', formData);
+
+      // If this is a lead form, redirect to add ?stage=quote param
+      if (!isInModal && formType === 'lead') {
+        router.push(
+          { pathname: router.pathname, query: { ...router.query, stage: 'quote' } },
+          undefined,
+          { shallow: true },
+        );
+      }
     }
   };
 
@@ -755,13 +870,15 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
       className={`${styles.tabbedForm} ${layoutType !== 'Home Page Layout' ? styles['default--form'] : ''}`}
     >
       <Box
-        className={`${containerClass} ${styles.tabbedForm__wrapper}`}
+        className={`${containerClass} ${styles.tabbedForm__wrapper} ${isInModal ? styles['tabbedForm__wrapper--modal'] : ''}`}
         {...(inspectorModeId &&
           inspectorMode({ entryId: inspectorModeId, fieldId: 'tabbedFormContainer' }))}
       >
         {/* Left: Form Content */}
-        <Box className={styles.tabbedForm__content}>
-          {title && layoutType !== 'HomePageLayout' && (
+        <Box
+          className={`${styles.tabbedForm__content} ${isInModal ? styles['tabbedForm__content--modal'] : ''}`}
+        >
+          {title && layoutType !== 'HomePageLayout' && !isInModal && (
             <div className={styles.tabbedForm__title}>
               <h3>{title}</h3>
             </div>
@@ -816,13 +933,44 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
 
             <div className={styles.tabbedForm__footer}>
               {submitButton && (
-                <button
-                  type="submit"
-                  className={styles.tabbedForm__submit}
-                  {...inspectorMode({ entryId: submitButton.sys.id, fieldId: 'link' })}
-                >
-                  {submitButton.linkHeading}
-                </button>
+                <>
+                  {/* For modal last step: always show button but disabled when form invalid */}
+                  {isInModal && isLastStep ? (
+                    <button
+                      type="submit"
+                      className={styles.tabbedForm__submit}
+                      disabled={!isFormValid}
+                      onClick={() => onSaveFormData?.(formData)}
+                      {...inspectorMode({ entryId: submitButton.sys.id, fieldId: 'link' })}
+                    >
+                      {submitButton.linkHeading}
+                    </button>
+                  ) : isInModal ? (
+                    /* For modal non-last steps: show button only when form valid */
+                    isFormValid && (
+                      <button
+                        type="button"
+                        className={styles.tabbedForm__submit}
+                        onClick={() => {
+                          onSaveFormData?.(formData);
+                          onSubmitClick?.();
+                        }}
+                        {...inspectorMode({ entryId: submitButton.sys.id, fieldId: 'link' })}
+                      >
+                        {submitButton.linkHeading}
+                      </button>
+                    )
+                  ) : (
+                    /* For non-modal: always show button */
+                    <button
+                      type="submit"
+                      className={styles.tabbedForm__submit}
+                      {...inspectorMode({ entryId: submitButton.sys.id, fieldId: 'link' })}
+                    >
+                      {submitButton.linkHeading}
+                    </button>
+                  )}
+                </>
               )}
 
               {layoutType === 'Home Page Layout' && (
