@@ -56,6 +56,11 @@ export const componentMap = {
       module => module.CtfFormWrapper,
     ),
   ),
+  Journey: dynamic(() =>
+    import('@src/components/features/ctf-components/ctf-journey/ctf-journey').then(
+      module => module.CtfJourney,
+    ),
+  ),
 };
 
 export const componentGqlMap = {
@@ -112,6 +117,11 @@ export const componentGqlMap = {
   FormWrapper: dynamic(() =>
     import('@src/components/features/ctf-components/ctf-form-wrapper/ctf-form-wrapper-gql').then(
       module => module.CtfFormWrapperGql,
+    ),
+  ),
+  Journey: dynamic(() =>
+    import('@src/components/features/ctf-components/ctf-journey/ctf-journey-gql').then(
+      module => module.CtfJourneyGql,
     ),
   ),
 };

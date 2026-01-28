@@ -30,6 +30,8 @@ export type ComponentReferenceFields_HamburgerMenu_Fragment = { __typename: 'Ham
 
 export type ComponentReferenceFields_Header_Fragment = { __typename: 'Header', sys: { __typename?: 'Sys', id: string } };
 
+export type ComponentReferenceFields_Journey_Fragment = { __typename: 'Journey', sys: { __typename?: 'Sys', id: string } };
+
 export type ComponentReferenceFields_Link_Fragment = { __typename: 'Link', sys: { __typename?: 'Sys', id: string } };
 
 export type ComponentReferenceFields_NavigationItems_Fragment = { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } };
@@ -39,8 +41,6 @@ export type ComponentReferenceFields_OptionSet_Fragment = { __typename: 'OptionS
 export type ComponentReferenceFields_Page_Fragment = { __typename: 'Page', sys: { __typename?: 'Sys', id: string } };
 
 export type ComponentReferenceFields_Question_Fragment = { __typename: 'Question', sys: { __typename?: 'Sys', id: string } };
-
-export type ComponentReferenceFields_Seo_Fragment = { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } };
 
 export type ComponentReferenceFields_SubNavigationItem_Fragment = { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } };
 
@@ -66,12 +66,12 @@ export type ComponentReferenceFieldsFragment =
   | ComponentReferenceFields_FormWrapper_Fragment
   | ComponentReferenceFields_HamburgerMenu_Fragment
   | ComponentReferenceFields_Header_Fragment
+  | ComponentReferenceFields_Journey_Fragment
   | ComponentReferenceFields_Link_Fragment
   | ComponentReferenceFields_NavigationItems_Fragment
   | ComponentReferenceFields_OptionSet_Fragment
   | ComponentReferenceFields_Page_Fragment
   | ComponentReferenceFields_Question_Fragment
-  | ComponentReferenceFields_Seo_Fragment
   | ComponentReferenceFields_SubNavigationItem_Fragment
   | ComponentReferenceFields_TabbedFormContainer_Fragment
   | ComponentReferenceFields_Template_Fragment

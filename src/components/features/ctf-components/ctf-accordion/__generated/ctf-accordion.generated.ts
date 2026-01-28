@@ -1,6 +1,6 @@
 import * as Types from '../../../../../lib/__generated/graphql.types';
 
-import { ComponentReferenceFields_Accordion_Fragment, ComponentReferenceFields_Banner_Fragment, ComponentReferenceFields_Button_Fragment, ComponentReferenceFields_ButtonWithLinks_Fragment, ComponentReferenceFields_Card_Fragment, ComponentReferenceFields_Carousel_Fragment, ComponentReferenceFields_ComponentTextBlock_Fragment, ComponentReferenceFields_Disclaimer_Fragment, ComponentReferenceFields_Footer_Fragment, ComponentReferenceFields_Form_Fragment, ComponentReferenceFields_FormField_Fragment, ComponentReferenceFields_FormTab_Fragment, ComponentReferenceFields_FormWrapper_Fragment, ComponentReferenceFields_HamburgerMenu_Fragment, ComponentReferenceFields_Header_Fragment, ComponentReferenceFields_Link_Fragment, ComponentReferenceFields_NavigationItems_Fragment, ComponentReferenceFields_OptionSet_Fragment, ComponentReferenceFields_Page_Fragment, ComponentReferenceFields_Question_Fragment, ComponentReferenceFields_Seo_Fragment, ComponentReferenceFields_SubNavigationItem_Fragment, ComponentReferenceFields_TabbedFormContainer_Fragment, ComponentReferenceFields_Template_Fragment, ComponentReferenceFields_VideoSection_Fragment } from '../../../../../lib/shared-fragments/__generated/ctf-componentMap.generated';
+import { ComponentReferenceFields_Accordion_Fragment, ComponentReferenceFields_Banner_Fragment, ComponentReferenceFields_Button_Fragment, ComponentReferenceFields_ButtonWithLinks_Fragment, ComponentReferenceFields_Card_Fragment, ComponentReferenceFields_Carousel_Fragment, ComponentReferenceFields_ComponentTextBlock_Fragment, ComponentReferenceFields_Disclaimer_Fragment, ComponentReferenceFields_Footer_Fragment, ComponentReferenceFields_Form_Fragment, ComponentReferenceFields_FormField_Fragment, ComponentReferenceFields_FormTab_Fragment, ComponentReferenceFields_FormWrapper_Fragment, ComponentReferenceFields_HamburgerMenu_Fragment, ComponentReferenceFields_Header_Fragment, ComponentReferenceFields_Journey_Fragment, ComponentReferenceFields_Link_Fragment, ComponentReferenceFields_NavigationItems_Fragment, ComponentReferenceFields_OptionSet_Fragment, ComponentReferenceFields_Page_Fragment, ComponentReferenceFields_Question_Fragment, ComponentReferenceFields_SubNavigationItem_Fragment, ComponentReferenceFields_TabbedFormContainer_Fragment, ComponentReferenceFields_Template_Fragment, ComponentReferenceFields_VideoSection_Fragment } from '../../../../../lib/shared-fragments/__generated/ctf-componentMap.generated';
 import { LinkFieldsFragment } from '../../../../../lib/shared-fragments/__generated/ctf-linkFragment.generated';
 import { AssetFieldsFragment } from '../../ctf-asset/__generated/ctf-asset.generated';
 import { ComponentReferenceFieldsFragmentDoc } from '../../../../../lib/shared-fragments/__generated/ctf-componentMap.generated';
@@ -70,6 +70,10 @@ export type AccordionCollectionFieldsFragment = { __typename?: 'AccordionAccordi
               & ComponentReferenceFields_Header_Fragment
             )
             | (
+              { __typename?: 'Journey' }
+              & ComponentReferenceFields_Journey_Fragment
+            )
+            | (
               { __typename?: 'Link' }
               & ComponentReferenceFields_Link_Fragment
             )
@@ -88,10 +92,6 @@ export type AccordionCollectionFieldsFragment = { __typename?: 'AccordionAccordi
             | (
               { __typename?: 'Question' }
               & ComponentReferenceFields_Question_Fragment
-            )
-            | (
-              { __typename?: 'Seo' }
-              & ComponentReferenceFields_Seo_Fragment
             )
             | (
               { __typename?: 'SubNavigationItem' }
@@ -171,6 +171,10 @@ export type AccordionCollectionFieldsFragment = { __typename?: 'AccordionAccordi
               & ComponentReferenceFields_Header_Fragment
             )
             | (
+              { __typename?: 'Journey' }
+              & ComponentReferenceFields_Journey_Fragment
+            )
+            | (
               { __typename?: 'Link' }
               & ComponentReferenceFields_Link_Fragment
               & LinkFieldsFragment
@@ -190,10 +194,6 @@ export type AccordionCollectionFieldsFragment = { __typename?: 'AccordionAccordi
             | (
               { __typename?: 'Question' }
               & ComponentReferenceFields_Question_Fragment
-            )
-            | (
-              { __typename?: 'Seo' }
-              & ComponentReferenceFields_Seo_Fragment
             )
             | (
               { __typename?: 'SubNavigationItem' }

@@ -13,15 +13,6 @@ fragment CtfPageFields on Page {
   pageLayout
   internalName: pageName
   slug
-  seo {
-    title
-    description
-    image {
-      ...AssetFields
-    }
-    noIndex
-    noFollow
-  }
   contentCollection(limit: 20) {
     items {
       ... on Entry {

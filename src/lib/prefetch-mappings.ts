@@ -5,6 +5,7 @@ import { useCtfFooterQuery } from '@src/components/features/ctf-components/ctf-f
 import { useCtfFormWrapperQuery } from '@src/components/features/ctf-components/ctf-form-wrapper/__generated/ctf-form-wrapper.generated';
 import { useCtfFormQuery } from '@src/components/features/ctf-components/ctf-form/__generated/ctf-form.generated';
 import { useCtfHeaderQuery } from '@src/components/features/ctf-components/ctf-header/__generated/ctf-header.generated';
+import { useCtfJourneyQuery } from '@src/components/features/ctf-components/ctf-journey/__generated/ctf-journey.generated';
 import { useCtfLinkQuery } from '@src/components/features/ctf-components/ctf-link/__generated/ctf-link.generated';
 import { useCtfTabbedFormContainerQuery } from '@src/components/features/ctf-components/ctf-tabbed-form/__generated/ctf-tabbed-form.generated';
 import { useCtfTextBlockQuery } from '@src/components/features/ctf-components/ctf-text-block/__generated/ctf-text-block.generated';
@@ -25,4 +26,5 @@ export const prefetchMap = {
   TabbedFormContainer: useCtfTabbedFormContainerQuery,
   Form: useCtfFormQuery,
   FormWrapper: useCtfFormWrapperQuery,
+  Journey: useCtfJourneyQuery,
 };
