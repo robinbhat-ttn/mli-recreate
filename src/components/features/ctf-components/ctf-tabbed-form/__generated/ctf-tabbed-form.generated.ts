@@ -29,12 +29,12 @@ export type FormFieldsFragment = { __typename?: 'Form', formType?: string | null
           | { __typename: 'FormWrapper', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Journey', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }
@@ -66,12 +66,12 @@ export type TabsFieldsFragment = { __typename: 'FormTab', sys: { __typename?: 'S
           | { __typename: 'FormWrapper', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Journey', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'Seo', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }

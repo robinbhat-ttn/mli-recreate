@@ -37,25 +37,25 @@ const CtfPageGgl = ({ slug: slugFromProps }: Props) => {
     return <PageError error={error} />;
   }
 
-  const { seo } = page || {};
+  // const { seo } = page || {};
 
-  const metaTags = {
-    title: seo?.title ?? page.pageName,
-    description: seo?.description,
-    image: seo?.image,
-    no_index: seo?.noIndex,
-    no_follow: seo?.noFollow,
-  };
+  // const metaTags = {
+  //   title: seo?.title ?? page.pageName,
+  //   description: seo?.description,
+  //   image: seo?.image,
+  //   no_index: seo?.noIndex,
+  //   no_follow: seo?.noFollow,
+  // };
 
-  const robots = [
-    metaTags.no_index === true ? 'noindex' : undefined,
-    metaTags.no_follow === true ? 'nofollow' : undefined,
-  ].filter((x): x is string => x !== undefined);
+  // const robots = [
+  //   metaTags.no_index === true ? 'noindex' : undefined,
+  //   metaTags.no_follow === true ? 'nofollow' : undefined,
+  // ].filter((x): x is string => x !== undefined);
 
   return (
     <>
       <Head>
-        {metaTags.title && (
+        {/* {metaTags.title && (
           <>
             <title key="title">{metaTags.title}</title>
             <meta key="og:title" property="og:title" content={metaTags.title} />
@@ -74,7 +74,7 @@ const CtfPageGgl = ({ slug: slugFromProps }: Props) => {
             property="og:image"
             content={`${metaTags.image.url}?w=1200&h=630&f=faces&fit=fill`}
           />
-        )}
+        )} */}
         {page.slug && (
           <meta
             key="og:url"

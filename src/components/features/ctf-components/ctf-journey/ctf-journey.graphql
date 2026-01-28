@@ -1,0 +1,19 @@
+fragment JourneyFields on Journey {
+  __typename
+  sys {
+    id
+  }
+  internalName
+  title
+  steps
+  lifeCoverLabel
+  premiumLabel
+  button {
+    ...LinkFields
+  }
+}
+query CtfJourney($id: String!, $locale: String, $preview: Boolean) {
+  journey(id: $id, locale: $locale, preview: $preview) {
+    ...JourneyFields
+  }
+}
