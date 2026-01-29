@@ -244,28 +244,24 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Auto-save lead form data and manage lead ID
-  useEffect(() => {
-    if (!isInModal && formType === 'lead' && typeof window !== 'undefined') {
-      const saveTimer = setTimeout(() => {
-        try {
-          // Generate and save lead ID if not exists
-          if (!localStorage.getItem('lead_id')) {
-            const newLeadId = generateLeadId();
-            localStorage.setItem('lead_id', newLeadId);
-          }
-          // Auto-save form data
-          localStorage.setItem(getStorageKey(currentStep), JSON.stringify(formData));
-        } catch (error) {
-          console.error('Error auto-saving lead form data:', error);
-        }
-      }, 500); // Debounce saves to every 500ms
-
-      return () => clearTimeout(saveTimer);
-    }
-  }, [formData, isInModal, formType, currentStep]);
+  // No auto-initialization needed - lead ID and form data will be saved only on submission
 
   if (!fields.length) return null;
+
+  // Helper function to get annual income options based on NRI status
+  const getAnnualIncomeOptions = (field: any): any[] => {
+    if (field.name !== 'annualIncome' || !field.options?.items) {
+      return field.options?.items || [];
+    }
+
+    const nriValue = formData['nri'];
+    const isNri = nriValue === 'yes';
+
+    // Find the correct annual income options based on NRI status
+    const incomeOptionsSet = field.options.items.find((item: any) => item.isNri === isNri);
+
+    return incomeOptionsSet?.annualIncomeOptions || [];
+  };
 
   const handleInputChange = (name: string, value: any) => {
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -351,6 +347,23 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
     setIsSubmitted(true);
     if (validateForm()) {
       console.log('Form submitted:', formData);
+
+      // Save form data and generate lead ID (only for lead forms) on submission
+      if (typeof window !== 'undefined') {
+        try {
+          // Generate and save lead ID if not exists (lead forms only)
+          if (!isInModal && formType === 'lead' && !localStorage.getItem('lead_id')) {
+            const newLeadId = generateLeadId();
+            localStorage.setItem('lead_id', newLeadId);
+            // Initialize current_step to 1 (first step "Premium Calculated" is already completed)
+            localStorage.setItem('current_step', '1');
+          }
+          // Save form data
+          localStorage.setItem(getStorageKey(currentStep), JSON.stringify(formData));
+        } catch (error) {
+          console.error('Error saving form data:', error);
+        }
+      }
 
       // If this is a lead form, redirect to add ?stage=quote param
       if (!isInModal && formType === 'lead') {
@@ -833,18 +846,17 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
         );
 
       case 'Radio':
+        const options = getAnnualIncomeOptions(field);
         return (
           <div
             key={field.sys.id}
             className={`${styles.tabbedForm__radioGroup} ${
-              field.options?.items && field.options.items.length > 4
-                ? styles.tabbedForm__radioGroupMultiRow
-                : ''
+              options && options.length > 4 ? styles.tabbedForm__radioGroupMultiRow : ''
             }`}
           >
             {field.label && <p className={styles.tabbedForm__fieldLabel}>{field.label}</p>}
             <div className={styles.tabbedForm__radioOptions}>
-              {field.options?.items.map(opt => (
+              {options.map(opt => (
                 <label key={opt.value} className={styles.tabbedForm__radioOption}>
                   <input
                     type="radio"
