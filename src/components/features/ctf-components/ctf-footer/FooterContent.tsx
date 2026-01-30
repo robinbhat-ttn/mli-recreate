@@ -21,15 +21,15 @@ export const FooterContent = (props: FooterContentProps) => {
         {documentToReactComponents(props.footerInformation.json)}
         <div
           className={styles.disclaimerSection}
-          {...inspectorMode({ entryId: props.disclaimerSection.sys.id, fieldId: 'disclaimer' })}
+          {...inspectorMode({ entryId: props.disclaimerSection?.sys?.id, fieldId: 'disclaimer' })}
         >
           <button className={styles.disclaimerSectionHeading} onClick={() => setIsOpen(!isOpen)}>
-            {props.disclaimerSection.heading}
+            {props.disclaimerSection?.heading}
             <span className={`${styles.arrow} ${isOpen ? styles.open : ''}`} />
           </button>
           {isOpen && (
             <p className={styles.disclaimerSectionContent}>
-              {documentToReactComponents(props.disclaimerSection.content?.json)}
+              {documentToReactComponents(props.disclaimerSection?.content?.json)}
             </p>
           )}
         </div>

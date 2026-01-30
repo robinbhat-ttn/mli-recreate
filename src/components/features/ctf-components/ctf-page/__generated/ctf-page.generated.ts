@@ -20,6 +20,8 @@ export type PageContentFields_Form_Fragment = { __typename: 'Form' };
 
 export type PageContentFields_FormWrapper_Fragment = { __typename: 'FormWrapper' };
 
+export type PageContentFields_Journey_Fragment = { __typename: 'Journey' };
+
 export type PageContentFields_Link_Fragment = { __typename: 'Link' };
 
 export type PageContentFields_TabbedFormContainer_Fragment = { __typename: 'TabbedFormContainer' };
@@ -34,6 +36,7 @@ export type PageContentFieldsFragment =
   | PageContentFields_ComponentTextBlock_Fragment
   | PageContentFields_Form_Fragment
   | PageContentFields_FormWrapper_Fragment
+  | PageContentFields_Journey_Fragment
   | PageContentFields_Link_Fragment
   | PageContentFields_TabbedFormContainer_Fragment
   | PageContentFields_VideoSection_Fragment
@@ -70,6 +73,10 @@ export type CtfPageFieldsFragment = { __typename: 'Page', pageName?: string | nu
       | (
         { __typename: 'FormWrapper', sys: { __typename?: 'Sys', id: string } }
         & PageContentFields_FormWrapper_Fragment
+      )
+      | (
+        { __typename: 'Journey', sys: { __typename?: 'Sys', id: string } }
+        & PageContentFields_Journey_Fragment
       )
       | (
         { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }

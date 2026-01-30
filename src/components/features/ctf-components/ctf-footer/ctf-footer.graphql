@@ -119,6 +119,7 @@ fragment FooterFields on Footer {
   disclaimerSection {
     ...DisclaimerSectionFields
   }
+  footerType
 }
 
 query CtfFooter($id: String!, $locale: String, $preview: Boolean) {
