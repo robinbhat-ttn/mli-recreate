@@ -1048,7 +1048,6 @@ input ComponentTextBlockFilter {
 type ComponentTextBlockLinkingCollections {
   bannerCollection(limit: Int = 100, locale: String, order: [ComponentTextBlockLinkingCollectionsBannerCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): BannerCollection
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
-  formFieldCollection(limit: Int = 100, locale: String, order: [ComponentTextBlockLinkingCollectionsFormFieldCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): FormFieldCollection
   pageCollection(limit: Int = 100, locale: String, order: [ComponentTextBlockLinkingCollectionsPageCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): PageCollection
 }
 
@@ -1061,33 +1060,6 @@ enum ComponentTextBlockLinkingCollectionsBannerCollectionOrder {
   bannerType_DESC
   internalName_ASC
   internalName_DESC
-  sys_firstPublishedAt_ASC
-  sys_firstPublishedAt_DESC
-  sys_id_ASC
-  sys_id_DESC
-  sys_publishedAt_ASC
-  sys_publishedAt_DESC
-  sys_publishedVersion_ASC
-  sys_publishedVersion_DESC
-}
-
-enum ComponentTextBlockLinkingCollectionsFormFieldCollectionOrder {
-  bottomText_ASC
-  bottomText_DESC
-  fieldType_ASC
-  fieldType_DESC
-  internalName_ASC
-  internalName_DESC
-  label_ASC
-  label_DESC
-  name_ASC
-  name_DESC
-  placeholder_ASC
-  placeholder_DESC
-  required_ASC
-  required_DESC
-  subLabel_ASC
-  subLabel_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -1656,7 +1628,7 @@ type FormField implements Entry & _Node {
   name(locale: String, useFallbackLocale: Boolean): String
   options(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: OptionSetFilter): OptionSet
   placeholder(locale: String, useFallbackLocale: Boolean): String
-  popup(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: ComponentTextBlockFilter): ComponentTextBlock
+  popUp(locale: String, useFallbackLocale: Boolean): FormFieldPopUp
   required(locale: String, useFallbackLocale: Boolean): Boolean
   subLabel(locale: String, useFallbackLocale: Boolean): String
   sys: Sys!
@@ -1720,8 +1692,9 @@ input FormFieldFilter {
   placeholder_not: String
   placeholder_not_contains: String
   placeholder_not_in: [String]
-  popup: cfComponentTextBlockNestedFilter
-  popup_exists: Boolean
+  popUp_contains: String
+  popUp_exists: Boolean
+  popUp_not_contains: String
   required: Boolean
   required_exists: Boolean
   required_not: Boolean
@@ -1785,6 +1758,46 @@ enum FormFieldOrder {
   sys_publishedAt_DESC
   sys_publishedVersion_ASC
   sys_publishedVersion_DESC
+}
+
+type FormFieldPopUp {
+  json: JSON!
+  links: FormFieldPopUpLinks!
+}
+
+type FormFieldPopUpAssets {
+  block: [Asset]!
+  hyperlink: [Asset]!
+}
+
+type FormFieldPopUpEntries {
+  block: [Entry]!
+  hyperlink: [Entry]!
+  inline: [Entry]!
+}
+
+type FormFieldPopUpLinks {
+  assets: FormFieldPopUpAssets!
+  entries: FormFieldPopUpEntries!
+  resources: FormFieldPopUpResources!
+}
+
+type FormFieldPopUpResources {
+  block: [FormFieldPopUpResourcesBlock!]!
+  hyperlink: [FormFieldPopUpResourcesHyperlink!]!
+  inline: [FormFieldPopUpResourcesInline!]!
+}
+
+type FormFieldPopUpResourcesBlock implements ResourceLink {
+  sys: ResourceSys!
+}
+
+type FormFieldPopUpResourcesHyperlink implements ResourceLink {
+  sys: ResourceSys!
+}
+
+type FormFieldPopUpResourcesInline implements ResourceLink {
+  sys: ResourceSys!
 }
 
 type FormFieldsCollection {
@@ -4042,7 +4055,9 @@ input cfFormFieldNestedFilter {
   placeholder_not: String
   placeholder_not_contains: String
   placeholder_not_in: [String]
-  popup_exists: Boolean
+  popUp_contains: String
+  popUp_exists: Boolean
+  popUp_not_contains: String
   required: Boolean
   required_exists: Boolean
   required_not: Boolean
