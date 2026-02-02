@@ -1679,7 +1679,6 @@ export type ComponentTextBlockLinkingCollections = {
   __typename?: 'ComponentTextBlockLinkingCollections';
   bannerCollection?: Maybe<BannerCollection>;
   entryCollection?: Maybe<EntryCollection>;
-  formFieldCollection?: Maybe<FormFieldCollection>;
   pageCollection?: Maybe<PageCollection>;
 };
 
@@ -1697,16 +1696,6 @@ export type ComponentTextBlockLinkingCollectionsBannerCollectionArgs = {
 export type ComponentTextBlockLinkingCollectionsEntryCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type ComponentTextBlockLinkingCollectionsFormFieldCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<ComponentTextBlockLinkingCollectionsFormFieldCollectionOrder>>>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
@@ -1731,33 +1720,6 @@ export enum ComponentTextBlockLinkingCollectionsBannerCollectionOrder {
   BannerTypeDesc = 'bannerType_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
-}
-
-export enum ComponentTextBlockLinkingCollectionsFormFieldCollectionOrder {
-  BottomTextAsc = 'bottomText_ASC',
-  BottomTextDesc = 'bottomText_DESC',
-  FieldTypeAsc = 'fieldType_ASC',
-  FieldTypeDesc = 'fieldType_DESC',
-  InternalNameAsc = 'internalName_ASC',
-  InternalNameDesc = 'internalName_DESC',
-  LabelAsc = 'label_ASC',
-  LabelDesc = 'label_DESC',
-  NameAsc = 'name_ASC',
-  NameDesc = 'name_DESC',
-  PlaceholderAsc = 'placeholder_ASC',
-  PlaceholderDesc = 'placeholder_DESC',
-  RequiredAsc = 'required_ASC',
-  RequiredDesc = 'required_DESC',
-  SubLabelAsc = 'subLabel_ASC',
-  SubLabelDesc = 'subLabel_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
   SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
   SysIdAsc = 'sys_id_ASC',
@@ -2556,7 +2518,7 @@ export type FormField = Entry & _Node & {
   name?: Maybe<Scalars['String']['output']>;
   options?: Maybe<OptionSet>;
   placeholder?: Maybe<Scalars['String']['output']>;
-  popup?: Maybe<ComponentTextBlock>;
+  popUp?: Maybe<FormFieldPopUp>;
   required?: Maybe<Scalars['Boolean']['output']>;
   subLabel?: Maybe<Scalars['String']['output']>;
   sys: Sys;
@@ -2637,11 +2599,9 @@ export type FormFieldPlaceholderArgs = {
 
 
 /** Field content type for form fields [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
-export type FormFieldPopupArgs = {
+export type FormFieldPopUpArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-  where?: InputMaybe<ComponentTextBlockFilter>;
 };
 
 
@@ -2723,8 +2683,9 @@ export type FormFieldFilter = {
   placeholder_not?: InputMaybe<Scalars['String']['input']>;
   placeholder_not_contains?: InputMaybe<Scalars['String']['input']>;
   placeholder_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  popup?: InputMaybe<CfComponentTextBlockNestedFilter>;
-  popup_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  popUp_contains?: InputMaybe<Scalars['String']['input']>;
+  popUp_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  popUp_not_contains?: InputMaybe<Scalars['String']['input']>;
   required?: InputMaybe<Scalars['Boolean']['input']>;
   required_exists?: InputMaybe<Scalars['Boolean']['input']>;
   required_not?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2809,6 +2770,54 @@ export enum FormFieldOrder {
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
+
+export type FormFieldPopUp = {
+  __typename?: 'FormFieldPopUp';
+  json: Scalars['JSON']['output'];
+  links: FormFieldPopUpLinks;
+};
+
+export type FormFieldPopUpAssets = {
+  __typename?: 'FormFieldPopUpAssets';
+  block: Array<Maybe<Asset>>;
+  hyperlink: Array<Maybe<Asset>>;
+};
+
+export type FormFieldPopUpEntries = {
+  __typename?: 'FormFieldPopUpEntries';
+  block: Array<Maybe<Entry>>;
+  hyperlink: Array<Maybe<Entry>>;
+  inline: Array<Maybe<Entry>>;
+};
+
+export type FormFieldPopUpLinks = {
+  __typename?: 'FormFieldPopUpLinks';
+  assets: FormFieldPopUpAssets;
+  entries: FormFieldPopUpEntries;
+  resources: FormFieldPopUpResources;
+};
+
+export type FormFieldPopUpResources = {
+  __typename?: 'FormFieldPopUpResources';
+  block: Array<FormFieldPopUpResourcesBlock>;
+  hyperlink: Array<FormFieldPopUpResourcesHyperlink>;
+  inline: Array<FormFieldPopUpResourcesInline>;
+};
+
+export type FormFieldPopUpResourcesBlock = ResourceLink & {
+  __typename?: 'FormFieldPopUpResourcesBlock';
+  sys: ResourceSys;
+};
+
+export type FormFieldPopUpResourcesHyperlink = ResourceLink & {
+  __typename?: 'FormFieldPopUpResourcesHyperlink';
+  sys: ResourceSys;
+};
+
+export type FormFieldPopUpResourcesInline = ResourceLink & {
+  __typename?: 'FormFieldPopUpResourcesInline';
+  sys: ResourceSys;
+};
 
 export type FormFieldsCollection = {
   __typename?: 'FormFieldsCollection';
@@ -6524,7 +6533,9 @@ export type CfFormFieldNestedFilter = {
   placeholder_not?: InputMaybe<Scalars['String']['input']>;
   placeholder_not_contains?: InputMaybe<Scalars['String']['input']>;
   placeholder_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  popup_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  popUp_contains?: InputMaybe<Scalars['String']['input']>;
+  popUp_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  popUp_not_contains?: InputMaybe<Scalars['String']['input']>;
   required?: InputMaybe<Scalars['Boolean']['input']>;
   required_exists?: InputMaybe<Scalars['Boolean']['input']>;
   required_not?: InputMaybe<Scalars['Boolean']['input']>;
@@ -7527,6 +7538,140 @@ export type CtfFormWrapperQuery = { __typename?: 'Query', formWrapper?: { __type
                 | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
                | null> }, assets: { __typename?: 'FormDescriptionAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, fieldsCollection?: { __typename?: 'FormFieldsCollection', items: Array<{ __typename: 'FormField', label?: string | null, placeholder?: string | null, name?: string | null, fieldType?: string | null, required?: boolean | null, conditionalRule?: any | null, validationRule?: any | null, sys: { __typename?: 'Sys', id: string }, options?: { __typename: 'OptionSet', items?: any | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, submitButton?: { __typename: 'Link', linkType?: string | null, linkHeading?: string | null, linkSubHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string }, pageLink?: { __typename?: 'Page', slug?: string | null } | null, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null } | null> } | null } | null };
 
+export type ExpandedFormFieldFragmentFragment = { __typename?: 'FormField', label?: string | null, subLabel?: string | null, placeholder?: string | null, name?: string | null, fieldType?: string | null, required?: boolean | null, bottomText?: string | null, conditionalRule?: any | null, validationRule?: any | null, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null, popUp?: { __typename?: 'FormFieldPopUp', json: any, links: { __typename?: 'FormFieldPopUpLinks', entries: { __typename?: 'FormFieldPopUpEntries', block: Array<
+          | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'FormWrapper', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Journey', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
+         | null>, inline: Array<
+          | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'FormWrapper', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Journey', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Link', linkType?: string | null, linkHeading?: string | null, linkSubHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string }, pageLink?: { __typename?: 'Page', slug?: string | null } | null, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null }
+          | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
+         | null> }, assets: { __typename?: 'FormFieldPopUpAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, options?: { __typename: 'OptionSet', items?: any | null, sys: { __typename?: 'Sys', id: string } } | null };
+
+export type ExpandedFormFieldsFragment = { __typename?: 'Form', formType?: string | null, title?: string | null, formId?: string | null, description?: { __typename?: 'FormDescription', json: any, links: { __typename?: 'FormDescriptionLinks', entries: { __typename?: 'FormDescriptionEntries', block: Array<
+          | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'FormWrapper', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Journey', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }
+          | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
+         | null> }, assets: { __typename?: 'FormDescriptionAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, fieldsCollection?: { __typename?: 'FormFieldsCollection', items: Array<{ __typename: 'FormField', label?: string | null, subLabel?: string | null, placeholder?: string | null, name?: string | null, fieldType?: string | null, required?: boolean | null, bottomText?: string | null, conditionalRule?: any | null, validationRule?: any | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null, popUp?: { __typename?: 'FormFieldPopUp', json: any, links: { __typename?: 'FormFieldPopUpLinks', entries: { __typename?: 'FormFieldPopUpEntries', block: Array<
+              | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'FormWrapper', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Journey', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
+             | null>, inline: Array<
+              | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'FormWrapper', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Journey', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Link', linkType?: string | null, linkHeading?: string | null, linkSubHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string }, pageLink?: { __typename?: 'Page', slug?: string | null } | null, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null }
+              | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
+             | null> }, assets: { __typename?: 'FormFieldPopUpAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, options?: { __typename: 'OptionSet', items?: any | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, submitButton?: { __typename: 'Link', linkType?: string | null, linkHeading?: string | null, linkSubHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string }, pageLink?: { __typename?: 'Page', slug?: string | null } | null, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null };
+
 export type CtfFormQueryVariables = Exact<{
   id: Scalars['String']['input'];
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -7560,7 +7705,59 @@ export type CtfFormQuery = { __typename?: 'Query', form?: { __typename?: 'Form',
             | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }
             | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
-           | null> }, assets: { __typename?: 'FormDescriptionAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, fieldsCollection?: { __typename?: 'FormFieldsCollection', items: Array<{ __typename: 'FormField', label?: string | null, placeholder?: string | null, name?: string | null, fieldType?: string | null, required?: boolean | null, conditionalRule?: any | null, validationRule?: any | null, sys: { __typename?: 'Sys', id: string }, options?: { __typename: 'OptionSet', items?: any | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, submitButton?: { __typename: 'Link', linkType?: string | null, linkHeading?: string | null, linkSubHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string }, pageLink?: { __typename?: 'Page', slug?: string | null } | null, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null } | null };
+           | null> }, assets: { __typename?: 'FormDescriptionAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, fieldsCollection?: { __typename?: 'FormFieldsCollection', items: Array<{ __typename: 'FormField', label?: string | null, subLabel?: string | null, placeholder?: string | null, name?: string | null, fieldType?: string | null, required?: boolean | null, bottomText?: string | null, conditionalRule?: any | null, validationRule?: any | null, sys: { __typename?: 'Sys', id: string }, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null, popUp?: { __typename?: 'FormFieldPopUp', json: any, links: { __typename?: 'FormFieldPopUpLinks', entries: { __typename?: 'FormFieldPopUpEntries', block: Array<
+                | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'FormWrapper', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Journey', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
+               | null>, inline: Array<
+                | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'FormWrapper', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Journey', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Link', linkType?: string | null, linkHeading?: string | null, linkSubHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string }, pageLink?: { __typename?: 'Page', slug?: string | null } | null, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null }
+                | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }
+                | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
+               | null> }, assets: { __typename?: 'FormFieldPopUpAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, options?: { __typename: 'OptionSet', items?: any | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, submitButton?: { __typename: 'Link', linkType?: string | null, linkHeading?: string | null, linkSubHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string }, pageLink?: { __typename?: 'Page', slug?: string | null } | null, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null } | null };
 
 export type HamburgerMenuFieldsFragment = { __typename: 'HamburgerMenu', menuTitle?: string | null, sys: { __typename?: 'Sys', id: string }, menuItemsCollection?: { __typename?: 'HamburgerMenuMenuItemsCollection', items: Array<
       | { __typename: 'Link', linkType?: string | null, linkHeading?: string | null, linkSubHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string }, pageLink?: { __typename?: 'Page', slug?: string | null } | null, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null }
