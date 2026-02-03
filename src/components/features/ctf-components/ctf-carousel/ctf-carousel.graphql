@@ -34,7 +34,6 @@ fragment CardFields on Card {
         }
         inline{
           ...ComponentReferenceFields
-          ...LinkFields
         }
       }
       assets {

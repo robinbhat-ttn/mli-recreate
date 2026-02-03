@@ -12,7 +12,6 @@ fragment TextBlockFields on ComponentTextBlock {
         }
         inline{
           ...ComponentReferenceFields
-          ...LinkFields
         }
       }
       assets {
