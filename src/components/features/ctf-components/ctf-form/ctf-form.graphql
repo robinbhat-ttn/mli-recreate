@@ -1,5 +1,82 @@
+fragment ExpandedFormFieldFragment on FormField {
+  label
+  subLabel
+  icon {
+    ...AssetFields
+  }
+  popUp {
+    json
+    links {
+      entries {
+        block {
+          ...ComponentReferenceFields
+        }
+        inline {
+          ...ComponentReferenceFields
+          ...LinkFields
+        }
+      }
+      assets {
+        block {
+          ...AssetFields
+        }
+      }
+    }
+  }
+  placeholder
+  name
+  fieldType
+  required
+  options {
+    __typename
+    sys {
+      id
+    }
+    items
+  }
+  bottomText
+  conditionalRule
+  validationRule
+}
+
+fragment ExpandedFormFields on Form {
+  formType
+  title
+  description {
+    json
+    links {
+      entries {
+        block {
+          __typename
+          sys {
+            id
+          }
+        }
+      }
+      assets {
+        block {
+          ...AssetFields
+        }
+      }
+    }
+  }
+  formId
+  fieldsCollection(limit: 5) {
+    items {
+      __typename
+      sys {
+        id
+      }
+      ...ExpandedFormFieldFragment
+    }
+  }
+  submitButton {
+    ...LinkFields
+  }
+}
+
 query CtfForm($id: String!, $locale: String, $preview: Boolean) {
   form(id: $id, locale: $locale, preview: $preview) {
-    ...FormFields
+    ...ExpandedFormFields
   }
 }

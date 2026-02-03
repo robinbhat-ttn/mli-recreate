@@ -16,6 +16,8 @@ type Accordion implements Entry & _Node {
   longText(locale: String, useFallbackLocale: Boolean): String
   multifield(locale: String, useFallbackLocale: Boolean): [String]
   numberField(locale: String, useFallbackLocale: Boolean): Int
+  oneReference(locale: String, preview: Boolean, useFallbackLocale: Boolean): Entry
+  radio(locale: String, useFallbackLocale: Boolean): String
   sys: Sys!
 }
 
@@ -88,6 +90,14 @@ input AccordionFilter {
   numberField_lte: Int
   numberField_not: Int
   numberField_not_in: [Int]
+  oneReference_exists: Boolean
+  radio: String
+  radio_contains: String
+  radio_exists: Boolean
+  radio_in: [String]
+  radio_not: String
+  radio_not_contains: String
+  radio_not_in: [String]
   sys: SysFilter
 }
 
@@ -126,6 +136,8 @@ enum AccordionOrder {
   internalName_DESC
   numberField_ASC
   numberField_DESC
+  radio_ASC
+  radio_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -231,6 +243,7 @@ type AssetLinkingCollections {
   bannerCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): BannerCollection
   cardCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): CardCollection
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
+  formFieldCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): FormFieldCollection
   headerCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): HeaderCollection
   linkCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): LinkCollection
   tabbedFormContainerCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): TabbedFormContainerCollection
@@ -1238,6 +1251,8 @@ type DisclaimerLinkingCollections {
 }
 
 enum DisclaimerLinkingCollectionsFooterCollectionOrder {
+  footerType_ASC
+  footerType_DESC
   internalName_ASC
   internalName_DESC
   sys_firstPublishedAt_ASC
@@ -1305,6 +1320,7 @@ type Footer implements Entry & _Node {
   disclaimerSection(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: DisclaimerFilter): Disclaimer
   footerInformation(locale: String, useFallbackLocale: Boolean): FooterFooterInformation
   footerLinksCollection(limit: Int = 100, locale: String, order: [FooterFooterLinksCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: SubNavigationItemFilter): FooterFooterLinksCollection
+  footerType(locale: String, useFallbackLocale: Boolean): String
   groupSitesLinksCollection(limit: Int = 100, locale: String, order: [FooterGroupSitesLinksCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: LinkFilter): FooterGroupSitesLinksCollection
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): FooterLinkingCollections
@@ -1360,6 +1376,13 @@ input FooterFilter {
   footerInformation_not_contains: String
   footerLinks: cfSubNavigationItemNestedFilter
   footerLinksCollection_exists: Boolean
+  footerType: String
+  footerType_contains: String
+  footerType_exists: Boolean
+  footerType_in: [String]
+  footerType_not: String
+  footerType_not_contains: String
+  footerType_not_in: [String]
   groupSitesLinks: cfLinkNestedFilter
   groupSitesLinksCollection_exists: Boolean
   internalName: String
@@ -1483,6 +1506,8 @@ enum FooterLinkingCollectionsTemplateCollectionOrder {
 }
 
 enum FooterOrder {
+  footerType_ASC
+  footerType_DESC
   internalName_ASC
   internalName_DESC
   sys_firstPublishedAt_ASC
@@ -1592,16 +1617,20 @@ Field content type for form fields [See type definition](https://app.contentful.
 """
 type FormField implements Entry & _Node {
   _id: ID!
+  bottomText(locale: String, useFallbackLocale: Boolean): String
   conditionalRule(locale: String, useFallbackLocale: Boolean): JSON
   contentfulMetadata: ContentfulMetadata!
   fieldType(locale: String, useFallbackLocale: Boolean): String
+  icon(locale: String, preview: Boolean, useFallbackLocale: Boolean): Asset
   internalName(locale: String, useFallbackLocale: Boolean): String
   label(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): FormFieldLinkingCollections
   name(locale: String, useFallbackLocale: Boolean): String
   options(locale: String, preview: Boolean, useFallbackLocale: Boolean, where: OptionSetFilter): OptionSet
   placeholder(locale: String, useFallbackLocale: Boolean): String
+  popUp(locale: String, useFallbackLocale: Boolean): FormFieldPopUp
   required(locale: String, useFallbackLocale: Boolean): Boolean
+  subLabel(locale: String, useFallbackLocale: Boolean): String
   sys: Sys!
   validationRule(locale: String, useFallbackLocale: Boolean): JSON
 }
@@ -1616,6 +1645,13 @@ type FormFieldCollection {
 input FormFieldFilter {
   AND: [FormFieldFilter]
   OR: [FormFieldFilter]
+  bottomText: String
+  bottomText_contains: String
+  bottomText_exists: Boolean
+  bottomText_in: [String]
+  bottomText_not: String
+  bottomText_not_contains: String
+  bottomText_not_in: [String]
   conditionalRule_exists: Boolean
   contentfulMetadata: ContentfulMetadataFilter
   fieldType: String
@@ -1625,6 +1661,7 @@ input FormFieldFilter {
   fieldType_not: String
   fieldType_not_contains: String
   fieldType_not_in: [String]
+  icon_exists: Boolean
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean
@@ -1655,9 +1692,19 @@ input FormFieldFilter {
   placeholder_not: String
   placeholder_not_contains: String
   placeholder_not_in: [String]
+  popUp_contains: String
+  popUp_exists: Boolean
+  popUp_not_contains: String
   required: Boolean
   required_exists: Boolean
   required_not: Boolean
+  subLabel: String
+  subLabel_contains: String
+  subLabel_exists: Boolean
+  subLabel_in: [String]
+  subLabel_not: String
+  subLabel_not_contains: String
+  subLabel_not_in: [String]
   sys: SysFilter
   validationRule_exists: Boolean
 }
@@ -1687,6 +1734,8 @@ enum FormFieldLinkingCollectionsFormCollectionOrder {
 }
 
 enum FormFieldOrder {
+  bottomText_ASC
+  bottomText_DESC
   fieldType_ASC
   fieldType_DESC
   internalName_ASC
@@ -1699,6 +1748,8 @@ enum FormFieldOrder {
   placeholder_DESC
   required_ASC
   required_DESC
+  subLabel_ASC
+  subLabel_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -1709,6 +1760,46 @@ enum FormFieldOrder {
   sys_publishedVersion_DESC
 }
 
+type FormFieldPopUp {
+  json: JSON!
+  links: FormFieldPopUpLinks!
+}
+
+type FormFieldPopUpAssets {
+  block: [Asset]!
+  hyperlink: [Asset]!
+}
+
+type FormFieldPopUpEntries {
+  block: [Entry]!
+  hyperlink: [Entry]!
+  inline: [Entry]!
+}
+
+type FormFieldPopUpLinks {
+  assets: FormFieldPopUpAssets!
+  entries: FormFieldPopUpEntries!
+  resources: FormFieldPopUpResources!
+}
+
+type FormFieldPopUpResources {
+  block: [FormFieldPopUpResourcesBlock!]!
+  hyperlink: [FormFieldPopUpResourcesHyperlink!]!
+  inline: [FormFieldPopUpResourcesInline!]!
+}
+
+type FormFieldPopUpResourcesBlock implements ResourceLink {
+  sys: ResourceSys!
+}
+
+type FormFieldPopUpResourcesHyperlink implements ResourceLink {
+  sys: ResourceSys!
+}
+
+type FormFieldPopUpResourcesInline implements ResourceLink {
+  sys: ResourceSys!
+}
+
 type FormFieldsCollection {
   items: [FormField]!
   limit: Int!
@@ -1717,6 +1808,8 @@ type FormFieldsCollection {
 }
 
 enum FormFieldsCollectionOrder {
+  bottomText_ASC
+  bottomText_DESC
   fieldType_ASC
   fieldType_DESC
   internalName_ASC
@@ -1729,6 +1822,8 @@ enum FormFieldsCollectionOrder {
   placeholder_DESC
   required_ASC
   required_DESC
+  subLabel_ASC
+  subLabel_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -2503,6 +2598,30 @@ input JourneyFilter {
 
 type JourneyLinkingCollections {
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
+  pageCollection(limit: Int = 100, locale: String, order: [JourneyLinkingCollectionsPageCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): PageCollection
+}
+
+enum JourneyLinkingCollectionsPageCollectionOrder {
+  changeFrequency_ASC
+  changeFrequency_DESC
+  internalName_ASC
+  internalName_DESC
+  pageLayout_ASC
+  pageLayout_DESC
+  pageName_ASC
+  pageName_DESC
+  priority_ASC
+  priority_DESC
+  slug_ASC
+  slug_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
 }
 
 enum JourneyOrder {
@@ -2621,6 +2740,8 @@ enum LinkLinkingCollectionsButtonWithLinksCollectionOrder {
 }
 
 enum LinkLinkingCollectionsFooterCollectionOrder {
+  footerType_ASC
+  footerType_DESC
   internalName_ASC
   internalName_DESC
   sys_firstPublishedAt_ASC
@@ -2910,6 +3031,8 @@ type OptionSetLinkingCollections {
 }
 
 enum OptionSetLinkingCollectionsFormFieldCollectionOrder {
+  bottomText_ASC
+  bottomText_DESC
   fieldType_ASC
   fieldType_DESC
   internalName_ASC
@@ -2922,6 +3045,8 @@ enum OptionSetLinkingCollectionsFormFieldCollectionOrder {
   placeholder_DESC
   required_ASC
   required_DESC
+  subLabel_ASC
+  subLabel_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -2985,7 +3110,7 @@ input PageContentFilter {
   sys: SysFilter
 }
 
-union PageContentItem = Accordion | Banner | Button | Carousel | ComponentTextBlock | Form | FormWrapper | Link | TabbedFormContainer | VideoSection
+union PageContentItem = Accordion | Banner | Button | Carousel | ComponentTextBlock | Form | FormWrapper | Journey | Link | TabbedFormContainer | VideoSection
 
 input PageFilter {
   AND: [PageFilter]
@@ -3251,6 +3376,8 @@ enum QuestionLinkingCollectionsAccordionCollectionOrder {
   internalName_DESC
   numberField_ASC
   numberField_DESC
+  radio_ASC
+  radio_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -3339,6 +3466,8 @@ type SubNavigationItemLinkingCollections {
 }
 
 enum SubNavigationItemLinkingCollectionsFooterCollectionOrder {
+  footerType_ASC
+  footerType_DESC
   internalName_ASC
   internalName_DESC
   sys_firstPublishedAt_ASC
@@ -3858,6 +3987,13 @@ input cfFooterNestedFilter {
   footerInformation_exists: Boolean
   footerInformation_not_contains: String
   footerLinksCollection_exists: Boolean
+  footerType: String
+  footerType_contains: String
+  footerType_exists: Boolean
+  footerType_in: [String]
+  footerType_not: String
+  footerType_not_contains: String
+  footerType_not_in: [String]
   groupSitesLinksCollection_exists: Boolean
   internalName: String
   internalName_contains: String
@@ -3873,6 +4009,13 @@ input cfFooterNestedFilter {
 input cfFormFieldNestedFilter {
   AND: [cfFormFieldNestedFilter]
   OR: [cfFormFieldNestedFilter]
+  bottomText: String
+  bottomText_contains: String
+  bottomText_exists: Boolean
+  bottomText_in: [String]
+  bottomText_not: String
+  bottomText_not_contains: String
+  bottomText_not_in: [String]
   conditionalRule_exists: Boolean
   contentfulMetadata: ContentfulMetadataFilter
   fieldType: String
@@ -3882,6 +4025,7 @@ input cfFormFieldNestedFilter {
   fieldType_not: String
   fieldType_not_contains: String
   fieldType_not_in: [String]
+  icon_exists: Boolean
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean
@@ -3911,9 +4055,19 @@ input cfFormFieldNestedFilter {
   placeholder_not: String
   placeholder_not_contains: String
   placeholder_not_in: [String]
+  popUp_contains: String
+  popUp_exists: Boolean
+  popUp_not_contains: String
   required: Boolean
   required_exists: Boolean
   required_not: Boolean
+  subLabel: String
+  subLabel_contains: String
+  subLabel_exists: Boolean
+  subLabel_in: [String]
+  subLabel_not: String
+  subLabel_not_contains: String
+  subLabel_not_in: [String]
   sys: SysFilter
   validationRule_exists: Boolean
 }

@@ -23,12 +23,21 @@ export const CtfFooter = (props: FooterFieldsFragment) => {
       className={styles.footerContainer}
       {...inspectorMode({ entryId: props.sys.id, fieldId: 'footer' })}
     >
-      <FooterLinks {...(props.footerLinksCollection as FooterLinksCollectionFragment)} />
-      <SocialLinks {...(props.socialLinksCollection as SocialLinksCollectionFieldsFragment)} />
-      <ButtonContainer {...(props.buttonsCollection as FooterButtonCollectionFieldsFragment)} />
-      <GroupSiteLinks
-        {...(props.groupSitesLinksCollection as GroupSitesLinksCollectionFieldsFragment)}
-      />
+      {props.footerLinksCollection?.items && props.footerLinksCollection?.items.length > 0 && (
+        <FooterLinks {...(props.footerLinksCollection as FooterLinksCollectionFragment)} />
+      )}
+      {props.socialLinksCollection?.items && props.socialLinksCollection?.items.length > 0 && (
+        <SocialLinks {...(props.socialLinksCollection as SocialLinksCollectionFieldsFragment)} />
+      )}
+      {props.buttonsCollection?.items && props.buttonsCollection?.items.length > 0 && (
+        <ButtonContainer {...(props.buttonsCollection as FooterButtonCollectionFieldsFragment)} />
+      )}
+      {props.groupSitesLinksCollection?.items &&
+        props.groupSitesLinksCollection?.items.length > 0 && (
+          <GroupSiteLinks
+            {...(props.groupSitesLinksCollection as GroupSitesLinksCollectionFieldsFragment)}
+          />
+        )}
       <FooterContent
         footerInformation={props.footerInformation as FooterInformationFieldsFragment}
         disclaimerSection={props.disclaimerSection as DisclaimerSectionFieldsFragment}

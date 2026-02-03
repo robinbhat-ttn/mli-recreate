@@ -1,8 +1,8 @@
 import { CtfFormRenderer } from './ctf-form-renderer';
 
-import { FormFieldsFragment } from '../ctf-tabbed-form/__generated/ctf-tabbed-form.generated';
+import { ExpandedFormFieldsFragment } from './__generated/ctf-form.generated';
 
-export const CtfForm = (props: FormFieldsFragment) => {
+export const CtfForm = (props: ExpandedFormFieldsFragment) => {
   console.log('Lead Form Props:', props);
   if (props.formType && props.formType !== 'Home Page Form') {
     return (
