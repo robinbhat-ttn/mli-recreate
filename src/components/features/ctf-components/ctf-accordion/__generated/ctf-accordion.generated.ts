@@ -1,10 +1,8 @@
 import * as Types from '../../../../../lib/__generated/graphql.types';
 
 import { ComponentReferenceFields_Accordion_Fragment, ComponentReferenceFields_Banner_Fragment, ComponentReferenceFields_Button_Fragment, ComponentReferenceFields_ButtonWithLinks_Fragment, ComponentReferenceFields_Card_Fragment, ComponentReferenceFields_Carousel_Fragment, ComponentReferenceFields_ComponentTextBlock_Fragment, ComponentReferenceFields_Disclaimer_Fragment, ComponentReferenceFields_Footer_Fragment, ComponentReferenceFields_Form_Fragment, ComponentReferenceFields_FormField_Fragment, ComponentReferenceFields_FormTab_Fragment, ComponentReferenceFields_FormWrapper_Fragment, ComponentReferenceFields_HamburgerMenu_Fragment, ComponentReferenceFields_Header_Fragment, ComponentReferenceFields_Journey_Fragment, ComponentReferenceFields_Link_Fragment, ComponentReferenceFields_NavigationItems_Fragment, ComponentReferenceFields_OptionSet_Fragment, ComponentReferenceFields_Page_Fragment, ComponentReferenceFields_Question_Fragment, ComponentReferenceFields_SubNavigationItem_Fragment, ComponentReferenceFields_TabbedFormContainer_Fragment, ComponentReferenceFields_Template_Fragment, ComponentReferenceFields_VideoSection_Fragment } from '../../../../../lib/shared-fragments/__generated/ctf-componentMap.generated';
-import { LinkFieldsFragment } from '../../../../../lib/shared-fragments/__generated/ctf-linkFragment.generated';
 import { AssetFieldsFragment } from '../../ctf-asset/__generated/ctf-asset.generated';
 import { ComponentReferenceFieldsFragmentDoc } from '../../../../../lib/shared-fragments/__generated/ctf-componentMap.generated';
-import { LinkFieldsFragmentDoc } from '../../../../../lib/shared-fragments/__generated/ctf-linkFragment.generated';
 import { AssetFieldsFragmentDoc } from '../../ctf-asset/__generated/ctf-asset.generated';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { customFetcher } from '@src/lib/fetchConfig';
@@ -177,7 +175,6 @@ export type AccordionCollectionFieldsFragment = { __typename?: 'AccordionAccordi
             | (
               { __typename?: 'Link' }
               & ComponentReferenceFields_Link_Fragment
-              & LinkFieldsFragment
             )
             | (
               { __typename?: 'NavigationItems' }
@@ -251,7 +248,6 @@ export const AccordionCollectionFieldsFragmentDoc = `
           }
           inline {
             ...ComponentReferenceFields
-            ...LinkFields
           }
         }
         assets {
@@ -284,7 +280,6 @@ export const CtfAccordionDocument = `
     ${AccordionFieldsFragmentDoc}
 ${AccordionCollectionFieldsFragmentDoc}
 ${ComponentReferenceFieldsFragmentDoc}
-${LinkFieldsFragmentDoc}
 ${AssetFieldsFragmentDoc}`;
 
 export const useCtfAccordionQuery = <

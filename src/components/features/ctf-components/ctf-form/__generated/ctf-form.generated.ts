@@ -180,7 +180,6 @@ export type ExpandedFormFieldFragmentFragment = { __typename?: 'FormField', labe
           | (
             { __typename?: 'Link' }
             & ComponentReferenceFields_Link_Fragment
-            & LinkFieldsFragment
           )
           | (
             { __typename?: 'NavigationItems' }
@@ -285,7 +284,6 @@ export const ExpandedFormFieldFragmentFragmentDoc = `
         }
         inline {
           ...ComponentReferenceFields
-          ...LinkFields
         }
       }
       assets {

@@ -13,7 +13,6 @@ fragment ExpandedFormFieldFragment on FormField {
         }
         inline {
           ...ComponentReferenceFields
-          ...LinkFields
         }
       }
       assets {

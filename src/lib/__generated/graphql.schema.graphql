@@ -11,6 +11,7 @@ type Accordion implements Entry & _Node {
   booleanField(locale: String, useFallbackLocale: Boolean): Boolean
   contentfulMetadata: ContentfulMetadata!
   demo(locale: String, useFallbackLocale: Boolean): [String]
+  image(locale: String, preview: Boolean, useFallbackLocale: Boolean): Asset
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): AccordionLinkingCollections
   longText(locale: String, useFallbackLocale: Boolean): String
@@ -63,6 +64,7 @@ input AccordionFilter {
   demo_contains_none: [String]
   demo_contains_some: [String]
   demo_exists: Boolean
+  image_exists: Boolean
   internalName: String
   internalName_contains: String
   internalName_exists: Boolean
@@ -240,6 +242,7 @@ input AssetFilter {
 }
 
 type AssetLinkingCollections {
+  accordionCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): AccordionCollection
   bannerCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): BannerCollection
   cardCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): CardCollection
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
