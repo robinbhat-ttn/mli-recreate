@@ -35,7 +35,10 @@ export const CtfFormWrapper = (props: FormWrapperFieldsFragment) => {
   const handleSaveFormData = (formData: Record<string, any>) => {
     try {
       if (typeof window !== 'undefined') {
-        localStorage.setItem(`quote_form_data_step_${currentStep}`, JSON.stringify(formData));
+        localStorage.setItem(
+          `lead_next_steps_form_data_step_${currentStep}`,
+          JSON.stringify(formData),
+        );
       }
     } catch (error) {
       console.error('Error saving form data:', error);
@@ -90,11 +93,11 @@ export const CtfFormWrapper = (props: FormWrapperFieldsFragment) => {
             isInModal={true}
             onFormValidationChange={setIsFormValid}
             isSubmitDisabled={!isFormValid}
-            onSubmitClick={!isLastStep ? handleSubmitClick : undefined}
+            onSubmitClick={isLastStep ? handleClose : handleSubmitClick}
             isLastStep={isLastStep}
             onSaveFormData={handleSaveFormData}
             currentStep={currentStep}
-            formType="quote"
+            formType="leadNextSteps"
           />
         </div>
       </div>
