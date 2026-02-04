@@ -18,7 +18,10 @@ export const CtfJourney = (props: JourneyFieldsFragment) => {
     }
   }, []);
 
-  if (!hasLeadId) {
+  const isQuoteStage = router.query.stage === 'quote';
+
+  // Hide journey when there is no lead OR when we are on the quote stage
+  if (!hasLeadId || isQuoteStage) {
     return null; // Don't render journey if no lead_id
   }
 

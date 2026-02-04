@@ -112,7 +112,7 @@
   }
 
   &__connector {
-    width: 3.5rem;
+    width: 12%;
     height: 2px;
     background: $border-light;
     transition: background-color $transition-standard;
@@ -156,7 +156,6 @@
     padding: $space-12 $space-16;
     border: 1px solid $gray-525;
     border-radius: $radius-8;
-    min-width: fit-content;
 
     @media (max-width: 768px) {
       width: 100%;

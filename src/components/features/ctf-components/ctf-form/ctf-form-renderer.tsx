@@ -89,7 +89,7 @@ interface CtfFormRendererProps {
   isLastStep?: boolean;
   onSaveFormData?: (formData: Record<string, any>) => void;
   currentStep?: number;
-  formType?: 'lead' | 'quote';
+  formType?: 'lead' | 'leadNextSteps' | 'quote';
 }
 
 export const CtfFormRenderer = (props: CtfFormRendererProps) => {
@@ -135,11 +135,16 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
   const [isFormValid, setIsFormValid] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const phoneCountryDropdownRef = useRef<HTMLDivElement>(null);
+  const [isCoverAgeModalOpen, setIsCoverAgeModalOpen] = useState(false);
+  const [showPremiumMore, setShowPremiumMore] = useState(false);
 
   // Generate storage key based on form type
   const getStorageKey = (step = 0): string => {
     if (formType === 'quote') {
-      return `quote_form_data_step_${step}`;
+      return 'quote_form_data';
+    }
+    if (formType === 'leadNextSteps') {
+      return `lead_next_steps_form_data_step_${step}`;
     }
     return 'lead_form_data';
   };
@@ -179,7 +184,7 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
   const [formData, setFormData] = useState<Record<string, any>>(getDefaultFormData());
   const [isHydrated, setIsHydrated] = useState(false);
 
-  // Load from localStorage after hydration (for lead forms and quote forms on currentStep change)
+  // Load from localStorage after hydration (for lead forms and next steps popup on step change)
   useEffect(() => {
     setIsHydrated(true);
 
@@ -365,7 +370,13 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
         }
       }
 
-      // If this is a lead form, redirect to add ?stage=quote param
+      // For modal flows (lead next steps / quote popup), let parent know on successful submit
+      if (isInModal) {
+        onSaveFormData?.(formData);
+        onSubmitClick?.();
+      }
+
+      // If this is a lead form, redirect to open next steps popup
       if (!isInModal && formType === 'lead') {
         router.push(
           { pathname: router.pathname, query: { ...router.query, stage: 'quote' } },
@@ -374,6 +385,277 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
         );
       }
     }
+  };
+
+  // ---------- Quote form helpers ----------
+
+  const lifeCoverField = fields.find(field => field?.name === 'lifeCover');
+  const coverTillAgeField = fields.find(field => field?.name === 'coverTillAge');
+  const premiumTermField = fields.find(field => field?.name === 'premiumPaymentTerm');
+
+  const lifeCoverOptions =
+    lifeCoverField?.options?.items?.optionValues || lifeCoverField?.options?.items || [];
+  const coverTillAgeOptions = coverTillAgeField?.options?.items || [];
+  const premiumTermOptions = premiumTermField?.options?.items || [];
+
+  const selectedLifeCoverIndex = lifeCoverOptions.findIndex(
+    (opt: any, index: number) =>
+      formData.lifeCover === index || formData.lifeCover === opt.amount || index === 1,
+  );
+
+  const visibleCoverTillAgeOptions = coverTillAgeOptions.slice(0, 3);
+  const remainingCoverTillAgeOptions = coverTillAgeOptions.slice(3);
+
+  const selectedCoverTillAgeIndex = coverTillAgeOptions.findIndex(
+    (opt: any) => formData.coverTillAge === opt.duration,
+  );
+
+  const selectedPremiumTermIndex = premiumTermOptions.findIndex(
+    (opt: any) => formData.premiumPaymentTerm === opt.duration,
+  );
+
+  const handleLifeCoverSelect = (index: number) => {
+    const option = lifeCoverOptions[index];
+    handleInputChange('lifeCover', option?.amount || index);
+  };
+
+  const handleCoverTillAgeSelect = (option: any) => {
+    handleInputChange('coverTillAge', option?.duration);
+  };
+
+  const handlePremiumTermSelect = (index: number) => {
+    const option = premiumTermOptions[index];
+    handleInputChange('premiumPaymentTerm', option?.duration);
+  };
+
+  const renderQuoteForm = () => {
+    return (
+      <form className={styles.tabbedForm__form} onSubmit={handleSubmit}>
+        <div className={styles.tabbedForm__quoteForm}>
+          {/* Life Cover */}
+          {lifeCoverField && (
+            <div className={styles.tabbedForm__quoteField}>
+              <div className={styles.tabbedForm__quoteFieldHeader}>
+                <div className={styles.tabbedForm__quoteFieldLabel}>
+                  <span>{lifeCoverField.label}</span>
+                </div>
+              </div>
+              <div className={styles.tabbedForm__quoteDropdown}>
+                <button
+                  type="button"
+                  className={styles.tabbedForm__quoteDropdownButton}
+                  onClick={() =>
+                    setOpenDropdown(openDropdown === 'lifeCover' ? null : 'lifeCover')
+                  }
+                >
+                  {selectedLifeCoverIndex >= 0 && lifeCoverOptions[selectedLifeCoverIndex] ? (
+                    <span className={styles.tabbedForm__quoteDropdownValue}>
+                      <span>
+                        {lifeCoverOptions[selectedLifeCoverIndex].amount}{' '}
+                        {lifeCoverOptions[selectedLifeCoverIndex].status && (
+                          <span className={styles.tabbedForm__quoteBadge}>
+                            {lifeCoverOptions[selectedLifeCoverIndex].status}
+                          </span>
+                        )}
+                      </span>
+                    </span>
+                  ) : (
+                    <span className={styles.tabbedForm__quoteDropdownPlaceholder}>
+                      Select life cover
+                    </span>
+                  )}
+                  <span className={styles.tabbedForm__dropdownArrow}>
+                    <Image src={chevronIcon} alt="dropdown arrow" width={20} height={20} />
+                  </span>
+                </button>
+
+                {openDropdown === 'lifeCover' && (
+                  <div className={styles.tabbedForm__quoteDropdownMenu}>
+                    {lifeCoverOptions.map((opt: any, index: number) => (
+                      <button
+                        type="button"
+                        key={index}
+                        className={`${styles.tabbedForm__quoteDropdownItem} ${
+                          selectedLifeCoverIndex === index
+                            ? styles.tabbedForm__quoteDropdownItemSelected
+                            : ''
+                        }`}
+                        onClick={() => {
+                          handleLifeCoverSelect(index);
+                          setOpenDropdown(null);
+                        }}
+                      >
+                        <div className={styles.tabbedForm__quoteDropdownItemMain}>
+                          <span>{opt.amount}</span>
+                          {opt.premium && <span>{opt.premium}</span>}
+                        </div>
+                        {opt.status && (
+                          <span className={styles.tabbedForm__quoteBadge}>{opt.status}</span>
+                        )}
+                        {opt.description && (
+                          <span className={styles.tabbedForm__quoteDropdownItemDescription}>
+                            {opt.description}
+                          </span>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Cover Till Age */}
+          {coverTillAgeField && (
+            <div className={styles.tabbedForm__quoteField}>
+              <div className={styles.tabbedForm__quoteFieldHeader}>
+                <div className={styles.tabbedForm__quoteFieldLabel}>
+                  <span>{coverTillAgeField.label}</span>
+                </div>
+              </div>
+
+              <div className={styles.tabbedForm__quoteCoverRow}>
+                {visibleCoverTillAgeOptions.map((opt: any, index: number) => {
+                  const absoluteIndex = index;
+                  const isSelected = selectedCoverTillAgeIndex === absoluteIndex;
+                  return (
+                    <button
+                      type="button"
+                      key={opt.duration}
+                      className={`${styles.tabbedForm__quoteCoverCard} ${
+                        isSelected ? styles.tabbedForm__quoteCoverCardSelected : ''
+                      }`}
+                      onClick={() => handleCoverTillAgeSelect(opt)}
+                    >
+                      <span className={styles.tabbedForm__quoteCoverDuration}>
+                        {opt.duration}
+                      </span>
+                      {opt.premium && (
+                        <span className={styles.tabbedForm__quoteCoverPremium}>
+                          {opt.premium}
+                        </span>
+                      )}
+                      {opt.feature && (
+                        <span className={styles.tabbedForm__quoteBadge}>{opt.feature}</span>
+                      )}
+                    </button>
+                  );
+                })}
+
+                {remainingCoverTillAgeOptions.length > 0 && (
+                  <button
+                    type="button"
+                    className={styles.tabbedForm__quoteMoreButton}
+                    onClick={() => setIsCoverAgeModalOpen(true)}
+                  >
+                    More
+                  </button>
+                )}
+              </div>
+
+              {coverTillAgeField.bottomText && (
+                <p className={styles.tabbedForm__quoteHelpText}>
+                  {coverTillAgeField.bottomText}
+                </p>
+              )}
+            </div>
+          )}
+
+          {/* Premium Payment Term */}
+          {premiumTermField && (
+            <div className={styles.tabbedForm__quoteField}>
+              <div className={styles.tabbedForm__quoteFieldHeader}>
+                <div className={styles.tabbedForm__quoteFieldLabel}>
+                  <span>{premiumTermField.label}</span>
+                </div>
+                {premiumTermField.subLabel && (
+                  <span className={styles.tabbedForm__quoteSubLabel}>
+                    {premiumTermField.subLabel}
+                  </span>
+                )}
+              </div>
+
+              <div className={styles.tabbedForm__quoteDropdown}>
+                <button
+                  type="button"
+                  className={styles.tabbedForm__quoteDropdownButton}
+                  onClick={() =>
+                    setOpenDropdown(openDropdown === 'premiumPaymentTerm'
+                      ? null
+                      : 'premiumPaymentTerm')
+                  }
+                >
+                  {selectedPremiumTermIndex >= 0 &&
+                  premiumTermOptions[selectedPremiumTermIndex] ? (
+                    <span className={styles.tabbedForm__quoteDropdownValue}>
+                      {premiumTermOptions[selectedPremiumTermIndex].label ||
+                        premiumTermOptions[selectedPremiumTermIndex].duration}
+                    </span>
+                  ) : (
+                    <span className={styles.tabbedForm__quoteDropdownPlaceholder}>
+                      Select premium payment term
+                    </span>
+                  )}
+                  <span className={styles.tabbedForm__dropdownArrow}>
+                    <Image src={chevronIcon} alt="dropdown arrow" width={20} height={20} />
+                  </span>
+                </button>
+
+                {openDropdown === 'premiumPaymentTerm' && (
+                  <div className={styles.tabbedForm__quoteDropdownMenu}>
+                    {premiumTermOptions.map((opt: any, index: number) => (
+                      <button
+                        type="button"
+                        key={index}
+                        className={`${styles.tabbedForm__quoteDropdownItem} ${
+                          selectedPremiumTermIndex === index
+                            ? styles.tabbedForm__quoteDropdownItemSelected
+                            : ''
+                        }`}
+                        onClick={() => {
+                          handlePremiumTermSelect(index);
+                        }}
+                      >
+                        <div className={styles.tabbedForm__quoteDropdownItemMain}>
+                          <span>{opt.label || opt.duration}</span>
+                          {opt.premium && <span>{opt.premium}</span>}
+                        </div>
+                        {opt.saving && (
+                          <span className={styles.tabbedForm__quoteSavingBadge}>
+                            {opt.saving}
+                          </span>
+                        )}
+                      </button>
+                    ))}
+                    {premiumTermOptions.length > 0 && !showPremiumMore && (
+                      <button
+                        type="button"
+                        className={styles.tabbedForm__quoteShowMore}
+                        onClick={() => setShowPremiumMore(true)}
+                      >
+                        Show more
+                      </button>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className={styles.tabbedForm__footer}>
+          {submitButton && (
+            <button
+              type="submit"
+              className={styles.tabbedForm__submit}
+              {...inspectorMode({ entryId: submitButton.sys.id, fieldId: 'link' })}
+            >
+              {submitButton.linkHeading}
+            </button>
+          )}
+        </div>
+      </form>
+    );
   };
 
   const handleTabChange = (value: number) => {
@@ -879,10 +1161,14 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
 
   return (
     <section
-      className={`${styles.tabbedForm} ${layoutType !== 'Home Page Layout' ? styles['default--form'] : ''}`}
+      className={`${styles.tabbedForm} ${layoutType !== 'Home Page Layout' ? styles['default--form'] : ''} ${
+        formType === 'quote' ? styles['tabbedForm--quote'] : ''
+      }`}
     >
       <Box
-        className={`${containerClass} ${styles.tabbedForm__wrapper} ${isInModal ? styles['tabbedForm__wrapper--modal'] : ''}`}
+        className={`${containerClass} ${styles.tabbedForm__wrapper} ${
+          isInModal ? styles['tabbedForm__wrapper--modal'] : ''
+        } ${formType === 'quote' ? styles['tabbedForm__wrapper--quote'] : ''}`}
         {...(inspectorModeId &&
           inspectorMode({ entryId: inspectorModeId, fieldId: 'tabbedFormContainer' }))}
       >
@@ -938,67 +1224,70 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
           )}
 
           {/* Form */}
-          <form className={styles.tabbedForm__form} onSubmit={handleSubmit}>
-            <div className={styles.tabbedForm__formGrid}>
-              {fields.map(field => renderField(field))}
-            </div>
+          {formType === 'quote' ? (
+            renderQuoteForm()
+          ) : (
+            <form className={styles.tabbedForm__form} onSubmit={handleSubmit}>
+              <div className={styles.tabbedForm__formGrid}>
+                {fields.map(field => renderField(field))}
+              </div>
 
-            <div className={styles.tabbedForm__footer}>
-              {submitButton && (
-                <>
-                  {/* For modal last step: always show button but disabled when form invalid */}
-                  {isInModal && isLastStep ? (
-                    <button
-                      type="submit"
-                      className={styles.tabbedForm__submit}
-                      disabled={!isFormValid}
-                      onClick={() => onSaveFormData?.(formData)}
-                      {...inspectorMode({ entryId: submitButton.sys.id, fieldId: 'link' })}
-                    >
-                      {submitButton.linkHeading}
-                    </button>
-                  ) : isInModal ? (
-                    /* For modal non-last steps: show button only when form valid */
-                    isFormValid && (
+              <div className={styles.tabbedForm__footer}>
+                {submitButton && (
+                  <>
+                    {/* For modal last step: always show button but disabled when form invalid */}
+                    {isInModal && isLastStep ? (
                       <button
-                        type="button"
+                        type="submit"
                         className={styles.tabbedForm__submit}
-                        onClick={() => {
-                          onSaveFormData?.(formData);
-                          onSubmitClick?.();
-                        }}
+                        disabled={!isFormValid}
                         {...inspectorMode({ entryId: submitButton.sys.id, fieldId: 'link' })}
                       >
                         {submitButton.linkHeading}
                       </button>
-                    )
-                  ) : (
-                    /* For non-modal: always show button */
-                    <button
-                      type="submit"
-                      className={styles.tabbedForm__submit}
-                      {...inspectorMode({ entryId: submitButton.sys.id, fieldId: 'link' })}
-                    >
-                      {submitButton.linkHeading}
-                    </button>
-                  )}
-                </>
-              )}
+                    ) : isInModal ? (
+                      /* For modal non-last steps: show button only when form valid */
+                      isFormValid && (
+                        <button
+                          type="button"
+                          className={styles.tabbedForm__submit}
+                          onClick={() => {
+                            onSaveFormData?.(formData);
+                            onSubmitClick?.();
+                          }}
+                          {...inspectorMode({ entryId: submitButton.sys.id, fieldId: 'link' })}
+                        >
+                          {submitButton.linkHeading}
+                        </button>
+                      )
+                    ) : (
+                      /* For non-modal: always show button */
+                      <button
+                        type="submit"
+                        className={styles.tabbedForm__submit}
+                        {...inspectorMode({ entryId: submitButton.sys.id, fieldId: 'link' })}
+                      >
+                        {submitButton.linkHeading}
+                      </button>
+                    )}
+                  </>
+                )}
 
-              {layoutType === 'Home Page Layout' && (
-                <label className={styles.tabbedForm__checkbox}>
-                  <input type="checkbox" defaultChecked />
-                  <span>
-                    HARDCODED TEXT - I&apos;ve read and accepted all Terms and Conditions. I
-                    authorize Axis Max Life Insurance to contact me via
-                    SMS/Email/Phone/Whatsapp/Facebook or any other modes overriding my DND. T&C
-                    Apply. For more details, terms and conditions please refer to the end of this
-                    page in the disclaimers section.
-                  </span>
-                </label>
-              )}
-            </div>
-          </form>
+                {layoutType === 'Home Page Layout' && (
+                  <label className={styles.tabbedForm__checkbox}>
+                    <input type="checkbox" defaultChecked />
+                    <span>
+                      HARDCODED TEXT - I&apos;ve read and accepted all Terms and Conditions. I
+                      authorize Axis Max Life Insurance to contact me via
+                      SMS/Email/Phone/Whatsapp/Facebook or any other modes overriding my DND. T&C
+                      Apply. For more details, terms and conditions please refer to the end of this
+                      page in the disclaimers section.
+                    </span>
+                  </label>
+                )}
+              </div>
+            </form>
+          )}
         </Box>
 
         {/* Right: Image */}

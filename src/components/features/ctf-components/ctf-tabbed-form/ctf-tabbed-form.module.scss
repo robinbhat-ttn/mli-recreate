@@ -46,6 +46,223 @@
     }
   }
 
+  // Quote form specific styles
+  &--quote {
+    .tabbedForm__title {
+      text-align: left;
+      width: 100%;
+    }
+  }
+
+  &__wrapper--quote {
+    max-width: 960px;
+  }
+
+  &__quoteForm {
+    display: flex;
+    flex-direction: column;
+    gap: $space-32;
+  }
+
+  &__quoteField {
+    display: flex;
+    flex-direction: column;
+    gap: $space-12;
+  }
+
+  &__quoteFieldHeader {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: $space-12;
+  }
+
+  &__quoteFieldLabel {
+    font-size: $fs-14;
+    @include font-apply($font-noto, $fw-bold);
+    color: $gray-550;
+  }
+
+  &__quoteSubLabel {
+    font-size: $fs-12;
+    color: $success;
+    @include font-apply($font-noto, $fw-medium);
+  }
+
+  &__quoteDropdown {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+  }
+
+  &__quoteDropdownButton {
+    width: 100%;
+    padding: $space-16;
+    border-radius: $radius-8;
+    border: 1px solid $border-light;
+    background: $white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-12;
+    cursor: pointer;
+  }
+
+  &__quoteDropdownValue {
+    display: flex;
+    align-items: center;
+    gap: $space-8;
+    font-size: $fs-16;
+    color: $text-primary;
+  }
+
+  &__quoteDropdownPlaceholder {
+    font-size: $fs-14;
+    color: $gray-475;
+  }
+
+  &__quoteDropdownMenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: $white;
+    border-radius: 0 0 $radius-8 $radius-8;
+    border: 1px solid $border-light;
+    border-top: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    max-height: 320px;
+    overflow-y: auto;
+  }
+
+  &__quoteDropdownItem {
+    padding: $space-12 $space-16;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $space-4;
+    border: none;
+    background: $white;
+    cursor: pointer;
+    text-align: left;
+
+    &:hover {
+      background: rgba($primary, 0.03);
+    }
+  }
+
+  &__quoteDropdownItemSelected {
+    background: rgba($primary, 0.06);
+  }
+
+  &__quoteDropdownItemMain {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: $fs-14;
+  }
+
+  &__quoteDropdownItemDescription {
+    font-size: $fs-12;
+    color: $gray-550;
+  }
+
+  &__quoteBadge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: $success;
+    color: $white;
+    font-size: $fs-10;
+    @include font-apply($font-noto, $fw-bold);
+  }
+
+  &__quoteSavingBadge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba($success, 0.1);
+    color: $success;
+    font-size: $fs-12;
+    @include font-apply($font-noto, $fw-medium);
+  }
+
+  &__quoteCoverRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-8;
+  }
+
+  &__quoteCoverCard {
+    flex: 1;
+    min-width: 120px;
+    padding: $space-12;
+    border-radius: $radius-8;
+    border: 1px solid $border-light;
+    background: $white;
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+    align-items: flex-start;
+    cursor: pointer;
+    text-align: left;
+
+    &:hover {
+      border-color: $primary;
+    }
+  }
+
+  &__quoteCoverCardSelected {
+    border-color: $primary;
+    background: $bg-light-blue;
+  }
+
+  &__quoteCoverDuration {
+    font-size: $fs-14;
+    @include font-apply($font-noto, $fw-medium);
+    color: $text-primary;
+  }
+
+  &__quoteCoverPremium {
+    font-size: $fs-14;
+    color: $text-secondary;
+  }
+
+  &__quoteMoreButton {
+    min-width: 88px;
+    padding: $space-12;
+    border-radius: $radius-8;
+    border: 1px dashed $border-light;
+    background: $white;
+    cursor: pointer;
+    font-size: $fs-14;
+    color: $text-primary;
+  }
+
+  &__quoteHelpText {
+    margin: 0;
+    margin-top: $space-8;
+    font-size: $fs-12;
+    color: $text-secondary;
+  }
+
+  &__quoteShowMore {
+    padding: $space-12 $space-16;
+    border: none;
+    background: transparent;
+    color: $primary;
+    font-size: $fs-14;
+    text-align: left;
+    cursor: pointer;
+  }
+
   &__content {
     background: $white;
     padding: $space-32 $space-16;

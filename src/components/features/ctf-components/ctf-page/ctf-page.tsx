@@ -8,7 +8,6 @@ import LayoutContext, { defaultLayout } from '@src/layout-context';
 import { CtfPageFieldsFragment } from './__generated/ctf-page.generated';
 
 const CtfPage = (props: CtfPageFieldsFragment) => {
-  console.log('CTF Page Props:', props);
   const content = props.contentCollection && props.contentCollection.items.filter(it => !!it);
 
   // Dynamic layout config based on pageLayout
