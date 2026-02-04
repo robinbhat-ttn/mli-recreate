@@ -15,6 +15,7 @@ type Accordion implements Entry & _Node {
   internalName(locale: String, useFallbackLocale: Boolean): String
   linkedFrom(allowedLocales: [String]): AccordionLinkingCollections
   longText(locale: String, useFallbackLocale: Boolean): String
+  manyReferenceCollection(limit: Int = 100, locale: String, order: [AccordionManyReferenceCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean, where: ButtonFilter): AccordionManyReferenceCollection
   multifield(locale: String, useFallbackLocale: Boolean): [String]
   numberField(locale: String, useFallbackLocale: Boolean): Int
   oneReference(locale: String, preview: Boolean, useFallbackLocale: Boolean): Entry
@@ -79,6 +80,8 @@ input AccordionFilter {
   longText_not: String
   longText_not_contains: String
   longText_not_in: [String]
+  manyReference: cfButtonNestedFilter
+  manyReferenceCollection_exists: Boolean
   multifield_contains_all: [String]
   multifield_contains_none: [String]
   multifield_contains_some: [String]
@@ -121,6 +124,30 @@ enum AccordionLinkingCollectionsPageCollectionOrder {
   priority_DESC
   slug_ASC
   slug_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
+}
+
+type AccordionManyReferenceCollection {
+  items: [Button]!
+  limit: Int!
+  skip: Int!
+  total: Int!
+}
+
+enum AccordionManyReferenceCollectionOrder {
+  buttonLink_ASC
+  buttonLink_DESC
+  buttonText_ASC
+  buttonText_DESC
+  internalName_ASC
+  internalName_DESC
   sys_firstPublishedAt_ASC
   sys_firstPublishedAt_DESC
   sys_id_ASC
@@ -481,9 +508,29 @@ input ButtonFilter {
 }
 
 type ButtonLinkingCollections {
+  accordionCollection(limit: Int = 100, locale: String, order: [ButtonLinkingCollectionsAccordionCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): AccordionCollection
   entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): EntryCollection
   headerCollection(limit: Int = 100, locale: String, order: [ButtonLinkingCollectionsHeaderCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): HeaderCollection
   pageCollection(limit: Int = 100, locale: String, order: [ButtonLinkingCollectionsPageCollectionOrder], preview: Boolean, skip: Int = 0, useFallbackLocale: Boolean): PageCollection
+}
+
+enum ButtonLinkingCollectionsAccordionCollectionOrder {
+  booleanField_ASC
+  booleanField_DESC
+  internalName_ASC
+  internalName_DESC
+  numberField_ASC
+  numberField_DESC
+  radio_ASC
+  radio_DESC
+  sys_firstPublishedAt_ASC
+  sys_firstPublishedAt_DESC
+  sys_id_ASC
+  sys_id_DESC
+  sys_publishedAt_ASC
+  sys_publishedAt_DESC
+  sys_publishedVersion_ASC
+  sys_publishedVersion_DESC
 }
 
 enum ButtonLinkingCollectionsHeaderCollectionOrder {
@@ -3895,6 +3942,34 @@ enum VideoSectionOrder {
 
 interface _Node {
   _id: ID!
+}
+
+input cfButtonNestedFilter {
+  AND: [cfButtonNestedFilter]
+  OR: [cfButtonNestedFilter]
+  buttonLink: String
+  buttonLink_contains: String
+  buttonLink_exists: Boolean
+  buttonLink_in: [String]
+  buttonLink_not: String
+  buttonLink_not_contains: String
+  buttonLink_not_in: [String]
+  buttonText: String
+  buttonText_contains: String
+  buttonText_exists: Boolean
+  buttonText_in: [String]
+  buttonText_not: String
+  buttonText_not_contains: String
+  buttonText_not_in: [String]
+  contentfulMetadata: ContentfulMetadataFilter
+  internalName: String
+  internalName_contains: String
+  internalName_exists: Boolean
+  internalName_in: [String]
+  internalName_not: String
+  internalName_not_contains: String
+  internalName_not_in: [String]
+  sys: SysFilter
 }
 
 input cfCardNestedFilter {
