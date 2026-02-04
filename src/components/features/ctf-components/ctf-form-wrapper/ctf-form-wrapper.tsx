@@ -55,8 +55,6 @@ export const CtfFormWrapper = (props: FormWrapperFieldsFragment) => {
     setIsOpen(false);
   };
 
-  console.log('CTF Form Wrapper Props:', props);
-
   return (
     <div className={styles['form-wrapper__backdrop']}>
       <div className={styles['form-wrapper__modal']}>

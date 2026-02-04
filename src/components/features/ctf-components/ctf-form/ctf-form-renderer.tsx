@@ -1240,7 +1240,6 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                       <button
                         type="submit"
                         className={styles.tabbedForm__submit}
-                        disabled={!isFormValid}
                         {...inspectorMode({ entryId: submitButton.sys.id, fieldId: 'link' })}
                       >
                         {submitButton.linkHeading}

@@ -10,8 +10,8 @@ export const FooterLinks = (props: FooterLinksCollectionFragment) => {
   const mid = footerLinks.length / 2;
   const footerLinksLeft = footerLinks.slice(0, mid);
   const footerLinksRight = footerLinks.slice(mid);
-  console.log('Footer Left Links: ', footerLinksLeft);
-  console.log('Footer Links Right: ', footerLinksRight);
+  // console.log('Footer Left Links: ', footerLinksLeft);
+  // console.log('Footer Links Right: ', footerLinksRight);
   return (
     <>
       <div className={styles.footerLinks}>
