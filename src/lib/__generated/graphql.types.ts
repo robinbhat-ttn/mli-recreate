@@ -31,6 +31,7 @@ export type Accordion = Entry & _Node & {
   internalName?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<AccordionLinkingCollections>;
   longText?: Maybe<Scalars['String']['output']>;
+  manyReferenceCollection?: Maybe<AccordionManyReferenceCollection>;
   multifield?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   numberField?: Maybe<Scalars['Int']['output']>;
   oneReference?: Maybe<Entry>;
@@ -90,6 +91,18 @@ export type AccordionLinkedFromArgs = {
 export type AccordionLongTextArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Accordion Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
+export type AccordionManyReferenceCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<AccordionManyReferenceCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<ButtonFilter>;
 };
 
 
@@ -180,6 +193,8 @@ export type AccordionFilter = {
   longText_not?: InputMaybe<Scalars['String']['input']>;
   longText_not_contains?: InputMaybe<Scalars['String']['input']>;
   longText_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  manyReference?: InputMaybe<CfButtonNestedFilter>;
+  manyReferenceCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
   multifield_contains_all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   multifield_contains_none?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   multifield_contains_some?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -242,6 +257,31 @@ export enum AccordionLinkingCollectionsPageCollectionOrder {
   PriorityDesc = 'priority_DESC',
   SlugAsc = 'slug_ASC',
   SlugDesc = 'slug_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
+
+export type AccordionManyReferenceCollection = {
+  __typename?: 'AccordionManyReferenceCollection';
+  items: Array<Maybe<Button>>;
+  limit: Scalars['Int']['output'];
+  skip: Scalars['Int']['output'];
+  total: Scalars['Int']['output'];
+};
+
+export enum AccordionManyReferenceCollectionOrder {
+  ButtonLinkAsc = 'buttonLink_ASC',
+  ButtonLinkDesc = 'buttonLink_DESC',
+  ButtonTextAsc = 'buttonText_ASC',
+  ButtonTextDesc = 'buttonText_DESC',
+  InternalNameAsc = 'internalName_ASC',
+  InternalNameDesc = 'internalName_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
   SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
   SysIdAsc = 'sys_id_ASC',
@@ -856,9 +896,20 @@ export type ButtonFilter = {
 
 export type ButtonLinkingCollections = {
   __typename?: 'ButtonLinkingCollections';
+  accordionCollection?: Maybe<AccordionCollection>;
   entryCollection?: Maybe<EntryCollection>;
   headerCollection?: Maybe<HeaderCollection>;
   pageCollection?: Maybe<PageCollection>;
+};
+
+
+export type ButtonLinkingCollectionsAccordionCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<ButtonLinkingCollectionsAccordionCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -889,6 +940,25 @@ export type ButtonLinkingCollectionsPageCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
+
+export enum ButtonLinkingCollectionsAccordionCollectionOrder {
+  BooleanFieldAsc = 'booleanField_ASC',
+  BooleanFieldDesc = 'booleanField_DESC',
+  InternalNameAsc = 'internalName_ASC',
+  InternalNameDesc = 'internalName_DESC',
+  NumberFieldAsc = 'numberField_ASC',
+  NumberFieldDesc = 'numberField_DESC',
+  RadioAsc = 'radio_ASC',
+  RadioDesc = 'radio_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
 
 export enum ButtonLinkingCollectionsHeaderCollectionOrder {
   HeaderTypeAsc = 'headerType_ASC',
@@ -6390,6 +6460,34 @@ export enum VideoSectionOrder {
 
 export type _Node = {
   _id: Scalars['ID']['output'];
+};
+
+export type CfButtonNestedFilter = {
+  AND?: InputMaybe<Array<InputMaybe<CfButtonNestedFilter>>>;
+  OR?: InputMaybe<Array<InputMaybe<CfButtonNestedFilter>>>;
+  buttonLink?: InputMaybe<Scalars['String']['input']>;
+  buttonLink_contains?: InputMaybe<Scalars['String']['input']>;
+  buttonLink_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  buttonLink_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  buttonLink_not?: InputMaybe<Scalars['String']['input']>;
+  buttonLink_not_contains?: InputMaybe<Scalars['String']['input']>;
+  buttonLink_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  buttonText?: InputMaybe<Scalars['String']['input']>;
+  buttonText_contains?: InputMaybe<Scalars['String']['input']>;
+  buttonText_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  buttonText_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  buttonText_not?: InputMaybe<Scalars['String']['input']>;
+  buttonText_not_contains?: InputMaybe<Scalars['String']['input']>;
+  buttonText_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
+  internalName?: InputMaybe<Scalars['String']['input']>;
+  internalName_contains?: InputMaybe<Scalars['String']['input']>;
+  internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  internalName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  internalName_not?: InputMaybe<Scalars['String']['input']>;
+  internalName_not_contains?: InputMaybe<Scalars['String']['input']>;
+  internalName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  sys?: InputMaybe<SysFilter>;
 };
 
 export type CfCardNestedFilter = {
