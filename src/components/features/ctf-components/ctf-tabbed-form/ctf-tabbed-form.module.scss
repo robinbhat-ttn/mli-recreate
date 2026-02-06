@@ -60,30 +60,61 @@
 
   &__quoteForm {
     display: flex;
-    flex-direction: column;
-    gap: $space-40;
+    flex-wrap: wrap;
+    gap: $space-24;
+    padding: $space-32;
+    background: $white;
+    border-radius: $radius-16;
+    box-shadow: 0px 5px 35px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e8eaed;
   }
 
   &__quoteField {
     display: flex;
     flex-direction: column;
     gap: $space-16;
+    width: calc(50% - $space-12);
+
+    &:nth-child(3) {
+      width: 100%;
+    }
   }
 
   &__quoteFieldHeader {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
     gap: $space-12;
   }
 
   &__quoteFieldLabel {
-    font-size: $fs-18;
+    font-size: $fs-16;
     @include font-apply($font-noto, $fw-bold);
     color: $text-primary;
     display: flex;
     align-items: center;
     gap: $space-8;
+  }
+
+  &__quoteInfoIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all $transition-fast;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
   }
 
   &__quoteSubLabel {
@@ -1273,6 +1304,64 @@
   &__phoneInputError {
     border-color: #ef5350 !important;
     //background-color: #ffebee;
+  }
+
+  &__infoModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+
+  &__infoModalContent {
+    background: $white;
+    border-radius: $radius-12;
+    padding: $space-32;
+    max-width: 500px;
+    width: 90%;
+    max-height: 70vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+
+  &__infoModalClose {
+    position: absolute;
+    top: $space-16;
+    right: $space-16;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &__infoModalBody {
+    margin-top: $space-16;
+
+    > * {
+      font-size: $fs-14;
+      line-height: $lh-relaxed;
+      color: $text-primary;
+    }
   }
 
   &__errorMessage {

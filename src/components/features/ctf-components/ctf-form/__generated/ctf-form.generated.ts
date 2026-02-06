@@ -332,7 +332,7 @@ export const ExpandedFormFieldsFragmentDoc = `
     }
   }
   formId
-  fieldsCollection(limit: 5) {
+  fieldsCollection(limit: 9) {
     items {
       __typename
       sys {

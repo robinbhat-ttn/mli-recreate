@@ -137,6 +137,7 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
   const phoneCountryDropdownRef = useRef<HTMLDivElement>(null);
   const [isCoverAgeModalOpen, setIsCoverAgeModalOpen] = useState(false);
   const [showPremiumMore, setShowPremiumMore] = useState(false);
+  const [infoPopupField, setInfoPopupField] = useState<string | null>(null);
 
   // Generate storage key based on form type
   const getStorageKey = (step = 0): string => {
@@ -438,6 +439,21 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
               <div className={styles.tabbedForm__quoteFieldHeader}>
                 <div className={styles.tabbedForm__quoteFieldLabel}>
                   <span>{lifeCoverField.label}</span>
+                  {lifeCoverField.icon && (
+                    <button
+                      type="button"
+                      className={styles.tabbedForm__quoteInfoIcon}
+                      onClick={() => setInfoPopupField(infoPopupField === 'lifeCover' ? null : 'lifeCover')}
+                      title="More information"
+                    >
+                      <Image
+                        src={lifeCoverField.icon.url}
+                        alt="Info"
+                        width={18}
+                        height={18}
+                      />
+                    </button>
+                  )}
                 </div>
               </div>
               <div className={styles.tabbedForm__quoteDropdown}>
@@ -511,6 +527,21 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
               <div className={styles.tabbedForm__quoteFieldHeader}>
                 <div className={styles.tabbedForm__quoteFieldLabel}>
                   <span>{coverTillAgeField.label}</span>
+                  {coverTillAgeField.icon && (
+                    <button
+                      type="button"
+                      className={styles.tabbedForm__quoteInfoIcon}
+                      onClick={() => setInfoPopupField(infoPopupField === 'coverTillAge' ? null : 'coverTillAge')}
+                      title="More information"
+                    >
+                      <Image
+                        src={coverTillAgeField.icon.url}
+                        alt="Info"
+                        width={18}
+                        height={18}
+                      />
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -567,6 +598,21 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
               <div className={styles.tabbedForm__quoteFieldHeader}>
                 <div className={styles.tabbedForm__quoteFieldLabel}>
                   <span>{premiumTermField.label}</span>
+                  {premiumTermField.icon && (
+                    <button
+                      type="button"
+                      className={styles.tabbedForm__quoteInfoIcon}
+                      onClick={() => setInfoPopupField(infoPopupField === 'premiumPaymentTerm' ? null : 'premiumPaymentTerm')}
+                      title="More information"
+                    >
+                      <Image
+                        src={premiumTermField.icon.url}
+                        alt="Info"
+                        width={18}
+                        height={18}
+                      />
+                    </button>
+                  )}
                 </div>
                 {premiumTermField.subLabel && (
                   <span className={styles.tabbedForm__quoteSubLabel}>
@@ -654,6 +700,75 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
             </button>
           )}
         </div>
+
+        {/* Info Popups Modal */}
+        {infoPopupField && (
+          <>
+            {infoPopupField === 'lifeCover' && lifeCoverField?.popUp && (
+              <div className={styles.tabbedForm__infoModal} onClick={() => setInfoPopupField(null)}>
+                <div className={styles.tabbedForm__infoModalContent} onClick={e => e.stopPropagation()}>
+                  <button
+                    type="button"
+                    className={styles.tabbedForm__infoModalClose}
+                    onClick={() => setInfoPopupField(null)}
+                  >
+                    <Image
+                      src="https://images.ctfassets.net/t6kvufdm8fgq/6cN4hZ0yNQZaqoho5n56jm/6d9cc05929527ff220ae236772198cb7/cross_icon.svg"
+                      alt="Close"
+                      width={20}
+                      height={20}
+                    />
+                  </button>
+                  <div className={styles.tabbedForm__infoModalBody}>
+                    <CtfRichtext disableContainer={true} {...lifeCoverField.popUp} />
+                  </div>
+                </div>
+              </div>
+            )}
+            {infoPopupField === 'coverTillAge' && coverTillAgeField?.popUp && (
+              <div className={styles.tabbedForm__infoModal} onClick={() => setInfoPopupField(null)}>
+                <div className={styles.tabbedForm__infoModalContent} onClick={e => e.stopPropagation()}>
+                  <button
+                    type="button"
+                    className={styles.tabbedForm__infoModalClose}
+                    onClick={() => setInfoPopupField(null)}
+                  >
+                    <Image
+                      src="https://images.ctfassets.net/t6kvufdm8fgq/6cN4hZ0yNQZaqoho5n56jm/6d9cc05929527ff220ae236772198cb7/cross_icon.svg"
+                      alt="Close"
+                      width={20}
+                      height={20}
+                    />
+                  </button>
+                  <div className={styles.tabbedForm__infoModalBody}>
+                    <CtfRichtext disableContainer={true} {...coverTillAgeField.popUp} />
+                  </div>
+                </div>
+              </div>
+            )}
+            {infoPopupField === 'premiumPaymentTerm' && premiumTermField?.popUp && (
+              <div className={styles.tabbedForm__infoModal} onClick={() => setInfoPopupField(null)}>
+                <div className={styles.tabbedForm__infoModalContent} onClick={e => e.stopPropagation()}>
+                  <button
+                    type="button"
+                    className={styles.tabbedForm__infoModalClose}
+                    onClick={() => setInfoPopupField(null)}
+                  >
+                    <Image
+                      src="https://images.ctfassets.net/t6kvufdm8fgq/6cN4hZ0yNQZaqoho5n56jm/6d9cc05929527ff220ae236772198cb7/cross_icon.svg"
+                      alt="Close"
+                      width={20}
+                      height={20}
+                    />
+                  </button>
+                  <div className={styles.tabbedForm__infoModalBody}>
+                    <CtfRichtext disableContainer={true} {...premiumTermField.popUp} />
+                  </div>
+                </div>
+              </div>
+            )}
+          </>
+        )}
       </form>
     );
   };
