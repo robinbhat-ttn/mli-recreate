@@ -1,12 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
+
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+
 import { Tabs, Tab, Box } from '@mui/material';
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
 import chevronIcon from '@src/icons/chevron_down_navigate_blue.webp';
 import { useLayoutContext } from '@src/layout-context';
 import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtext/ctf-richtext';
+
 import styles from '../ctf-tabbed-form/ctf-tabbed-form.module.scss';
 
 // Validate DOB: valid date format and age 18-60
@@ -109,7 +112,6 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
     title,
     isInModal = false,
     onFormValidationChange,
-    isSubmitDisabled = false,
     onSubmitClick,
     isLastStep = false,
     onSaveFormData,
@@ -135,7 +137,6 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
   const [isFormValid, setIsFormValid] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const phoneCountryDropdownRef = useRef<HTMLDivElement>(null);
-  const [isCoverAgeModalOpen, setIsCoverAgeModalOpen] = useState(false);
   const [showPremiumMore, setShowPremiumMore] = useState(false);
   const [infoPopupField, setInfoPopupField] = useState<string | null>(null);
 
@@ -183,12 +184,9 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
 
   // Initialize form data with default values only (to avoid hydration issues)
   const [formData, setFormData] = useState<Record<string, any>>(getDefaultFormData());
-  const [isHydrated, setIsHydrated] = useState(false);
 
   // Load from localStorage after hydration (for lead forms and next steps popup on step change)
   useEffect(() => {
-    setIsHydrated(true);
-
     if (typeof window !== 'undefined') {
       try {
         const storageKey = getStorageKey(currentStep);
@@ -209,7 +207,7 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
     setFormData(getDefaultFormData());
     setErrors({});
     setIsSubmitted(false);
-  }, [currentStep, isInModal]);
+  }, [currentStep, isInModal, fields]);
 
   // Notify parent when form validation changes
   useEffect(() => {
@@ -443,15 +441,12 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                     <button
                       type="button"
                       className={styles.tabbedForm__quoteInfoIcon}
-                      onClick={() => setInfoPopupField(infoPopupField === 'lifeCover' ? null : 'lifeCover')}
+                      onClick={() =>
+                        setInfoPopupField(infoPopupField === 'lifeCover' ? null : 'lifeCover')
+                      }
                       title="More information"
                     >
-                      <Image
-                        src={lifeCoverField.icon.url}
-                        alt="Info"
-                        width={18}
-                        height={18}
-                      />
+                      <Image src={lifeCoverField.icon.url} alt="Info" width={18} height={18} />
                     </button>
                   )}
                 </div>
@@ -460,9 +455,7 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                 <button
                   type="button"
                   className={styles.tabbedForm__quoteDropdownButton}
-                  onClick={() =>
-                    setOpenDropdown(openDropdown === 'lifeCover' ? null : 'lifeCover')
-                  }
+                  onClick={() => setOpenDropdown(openDropdown === 'lifeCover' ? null : 'lifeCover')}
                 >
                   {selectedLifeCoverIndex >= 0 && lifeCoverOptions[selectedLifeCoverIndex] ? (
                     <span className={styles.tabbedForm__quoteDropdownValue}>
@@ -531,15 +524,12 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                     <button
                       type="button"
                       className={styles.tabbedForm__quoteInfoIcon}
-                      onClick={() => setInfoPopupField(infoPopupField === 'coverTillAge' ? null : 'coverTillAge')}
+                      onClick={() =>
+                        setInfoPopupField(infoPopupField === 'coverTillAge' ? null : 'coverTillAge')
+                      }
                       title="More information"
                     >
-                      <Image
-                        src={coverTillAgeField.icon.url}
-                        alt="Info"
-                        width={18}
-                        height={18}
-                      />
+                      <Image src={coverTillAgeField.icon.url} alt="Info" width={18} height={18} />
                     </button>
                   )}
                 </div>
@@ -558,13 +548,9 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                       }`}
                       onClick={() => handleCoverTillAgeSelect(opt)}
                     >
-                      <span className={styles.tabbedForm__quoteCoverDuration}>
-                        {opt.duration}
-                      </span>
+                      <span className={styles.tabbedForm__quoteCoverDuration}>{opt.duration}</span>
                       {opt.premium && (
-                        <span className={styles.tabbedForm__quoteCoverPremium}>
-                          {opt.premium}
-                        </span>
+                        <span className={styles.tabbedForm__quoteCoverPremium}>{opt.premium}</span>
                       )}
                       {opt.feature && (
                         <span className={styles.tabbedForm__quoteBadge}>{opt.feature}</span>
@@ -574,20 +560,14 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                 })}
 
                 {remainingCoverTillAgeOptions.length > 0 && (
-                  <button
-                    type="button"
-                    className={styles.tabbedForm__quoteMoreButton}
-                    onClick={() => setIsCoverAgeModalOpen(true)}
-                  >
+                  <button type="button" className={styles.tabbedForm__quoteMoreButton} disabled>
                     More
                   </button>
                 )}
               </div>
 
               {coverTillAgeField.bottomText && (
-                <p className={styles.tabbedForm__quoteHelpText}>
-                  {coverTillAgeField.bottomText}
-                </p>
+                <p className={styles.tabbedForm__quoteHelpText}>{coverTillAgeField.bottomText}</p>
               )}
             </div>
           )}
@@ -602,15 +582,14 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                     <button
                       type="button"
                       className={styles.tabbedForm__quoteInfoIcon}
-                      onClick={() => setInfoPopupField(infoPopupField === 'premiumPaymentTerm' ? null : 'premiumPaymentTerm')}
+                      onClick={() =>
+                        setInfoPopupField(
+                          infoPopupField === 'premiumPaymentTerm' ? null : 'premiumPaymentTerm',
+                        )
+                      }
                       title="More information"
                     >
-                      <Image
-                        src={premiumTermField.icon.url}
-                        alt="Info"
-                        width={18}
-                        height={18}
-                      />
+                      <Image src={premiumTermField.icon.url} alt="Info" width={18} height={18} />
                     </button>
                   )}
                 </div>
@@ -626,13 +605,12 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                   type="button"
                   className={styles.tabbedForm__quoteDropdownButton}
                   onClick={() =>
-                    setOpenDropdown(openDropdown === 'premiumPaymentTerm'
-                      ? null
-                      : 'premiumPaymentTerm')
+                    setOpenDropdown(
+                      openDropdown === 'premiumPaymentTerm' ? null : 'premiumPaymentTerm',
+                    )
                   }
                 >
-                  {selectedPremiumTermIndex >= 0 &&
-                  premiumTermOptions[selectedPremiumTermIndex] ? (
+                  {selectedPremiumTermIndex >= 0 && premiumTermOptions[selectedPremiumTermIndex] ? (
                     <span className={styles.tabbedForm__quoteDropdownValue}>
                       {premiumTermOptions[selectedPremiumTermIndex].label ||
                         premiumTermOptions[selectedPremiumTermIndex].duration}
@@ -667,9 +645,7 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                           {opt.premium && <span>{opt.premium}</span>}
                         </div>
                         {opt.saving && (
-                          <span className={styles.tabbedForm__quoteSavingBadge}>
-                            {opt.saving}
-                          </span>
+                          <span className={styles.tabbedForm__quoteSavingBadge}>{opt.saving}</span>
                         )}
                       </button>
                     ))}
@@ -705,8 +681,20 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
         {infoPopupField && (
           <>
             {infoPopupField === 'lifeCover' && lifeCoverField?.popUp && (
-              <div className={styles.tabbedForm__infoModal} onClick={() => setInfoPopupField(null)}>
-                <div className={styles.tabbedForm__infoModalContent} onClick={e => e.stopPropagation()}>
+              <div
+                className={styles.tabbedForm__infoModal}
+                role="button"
+                tabIndex={0}
+                onClick={() => setInfoPopupField(null)}
+                onKeyDown={e => {
+                  if (e.key === 'Escape' || e.key === 'Enter') setInfoPopupField(null);
+                }}
+              >
+                <div
+                  className={styles.tabbedForm__infoModalContent}
+                  role="presentation"
+                  onClick={e => e.stopPropagation()}
+                >
                   <button
                     type="button"
                     className={styles.tabbedForm__infoModalClose}
@@ -726,8 +714,20 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
               </div>
             )}
             {infoPopupField === 'coverTillAge' && coverTillAgeField?.popUp && (
-              <div className={styles.tabbedForm__infoModal} onClick={() => setInfoPopupField(null)}>
-                <div className={styles.tabbedForm__infoModalContent} onClick={e => e.stopPropagation()}>
+              <div
+                className={styles.tabbedForm__infoModal}
+                role="button"
+                tabIndex={0}
+                onClick={() => setInfoPopupField(null)}
+                onKeyDown={e => {
+                  if (e.key === 'Escape' || e.key === 'Enter') setInfoPopupField(null);
+                }}
+              >
+                <div
+                  className={styles.tabbedForm__infoModalContent}
+                  role="presentation"
+                  onClick={e => e.stopPropagation()}
+                >
                   <button
                     type="button"
                     className={styles.tabbedForm__infoModalClose}
@@ -747,8 +747,20 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
               </div>
             )}
             {infoPopupField === 'premiumPaymentTerm' && premiumTermField?.popUp && (
-              <div className={styles.tabbedForm__infoModal} onClick={() => setInfoPopupField(null)}>
-                <div className={styles.tabbedForm__infoModalContent} onClick={e => e.stopPropagation()}>
+              <div
+                className={styles.tabbedForm__infoModal}
+                role="button"
+                tabIndex={0}
+                onClick={() => setInfoPopupField(null)}
+                onKeyDown={e => {
+                  if (e.key === 'Escape' || e.key === 'Enter') setInfoPopupField(null);
+                }}
+              >
+                <div
+                  className={styles.tabbedForm__infoModalContent}
+                  role="presentation"
+                  onClick={e => e.stopPropagation()}
+                >
                   <button
                     type="button"
                     className={styles.tabbedForm__infoModalClose}
@@ -827,9 +839,7 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                 >
                   {selectedOption ? (
                     <span className={styles.tabbedForm__dropdownValue}>
-                      <span
-                        className={`fflag ff-md ${getFlagClass(selectedOption.countryCode)}`}
-                      ></span>
+                      <span className={`fflag ff-md ${getFlagClass(selectedOption.countryCode)}`} />
                       <span>{selectedOption.countryName}</span>
                     </span>
                   ) : null}
@@ -879,7 +889,7 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                               }
                             }}
                           >
-                            <span className={`fflag ff-md ${optFlagClass}`}></span>
+                            <span className={`fflag ff-md ${optFlagClass}`} />
                             <span>{opt.countryName}</span>
                           </div>
                         );
@@ -1116,9 +1126,7 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                             }
                           }}
                         >
-                          <span
-                            className={`fflag ff-md ${getFlagClass(country.countryCode)}`}
-                          ></span>
+                          <span className={`fflag ff-md ${getFlagClass(country.countryCode)}`} />
                           <span>{country.dialCode}</span>
                           <span>{country.countryName}</span>
                         </div>

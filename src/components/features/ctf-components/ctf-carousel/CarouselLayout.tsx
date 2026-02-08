@@ -8,6 +8,7 @@ import type { CarouselFieldsFragment } from './__generated/ctf-carousel.generate
 import styles from './carousel-layout.module.scss';
 import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
 
+// @ts-ignore - react-slick types conflict
 const Slider = dynamic(() => import('react-slick'), { ssr: false });
 
 const Arrow = ({ className, style, onClick }: any) => {
@@ -54,6 +55,7 @@ const Arrow = ({ className, style, onClick }: any) => {
   );
 };
 
+// @ts-ignore - react-slick types conflict
 const settings: Settings = {
   dots: false,
   arrows: true,
@@ -61,8 +63,8 @@ const settings: Settings = {
   speed: 400,
   slidesToShow: 3,
   slidesToScroll: 1,
-  nextArrow: <Arrow />,
-  prevArrow: <Arrow />,
+  nextArrow: (<Arrow />) as any,
+  prevArrow: (<Arrow />) as any,
   responsive: [
     {
       breakpoint: 1222,
