@@ -176,6 +176,23 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
           initialData[field.name || ''] = lessThanFiveOption.value;
         }
       }
+      // Set Life Cover default to '1 Crore'
+      if (field?.name === 'lifeCover') {
+        const options = field?.options?.items?.optionValues || field?.options?.items || [];
+        const onecroreOption = options.find(
+          (opt: any) => opt.amount?.includes('1 Crore') || opt.label?.includes('1 Crore'),
+        );
+        if (onecroreOption) {
+          initialData[field.name || ''] = onecroreOption.amount || onecroreOption.value;
+        }
+      }
+      // Set Premium Payment Term default to first option
+      if (field?.name === 'premiumPaymentTerm') {
+        const options = field?.options?.items || [];
+        if (options.length > 0) {
+          initialData[field.name || ''] = options[0].age || options[0].label;
+        }
+      }
     });
 
     return initialData;
@@ -397,8 +414,8 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
   const premiumTermOptions = premiumTermField?.options?.items || [];
 
   const selectedLifeCoverIndex = lifeCoverOptions.findIndex(
-    (opt: any, index: number) =>
-      formData.lifeCover === index || formData.lifeCover === opt.amount || index === 1,
+    (opt: any) =>
+      formData.lifeCover === opt.amount || (formData.lifeCover && formData.lifeCover === opt.value),
   );
 
   const visibleCoverTillAgeOptions = coverTillAgeOptions.slice(0, 3);
@@ -409,7 +426,7 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
   );
 
   const selectedPremiumTermIndex = premiumTermOptions.findIndex(
-    (opt: any) => formData.premiumPaymentTerm === opt.duration,
+    (opt: any) => formData.premiumPaymentTerm === (opt.age || opt.label),
   );
 
   const handleLifeCoverSelect = (index: number) => {
@@ -423,7 +440,7 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
 
   const handlePremiumTermSelect = (index: number) => {
     const option = premiumTermOptions[index];
-    handleInputChange('premiumPaymentTerm', option?.duration);
+    handleInputChange('premiumPaymentTerm', option?.age || option?.label);
   };
 
   const renderQuoteForm = () => {
@@ -445,7 +462,12 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                       }
                       title="More information"
                     >
-                      <Image src={lifeCoverField.icon.url} alt="Info" width={18} height={18} />
+                      <Image
+                        src={lifeCoverField.icon.url}
+                        alt="Info"
+                        width={lifeCoverField.icon.width}
+                        height={lifeCoverField.icon.height}
+                      />
                     </button>
                   )}
                 </div>
@@ -458,14 +480,12 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                 >
                   {selectedLifeCoverIndex >= 0 && lifeCoverOptions[selectedLifeCoverIndex] ? (
                     <span className={styles.tabbedForm__quoteDropdownValue}>
-                      <span>
-                        {lifeCoverOptions[selectedLifeCoverIndex].amount}{' '}
-                        {lifeCoverOptions[selectedLifeCoverIndex].status && (
-                          <span className={styles.tabbedForm__quoteBadge}>
-                            {lifeCoverOptions[selectedLifeCoverIndex].status}
-                          </span>
-                        )}
-                      </span>
+                      <span>{lifeCoverOptions[selectedLifeCoverIndex].amount}</span>
+                      {lifeCoverOptions[selectedLifeCoverIndex].premium && (
+                        <span className={styles.tabbedForm__quoteDropdownPrice}>
+                          {lifeCoverOptions[selectedLifeCoverIndex].premium}
+                        </span>
+                      )}
                     </span>
                   ) : (
                     <span className={styles.tabbedForm__quoteDropdownPlaceholder}>
@@ -493,18 +513,27 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                           setOpenDropdown(null);
                         }}
                       >
+                        <div className={styles.tabbedForm__quoteDropdownItemRadio} />
                         <div className={styles.tabbedForm__quoteDropdownItemMain}>
-                          <span>{opt.amount}</span>
-                          {opt.premium && <span>{opt.premium}</span>}
+                          <div className={styles.tabbedForm__quoteDropdownItemLabel}>
+                            <span className={styles.tabbedForm__quoteDropdownItemAge}>
+                              {opt.amount}
+                            </span>
+                            {opt.status && (
+                              <span className={styles.tabbedForm__quoteBadge}>{opt.status}</span>
+                            )}
+                            {opt.description && (
+                              <span className={styles.tabbedForm__quoteDropdownItemDescription}>
+                                {opt.description}
+                              </span>
+                            )}
+                          </div>
+                          {opt.premium && (
+                            <span className={styles.tabbedForm__quoteDropdownItemPrice}>
+                              {opt.premium}
+                            </span>
+                          )}
                         </div>
-                        {opt.status && (
-                          <span className={styles.tabbedForm__quoteBadge}>{opt.status}</span>
-                        )}
-                        {opt.description && (
-                          <span className={styles.tabbedForm__quoteDropdownItemDescription}>
-                            {opt.description}
-                          </span>
-                        )}
                       </button>
                     ))}
                   </div>
@@ -528,7 +557,12 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                       }
                       title="More information"
                     >
-                      <Image src={coverTillAgeField.icon.url} alt="Info" width={18} height={18} />
+                      <Image
+                        src={coverTillAgeField.icon.url}
+                        alt="Info"
+                        width={coverTillAgeField.icon.width}
+                        height={coverTillAgeField.icon.height}
+                      />
                     </button>
                   )}
                 </div>
@@ -559,8 +593,14 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                 })}
 
                 {remainingCoverTillAgeOptions.length > 0 && (
-                  <button type="button" className={styles.tabbedForm__quoteMoreButton} disabled>
-                    More
+                  <button
+                    type="button"
+                    className={styles.tabbedForm__quoteMoreButton}
+                    disabled
+                    title="More options"
+                  >
+                    <span>...</span>
+                    <span>MORE</span>
                   </button>
                 )}
               </div>
@@ -588,7 +628,12 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                       }
                       title="More information"
                     >
-                      <Image src={premiumTermField.icon.url} alt="Info" width={18} height={18} />
+                      <Image
+                        src={premiumTermField.icon.url}
+                        alt="Info"
+                        width={premiumTermField.icon.width}
+                        height={premiumTermField.icon.height}
+                      />
                     </button>
                   )}
                 </div>
@@ -611,8 +656,14 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                 >
                   {selectedPremiumTermIndex >= 0 && premiumTermOptions[selectedPremiumTermIndex] ? (
                     <span className={styles.tabbedForm__quoteDropdownValue}>
-                      {premiumTermOptions[selectedPremiumTermIndex].label ||
-                        premiumTermOptions[selectedPremiumTermIndex].duration}
+                      <span>
+                        {premiumTermOptions[selectedPremiumTermIndex].age ||
+                          premiumTermOptions[selectedPremiumTermIndex].label ||
+                          premiumTermOptions[selectedPremiumTermIndex].duration}
+                      </span>
+                      {premiumTermOptions[selectedPremiumTermIndex].price && (
+                        <span>{premiumTermOptions[selectedPremiumTermIndex].price}</span>
+                      )}
                     </span>
                   ) : (
                     <span className={styles.tabbedForm__quoteDropdownPlaceholder}>
@@ -630,22 +681,38 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                       <button
                         type="button"
                         key={index}
-                        className={`${styles.tabbedForm__quoteDropdownItem} ${
+                        className={`${styles.tabbedForm__premiumTermDropdownItem} ${
                           selectedPremiumTermIndex === index
-                            ? styles.tabbedForm__quoteDropdownItemSelected
+                            ? styles.tabbedForm__premiumTermDropdownItemSelected
                             : ''
                         }`}
                         onClick={() => {
                           handlePremiumTermSelect(index);
+                          setOpenDropdown(null);
                         }}
                       >
-                        <div className={styles.tabbedForm__quoteDropdownItemMain}>
-                          <span>{opt.label || opt.duration}</span>
-                          {opt.premium && <span>{opt.premium}</span>}
+                        <div className={styles.tabbedForm__premiumTermDropdownItemLeft}>
+                          <span className={styles.tabbedForm__premiumTermDropdownItemTitle}>
+                            {opt.age || opt.label || opt.duration || ''}
+                          </span>
+                          {(opt.time || opt.label) && (
+                            <span className={styles.tabbedForm__premiumTermDropdownItemSubtitle}>
+                              {opt.time || ''}
+                            </span>
+                          )}
                         </div>
-                        {opt.saving && (
-                          <span className={styles.tabbedForm__quoteSavingBadge}>{opt.saving}</span>
-                        )}
+                        <div className={styles.tabbedForm__premiumTermDropdownItemRight}>
+                          {opt.price && (
+                            <span className={styles.tabbedForm__premiumTermDropdownItemPrice}>
+                              {opt.price || opt.premium}
+                            </span>
+                          )}
+                          {opt.saving && (
+                            <span className={styles.tabbedForm__premiumTermSavingBadge}>
+                              {opt.saving}
+                            </span>
+                          )}
+                        </div>
                       </button>
                     ))}
                     {premiumTermOptions.length > 0 && !showPremiumMore && (

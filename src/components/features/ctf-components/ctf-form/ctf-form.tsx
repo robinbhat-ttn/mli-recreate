@@ -26,7 +26,7 @@ export const CtfForm = (props: ExpandedFormFieldsFragment) => {
 
   // Quote form – Term Insurance Step 1 (shown only on quote stage)
   if (props.formType && props.formType === 'Term Insurance Step 1' && isQuoteStage) {
-    //console.log('quote form props:', props);
+    console.log('quote form props:', props);
     return (
       <CtfFormRenderer
         fields={props.fieldsCollection?.items || []}
