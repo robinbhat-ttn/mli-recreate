@@ -1,0 +1,219 @@
+.journey {
+  width: 100%;
+  padding: 0 $space-16;
+  top: 0;
+  z-index: 10;
+
+  &__container {
+    max-width: 60%;
+    margin: 0 auto;
+    padding: 0 $space-44;
+  }
+
+  &__header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: $space-16;
+  }
+
+  &__title {
+    font-size: $fs-18;
+    font-weight: $fw-bold;
+    color: $text-primary;
+    margin: 0;
+    font-family: $font-roboto;
+  }
+
+  &__progressSection {
+    display: flex;
+    flex-direction: column;
+    gap: $space-16;
+    padding: $space-20 $space-24;
+    background: $white;
+    border-radius: $radius-12;
+    border: 1px solid $border-light;
+    background: linear-gradient(45deg, rgba(196, 221, 254, 0.32) -12.5%, rgba(254, 216, 247, 0.32) 112.5%);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+
+    @media (max-width: 768px) {
+      padding: $space-16;
+    }
+  }
+
+  &__contentRow {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: $space-24;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: $space-16;
+    }
+  }
+
+  &__stepsContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $space-12;
+  }
+
+  &__progressBar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+  }
+
+  &__step {
+    width: $space-28;
+    height: $space-28;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: $fs-12;
+    font-weight: $fw-semi-bold;
+    background: $white;
+    color: $text-secondary;
+    border: 2px solid $border-light;
+    flex-shrink: 0;
+    transition: $transition-standard;
+    font-family: $font-roboto;
+    position: relative;
+    z-index: 1;
+
+    &--active {
+      background: $accent;
+      color: $white;
+      border-color: $accent;
+    }
+
+    &--completed {
+      background: $accent;
+      color: $white;
+      border-color: $accent;
+
+      & .journey__stepTick {
+        display: block;
+      }
+    }
+  }
+
+  &__stepNumber {
+    display: none;
+  }
+
+  &__stepTick {
+    display: none;
+    line-height: 1;
+    font-size: $fs-14;
+  }
+
+  &__connector {
+    width: 12%;
+    height: 2px;
+    background: $border-light;
+    transition: background-color $transition-standard;
+    flex-shrink: 0;
+    margin: 0;
+
+    &--completed {
+      background: $accent;
+    }
+  }
+
+  &__stepLabels {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  &__stepLabel {
+    font-size: $fs-12;
+    color: $text-muted;
+    font-weight: $fw-regular;
+    line-height: 1.3;
+    transition: color $transition-standard;
+    font-family: $font-roboto;
+    text-align: center;
+    flex: 1;
+
+    &--active {
+      color: $text-primary;
+      font-weight: $fw-semi-bold;
+    }
+  }
+
+  &__policyDetails {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: $space-20;
+    padding: $space-12 $space-16;
+    border: 1px solid $gray-525;
+    border-radius: $radius-8;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      justify-content: space-between;
+      gap: $space-12;
+    }
+  }
+
+  &__detailItem {
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+  }
+
+  &__detailLabel {
+    font-size: $fs-12;
+    color: $text-muted;
+    font-weight: $fw-regular;
+    font-family: $font-roboto;
+    line-height: 1.2;
+  }
+
+  &__detailValue {
+    font-size: $fs-14;
+    font-weight: $fw-bold;
+    color: $text-primary;
+    font-family: $font-roboto;
+  }
+
+  &__detailSeparator {
+    display: none;
+  }
+
+  &__continueButton {
+    padding: $space-8 $space-20;
+    background: $white;
+    color: $secondary;
+    border: 2px solid $secondary;
+    border-radius: $radius-6;
+    font-size: $fs-13;
+    font-weight: $fw-semi-bold;
+    cursor: pointer;
+    transition: $transition-standard;
+    white-space: nowrap;
+    font-family: $font-roboto;
+    min-width: fit-content;
+
+    &:hover {
+      background: $secondary;
+      color: $white;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+}

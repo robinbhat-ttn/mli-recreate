@@ -1,12 +1,13 @@
+import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import type { Settings } from 'react-slick';
-import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
 import type { CarouselFieldsFragment } from './__generated/ctf-carousel.generated';
-import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
 import styles from './TestimonialCarouselLayout.module.scss';
+import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
 
+// @ts-ignore - react-slick types conflict
 const Slider = dynamic(() => import('react-slick'), { ssr: false });
 
 // Separate prev/next arrow components
@@ -33,8 +34,8 @@ const settings: Settings = {
   speed: 400,
   slidesToShow: 2, // Default: 2 cards per slide
   slidesToScroll: 1,
-  nextArrow: <NextArrow />,
-  prevArrow: <PrevArrow />,
+  nextArrow: (<NextArrow />) as any,
+  prevArrow: (<PrevArrow />) as any,
   responsive: [
     {
       breakpoint: 1222,
@@ -74,7 +75,7 @@ export const TestimonialCarouselLayout = (props: CarouselFieldsFragment) => {
       {...inspectorMode({ entryId: props?.sys?.id, fieldId: 'carousel' })}
     >
       <div className={styles['testimonialCarouselContainer__title']}>{title}</div>
-      <Slider {...settings} className={styles.slider}>
+      <Slider {...(settings as any)} className={styles.slider}>
         {testimonialCards.map(card => {
           const id = card?.sys?.id ?? Math.random().toString(36).slice(2, 9);
           const img = card?.cardImage;

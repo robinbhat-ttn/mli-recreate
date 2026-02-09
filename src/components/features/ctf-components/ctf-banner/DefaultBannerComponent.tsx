@@ -1,10 +1,32 @@
-import React from 'react';
-import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
+import React, { useState, useEffect } from 'react';
+
 import styles from './default-banner.module.scss';
+import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
 
 type Props = any;
 
 export const DefaultBannerComponent = (props: Props) => {
+  const [hasLeadId, setHasLeadId] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true);
+    if (typeof window !== 'undefined') {
+      const leadId = localStorage.getItem('lead_id');
+      setHasLeadId(!!leadId);
+    }
+  }, []);
+
+  // Don't render banner if lead_id exists (journey component will be shown instead)
+  if (isHydrated && hasLeadId) {
+    return null;
+  }
+
+  // Show loading state until hydrated to avoid hydration mismatch
+  if (!isHydrated) {
+    return null;
+  }
+
   const texts = props?.bannerTextCollection?.items || [];
 
   // Separate texts by variations

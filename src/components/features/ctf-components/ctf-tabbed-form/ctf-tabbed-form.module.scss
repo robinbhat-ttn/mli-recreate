@@ -46,6 +46,293 @@
     }
   }
 
+  // Quote form specific styles
+  &--quote {
+    .tabbedForm__title {
+      text-align: left;
+      width: 100%;
+    }
+  }
+
+  &__wrapper--quote {
+    max-width: 960px;
+  }
+
+  &__quoteForm {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-24;
+    padding: $space-32;
+    background: $white;
+    border-radius: $radius-16;
+    box-shadow: 0px 5px 35px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e8eaed;
+  }
+
+  &__quoteField {
+    display: flex;
+    flex-direction: column;
+    gap: $space-16;
+    width: calc(50% - $space-12);
+
+    &:nth-child(3) {
+      width: 100%;
+    }
+  }
+
+  &__quoteFieldHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-12;
+  }
+
+  &__quoteFieldLabel {
+    font-size: $fs-16;
+    @include font-apply($font-noto, $fw-bold);
+    color: $text-primary;
+    display: flex;
+    align-items: center;
+    gap: $space-8;
+  }
+
+  &__quoteInfoIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all $transition-fast;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__quoteSubLabel {
+    font-size: $fs-14;
+    color: $success;
+    @include font-apply($font-noto, $fw-semi-bold);
+  }
+
+  &__quoteDropdown {
+    position: relative;
+    width: 100%;
+  }
+
+  &__quoteDropdownButton {
+    width: 100%;
+    padding: $space-20 $space-24;
+    border-radius: $radius-12;
+    border: 1px solid $border-light;
+    background: $white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-12;
+    cursor: pointer;
+    font-size: $fs-16;
+    @include font-apply($font-noto, $fw-semi-bold);
+    color: $text-primary;
+    transition: all $transition-fast;
+    
+    &:hover {
+      border-color: $border-medium;
+      background: $bg-very-light;
+    }
+  }
+
+  &__quoteDropdownValue {
+    display: flex;
+    align-items: center;
+    gap: $space-8;
+    font-size: $fs-16;
+    @include font-apply($font-noto, $fw-semi-bold);
+    color: $text-primary;
+  }
+
+  &__quoteDropdownPlaceholder {
+    font-size: $fs-14;
+    color: $gray-475;
+  }
+
+  &__quoteDropdownMenu {
+    position: absolute;
+    top: calc(100% + $space-8);
+    left: 0;
+    right: 0;
+    background: $white;
+    border-radius: $radius-12;
+    border: 1px solid $border-light;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    max-height: 320px;
+    overflow-y: auto;
+    gap: $space-4;
+    padding: $space-12;
+  }
+
+  &__quoteDropdownItem {
+    padding: $space-16 $space-16;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $space-8;
+    border: 1px solid $border-light;
+    border-radius: $radius-8;
+    background: $white;
+    cursor: pointer;
+    text-align: left;
+    transition: all $transition-fast;
+
+    &:hover {
+      background: $bg-light-blue;
+      border-color: $border-medium;
+    }
+  }
+
+  &__quoteDropdownItemSelected {
+    background: $bg-light-blue;
+    border-color: $primary;
+  }
+
+  &__quoteDropdownItemMain {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    gap: $space-16;
+    flex-wrap: wrap;
+    
+    > span:first-child {
+      font-size: $fs-16;
+      @include font-apply($font-noto, $fw-semi-bold);
+      color: $text-primary;
+      flex: 1;
+    }
+    
+    > span:last-child {
+      font-size: $fs-14;
+      color: $text-secondary;
+      white-space: nowrap;
+    }
+  }
+
+  &__quoteDropdownItemDescription {
+    font-size: $fs-12;
+    color: $gray-550;
+  }
+
+  &__quoteBadge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: $success;
+    color: $white;
+    font-size: $fs-10;
+    @include font-apply($font-noto, $fw-bold);
+  }
+
+  &__quoteSavingBadge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: $space-4 $space-8;
+    border-radius: $radius-4;
+    background: rgba($success, 0.1);
+    color: $success;
+    font-size: $fs-12;
+    @include font-apply($font-noto, $fw-semi-bold);
+    white-space: nowrap;
+  }
+
+  &__quoteCoverRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-8;
+  }
+
+  &__quoteCoverCard {
+    flex: 1;
+    min-width: 120px;
+    padding: $space-12;
+    border-radius: $radius-8;
+    border: 1px solid $border-light;
+    background: $white;
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+    align-items: flex-start;
+    cursor: pointer;
+    text-align: left;
+
+    &:hover {
+      border-color: $primary;
+    }
+  }
+
+  &__quoteCoverCardSelected {
+    border-color: $primary;
+    background: $bg-light-blue;
+  }
+
+  &__quoteCoverDuration {
+    font-size: $fs-14;
+    @include font-apply($font-noto, $fw-medium);
+    color: $text-primary;
+  }
+
+  &__quoteCoverPremium {
+    font-size: $fs-14;
+    color: $text-secondary;
+  }
+
+  &__quoteMoreButton {
+    min-width: 88px;
+    padding: $space-12;
+    border-radius: $radius-8;
+    border: 1px dashed $border-light;
+    background: $white;
+    cursor: pointer;
+    font-size: $fs-14;
+    color: $text-primary;
+  }
+
+  &__quoteHelpText {
+    margin: 0;
+    margin-top: $space-8;
+    font-size: $fs-12;
+    color: $text-secondary;
+  }
+
+  &__quoteShowMore {
+    padding: $space-12 $space-16;
+    border: none;
+    background: transparent;
+    color: $primary;
+    font-size: $fs-14;
+    text-align: center;
+    cursor: pointer;
+    @include font-apply($font-noto, $fw-semi-bold);
+    transition: all $transition-fast;
+    
+    &:hover {
+      color: $primary-light;
+    }
+  }
+
   &__content {
     background: $white;
     padding: $space-32 $space-16;
@@ -1017,6 +1304,64 @@
   &__phoneInputError {
     border-color: #ef5350 !important;
     //background-color: #ffebee;
+  }
+
+  &__infoModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+
+  &__infoModalContent {
+    background: $white;
+    border-radius: $radius-12;
+    padding: $space-32;
+    max-width: 500px;
+    width: 90%;
+    max-height: 70vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+
+  &__infoModalClose {
+    position: absolute;
+    top: $space-16;
+    right: $space-16;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &__infoModalBody {
+    margin-top: $space-16;
+
+    > * {
+      font-size: $fs-14;
+      line-height: $lh-relaxed;
+      color: $text-primary;
+    }
   }
 
   &__errorMessage {
