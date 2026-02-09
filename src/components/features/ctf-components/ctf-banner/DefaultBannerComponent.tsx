@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
 import styles from './default-banner.module.scss';
+import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
 
 type Props = any;
 
