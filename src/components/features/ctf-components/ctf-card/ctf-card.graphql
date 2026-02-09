@@ -1,0 +1,39 @@
+fragment CardFields on Card {
+  __typename
+  sys {
+    id
+  }
+  cardTitle
+  cardImage {
+    ...AssetFields
+  }
+  preTitle{
+    __typename
+    json
+  }
+  cardContent {
+    __typename
+    json
+    links {
+      entries {
+        block {
+          ...ComponentReferenceFields
+        }
+        inline{
+          ...ComponentReferenceFields
+        }
+      }
+      assets {
+        block {
+          ...AssetFields
+        }
+      }
+    }
+  }
+}
+
+query CtfCard($id: String!, $locale: String, $preview: Boolean) {
+  card(id: $id, locale: $locale, preview: $preview) {
+    ...CardFields
+  }
+}

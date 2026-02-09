@@ -2,18 +2,14 @@ import * as Types from '../../../../../lib/__generated/graphql.types';
 
 import { AssetFieldsFragment } from '../../ctf-asset/__generated/ctf-asset.generated';
 import { ComponentReferenceFields_Accordion_Fragment, ComponentReferenceFields_Banner_Fragment, ComponentReferenceFields_Button_Fragment, ComponentReferenceFields_ButtonWithLinks_Fragment, ComponentReferenceFields_Card_Fragment, ComponentReferenceFields_Carousel_Fragment, ComponentReferenceFields_ComponentTextBlock_Fragment, ComponentReferenceFields_Disclaimer_Fragment, ComponentReferenceFields_Footer_Fragment, ComponentReferenceFields_Form_Fragment, ComponentReferenceFields_FormField_Fragment, ComponentReferenceFields_FormTab_Fragment, ComponentReferenceFields_FormWrapper_Fragment, ComponentReferenceFields_HamburgerMenu_Fragment, ComponentReferenceFields_Header_Fragment, ComponentReferenceFields_Journey_Fragment, ComponentReferenceFields_Link_Fragment, ComponentReferenceFields_NavigationItems_Fragment, ComponentReferenceFields_OptionSet_Fragment, ComponentReferenceFields_Page_Fragment, ComponentReferenceFields_Question_Fragment, ComponentReferenceFields_SubNavigationItem_Fragment, ComponentReferenceFields_TabbedFormContainer_Fragment, ComponentReferenceFields_Template_Fragment, ComponentReferenceFields_VideoSection_Fragment } from '../../../../../lib/shared-fragments/__generated/ctf-componentMap.generated';
-import { LinkFieldsFragment } from '../../../../../lib/shared-fragments/__generated/ctf-linkFragment.generated';
 import { AssetFieldsFragmentDoc } from '../../ctf-asset/__generated/ctf-asset.generated';
 import { ComponentReferenceFieldsFragmentDoc } from '../../../../../lib/shared-fragments/__generated/ctf-componentMap.generated';
-import { LinkFieldsFragmentDoc } from '../../../../../lib/shared-fragments/__generated/ctf-linkFragment.generated';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { customFetcher } from '@src/lib/fetchConfig';
-export type ReducedCardFieldsFragment = { __typename: 'Card', sys: { __typename?: 'Sys', id: string } };
-
-export type ExpandedFormFieldFragmentFragment = { __typename?: 'FormField', label?: string | null, subLabel?: string | null, placeholder?: string | null, name?: string | null, fieldType?: string | null, required?: boolean | null, bottomText?: string | null, conditionalRule?: any | null, validationRule?: any | null, icon?: (
+export type CardFieldsFragment = { __typename: 'Card', cardTitle?: string | null, sys: { __typename?: 'Sys', id: string }, cardImage?: (
     { __typename?: 'Asset' }
     & AssetFieldsFragment
-  ) | null, popUp?: { __typename?: 'FormFieldPopUp', json: any, links: { __typename?: 'FormFieldPopUpLinks', entries: { __typename?: 'FormFieldPopUpEntries', block: Array<
+  ) | null, preTitle?: { __typename: 'CardPreTitle', json: any } | null, cardContent?: { __typename: 'CardCardContent', json: any, links: { __typename?: 'CardCardContentLinks', entries: { __typename?: 'CardCardContentEntries', block: Array<
           | (
             { __typename?: 'Accordion' }
             & ComponentReferenceFields_Accordion_Fragment
@@ -215,80 +211,40 @@ export type ExpandedFormFieldFragmentFragment = { __typename?: 'FormField', labe
             { __typename?: 'VideoSection' }
             & ComponentReferenceFields_VideoSection_Fragment
           )
-         | null> }, assets: { __typename?: 'FormFieldPopUpAssets', block: Array<(
+         | null> }, assets: { __typename?: 'CardCardContentAssets', block: Array<(
           { __typename?: 'Asset' }
           & AssetFieldsFragment
-        ) | null> } } } | null, cardReference?: (
-    { __typename?: 'Card' }
-    & ReducedCardFieldsFragment
-  ) | null, options?: { __typename: 'OptionSet', items?: any | null, sys: { __typename?: 'Sys', id: string } } | null };
+        ) | null> } } } | null };
 
-export type ExpandedFormFieldsFragment = { __typename?: 'Form', formType?: string | null, title?: string | null, formId?: string | null, description?: { __typename?: 'FormDescription', json: any, links: { __typename?: 'FormDescriptionLinks', entries: { __typename?: 'FormDescriptionEntries', block: Array<
-          | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'FormWrapper', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'Journey', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }
-          | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
-         | null> }, assets: { __typename?: 'FormDescriptionAssets', block: Array<(
-          { __typename?: 'Asset' }
-          & AssetFieldsFragment
-        ) | null> } } } | null, fieldsCollection?: { __typename?: 'FormFieldsCollection', items: Array<(
-      { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
-      & ExpandedFormFieldFragmentFragment
-    ) | null> } | null, submitButton?: (
-    { __typename?: 'Link' }
-    & LinkFieldsFragment
-  ) | null };
-
-export type CtfFormQueryVariables = Types.Exact<{
+export type CtfCardQueryVariables = Types.Exact<{
   id: Types.Scalars['String']['input'];
   locale?: Types.InputMaybe<Types.Scalars['String']['input']>;
   preview?: Types.InputMaybe<Types.Scalars['Boolean']['input']>;
 }>;
 
 
-export type CtfFormQuery = { __typename?: 'Query', form?: (
-    { __typename?: 'Form' }
-    & ExpandedFormFieldsFragment
+export type CtfCardQuery = { __typename?: 'Query', card?: (
+    { __typename?: 'Card' }
+    & CardFieldsFragment
   ) | null };
 
 
-export const ReducedCardFieldsFragmentDoc = `
-    fragment ReducedCardFields on Card {
+export const CardFieldsFragmentDoc = `
+    fragment CardFields on Card {
   __typename
   sys {
     id
   }
-}
-    `;
-export const ExpandedFormFieldFragmentFragmentDoc = `
-    fragment ExpandedFormFieldFragment on FormField {
-  label
-  subLabel
-  icon {
+  cardTitle
+  cardImage {
     ...AssetFields
   }
-  popUp {
+  preTitle {
+    __typename
+    json
+  }
+  cardContent {
+    __typename
     json
     links {
       entries {
@@ -306,92 +262,35 @@ export const ExpandedFormFieldFragmentFragmentDoc = `
       }
     }
   }
-  placeholder
-  name
-  fieldType
-  cardReference {
-    ...ReducedCardFields
-  }
-  required
-  options {
-    __typename
-    sys {
-      id
-    }
-    items
-  }
-  bottomText
-  conditionalRule
-  validationRule
 }
     `;
-export const ExpandedFormFieldsFragmentDoc = `
-    fragment ExpandedFormFields on Form {
-  formType
-  title
-  description {
-    json
-    links {
-      entries {
-        block {
-          __typename
-          sys {
-            id
-          }
-        }
-      }
-      assets {
-        block {
-          ...AssetFields
-        }
-      }
-    }
-  }
-  formId
-  fieldsCollection(limit: 9) {
-    items {
-      __typename
-      sys {
-        id
-      }
-      ...ExpandedFormFieldFragment
-    }
-  }
-  submitButton {
-    ...LinkFields
+export const CtfCardDocument = `
+    query CtfCard($id: String!, $locale: String, $preview: Boolean) {
+  card(id: $id, locale: $locale, preview: $preview) {
+    ...CardFields
   }
 }
-    `;
-export const CtfFormDocument = `
-    query CtfForm($id: String!, $locale: String, $preview: Boolean) {
-  form(id: $id, locale: $locale, preview: $preview) {
-    ...ExpandedFormFields
-  }
-}
-    ${ExpandedFormFieldsFragmentDoc}
+    ${CardFieldsFragmentDoc}
 ${AssetFieldsFragmentDoc}
-${ExpandedFormFieldFragmentFragmentDoc}
-${ComponentReferenceFieldsFragmentDoc}
-${ReducedCardFieldsFragmentDoc}
-${LinkFieldsFragmentDoc}`;
+${ComponentReferenceFieldsFragmentDoc}`;
 
-export const useCtfFormQuery = <
-      TData = CtfFormQuery,
+export const useCtfCardQuery = <
+      TData = CtfCardQuery,
       TError = unknown
     >(
-      variables: CtfFormQueryVariables,
-      options?: Omit<UseQueryOptions<CtfFormQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<CtfFormQuery, TError, TData>['queryKey'] }
+      variables: CtfCardQueryVariables,
+      options?: Omit<UseQueryOptions<CtfCardQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<CtfCardQuery, TError, TData>['queryKey'] }
     ) => {
     
-    return useQuery<CtfFormQuery, TError, TData>(
+    return useQuery<CtfCardQuery, TError, TData>(
       {
-    queryKey: ['CtfForm', variables],
-    queryFn: customFetcher<CtfFormQuery, CtfFormQueryVariables>(CtfFormDocument, variables),
+    queryKey: ['CtfCard', variables],
+    queryFn: customFetcher<CtfCardQuery, CtfCardQueryVariables>(CtfCardDocument, variables),
     ...options
   }
     )};
 
-useCtfFormQuery.getKey = (variables: CtfFormQueryVariables) => ['CtfForm', variables];
+useCtfCardQuery.getKey = (variables: CtfCardQueryVariables) => ['CtfCard', variables];
 
 
-useCtfFormQuery.fetcher = (variables: CtfFormQueryVariables, options?: RequestInit['headers']) => customFetcher<CtfFormQuery, CtfFormQueryVariables>(CtfFormDocument, variables, options);
+useCtfCardQuery.fetcher = (variables: CtfCardQueryVariables, options?: RequestInit['headers']) => customFetcher<CtfCardQuery, CtfCardQueryVariables>(CtfCardDocument, variables, options);

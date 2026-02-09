@@ -8,6 +8,8 @@ import chevronIcon from '@src/icons/chevron_down_navigate_blue.webp';
 import { useLayoutContext } from '@src/layout-context';
 import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtext/ctf-richtext';
 import styles from '../ctf-tabbed-form/ctf-tabbed-form.module.scss';
+import { QueryClient } from '@tanstack/react-query';
+import { CardCheckbox } from './CardCheckbox';
 
 // Validate DOB: valid date format and age 18-60
 const validateDOB = (dob: string): string | null => {
@@ -370,6 +372,7 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
 
   // Render individual field
   const renderField = (field: any) => {
+    const queryClient = new QueryClient();
     if (!field) return null;
 
     // Check if field should be visible based on conditional rules
@@ -859,6 +862,14 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
             </div>
           </div>
         );
+
+      case 'Card Checkbox':
+        const id = field.cardReference?.sys?.id;
+        // const {data} = useCtfCardQuery({
+        //   id
+        // });
+        // const cardData = useContentfulLiveUpdates(data?.card);
+        return <CardCheckbox id={id} field={field} />;
 
       default:
         return null;
