@@ -213,7 +213,7 @@ export type AccordionCollectionFieldsFragment = { __typename?: 'AccordionAccordi
             & AssetFieldsFragment
           ) | null> } } } | null } | null> };
 
-export type AccordionFieldsFragment = { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string }, accordionItemsCollection?: (
+export type AccordionFieldsFragment = { __typename: 'Accordion', accordionType?: string | null, sys: { __typename?: 'Sys', id: string }, accordionItemsCollection?: (
     { __typename?: 'AccordionAccordionItemsCollection' }
     & AccordionCollectionFieldsFragment
   ) | null };
@@ -266,6 +266,7 @@ export const AccordionFieldsFragmentDoc = `
   sys {
     id
   }
+  accordionType
   accordionItemsCollection(limit: 10) {
     ...AccordionCollectionFields
   }

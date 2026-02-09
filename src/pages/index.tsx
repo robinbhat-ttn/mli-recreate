@@ -31,19 +31,19 @@ export const getServerSideProps = async ({ locale, query }: NextPageContext) => 
     // Default queries
     const prefetchPromises = [
       header &&
-        queryClient.prefetchQuery(
-          useCtfHeaderQuery.getKey({ id: header.sys.id, locale, preview }),
-          useCtfHeaderQuery.fetcher({ id: header.sys.id, locale, preview }),
-        ),
+        queryClient.prefetchQuery({
+          queryKey: useCtfHeaderQuery.getKey({ id: header.sys.id, locale, preview }),
+          queryFn: useCtfHeaderQuery.fetcher({ id: header.sys.id, locale, preview }),
+        }),
       queryClient.prefetchQuery({
         queryKey: useCtfPageQuery.getKey({ slug: 'home', locale, preview }),
         queryFn: useCtfPageQuery.fetcher({ slug: 'home', locale, preview }),
       }),
       footer &&
-        queryClient.prefetchQuery(
-          useCtfFooterQuery.getKey({ id: footer.sys.id, locale, preview }),
-          useCtfFooterQuery.fetcher({ id: footer.sys.id, locale, preview }),
-        ),
+        queryClient.prefetchQuery({
+          queryKey: useCtfFooterQuery.getKey({ id: footer.sys.id, locale, preview }),
+          queryFn: useCtfFooterQuery.fetcher({ id: footer.sys.id, locale, preview }),
+        }),
     ];
 
     await Promise.all([

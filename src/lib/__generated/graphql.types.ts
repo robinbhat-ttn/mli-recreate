@@ -19,28 +19,20 @@ export type Scalars = {
   Quality: { input: any; output: any; }
 };
 
-/** Accordion Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
 export type Accordion = Entry & _Node & {
   __typename?: 'Accordion';
   _id: Scalars['ID']['output'];
   accordionItemsCollection?: Maybe<AccordionAccordionItemsCollection>;
-  booleanField?: Maybe<Scalars['Boolean']['output']>;
+  accordionType?: Maybe<Scalars['String']['output']>;
   contentfulMetadata: ContentfulMetadata;
-  demo?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  image?: Maybe<Asset>;
   internalName?: Maybe<Scalars['String']['output']>;
   linkedFrom?: Maybe<AccordionLinkingCollections>;
-  longText?: Maybe<Scalars['String']['output']>;
-  manyReferenceCollection?: Maybe<AccordionManyReferenceCollection>;
-  multifield?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  numberField?: Maybe<Scalars['Int']['output']>;
-  oneReference?: Maybe<Entry>;
-  radio?: Maybe<Scalars['String']['output']>;
   sys: Sys;
 };
 
 
-/** Accordion Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
 export type AccordionAccordionItemsCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -52,86 +44,23 @@ export type AccordionAccordionItemsCollectionArgs = {
 };
 
 
-/** Accordion Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
-export type AccordionBooleanFieldArgs = {
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
+export type AccordionAccordionTypeArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Accordion Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
-export type AccordionDemoArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-/** Accordion Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
-export type AccordionImageArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-/** Accordion Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
 export type AccordionInternalNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Accordion Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
 export type AccordionLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-
-/** Accordion Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
-export type AccordionLongTextArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-/** Accordion Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
-export type AccordionManyReferenceCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<AccordionManyReferenceCollectionOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-  where?: InputMaybe<ButtonFilter>;
-};
-
-
-/** Accordion Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
-export type AccordionMultifieldArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-/** Accordion Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
-export type AccordionNumberFieldArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-/** Accordion Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
-export type AccordionOneReferenceArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-/** Accordion Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/accordion) */
-export type AccordionRadioArgs = {
-  locale?: InputMaybe<Scalars['String']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type AccordionAccordionItemsCollection = {
@@ -170,15 +99,14 @@ export type AccordionFilter = {
   OR?: InputMaybe<Array<InputMaybe<AccordionFilter>>>;
   accordionItems?: InputMaybe<CfQuestionNestedFilter>;
   accordionItemsCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  booleanField?: InputMaybe<Scalars['Boolean']['input']>;
-  booleanField_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  booleanField_not?: InputMaybe<Scalars['Boolean']['input']>;
+  accordionType?: InputMaybe<Scalars['String']['input']>;
+  accordionType_contains?: InputMaybe<Scalars['String']['input']>;
+  accordionType_exists?: InputMaybe<Scalars['Boolean']['input']>;
+  accordionType_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  accordionType_not?: InputMaybe<Scalars['String']['input']>;
+  accordionType_not_contains?: InputMaybe<Scalars['String']['input']>;
+  accordionType_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  demo_contains_all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  demo_contains_none?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  demo_contains_some?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  demo_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  image_exists?: InputMaybe<Scalars['Boolean']['input']>;
   internalName?: InputMaybe<Scalars['String']['input']>;
   internalName_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -186,36 +114,6 @@ export type AccordionFilter = {
   internalName_not?: InputMaybe<Scalars['String']['input']>;
   internalName_not_contains?: InputMaybe<Scalars['String']['input']>;
   internalName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  longText?: InputMaybe<Scalars['String']['input']>;
-  longText_contains?: InputMaybe<Scalars['String']['input']>;
-  longText_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  longText_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  longText_not?: InputMaybe<Scalars['String']['input']>;
-  longText_not_contains?: InputMaybe<Scalars['String']['input']>;
-  longText_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  manyReference?: InputMaybe<CfButtonNestedFilter>;
-  manyReferenceCollection_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  multifield_contains_all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  multifield_contains_none?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  multifield_contains_some?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  multifield_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  numberField?: InputMaybe<Scalars['Int']['input']>;
-  numberField_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  numberField_gt?: InputMaybe<Scalars['Int']['input']>;
-  numberField_gte?: InputMaybe<Scalars['Int']['input']>;
-  numberField_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  numberField_lt?: InputMaybe<Scalars['Int']['input']>;
-  numberField_lte?: InputMaybe<Scalars['Int']['input']>;
-  numberField_not?: InputMaybe<Scalars['Int']['input']>;
-  numberField_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
-  oneReference_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  radio?: InputMaybe<Scalars['String']['input']>;
-  radio_contains?: InputMaybe<Scalars['String']['input']>;
-  radio_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  radio_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  radio_not?: InputMaybe<Scalars['String']['input']>;
-  radio_not_contains?: InputMaybe<Scalars['String']['input']>;
-  radio_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   sys?: InputMaybe<SysFilter>;
 };
 
@@ -267,40 +165,11 @@ export enum AccordionLinkingCollectionsPageCollectionOrder {
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
-export type AccordionManyReferenceCollection = {
-  __typename?: 'AccordionManyReferenceCollection';
-  items: Array<Maybe<Button>>;
-  limit: Scalars['Int']['output'];
-  skip: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
-};
-
-export enum AccordionManyReferenceCollectionOrder {
-  ButtonLinkAsc = 'buttonLink_ASC',
-  ButtonLinkDesc = 'buttonLink_DESC',
-  ButtonTextAsc = 'buttonText_ASC',
-  ButtonTextDesc = 'buttonText_DESC',
-  InternalNameAsc = 'internalName_ASC',
-  InternalNameDesc = 'internalName_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
-}
-
 export enum AccordionOrder {
-  BooleanFieldAsc = 'booleanField_ASC',
-  BooleanFieldDesc = 'booleanField_DESC',
+  AccordionTypeAsc = 'accordionType_ASC',
+  AccordionTypeDesc = 'accordionType_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
-  NumberFieldAsc = 'numberField_ASC',
-  NumberFieldDesc = 'numberField_DESC',
-  RadioAsc = 'radio_ASC',
-  RadioDesc = 'radio_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
   SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
   SysIdAsc = 'sys_id_ASC',
@@ -469,7 +338,6 @@ export type AssetFilter = {
 
 export type AssetLinkingCollections = {
   __typename?: 'AssetLinkingCollections';
-  accordionCollection?: Maybe<AccordionCollection>;
   bannerCollection?: Maybe<BannerCollection>;
   cardCollection?: Maybe<CardCollection>;
   entryCollection?: Maybe<EntryCollection>;
@@ -477,15 +345,6 @@ export type AssetLinkingCollections = {
   headerCollection?: Maybe<HeaderCollection>;
   linkCollection?: Maybe<LinkCollection>;
   tabbedFormContainerCollection?: Maybe<TabbedFormContainerCollection>;
-};
-
-
-export type AssetLinkingCollectionsAccordionCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -574,7 +433,7 @@ export enum AssetOrder {
   WidthDesc = 'width_DESC'
 }
 
-/** Banner Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
 export type Banner = Entry & _Node & {
   __typename?: 'Banner';
   _id: Scalars['ID']['output'];
@@ -591,7 +450,7 @@ export type Banner = Entry & _Node & {
 };
 
 
-/** Banner Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
 export type BannerBannerImageArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -599,14 +458,14 @@ export type BannerBannerImageArgs = {
 };
 
 
-/** Banner Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
 export type BannerBannerImageLinkArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Banner Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
 export type BannerBannerTextCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -618,34 +477,34 @@ export type BannerBannerTextCollectionArgs = {
 };
 
 
-/** Banner Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
 export type BannerBannerTitleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Banner Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
 export type BannerBannerTypeArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Banner Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
 export type BannerInternalNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Banner Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
 export type BannerLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
-/** Banner Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/banner) */
 export type BannerPolicyCardsCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -819,7 +678,7 @@ export enum BannerPolicyCardsCollectionOrder {
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
-/** Normal Button Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/button) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/button) */
 export type Button = Entry & _Node & {
   __typename?: 'Button';
   _id: Scalars['ID']['output'];
@@ -832,28 +691,28 @@ export type Button = Entry & _Node & {
 };
 
 
-/** Normal Button Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/button) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/button) */
 export type ButtonButtonLinkArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Normal Button Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/button) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/button) */
 export type ButtonButtonTextArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Normal Button Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/button) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/button) */
 export type ButtonInternalNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Normal Button Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/button) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/button) */
 export type ButtonLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
@@ -896,20 +755,9 @@ export type ButtonFilter = {
 
 export type ButtonLinkingCollections = {
   __typename?: 'ButtonLinkingCollections';
-  accordionCollection?: Maybe<AccordionCollection>;
   entryCollection?: Maybe<EntryCollection>;
   headerCollection?: Maybe<HeaderCollection>;
   pageCollection?: Maybe<PageCollection>;
-};
-
-
-export type ButtonLinkingCollectionsAccordionCollectionArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  locale?: InputMaybe<Scalars['String']['input']>;
-  order?: InputMaybe<Array<InputMaybe<ButtonLinkingCollectionsAccordionCollectionOrder>>>;
-  preview?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -940,25 +788,6 @@ export type ButtonLinkingCollectionsPageCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
-
-export enum ButtonLinkingCollectionsAccordionCollectionOrder {
-  BooleanFieldAsc = 'booleanField_ASC',
-  BooleanFieldDesc = 'booleanField_DESC',
-  InternalNameAsc = 'internalName_ASC',
-  InternalNameDesc = 'internalName_DESC',
-  NumberFieldAsc = 'numberField_ASC',
-  NumberFieldDesc = 'numberField_DESC',
-  RadioAsc = 'radio_ASC',
-  RadioDesc = 'radio_DESC',
-  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
-  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
-  SysIdAsc = 'sys_id_ASC',
-  SysIdDesc = 'sys_id_DESC',
-  SysPublishedAtAsc = 'sys_publishedAt_ASC',
-  SysPublishedAtDesc = 'sys_publishedAt_DESC',
-  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
-}
 
 export enum ButtonLinkingCollectionsHeaderCollectionOrder {
   HeaderTypeAsc = 'headerType_ASC',
@@ -1015,7 +844,7 @@ export enum ButtonOrder {
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
-/** Button with Links Content Type for Home Page Header Navigation Item [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/buttonWithLinks) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/buttonWithLinks) */
 export type ButtonWithLinks = Entry & _Node & {
   __typename?: 'ButtonWithLinks';
   _id: Scalars['ID']['output'];
@@ -1028,7 +857,7 @@ export type ButtonWithLinks = Entry & _Node & {
 };
 
 
-/** Button with Links Content Type for Home Page Header Navigation Item [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/buttonWithLinks) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/buttonWithLinks) */
 export type ButtonWithLinksButtonDropDownLinksCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -1040,21 +869,21 @@ export type ButtonWithLinksButtonDropDownLinksCollectionArgs = {
 };
 
 
-/** Button with Links Content Type for Home Page Header Navigation Item [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/buttonWithLinks) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/buttonWithLinks) */
 export type ButtonWithLinksButtonTextArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Button with Links Content Type for Home Page Header Navigation Item [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/buttonWithLinks) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/buttonWithLinks) */
 export type ButtonWithLinksInternalNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Button with Links Content Type for Home Page Header Navigation Item [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/buttonWithLinks) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/buttonWithLinks) */
 export type ButtonWithLinksLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
@@ -1174,7 +1003,7 @@ export enum ButtonWithLinksOrder {
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
-/** Card Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card) */
 export type Card = Entry & _Node & {
   __typename?: 'Card';
   _id: Scalars['ID']['output'];
@@ -1190,14 +1019,14 @@ export type Card = Entry & _Node & {
 };
 
 
-/** Card Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card) */
 export type CardCardContentArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Card Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card) */
 export type CardCardImageArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -1205,34 +1034,34 @@ export type CardCardImageArgs = {
 };
 
 
-/** Card Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card) */
 export type CardCardLinkArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Card Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card) */
 export type CardCardTitleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Card Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card) */
 export type CardInternalNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Card Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card) */
 export type CardLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
-/** Card Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/card) */
 export type CardPreTitleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
@@ -1334,6 +1163,7 @@ export type CardLinkingCollections = {
   bannerCollection?: Maybe<BannerCollection>;
   carouselCollection?: Maybe<CarouselCollection>;
   entryCollection?: Maybe<EntryCollection>;
+  formFieldCollection?: Maybe<FormFieldCollection>;
 };
 
 
@@ -1365,6 +1195,16 @@ export type CardLinkingCollectionsEntryCollectionArgs = {
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+
+export type CardLinkingCollectionsFormFieldCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  order?: InputMaybe<Array<InputMaybe<CardLinkingCollectionsFormFieldCollectionOrder>>>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 export enum CardLinkingCollectionsBannerCollectionOrder {
   BannerImageLinkAsc = 'bannerImageLink_ASC',
   BannerImageLinkDesc = 'bannerImageLink_DESC',
@@ -1391,6 +1231,33 @@ export enum CardLinkingCollectionsCarouselCollectionOrder {
   CarouselTypeDesc = 'carouselType_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
+  SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
+  SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
+  SysIdAsc = 'sys_id_ASC',
+  SysIdDesc = 'sys_id_DESC',
+  SysPublishedAtAsc = 'sys_publishedAt_ASC',
+  SysPublishedAtDesc = 'sys_publishedAt_DESC',
+  SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+}
+
+export enum CardLinkingCollectionsFormFieldCollectionOrder {
+  BottomTextAsc = 'bottomText_ASC',
+  BottomTextDesc = 'bottomText_DESC',
+  FieldTypeAsc = 'fieldType_ASC',
+  FieldTypeDesc = 'fieldType_DESC',
+  InternalNameAsc = 'internalName_ASC',
+  InternalNameDesc = 'internalName_DESC',
+  LabelAsc = 'label_ASC',
+  LabelDesc = 'label_DESC',
+  NameAsc = 'name_ASC',
+  NameDesc = 'name_DESC',
+  PlaceholderAsc = 'placeholder_ASC',
+  PlaceholderDesc = 'placeholder_DESC',
+  RequiredAsc = 'required_ASC',
+  RequiredDesc = 'required_DESC',
+  SubLabelAsc = 'subLabel_ASC',
+  SubLabelDesc = 'subLabel_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
   SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
   SysIdAsc = 'sys_id_ASC',
@@ -1466,7 +1333,7 @@ export type CardPreTitleResourcesInline = ResourceLink & {
   sys: ResourceSys;
 };
 
-/** Carousel Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/carousel) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/carousel) */
 export type Carousel = Entry & _Node & {
   __typename?: 'Carousel';
   _id: Scalars['ID']['output'];
@@ -1480,7 +1347,7 @@ export type Carousel = Entry & _Node & {
 };
 
 
-/** Carousel Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/carousel) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/carousel) */
 export type CarouselCardsCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -1492,28 +1359,28 @@ export type CarouselCardsCollectionArgs = {
 };
 
 
-/** Carousel Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/carousel) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/carousel) */
 export type CarouselCarouselTitleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Carousel Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/carousel) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/carousel) */
 export type CarouselCarouselTypeArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Carousel Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/carousel) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/carousel) */
 export type CarouselInternalNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Carousel Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/carousel) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/carousel) */
 export type CarouselLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
@@ -1900,7 +1767,7 @@ export type ContentfulTag = {
   name?: Maybe<Scalars['String']['output']>;
 };
 
-/** Disclaimer Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/disclaimer) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/disclaimer) */
 export type Disclaimer = Entry & _Node & {
   __typename?: 'Disclaimer';
   _id: Scalars['ID']['output'];
@@ -1913,28 +1780,28 @@ export type Disclaimer = Entry & _Node & {
 };
 
 
-/** Disclaimer Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/disclaimer) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/disclaimer) */
 export type DisclaimerContentArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Disclaimer Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/disclaimer) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/disclaimer) */
 export type DisclaimerHeadingArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Disclaimer Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/disclaimer) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/disclaimer) */
 export type DisclaimerInternalNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Disclaimer Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/disclaimer) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/disclaimer) */
 export type DisclaimerLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
@@ -2105,7 +1972,7 @@ export enum EntryOrder {
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
-/** Footer for a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer) */
 export type Footer = Entry & _Node & {
   __typename?: 'Footer';
   _id: Scalars['ID']['output'];
@@ -2123,7 +1990,7 @@ export type Footer = Entry & _Node & {
 };
 
 
-/** Footer for a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer) */
 export type FooterButtonsCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -2135,7 +2002,7 @@ export type FooterButtonsCollectionArgs = {
 };
 
 
-/** Footer for a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer) */
 export type FooterDisclaimerSectionArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2144,14 +2011,14 @@ export type FooterDisclaimerSectionArgs = {
 };
 
 
-/** Footer for a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer) */
 export type FooterFooterInformationArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Footer for a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer) */
 export type FooterFooterLinksCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -2163,14 +2030,14 @@ export type FooterFooterLinksCollectionArgs = {
 };
 
 
-/** Footer for a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer) */
 export type FooterFooterTypeArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Footer for a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer) */
 export type FooterGroupSitesLinksCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -2182,20 +2049,20 @@ export type FooterGroupSitesLinksCollectionArgs = {
 };
 
 
-/** Footer for a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer) */
 export type FooterInternalNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Footer for a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer) */
 export type FooterLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
-/** Footer for a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/footer) */
 export type FooterSocialLinksCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -2593,11 +2460,12 @@ export type FormDescriptionResourcesInline = ResourceLink & {
   sys: ResourceSys;
 };
 
-/** Field content type for form fields [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
 export type FormField = Entry & _Node & {
   __typename?: 'FormField';
   _id: Scalars['ID']['output'];
   bottomText?: Maybe<Scalars['String']['output']>;
+  cardReference?: Maybe<Card>;
   conditionalRule?: Maybe<Scalars['JSON']['output']>;
   contentfulMetadata: ContentfulMetadata;
   fieldType?: Maybe<Scalars['String']['output']>;
@@ -2616,28 +2484,37 @@ export type FormField = Entry & _Node & {
 };
 
 
-/** Field content type for form fields [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
 export type FormFieldBottomTextArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Field content type for form fields [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
+export type FormFieldCardReferenceArgs = {
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+  useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<CardFilter>;
+};
+
+
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
 export type FormFieldConditionalRuleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Field content type for form fields [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
 export type FormFieldFieldTypeArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Field content type for form fields [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
 export type FormFieldIconArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2645,34 +2522,34 @@ export type FormFieldIconArgs = {
 };
 
 
-/** Field content type for form fields [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
 export type FormFieldInternalNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Field content type for form fields [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
 export type FormFieldLabelArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Field content type for form fields [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
 export type FormFieldLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
-/** Field content type for form fields [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
 export type FormFieldNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Field content type for form fields [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
 export type FormFieldOptionsArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2681,35 +2558,35 @@ export type FormFieldOptionsArgs = {
 };
 
 
-/** Field content type for form fields [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
 export type FormFieldPlaceholderArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Field content type for form fields [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
 export type FormFieldPopUpArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Field content type for form fields [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
 export type FormFieldRequiredArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Field content type for form fields [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
 export type FormFieldSubLabelArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Field content type for form fields [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/formField) */
 export type FormFieldValidationRuleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2733,6 +2610,8 @@ export type FormFieldFilter = {
   bottomText_not?: InputMaybe<Scalars['String']['input']>;
   bottomText_not_contains?: InputMaybe<Scalars['String']['input']>;
   bottomText_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  cardReference?: InputMaybe<CfCardNestedFilter>;
+  cardReference_exists?: InputMaybe<Scalars['Boolean']['input']>;
   conditionalRule_exists?: InputMaybe<Scalars['Boolean']['input']>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
   fieldType?: InputMaybe<Scalars['String']['input']>;
@@ -3416,7 +3295,7 @@ export enum FormWrapperOrder {
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
-/** Hamburger Menu Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/hamburgerMenu) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/hamburgerMenu) */
 export type HamburgerMenu = Entry & _Node & {
   __typename?: 'HamburgerMenu';
   _id: Scalars['ID']['output'];
@@ -3429,20 +3308,20 @@ export type HamburgerMenu = Entry & _Node & {
 };
 
 
-/** Hamburger Menu Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/hamburgerMenu) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/hamburgerMenu) */
 export type HamburgerMenuInternalNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Hamburger Menu Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/hamburgerMenu) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/hamburgerMenu) */
 export type HamburgerMenuLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
-/** Hamburger Menu Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/hamburgerMenu) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/hamburgerMenu) */
 export type HamburgerMenuMenuItemsCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -3453,7 +3332,7 @@ export type HamburgerMenuMenuItemsCollectionArgs = {
 };
 
 
-/** Hamburger Menu Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/hamburgerMenu) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/hamburgerMenu) */
 export type HamburgerMenuMenuTitleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
@@ -3569,7 +3448,7 @@ export enum HamburgerMenuOrder {
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
-/** Header of a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header) */
 export type Header = Entry & _Node & {
   __typename?: 'Header';
   _id: Scalars['ID']['output'];
@@ -3585,7 +3464,7 @@ export type Header = Entry & _Node & {
 };
 
 
-/** Header of a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header) */
 export type HeaderButtonCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -3596,7 +3475,7 @@ export type HeaderButtonCollectionArgs = {
 };
 
 
-/** Header of a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header) */
 export type HeaderHamburgerMenuArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -3605,27 +3484,27 @@ export type HeaderHamburgerMenuArgs = {
 };
 
 
-/** Header of a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header) */
 export type HeaderHeaderTypeArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Header of a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header) */
 export type HeaderInternalNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Header of a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header) */
 export type HeaderLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
-/** Header of a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header) */
 export type HeaderLogoArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -3633,7 +3512,7 @@ export type HeaderLogoArgs = {
 };
 
 
-/** Header of a page [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/header) */
 export type HeaderNavigationItemsCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -3878,7 +3757,7 @@ export type ImageTransformOptions = {
   width?: InputMaybe<Scalars['Dimension']['input']>;
 };
 
-/** Journey Component for Form [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/journey) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/journey) */
 export type Journey = Entry & _Node & {
   __typename?: 'Journey';
   _id: Scalars['ID']['output'];
@@ -3894,7 +3773,7 @@ export type Journey = Entry & _Node & {
 };
 
 
-/** Journey Component for Form [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/journey) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/journey) */
 export type JourneyButtonArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -3903,41 +3782,41 @@ export type JourneyButtonArgs = {
 };
 
 
-/** Journey Component for Form [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/journey) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/journey) */
 export type JourneyInternalNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Journey Component for Form [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/journey) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/journey) */
 export type JourneyLifeCoverLabelArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Journey Component for Form [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/journey) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/journey) */
 export type JourneyLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
-/** Journey Component for Form [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/journey) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/journey) */
 export type JourneyPremiumLabelArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Journey Component for Form [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/journey) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/journey) */
 export type JourneyStepsArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Journey Component for Form [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/journey) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/journey) */
 export type JourneyTitleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
@@ -4059,7 +3938,7 @@ export enum JourneyOrder {
   TitleDesc = 'title_DESC'
 }
 
-/** Content Type for Link [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link) */
 export type Link = Entry & _Node & {
   __typename?: 'Link';
   _id: Scalars['ID']['output'];
@@ -4076,7 +3955,7 @@ export type Link = Entry & _Node & {
 };
 
 
-/** Content Type for Link [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link) */
 export type LinkIconArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -4084,48 +3963,48 @@ export type LinkIconArgs = {
 };
 
 
-/** Content Type for Link [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link) */
 export type LinkInternalNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Content Type for Link [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link) */
 export type LinkLinkHeadingArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Content Type for Link [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link) */
 export type LinkLinkSubHeadingArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Content Type for Link [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link) */
 export type LinkLinkTypeArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Content Type for Link [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link) */
 export type LinkLinkUrlArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Content Type for Link [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link) */
 export type LinkLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
-/** Content Type for Link [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/link) */
 export type LinkPageLinkArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -4445,7 +4324,7 @@ export enum LinkOrder {
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
-/** Navigation Item for the Header [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/navigationItems) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/navigationItems) */
 export type NavigationItems = Entry & _Node & {
   __typename?: 'NavigationItems';
   _id: Scalars['ID']['output'];
@@ -4459,34 +4338,34 @@ export type NavigationItems = Entry & _Node & {
 };
 
 
-/** Navigation Item for the Header [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/navigationItems) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/navigationItems) */
 export type NavigationItemsInternalTitleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Navigation Item for the Header [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/navigationItems) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/navigationItems) */
 export type NavigationItemsLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
-/** Navigation Item for the Header [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/navigationItems) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/navigationItems) */
 export type NavigationItemsNavigationLinkArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Navigation Item for the Header [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/navigationItems) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/navigationItems) */
 export type NavigationItemsNavigationTitleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Navigation Item for the Header [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/navigationItems) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/navigationItems) */
 export type NavigationItemsSubNavigationMenuCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -4734,7 +4613,7 @@ export enum OptionSetOrder {
   SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
 }
 
-/** AMLI Page Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
 export type Page = Entry & _Node & {
   __typename?: 'Page';
   _id: Scalars['ID']['output'];
@@ -4753,14 +4632,14 @@ export type Page = Entry & _Node & {
 };
 
 
-/** AMLI Page Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
 export type PageChangeFrequencyArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** AMLI Page Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
 export type PageContentCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -4771,41 +4650,41 @@ export type PageContentCollectionArgs = {
 };
 
 
-/** AMLI Page Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
 export type PageInternalNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** AMLI Page Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
 export type PageLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
-/** AMLI Page Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
 export type PagePageLayoutArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** AMLI Page Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
 export type PagePageNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** AMLI Page Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
 export type PagePriorityArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** AMLI Page Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
 export type PageSeoArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -4813,14 +4692,14 @@ export type PageSeoArgs = {
 };
 
 
-/** AMLI Page Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
 export type PageSlugArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** AMLI Page Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/page) */
 export type PageTemplateArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5558,7 +5437,7 @@ export type QueryVideoSectionCollectionArgs = {
   where?: InputMaybe<VideoSectionFilter>;
 };
 
-/** Question Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/question) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/question) */
 export type Question = Entry & _Node & {
   __typename?: 'Question';
   _id: Scalars['ID']['output'];
@@ -5571,27 +5450,27 @@ export type Question = Entry & _Node & {
 };
 
 
-/** Question Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/question) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/question) */
 export type QuestionAnswerTextArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Question Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/question) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/question) */
 export type QuestionInternalNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Question Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/question) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/question) */
 export type QuestionLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
-/** Question Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/question) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/question) */
 export type QuestionQuestionTextArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5703,14 +5582,10 @@ export type QuestionLinkingCollectionsEntryCollectionArgs = {
 };
 
 export enum QuestionLinkingCollectionsAccordionCollectionOrder {
-  BooleanFieldAsc = 'booleanField_ASC',
-  BooleanFieldDesc = 'booleanField_DESC',
+  AccordionTypeAsc = 'accordionType_ASC',
+  AccordionTypeDesc = 'accordionType_DESC',
   InternalNameAsc = 'internalName_ASC',
   InternalNameDesc = 'internalName_DESC',
-  NumberFieldAsc = 'numberField_ASC',
-  NumberFieldDesc = 'numberField_DESC',
-  RadioAsc = 'radio_ASC',
-  RadioDesc = 'radio_DESC',
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
   SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
   SysIdAsc = 'sys_id_ASC',
@@ -5746,7 +5621,7 @@ export type ResourceSys = {
   urn: Scalars['String']['output'];
 };
 
-/** Sub Navigation Items for Home Page Header Navigation Items [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/subNavigationItem) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/subNavigationItem) */
 export type SubNavigationItem = Entry & _Node & {
   __typename?: 'SubNavigationItem';
   _id: Scalars['ID']['output'];
@@ -5760,20 +5635,20 @@ export type SubNavigationItem = Entry & _Node & {
 };
 
 
-/** Sub Navigation Items for Home Page Header Navigation Items [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/subNavigationItem) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/subNavigationItem) */
 export type SubNavigationItemInternalNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Sub Navigation Items for Home Page Header Navigation Items [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/subNavigationItem) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/subNavigationItem) */
 export type SubNavigationItemLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
-/** Sub Navigation Items for Home Page Header Navigation Items [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/subNavigationItem) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/subNavigationItem) */
 export type SubNavigationItemMainLinkArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5782,7 +5657,7 @@ export type SubNavigationItemMainLinkArgs = {
 };
 
 
-/** Sub Navigation Items for Home Page Header Navigation Items [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/subNavigationItem) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/subNavigationItem) */
 export type SubNavigationItemSecondaryLinksCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
@@ -5794,7 +5669,7 @@ export type SubNavigationItemSecondaryLinksCollectionArgs = {
 };
 
 
-/** Sub Navigation Items for Home Page Header Navigation Items [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/subNavigationItem) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/subNavigationItem) */
 export type SubNavigationItemSubNavigationItemTitleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
@@ -6181,7 +6056,7 @@ export type TaxonomyConcept = {
   id?: Maybe<Scalars['String']['output']>;
 };
 
-/** Page Template Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/template) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/template) */
 export type Template = Entry & _Node & {
   __typename?: 'Template';
   _id: Scalars['ID']['output'];
@@ -6194,7 +6069,7 @@ export type Template = Entry & _Node & {
 };
 
 
-/** Page Template Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/template) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/template) */
 export type TemplateFooterArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -6203,7 +6078,7 @@ export type TemplateFooterArgs = {
 };
 
 
-/** Page Template Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/template) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/template) */
 export type TemplateHeaderArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   preview?: InputMaybe<Scalars['Boolean']['input']>;
@@ -6212,14 +6087,14 @@ export type TemplateHeaderArgs = {
 };
 
 
-/** Page Template Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/template) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/template) */
 export type TemplateInternalNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Page Template Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/template) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/template) */
 export type TemplateLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
@@ -6318,7 +6193,7 @@ export type TimelineFilterInput = {
   timestamp_lte?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
-/** Video Section Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/videoSection) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/videoSection) */
 export type VideoSection = Entry & _Node & {
   __typename?: 'VideoSection';
   _id: Scalars['ID']['output'];
@@ -6331,27 +6206,27 @@ export type VideoSection = Entry & _Node & {
 };
 
 
-/** Video Section Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/videoSection) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/videoSection) */
 export type VideoSectionInternalNameArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Video Section Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/videoSection) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/videoSection) */
 export type VideoSectionLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 
-/** Video Section Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/videoSection) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/videoSection) */
 export type VideoSectionVideoTitleArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Video Section Content Type [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/videoSection) */
+/** [See type definition](https://app.contentful.com/spaces/t6kvufdm8fgq/content_types/videoSection) */
 export type VideoSectionYoutubeIdArgs = {
   locale?: InputMaybe<Scalars['String']['input']>;
   useFallbackLocale?: InputMaybe<Scalars['Boolean']['input']>;
@@ -6460,34 +6335,6 @@ export enum VideoSectionOrder {
 
 export type _Node = {
   _id: Scalars['ID']['output'];
-};
-
-export type CfButtonNestedFilter = {
-  AND?: InputMaybe<Array<InputMaybe<CfButtonNestedFilter>>>;
-  OR?: InputMaybe<Array<InputMaybe<CfButtonNestedFilter>>>;
-  buttonLink?: InputMaybe<Scalars['String']['input']>;
-  buttonLink_contains?: InputMaybe<Scalars['String']['input']>;
-  buttonLink_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  buttonLink_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  buttonLink_not?: InputMaybe<Scalars['String']['input']>;
-  buttonLink_not_contains?: InputMaybe<Scalars['String']['input']>;
-  buttonLink_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  buttonText?: InputMaybe<Scalars['String']['input']>;
-  buttonText_contains?: InputMaybe<Scalars['String']['input']>;
-  buttonText_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  buttonText_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  buttonText_not?: InputMaybe<Scalars['String']['input']>;
-  buttonText_not_contains?: InputMaybe<Scalars['String']['input']>;
-  buttonText_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
-  internalName?: InputMaybe<Scalars['String']['input']>;
-  internalName_contains?: InputMaybe<Scalars['String']['input']>;
-  internalName_exists?: InputMaybe<Scalars['Boolean']['input']>;
-  internalName_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  internalName_not?: InputMaybe<Scalars['String']['input']>;
-  internalName_not_contains?: InputMaybe<Scalars['String']['input']>;
-  internalName_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  sys?: InputMaybe<SysFilter>;
 };
 
 export type CfCardNestedFilter = {
@@ -6612,6 +6459,7 @@ export type CfFormFieldNestedFilter = {
   bottomText_not?: InputMaybe<Scalars['String']['input']>;
   bottomText_not_contains?: InputMaybe<Scalars['String']['input']>;
   bottomText_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  cardReference_exists?: InputMaybe<Scalars['Boolean']['input']>;
   conditionalRule_exists?: InputMaybe<Scalars['Boolean']['input']>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
   fieldType?: InputMaybe<Scalars['String']['input']>;
@@ -7067,7 +6915,7 @@ export type AccordionCollectionFieldsFragment = { __typename?: 'AccordionAccordi
             | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
            | null> }, assets: { __typename?: 'QuestionAnswerTextAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> };
 
-export type AccordionFieldsFragment = { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string }, accordionItemsCollection?: { __typename?: 'AccordionAccordionItemsCollection', items: Array<{ __typename: 'Question', questionText?: string | null, sys: { __typename?: 'Sys', id: string }, answerText?: { __typename?: 'QuestionAnswerText', json: any, links: { __typename?: 'QuestionAnswerTextLinks', entries: { __typename?: 'QuestionAnswerTextEntries', block: Array<
+export type AccordionFieldsFragment = { __typename: 'Accordion', accordionType?: string | null, sys: { __typename?: 'Sys', id: string }, accordionItemsCollection?: { __typename?: 'AccordionAccordionItemsCollection', items: Array<{ __typename: 'Question', questionText?: string | null, sys: { __typename?: 'Sys', id: string }, answerText?: { __typename?: 'QuestionAnswerText', json: any, links: { __typename?: 'QuestionAnswerTextLinks', entries: { __typename?: 'QuestionAnswerTextEntries', block: Array<
               | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
@@ -7128,7 +6976,7 @@ export type CtfAccordionQueryVariables = Exact<{
 }>;
 
 
-export type CtfAccordionQuery = { __typename?: 'Query', accordion?: { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string }, accordionItemsCollection?: { __typename?: 'AccordionAccordionItemsCollection', items: Array<{ __typename: 'Question', questionText?: string | null, sys: { __typename?: 'Sys', id: string }, answerText?: { __typename?: 'QuestionAnswerText', json: any, links: { __typename?: 'QuestionAnswerTextLinks', entries: { __typename?: 'QuestionAnswerTextEntries', block: Array<
+export type CtfAccordionQuery = { __typename?: 'Query', accordion?: { __typename: 'Accordion', accordionType?: string | null, sys: { __typename?: 'Sys', id: string }, accordionItemsCollection?: { __typename?: 'AccordionAccordionItemsCollection', items: Array<{ __typename: 'Question', questionText?: string | null, sys: { __typename?: 'Sys', id: string }, answerText?: { __typename?: 'QuestionAnswerText', json: any, links: { __typename?: 'QuestionAnswerTextLinks', entries: { __typename?: 'QuestionAnswerTextEntries', block: Array<
                 | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
@@ -7245,60 +7093,6 @@ export type CtfBannerQuery = { __typename?: 'Query', banner?: { __typename: 'Ban
                 | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
                | null> }, assets: { __typename?: 'CardCardContentAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null } | null };
 
-export type CarouselFieldsFragment = { __typename: 'Carousel', carouselTitle?: string | null, carouselType?: string | null, sys: { __typename?: 'Sys', id: string }, cardsCollection?: { __typename?: 'CarouselCardsCollection', items: Array<{ __typename: 'Card', cardTitle?: string | null, sys: { __typename?: 'Sys', id: string }, cardImage?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null, preTitle?: { __typename: 'CardPreTitle', json: any } | null, cardContent?: { __typename: 'CardCardContent', json: any, links: { __typename?: 'CardCardContentLinks', entries: { __typename?: 'CardCardContentEntries', block: Array<
-              | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'FormWrapper', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Journey', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
-             | null>, inline: Array<
-              | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'FormWrapper', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Journey', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }
-              | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
-             | null> }, assets: { __typename?: 'CardCardContentAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null };
-
 export type CardFieldsFragment = { __typename: 'Card', cardTitle?: string | null, sys: { __typename?: 'Sys', id: string }, cardImage?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null, preTitle?: { __typename: 'CardPreTitle', json: any } | null, cardContent?: { __typename: 'CardCardContent', json: any, links: { __typename?: 'CardCardContentLinks', entries: { __typename?: 'CardCardContentEntries', block: Array<
           | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
@@ -7352,6 +7146,121 @@ export type CardFieldsFragment = { __typename: 'Card', cardTitle?: string | null
           | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
          | null> }, assets: { __typename?: 'CardCardContentAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null };
+
+export type CtfCardQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+  locale?: InputMaybe<Scalars['String']['input']>;
+  preview?: InputMaybe<Scalars['Boolean']['input']>;
+}>;
+
+
+export type CtfCardQuery = { __typename?: 'Query', card?: { __typename: 'Card', cardTitle?: string | null, sys: { __typename?: 'Sys', id: string }, cardImage?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null, preTitle?: { __typename: 'CardPreTitle', json: any } | null, cardContent?: { __typename: 'CardCardContent', json: any, links: { __typename?: 'CardCardContentLinks', entries: { __typename?: 'CardCardContentEntries', block: Array<
+            | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'FormWrapper', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Journey', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
+           | null>, inline: Array<
+            | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'FormWrapper', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Journey', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }
+            | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
+           | null> }, assets: { __typename?: 'CardCardContentAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null };
+
+export type CarouselFieldsFragment = { __typename: 'Carousel', carouselTitle?: string | null, carouselType?: string | null, sys: { __typename?: 'Sys', id: string }, cardsCollection?: { __typename?: 'CarouselCardsCollection', items: Array<{ __typename: 'Card', cardTitle?: string | null, sys: { __typename?: 'Sys', id: string }, cardImage?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null, preTitle?: { __typename: 'CardPreTitle', json: any } | null, cardContent?: { __typename: 'CardCardContent', json: any, links: { __typename?: 'CardCardContentLinks', entries: { __typename?: 'CardCardContentEntries', block: Array<
+              | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'FormWrapper', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Journey', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
+             | null>, inline: Array<
+              | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Button', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'ButtonWithLinks', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Card', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Carousel', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'ComponentTextBlock', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Disclaimer', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Footer', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Form', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'FormField', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'FormTab', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'FormWrapper', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'HamburgerMenu', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Header', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Journey', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Link', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'NavigationItems', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'OptionSet', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Page', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Question', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'SubNavigationItem', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }
+              | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
+             | null> }, assets: { __typename?: 'CardCardContentAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null } | null> } | null };
 
 export type CtfCarouselQueryVariables = Exact<{
   id: Scalars['String']['input'];
@@ -7656,6 +7565,8 @@ export type CtfFormWrapperQuery = { __typename?: 'Query', formWrapper?: { __type
                 | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
                | null> }, assets: { __typename?: 'FormDescriptionAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, fieldsCollection?: { __typename?: 'FormFieldsCollection', items: Array<{ __typename: 'FormField', label?: string | null, placeholder?: string | null, name?: string | null, fieldType?: string | null, required?: boolean | null, conditionalRule?: any | null, validationRule?: any | null, sys: { __typename?: 'Sys', id: string }, options?: { __typename: 'OptionSet', items?: any | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, submitButton?: { __typename: 'Link', linkType?: string | null, linkHeading?: string | null, linkSubHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string }, pageLink?: { __typename?: 'Page', slug?: string | null } | null, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null } | null> } | null } | null };
 
+export type ReducedCardFieldsFragment = { __typename: 'Card', sys: { __typename?: 'Sys', id: string } };
+
 export type ExpandedFormFieldFragmentFragment = { __typename?: 'FormField', label?: string | null, subLabel?: string | null, placeholder?: string | null, name?: string | null, fieldType?: string | null, required?: boolean | null, bottomText?: string | null, conditionalRule?: any | null, validationRule?: any | null, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null, popUp?: { __typename?: 'FormFieldPopUp', json: any, links: { __typename?: 'FormFieldPopUpLinks', entries: { __typename?: 'FormFieldPopUpEntries', block: Array<
           | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Banner', sys: { __typename?: 'Sys', id: string } }
@@ -7708,7 +7619,7 @@ export type ExpandedFormFieldFragmentFragment = { __typename?: 'FormField', labe
           | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }
           | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
-         | null> }, assets: { __typename?: 'FormFieldPopUpAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, options?: { __typename: 'OptionSet', items?: any | null, sys: { __typename?: 'Sys', id: string } } | null };
+         | null> }, assets: { __typename?: 'FormFieldPopUpAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, cardReference?: { __typename: 'Card', sys: { __typename?: 'Sys', id: string } } | null, options?: { __typename: 'OptionSet', items?: any | null, sys: { __typename?: 'Sys', id: string } } | null };
 
 export type ExpandedFormFieldsFragment = { __typename?: 'Form', formType?: string | null, title?: string | null, formId?: string | null, description?: { __typename?: 'FormDescription', json: any, links: { __typename?: 'FormDescriptionLinks', entries: { __typename?: 'FormDescriptionEntries', block: Array<
           | { __typename: 'Accordion', sys: { __typename?: 'Sys', id: string } }
@@ -7788,7 +7699,7 @@ export type ExpandedFormFieldsFragment = { __typename?: 'Form', formType?: strin
               | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }
               | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
-             | null> }, assets: { __typename?: 'FormFieldPopUpAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, options?: { __typename: 'OptionSet', items?: any | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, submitButton?: { __typename: 'Link', linkType?: string | null, linkHeading?: string | null, linkSubHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string }, pageLink?: { __typename?: 'Page', slug?: string | null } | null, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null };
+             | null> }, assets: { __typename?: 'FormFieldPopUpAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, cardReference?: { __typename: 'Card', sys: { __typename?: 'Sys', id: string } } | null, options?: { __typename: 'OptionSet', items?: any | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, submitButton?: { __typename: 'Link', linkType?: string | null, linkHeading?: string | null, linkSubHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string }, pageLink?: { __typename?: 'Page', slug?: string | null } | null, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null };
 
 export type CtfFormQueryVariables = Exact<{
   id: Scalars['String']['input'];
@@ -7875,7 +7786,7 @@ export type CtfFormQuery = { __typename?: 'Query', form?: { __typename?: 'Form',
                 | { __typename: 'TabbedFormContainer', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'Template', sys: { __typename?: 'Sys', id: string } }
                 | { __typename: 'VideoSection', sys: { __typename?: 'Sys', id: string } }
-               | null> }, assets: { __typename?: 'FormFieldPopUpAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, options?: { __typename: 'OptionSet', items?: any | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, submitButton?: { __typename: 'Link', linkType?: string | null, linkHeading?: string | null, linkSubHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string }, pageLink?: { __typename?: 'Page', slug?: string | null } | null, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null } | null };
+               | null> }, assets: { __typename?: 'FormFieldPopUpAssets', block: Array<{ __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } } } | null, cardReference?: { __typename: 'Card', sys: { __typename?: 'Sys', id: string } } | null, options?: { __typename: 'OptionSet', items?: any | null, sys: { __typename?: 'Sys', id: string } } | null } | null> } | null, submitButton?: { __typename: 'Link', linkType?: string | null, linkHeading?: string | null, linkSubHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string }, pageLink?: { __typename?: 'Page', slug?: string | null } | null, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null } | null } | null };
 
 export type HamburgerMenuFieldsFragment = { __typename: 'HamburgerMenu', menuTitle?: string | null, sys: { __typename?: 'Sys', id: string }, menuItemsCollection?: { __typename?: 'HamburgerMenuMenuItemsCollection', items: Array<
       | { __typename: 'Link', linkType?: string | null, linkHeading?: string | null, linkSubHeading?: string | null, linkUrl?: string | null, sys: { __typename?: 'Sys', id: string }, pageLink?: { __typename?: 'Page', slug?: string | null } | null, icon?: { __typename: 'Asset', contentType?: string | null, title?: string | null, description?: string | null, width?: number | null, height?: number | null, url?: string | null, sys: { __typename?: 'Sys', id: string } } | null }

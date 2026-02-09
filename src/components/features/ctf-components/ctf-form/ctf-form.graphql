@@ -1,3 +1,9 @@
+fragment ReducedCardFields on Card{
+  __typename
+  sys {
+    id
+  }
+}
 fragment ExpandedFormFieldFragment on FormField {
   label
   subLabel
@@ -25,6 +31,9 @@ fragment ExpandedFormFieldFragment on FormField {
   placeholder
   name
   fieldType
+  cardReference{
+    ...ReducedCardFields
+  }
   required
   options {
     __typename

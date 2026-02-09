@@ -31,6 +31,7 @@ fragment AccordionFields on Accordion {
   sys {
     id
   }
+  accordionType
   accordionItemsCollection(limit: 10) {
     ...AccordionCollectionFields
   }
