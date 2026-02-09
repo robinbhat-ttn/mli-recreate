@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import styles from './default-banner.module.scss';
 import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
 

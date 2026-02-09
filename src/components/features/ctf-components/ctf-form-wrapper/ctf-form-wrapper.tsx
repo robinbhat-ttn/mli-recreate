@@ -1,8 +1,11 @@
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
+
 import { FormWrapperFieldsFragment } from './__generated/ctf-form-wrapper.generated';
-import { CtfFormRenderer } from '@src/components/features/ctf-components/ctf-form/ctf-form-renderer';
+
 import styles from './ctf-form-wrapper.module.scss';
+
+import { CtfFormRenderer } from '@src/components/features/ctf-components/ctf-form/ctf-form-renderer';
 
 export const CtfFormWrapper = (props: FormWrapperFieldsFragment) => {
   const router = useRouter();
