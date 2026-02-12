@@ -1,15 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import React, { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/router';
+
 import { Tabs, Tab, Box } from '@mui/material';
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
-import chevronIcon from '@src/icons/chevron_down_navigate_blue.webp';
+import { CardCheckbox } from './CardCheckbox';
 import { useLayoutContext } from '@src/layout-context';
 import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtext/ctf-richtext';
+import chevronIcon from '@src/icons/chevron_down_navigate_blue.webp';
+
 import styles from '../ctf-tabbed-form/ctf-tabbed-form.module.scss';
-import { QueryClient } from '@tanstack/react-query';
-import { CardCheckbox } from './CardCheckbox';
 
 // Validate DOB: valid date format and age 18-60
 const validateDOB = (dob: string): string | null => {
@@ -91,7 +92,7 @@ interface CtfFormRendererProps {
   isLastStep?: boolean;
   onSaveFormData?: (formData: Record<string, any>) => void;
   currentStep?: number;
-  formType?: 'lead' | 'leadNextSteps' | 'quote';
+  formType?: 'lead' | 'leadNextSteps' | 'quote' | 'rider';
 }
 
 export const CtfFormRenderer = (props: CtfFormRendererProps) => {
@@ -142,7 +143,17 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
   // Generate storage key based on form type
   const getStorageKey = (step = 0): string => {
     if (formType === 'quote') {
-      return 'quote_form_data';
+      // Extract step from title like "Step 1/4: customize your Term Plan"
+      if (title && typeof title === 'string') {
+        const match = title.match(/Step\s+(\d+)\/(\d+)/);
+        if (match) {
+          const stepNum = match[1];
+          const totalSteps = match[2];
+          return `quote_step_${stepNum}/${totalSteps}`;
+        }
+      }
+      // Fallback to hardcoded quote_step_1/4 for quote forms
+      return 'quote_step_1/4';
     }
     if (formType === 'leadNextSteps') {
       return `lead_next_steps_form_data_step_${step}`;
@@ -193,6 +204,17 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
           initialData[field.name || ''] = options[0].age || options[0].label;
         }
       }
+      // Set Cover Till Age default to 60 years
+      if (field?.name === 'coverTillAge') {
+        const options = field?.options?.items || [];
+        const sixtyYearOption = options.find(
+          (opt: any) =>
+            opt.duration === '60' || opt.duration === 60 || opt.duration?.includes('60'),
+        );
+        if (sixtyYearOption) {
+          initialData[field.name || ''] = sixtyYearOption.duration;
+        }
+      }
     });
 
     return initialData;
@@ -202,6 +224,7 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
   const [formData, setFormData] = useState<Record<string, any>>(getDefaultFormData());
 
   // Load from localStorage after hydration (for lead forms and next steps popup on step change)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
@@ -391,10 +414,19 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
         onSubmitClick?.();
       }
 
-      // If this is a lead form, redirect to open next steps popup
+      // If this is a lead form, redirect to open quote popup
       if (!isInModal && formType === 'lead') {
         router.push(
           { pathname: router.pathname, query: { ...router.query, stage: 'quote' } },
+          undefined,
+          { shallow: true },
+        );
+      }
+
+      // If this is a quote form, redirect to rider stage
+      if (!isInModal && formType === 'quote') {
+        router.push(
+          { pathname: router.pathname, query: { ...router.query, stage: 'rider' } },
           undefined,
           { shallow: true },
         );
@@ -858,7 +890,6 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
 
   // Render individual field
   const renderField = (field: any) => {
-    const queryClient = new QueryClient();
     if (!field) return null;
 
     // Check if field should be visible based on conditional rules
@@ -1346,11 +1377,7 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
 
       case 'Card Checkbox':
         const id = field.cardReference?.sys?.id;
-        // const {data} = useCtfCardQuery({
-        //   id
-        // });
-        // const cardData = useContentfulLiveUpdates(data?.card);
-        return <CardCheckbox id={id} field={field} />;
+        return <CardCheckbox id={id} field={field} key={field?.sys?.id} />;
 
       default:
         return null;
@@ -1366,7 +1393,7 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
       <Box
         className={`${containerClass} ${styles.tabbedForm__wrapper} ${
           isInModal ? styles['tabbedForm__wrapper--modal'] : ''
-        } ${formType === 'quote' ? styles['tabbedForm__wrapper--quote'] : ''}`}
+        } ${formType === 'quote' ? styles['tabbedForm__wrapper--quote'] : ''} ${formType === 'rider' ? styles['tabbedForm__wrapper--rider'] : ''}`}
         {...(inspectorModeId &&
           inspectorMode({ entryId: inspectorModeId, fieldId: 'tabbedFormContainer' }))}
       >
@@ -1424,6 +1451,27 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
           {/* Form */}
           {formType === 'quote' ? (
             renderQuoteForm()
+          ) : formType === 'rider' ? (
+            <form
+              className={`${styles.tabbedForm__form} ${styles['tabbedForm__form--rider']}`}
+              onSubmit={handleSubmit}
+            >
+              <div className={styles['tabbedForm__cardCheckboxGrid']}>
+                {fields.map(field => renderField(field))}
+              </div>
+
+              <div className={styles.tabbedForm__footer}>
+                {submitButton && (
+                  <button
+                    type="submit"
+                    className={styles.tabbedForm__submit}
+                    {...inspectorMode({ entryId: submitButton.sys.id, fieldId: 'link' })}
+                  >
+                    {submitButton.linkHeading}
+                  </button>
+                )}
+              </div>
+            </form>
           ) : (
             <form className={styles.tabbedForm__form} onSubmit={handleSubmit}>
               <div className={styles.tabbedForm__formGrid}>

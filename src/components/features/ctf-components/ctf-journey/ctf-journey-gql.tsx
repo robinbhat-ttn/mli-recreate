@@ -1,4 +1,5 @@
 import { useContentfulLiveUpdates } from '@contentful/live-preview/react';
+
 import { useCtfJourneyQuery } from './__generated/ctf-journey.generated';
 import { CtfJourney } from './ctf-journey';
 

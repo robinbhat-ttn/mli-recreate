@@ -31,6 +31,11 @@
       box-shadow: none;
     }
 
+    &.form-container--default.tabbedForm__wrapper--rider {
+      width: 100%;
+      justify-content: center;
+    }
+
     &.tabbedForm__wrapper--modal {
       border: 0;
       box-shadow: none;
@@ -1576,4 +1581,192 @@
   &__fieldLabelError {
     color: #ef5350 !important;
   }
+
+  // Rider form styles - Card Checkbox grid
+  &__form--rider {
+    padding: 0;
+  }
+
+  &__cardCheckboxGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-20;
+    padding: $space-24;
+    width: 100%;
+    justify-content: center;
+    align-items: stretch;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: $space-16;
+      padding: $space-16;
+    }
+  }
+
+  // Card Checkbox Component Styles
+  .cardCheckbox__wrapper {
+    position: relative;
+    border: 2px solid $border-light;
+    border-radius: $radius-8;
+    padding: $space-16;
+    background-color: $white;
+    transition: all 0.3s ease;
+    cursor: default;
+    display: flex;
+    flex-direction: row;
+    gap: $space-12;
+    align-items: flex-start;
+    min-height: auto;
+
+    &:hover {
+      border-color: $accent;
+      box-shadow: 0 4px 12px rgba(0, 146, 219, 0.1);
+    }
+
+    &--selected {
+      border-color: $accent;
+      background-color: $bg-light-blue;
+    }
+  }
+
+  .cardCheckbox__iconContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  .cardCheckbox__topRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: $space-8;
+    margin-bottom: $space-8;
+    width: 100%;
+  }
+
+  .cardCheckbox__badge {
+    display: inline-block;
+    background-color: $accent;
+    color: $white;
+    padding: $space-4 $space-8;
+    font-size: $fs-12;
+    font-weight: $fw-semi-bold;
+    text-transform: capitalize;
+    white-space: nowrap;
+    border-radius: $radius-8;
+    flex-shrink: 0;
+  }
+
+  .cardCheckbox__infoBtnTop {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  .cardCheckbox__content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: $space-4;
+  }
+
+  .cardCheckbox__title {
+    font-size: $fs-14;
+    font-weight: $fw-semi-bold;
+    color: $text-primary;
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  .cardCheckbox__description {
+    font-size: $fs-12;
+    color: $text-tertiary;
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .cardCheckbox__price {
+    font-size: $fs-13;
+    font-weight: $fw-semi-bold;
+    color: $error;
+    margin: 0;
+  }
+
+  .cardCheckbox__checkboxContainer {
+    position: absolute;
+    bottom: $space-12;
+    right: $space-12;
+    width: 18px;
+    height: 18px;
+  }
+
+  .cardCheckbox__checkbox {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    accent-color: $accent;
+  }
+
+  .cardCheckbox__modal {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+
+  .cardCheckbox__modalContent {
+    background-color: $white;
+    border-radius: $radius-8;
+    padding: $space-24;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow: auto;
+  }
+
+  .cardCheckbox__modalClose {
+    float: right;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    color: $text-primary;
+  }
+
+  .cardCheckbox__loading {
+    text-align: center;
+    padding: $space-20;
+    color: $text-tertiary;
+  }
 }
+
