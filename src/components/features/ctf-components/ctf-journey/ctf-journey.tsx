@@ -6,23 +6,19 @@ import styles from './ctf-journey.module.scss';
 export const CtfJourney = (props: JourneyFieldsFragment) => {
   const router = useRouter();
   const [hasLeadId, setHasLeadId] = useState(false);
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [currentStepIndex] = useState(0);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const leadId = localStorage.getItem('lead_id');
       setHasLeadId(!!leadId);
-      // Get the current step from localStorage, default to 1 (step 0 "Premium Calculated" is already completed)
-      const savedStep = localStorage.getItem('current_step');
-      setCurrentStepIndex(savedStep ? parseInt(savedStep, 10) : 1);
     }
   }, []);
 
-  const isQuoteStage = router.query.stage === 'quote';
-
-  // Hide journey when there is no lead OR when we are on the quote stage
-  if (!hasLeadId || isQuoteStage) {
-    return null; // Don't render journey if no lead_id
+  // Hide journey if no lead_id or if there's ANY stage query param (quote, rider, etc.)
+  // Journey is only visible when lead form is shown (no stage param) AND lead_id exists
+  if (!hasLeadId || router.query.stage) {
+    return null;
   }
 
   const steps = props?.steps || [];
@@ -37,9 +33,6 @@ export const CtfJourney = (props: JourneyFieldsFragment) => {
 
   const handleContinueClick = () => {
     if (button?.pageLink?.slug) {
-      // Save the next step (current + 1) to localStorage
-      const nextStep = currentStepIndex + 1;
-      localStorage.setItem('current_step', nextStep.toString());
       router.push(`/${button.pageLink.slug}`);
     }
   };

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 import { useContentfulLiveUpdates } from '@contentful/live-preview/react';
@@ -22,6 +22,25 @@ export const CardCheckbox = (props: any) => {
   );
 
   const cardData = useContentfulLiveUpdates(data?.card);
+
+  // Load checked state from localStorage on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined' && id) {
+      try {
+        const riderData = localStorage.getItem('rider_step_2/4');
+        if (riderData) {
+          const checkedCards = JSON.parse(riderData);
+          setIsChecked(checkedCards[id] || false);
+        }
+      } catch (error) {
+        console.error('Error loading rider data from localStorage:', error);
+      }
+    }
+  }, [id]);
+
+  const handleCheckboxChange = (e: any) => {
+    setIsChecked(e.target.checked);
+  };
 
   if (isLoading) {
     return <div className={styles.cardCheckbox__loading}>Loading...</div>;
@@ -92,7 +111,8 @@ export const CardCheckbox = (props: any) => {
             type="checkbox"
             className={styles['cardCheckbox__checkbox']}
             checked={isChecked}
-            onChange={e => setIsChecked(e.target.checked)}
+            onChange={handleCheckboxChange}
+            data-card-id={id}
           />
         </div>
       </div>
