@@ -2,8 +2,8 @@ import { useCtfAccordionQuery } from '@src/components/features/ctf-components/ct
 import { useCtfBannerQuery } from '@src/components/features/ctf-components/ctf-banner/__generated/ctf-banner.generated';
 import { useCtfCarouselQuery } from '@src/components/features/ctf-components/ctf-carousel/__generated/ctf-carousel.generated';
 import { useCtfFooterQuery } from '@src/components/features/ctf-components/ctf-footer/__generated/ctf-footer.generated';
-import { useCtfFormWrapperQuery } from '@src/components/features/ctf-components/ctf-form-wrapper/__generated/ctf-form-wrapper.generated';
 import { useCtfFormQuery } from '@src/components/features/ctf-components/ctf-form/__generated/ctf-form.generated';
+import { useCtfFormWrapperQuery } from '@src/components/features/ctf-components/ctf-form-wrapper/__generated/ctf-form-wrapper.generated';
 import { useCtfHeaderQuery } from '@src/components/features/ctf-components/ctf-header/__generated/ctf-header.generated';
 import { useCtfJourneyQuery } from '@src/components/features/ctf-components/ctf-journey/__generated/ctf-journey.generated';
 import { useCtfLinkQuery } from '@src/components/features/ctf-components/ctf-link/__generated/ctf-link.generated';

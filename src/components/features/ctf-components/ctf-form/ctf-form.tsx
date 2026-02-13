@@ -1,18 +1,25 @@
 import { useRouter } from 'next/router';
-import { CtfFormRenderer } from './ctf-form-renderer';
 
 import { ExpandedFormFieldsFragment } from './__generated/ctf-form.generated';
+import { CtfFormRenderer } from './ctf-form-renderer';
 
 export const CtfForm = (props: ExpandedFormFieldsFragment) => {
   const router = useRouter();
   const stage = router.query.stage;
   const isQuoteStage = stage === 'quote';
+  const isRiderStage = stage === 'rider';
+  const isEligibilityStage = stage === 'eligibility';
 
-  //console.log('form props:', props);
+  console.log('form props:', props);
 
-  // Lead form - hidden when quote stage is active
-  if (props.formType && props.formType === 'Term Insurance Calculator Form' && !isQuoteStage) {
-    console.log('lead form props:', props);
+  // Lead form - hidden when quote, rider, or eligibility stage is active
+  if (
+    props.formType &&
+    props.formType === 'Term Insurance Calculator Form' &&
+    !isQuoteStage &&
+    !isRiderStage &&
+    !isEligibilityStage
+  ) {
     return (
       <CtfFormRenderer
         fields={props.fieldsCollection?.items || []}
@@ -39,5 +46,34 @@ export const CtfForm = (props: ExpandedFormFieldsFragment) => {
     );
   }
 
-  return <div></div>;
+  // Rider form - CardCheckbox (shown only on rider stage)
+  if (props.formType && props.formType === 'Term Insurance Step 2' && isRiderStage) {
+    console.log('rider form props:', props);
+    return (
+      <CtfFormRenderer
+        fields={props.fieldsCollection?.items || []}
+        submitButton={props.submitButton}
+        isTabbedForm={false}
+        title={props.title}
+        formType="rider"
+      />
+    );
+  }
+
+  // Eligibility form - Term Insurance Step 3 (shown only on eligibility stage)
+  if (props.formType && props.formType === 'Term Insurance Step 3' && isEligibilityStage) {
+    console.log('eligibility form props:', props);
+    return (
+      <CtfFormRenderer
+        fields={props.fieldsCollection?.items || []}
+        submitButton={props.submitButton}
+        isTabbedForm={false}
+        title={props.title}
+        description={props.description}
+        formType="eligibility"
+      />
+    );
+  }
+
+  return <></>;
 };

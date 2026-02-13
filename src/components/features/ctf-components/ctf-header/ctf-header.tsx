@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
 import type {

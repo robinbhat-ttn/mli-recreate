@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
+
 import { Box } from '@mui/material';
 
 import type { NavigationFieldsFragment } from '../ctf-navigation/__generated/ctf-navigation.generated';
+
 import styles from './ctf-header.module.scss';
 
 export const NavigationContainer = (props: NavigationFieldsFragment) => {

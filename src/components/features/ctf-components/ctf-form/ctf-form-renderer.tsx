@@ -1,15 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+
 import { Tabs, Tab, Box } from '@mui/material';
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
+import { CardCheckbox } from './CardCheckbox';
+import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtext/ctf-richtext';
 import chevronIcon from '@src/icons/chevron_down_navigate_blue.webp';
 import { useLayoutContext } from '@src/layout-context';
-import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtext/ctf-richtext';
+
 import styles from '../ctf-tabbed-form/ctf-tabbed-form.module.scss';
-import { QueryClient } from '@tanstack/react-query';
-import { CardCheckbox } from './CardCheckbox';
 
 // Validate DOB: valid date format and age 18-60
 const validateDOB = (dob: string): string | null => {
@@ -91,7 +92,7 @@ interface CtfFormRendererProps {
   isLastStep?: boolean;
   onSaveFormData?: (formData: Record<string, any>) => void;
   currentStep?: number;
-  formType?: 'lead' | 'leadNextSteps' | 'quote';
+  formType?: 'lead' | 'leadNextSteps' | 'quote' | 'rider' | 'eligibility';
 }
 
 export const CtfFormRenderer = (props: CtfFormRendererProps) => {
@@ -128,21 +129,37 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
   const [activeTab, setActiveTab] = useState(initialActiveTab);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [openPhoneCountryDropdown, setOpenPhoneCountryDropdown] = useState(false);
+  const [openCityDropdown, setOpenCityDropdown] = useState(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [phoneCountrySearchQuery, setPhoneCountrySearchQuery] = useState<string>('');
+  const [citySearchQuery, setCitySearchQuery] = useState<string>('');
   const [focusedField, setFocusedField] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const phoneCountryDropdownRef = useRef<HTMLDivElement>(null);
+  const cityDropdownRef = useRef<HTMLDivElement>(null);
   const [showPremiumMore, setShowPremiumMore] = useState(false);
   const [infoPopupField, setInfoPopupField] = useState<string | null>(null);
 
   // Generate storage key based on form type
   const getStorageKey = (step = 0): string => {
     if (formType === 'quote') {
-      return 'quote_form_data';
+      // Extract step from title like "Step 1/4: customize your Term Plan"
+      if (title && typeof title === 'string') {
+        const match = title.match(/Step\s+(\d+)\/(\d+)/);
+        if (match) {
+          const stepNum = match[1];
+          const totalSteps = match[2];
+          return `quote_step_${stepNum}/${totalSteps}`;
+        }
+      }
+      // Fallback to hardcoded quote_step_1/4 for quote forms
+      return 'quote_step_1/4';
+    }
+    if (formType === 'eligibility') {
+      return 'eligibility_form_data';
     }
     if (formType === 'leadNextSteps') {
       return `lead_next_steps_form_data_step_${step}`;
@@ -159,6 +176,14 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
   const getDefaultFormData = () => {
     const initialData: Record<string, any> = {};
 
+    // First, initialize all fields to empty strings
+    fields.forEach(field => {
+      if (field?.name) {
+        initialData[field.name] = '';
+      }
+    });
+
+    // Then apply specific defaults
     fields.forEach(field => {
       // Set NRI default to 'no'
       if (field?.label?.toLowerCase().includes('nri') && field?.fieldType === 'Radio') {
@@ -176,6 +201,34 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
           initialData[field.name || ''] = lessThanFiveOption.value;
         }
       }
+      // Set Life Cover default to '1 Crore'
+      if (field?.name === 'lifeCover') {
+        const options = field?.options?.items?.optionValues || field?.options?.items || [];
+        const onecroreOption = options.find(
+          (opt: any) => opt.amount?.includes('1 Crore') || opt.label?.includes('1 Crore'),
+        );
+        if (onecroreOption) {
+          initialData[field.name || ''] = onecroreOption.amount || onecroreOption.value;
+        }
+      }
+      // Set Premium Payment Term default to first option
+      if (field?.name === 'premiumPaymentTerm') {
+        const options = field?.options?.items || [];
+        if (options.length > 0) {
+          initialData[field.name || ''] = options[0].age || options[0].label;
+        }
+      }
+      // Set Cover Till Age default to 60 years
+      if (field?.name === 'coverTillAge') {
+        const options = field?.options?.items || [];
+        const sixtyYearOption = options.find(
+          (opt: any) =>
+            opt.duration === '60' || opt.duration === 60 || opt.duration?.includes('60'),
+        );
+        if (sixtyYearOption) {
+          initialData[field.name || ''] = sixtyYearOption.duration;
+        }
+      }
     });
 
     return initialData;
@@ -185,6 +238,7 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
   const [formData, setFormData] = useState<Record<string, any>>(getDefaultFormData());
 
   // Load from localStorage after hydration (for lead forms and next steps popup on step change)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
@@ -206,7 +260,7 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
     setFormData(getDefaultFormData());
     setErrors({});
     setIsSubmitted(false);
-  }, [currentStep, isInModal, fields]);
+  }, [currentStep, isInModal]);
 
   // Notify parent when form validation changes
   useEffect(() => {
@@ -240,6 +294,9 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
         !phoneCountryDropdownRef.current.contains(event.target as Node)
       ) {
         setOpenPhoneCountryDropdown(false);
+      }
+      if (cityDropdownRef.current && !cityDropdownRef.current.contains(event.target as Node)) {
+        setOpenCityDropdown(false);
       }
     };
 
@@ -358,11 +415,28 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
           if (!isInModal && formType === 'lead' && !localStorage.getItem('lead_id')) {
             const newLeadId = generateLeadId();
             localStorage.setItem('lead_id', newLeadId);
-            // Initialize current_step to 1 (first step "Premium Calculated" is already completed)
-            localStorage.setItem('current_step', '1');
           }
           // Save form data
           localStorage.setItem(getStorageKey(currentStep), JSON.stringify(formData));
+
+          // Save rider card selections to localStorage on submit (for rider forms only)
+          if (formType === 'rider') {
+            try {
+              const checkedCards: Record<string, boolean> = {};
+              const checkboxes = document.querySelectorAll(
+                'input[type="checkbox"][data-card-id]',
+              ) as NodeListOf<HTMLInputElement>;
+              checkboxes.forEach(checkbox => {
+                const cardId = checkbox.getAttribute('data-card-id');
+                if (cardId) {
+                  checkedCards[cardId] = checkbox.checked;
+                }
+              });
+              localStorage.setItem('rider_step_2/4', JSON.stringify(checkedCards));
+            } catch (error) {
+              console.error('Error saving rider card selections:', error);
+            }
+          }
         } catch (error) {
           console.error('Error saving form data:', error);
         }
@@ -374,10 +448,28 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
         onSubmitClick?.();
       }
 
-      // If this is a lead form, redirect to open next steps popup
+      // If this is a lead form, redirect to open quote popup
       if (!isInModal && formType === 'lead') {
         router.push(
           { pathname: router.pathname, query: { ...router.query, stage: 'quote' } },
+          undefined,
+          { shallow: true },
+        );
+      }
+
+      // If this is a quote form, redirect to rider stage
+      if (!isInModal && formType === 'quote') {
+        router.push(
+          { pathname: router.pathname, query: { ...router.query, stage: 'rider' } },
+          undefined,
+          { shallow: true },
+        );
+      }
+
+      // If this is a rider form, redirect to eligibility stage
+      if (!isInModal && formType === 'rider') {
+        router.push(
+          { pathname: router.pathname, query: { ...router.query, stage: 'eligibility' } },
           undefined,
           { shallow: true },
         );
@@ -397,8 +489,8 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
   const premiumTermOptions = premiumTermField?.options?.items || [];
 
   const selectedLifeCoverIndex = lifeCoverOptions.findIndex(
-    (opt: any, index: number) =>
-      formData.lifeCover === index || formData.lifeCover === opt.amount || index === 1,
+    (opt: any) =>
+      formData.lifeCover === opt.amount || (formData.lifeCover && formData.lifeCover === opt.value),
   );
 
   const visibleCoverTillAgeOptions = coverTillAgeOptions.slice(0, 3);
@@ -409,7 +501,7 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
   );
 
   const selectedPremiumTermIndex = premiumTermOptions.findIndex(
-    (opt: any) => formData.premiumPaymentTerm === opt.duration,
+    (opt: any) => formData.premiumPaymentTerm === (opt.age || opt.label),
   );
 
   const handleLifeCoverSelect = (index: number) => {
@@ -423,7 +515,7 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
 
   const handlePremiumTermSelect = (index: number) => {
     const option = premiumTermOptions[index];
-    handleInputChange('premiumPaymentTerm', option?.duration);
+    handleInputChange('premiumPaymentTerm', option?.age || option?.label);
   };
 
   const renderQuoteForm = () => {
@@ -445,7 +537,12 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                       }
                       title="More information"
                     >
-                      <Image src={lifeCoverField.icon.url} alt="Info" width={18} height={18} />
+                      <Image
+                        src={lifeCoverField.icon.url}
+                        alt="Info"
+                        width={lifeCoverField.icon.width}
+                        height={lifeCoverField.icon.height}
+                      />
                     </button>
                   )}
                 </div>
@@ -458,14 +555,12 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                 >
                   {selectedLifeCoverIndex >= 0 && lifeCoverOptions[selectedLifeCoverIndex] ? (
                     <span className={styles.tabbedForm__quoteDropdownValue}>
-                      <span>
-                        {lifeCoverOptions[selectedLifeCoverIndex].amount}{' '}
-                        {lifeCoverOptions[selectedLifeCoverIndex].status && (
-                          <span className={styles.tabbedForm__quoteBadge}>
-                            {lifeCoverOptions[selectedLifeCoverIndex].status}
-                          </span>
-                        )}
-                      </span>
+                      <span>{lifeCoverOptions[selectedLifeCoverIndex].amount}</span>
+                      {lifeCoverOptions[selectedLifeCoverIndex].premium && (
+                        <span className={styles.tabbedForm__quoteDropdownPrice}>
+                          {lifeCoverOptions[selectedLifeCoverIndex].premium}
+                        </span>
+                      )}
                     </span>
                   ) : (
                     <span className={styles.tabbedForm__quoteDropdownPlaceholder}>
@@ -493,18 +588,27 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                           setOpenDropdown(null);
                         }}
                       >
+                        <div className={styles.tabbedForm__quoteDropdownItemRadio} />
                         <div className={styles.tabbedForm__quoteDropdownItemMain}>
-                          <span>{opt.amount}</span>
-                          {opt.premium && <span>{opt.premium}</span>}
+                          <div className={styles.tabbedForm__quoteDropdownItemLabel}>
+                            <span className={styles.tabbedForm__quoteDropdownItemAge}>
+                              {opt.amount}
+                            </span>
+                            {opt.status && (
+                              <span className={styles.tabbedForm__quoteBadge}>{opt.status}</span>
+                            )}
+                            {opt.description && (
+                              <span className={styles.tabbedForm__quoteDropdownItemDescription}>
+                                {opt.description}
+                              </span>
+                            )}
+                          </div>
+                          {opt.premium && (
+                            <span className={styles.tabbedForm__quoteDropdownItemPrice}>
+                              {opt.premium}
+                            </span>
+                          )}
                         </div>
-                        {opt.status && (
-                          <span className={styles.tabbedForm__quoteBadge}>{opt.status}</span>
-                        )}
-                        {opt.description && (
-                          <span className={styles.tabbedForm__quoteDropdownItemDescription}>
-                            {opt.description}
-                          </span>
-                        )}
                       </button>
                     ))}
                   </div>
@@ -528,7 +632,12 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                       }
                       title="More information"
                     >
-                      <Image src={coverTillAgeField.icon.url} alt="Info" width={18} height={18} />
+                      <Image
+                        src={coverTillAgeField.icon.url}
+                        alt="Info"
+                        width={coverTillAgeField.icon.width}
+                        height={coverTillAgeField.icon.height}
+                      />
                     </button>
                   )}
                 </div>
@@ -559,8 +668,14 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                 })}
 
                 {remainingCoverTillAgeOptions.length > 0 && (
-                  <button type="button" className={styles.tabbedForm__quoteMoreButton} disabled>
-                    More
+                  <button
+                    type="button"
+                    className={styles.tabbedForm__quoteMoreButton}
+                    disabled
+                    title="More options"
+                  >
+                    <span>...</span>
+                    <span>MORE</span>
                   </button>
                 )}
               </div>
@@ -588,7 +703,12 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                       }
                       title="More information"
                     >
-                      <Image src={premiumTermField.icon.url} alt="Info" width={18} height={18} />
+                      <Image
+                        src={premiumTermField.icon.url}
+                        alt="Info"
+                        width={premiumTermField.icon.width}
+                        height={premiumTermField.icon.height}
+                      />
                     </button>
                   )}
                 </div>
@@ -611,8 +731,14 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                 >
                   {selectedPremiumTermIndex >= 0 && premiumTermOptions[selectedPremiumTermIndex] ? (
                     <span className={styles.tabbedForm__quoteDropdownValue}>
-                      {premiumTermOptions[selectedPremiumTermIndex].label ||
-                        premiumTermOptions[selectedPremiumTermIndex].duration}
+                      <span>
+                        {premiumTermOptions[selectedPremiumTermIndex].age ||
+                          premiumTermOptions[selectedPremiumTermIndex].label ||
+                          premiumTermOptions[selectedPremiumTermIndex].duration}
+                      </span>
+                      {premiumTermOptions[selectedPremiumTermIndex].price && (
+                        <span>{premiumTermOptions[selectedPremiumTermIndex].price}</span>
+                      )}
                     </span>
                   ) : (
                     <span className={styles.tabbedForm__quoteDropdownPlaceholder}>
@@ -630,22 +756,38 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                       <button
                         type="button"
                         key={index}
-                        className={`${styles.tabbedForm__quoteDropdownItem} ${
+                        className={`${styles.tabbedForm__premiumTermDropdownItem} ${
                           selectedPremiumTermIndex === index
-                            ? styles.tabbedForm__quoteDropdownItemSelected
+                            ? styles.tabbedForm__premiumTermDropdownItemSelected
                             : ''
                         }`}
                         onClick={() => {
                           handlePremiumTermSelect(index);
+                          setOpenDropdown(null);
                         }}
                       >
-                        <div className={styles.tabbedForm__quoteDropdownItemMain}>
-                          <span>{opt.label || opt.duration}</span>
-                          {opt.premium && <span>{opt.premium}</span>}
+                        <div className={styles.tabbedForm__premiumTermDropdownItemLeft}>
+                          <span className={styles.tabbedForm__premiumTermDropdownItemTitle}>
+                            {opt.age || opt.label || opt.duration || ''}
+                          </span>
+                          {(opt.time || opt.label) && (
+                            <span className={styles.tabbedForm__premiumTermDropdownItemSubtitle}>
+                              {opt.time || ''}
+                            </span>
+                          )}
                         </div>
-                        {opt.saving && (
-                          <span className={styles.tabbedForm__quoteSavingBadge}>{opt.saving}</span>
-                        )}
+                        <div className={styles.tabbedForm__premiumTermDropdownItemRight}>
+                          {opt.price && (
+                            <span className={styles.tabbedForm__premiumTermDropdownItemPrice}>
+                              {opt.price || opt.premium}
+                            </span>
+                          )}
+                          {opt.saving && (
+                            <span className={styles.tabbedForm__premiumTermSavingBadge}>
+                              {opt.saving}
+                            </span>
+                          )}
+                        </div>
                       </button>
                     ))}
                     {premiumTermOptions.length > 0 && !showPremiumMore && (
@@ -784,6 +926,110 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
     );
   };
 
+  const renderEligibilityForm = () => {
+    const firstNameField = fields.find((f: any) => f?.name === 'firstName');
+    const middleNameField = fields.find((f: any) => f?.name === 'middleName');
+    const lastNameField =
+      fields.find((f: any) => f?.name === 'lastName') || fields.find((f: any) => !f?.name);
+    const emailField = fields.find((f: any) => f?.name === 'email');
+    const annualIncomeField = fields.find((f: any) => f?.name === 'annualIncome');
+    const pinCodeField = fields.find((f: any) => f?.name === 'pinCode');
+    const cityField = fields.find((f: any) => f?.name === 'city');
+
+    const renderEligibilityFieldWithText = (field: any) => {
+      if (!field) return null;
+      return (
+        <div className={styles['tabbedForm__eligibilityFieldWrapper']}>
+          {renderField(field)}
+          {field?.bottomText && (
+            <p className={styles['tabbedForm__eligibilityFieldBottomText']}>{field.bottomText}</p>
+          )}
+        </div>
+      );
+    };
+
+    return (
+      <form
+        className={`${styles.tabbedForm__form} ${styles['tabbedForm__form--eligibility']}`}
+        onSubmit={handleSubmit}
+      >
+        <div className={styles['tabbedForm__eligibilityWrapper']}>
+          {/* Row 1: First Name & Middle Name */}
+          <div className={styles['tabbedForm__eligibilityRow']}>
+            <div className={styles['tabbedForm__eligibilityCol']}>
+              {renderEligibilityFieldWithText(firstNameField)}
+            </div>
+            <div className={styles['tabbedForm__eligibilityCol']}>
+              {renderEligibilityFieldWithText(middleNameField)}
+            </div>
+          </div>
+
+          {/* Row 2: Last Name & Email */}
+          <div className={styles['tabbedForm__eligibilityRow']}>
+            <div className={styles['tabbedForm__eligibilityCol']}>
+              {renderEligibilityFieldWithText(lastNameField)}
+            </div>
+            <div className={styles['tabbedForm__eligibilityCol']}>
+              {renderEligibilityFieldWithText(emailField)}
+            </div>
+          </div>
+
+          {/* Row 3: Annual Income & Pincode */}
+          <div className={styles['tabbedForm__eligibilityRow']}>
+            <div className={styles['tabbedForm__eligibilityCol']}>
+              {renderEligibilityFieldWithText(annualIncomeField)}
+            </div>
+            <div className={styles['tabbedForm__eligibilityCol']}>
+              {renderEligibilityFieldWithText(pinCodeField)}
+            </div>
+          </div>
+
+          {/* Row 4: City (Conditional) - 50% Width */}
+          {(() => {
+            // Check if city field should be shown based on its conditional rule
+            if (!cityField) return null;
+
+            if (
+              cityField.conditionalRule?.dependsOn &&
+              !formData[cityField.conditionalRule.dependsOn]
+            ) {
+              return null;
+            }
+
+            return (
+              <div className={styles['tabbedForm__eligibilityRow']}>
+                <div
+                  className={`${styles['tabbedForm__eligibilityCol']} ${styles['tabbedForm__eligibilityCol--half']}`}
+                >
+                  {renderEligibilityFieldWithText(cityField)}
+                </div>
+              </div>
+            );
+          })()}
+
+          {/* Description - Benefit Illustration Link */}
+          {description && (
+            <div className={styles['tabbedForm__eligibilityDescription']}>
+              <CtfRichtext disableContainer={true} {...description} />
+            </div>
+          )}
+        </div>
+
+        <div className={styles.tabbedForm__footer}>
+          {submitButton && (
+            <button
+              type="submit"
+              className={styles.tabbedForm__submit}
+              {...inspectorMode({ entryId: submitButton.sys.id, fieldId: 'link' })}
+            >
+              {submitButton.linkHeading}
+            </button>
+          )}
+        </div>
+      </form>
+    );
+  };
+
   const handleTabChange = (value: number) => {
     setActiveTab(value);
     onTabChange?.(value);
@@ -791,14 +1037,25 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
 
   // Render individual field
   const renderField = (field: any) => {
-    const queryClient = new QueryClient();
     if (!field) return null;
 
     // Check if field should be visible based on conditional rules
     const shouldShowField = () => {
       if (!field.conditionalRule) return true;
+
       const { dependsOn, value } = field.conditionalRule;
-      return formData[dependsOn] === value;
+
+      // If only dependsOn is specified, check if that field has a truthy value
+      if (dependsOn && !value) {
+        return !!formData[dependsOn];
+      }
+
+      // If both dependsOn and value are specified, check for exact match
+      if (dependsOn && value) {
+        return formData[dependsOn] === value;
+      }
+
+      return true;
     };
 
     if (!shouldShowField()) return null;
@@ -1250,6 +1507,53 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
           </div>
         );
 
+      case 'Number':
+        const numberFieldName = field.name || '';
+        const shouldFloatNumber = shouldFloatLabel(
+          numberFieldName,
+          formData[numberFieldName],
+          focusedField,
+        );
+        const hasErrorNumber = errors[numberFieldName];
+        return (
+          <div
+            key={field.sys.id}
+            className={styles.tabbedForm__field}
+            {...inspectorMode({ entryId: field.sys.id, fieldId: 'formField' })}
+          >
+            <div
+              className={`${styles.tabbedForm__inputWrapper} ${shouldFloatNumber ? styles.tabbedForm__floatingLabel : ''} ${hasErrorNumber ? styles.tabbedForm__inputWrapperError : ''}`}
+            >
+              <input
+                type="number"
+                name={numberFieldName}
+                placeholder={field.placeholder || ''}
+                className={`${styles.tabbedForm__input} ${hasErrorNumber ? styles.tabbedForm__inputError : ''}`}
+                onChange={e => handleInputChange(numberFieldName, e.target.value)}
+                onFocus={() => {
+                  setFocusedField(numberFieldName);
+                }}
+                onBlur={() => {
+                  setFocusedField(null);
+                  validateSingleField(
+                    numberFieldName,
+                    'Number',
+                    formData[numberFieldName],
+                    field.required === true,
+                  );
+                }}
+                value={formData[numberFieldName] || ''}
+              />
+              <label className={hasErrorNumber ? styles.tabbedForm__fieldLabelError : ''}>
+                {field.label || ''}
+              </label>
+            </div>
+            {hasErrorNumber && (
+              <span className={styles.tabbedForm__errorMessage}>{errors[numberFieldName]}</span>
+            )}
+          </div>
+        );
+
       case 'Radio':
         const options = getAnnualIncomeOptions(field);
         return (
@@ -1279,11 +1583,152 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
 
       case 'Card Checkbox':
         const id = field.cardReference?.sys?.id;
-        // const {data} = useCtfCardQuery({
-        //   id
-        // });
-        // const cardData = useContentfulLiveUpdates(data?.card);
-        return <CardCheckbox id={id} field={field} />;
+        return <CardCheckbox id={id} field={field} key={field?.sys?.id} />;
+
+      case 'Dropdown':
+        const dropdownFieldName = field.name || '';
+        const hasErrorDropdown = errors[dropdownFieldName];
+        const selectedCity = formData[dropdownFieldName] || '';
+
+        // Extract options from field.options.items (it's an object with category keys)
+        let categorizedOptions: Record<string, string[]> = {};
+        if (field.options && field.options.items) {
+          if (typeof field.options.items === 'object' && !Array.isArray(field.options.items)) {
+            categorizedOptions = field.options.items as Record<string, string[]>;
+          } else if (Array.isArray(field.options.items)) {
+            // Handle array format - shouldn't happen for this field but just in case
+            console.warn(
+              'City dropdown: options.items is an array, expected object with categories',
+            );
+          }
+        }
+
+        // Debug log
+        if (Object.keys(categorizedOptions).length === 0 && field.options) {
+          console.warn('City dropdown: No categorized options found', {
+            fieldName: dropdownFieldName,
+            fieldOptions: field.options,
+            categorizedOptions,
+          });
+        }
+
+        // Filter cities based on search query
+        const getFilteredCategories = (): Record<string, string[]> => {
+          if (!citySearchQuery.trim()) {
+            return categorizedOptions;
+          }
+
+          const filtered: Record<string, string[]> = {};
+          const lowerQuery = citySearchQuery.toLowerCase();
+
+          Object.entries(categorizedOptions).forEach(([category, cities]) => {
+            if (Array.isArray(cities)) {
+              const categoryFiltered = cities.filter(city =>
+                city.toLowerCase().includes(lowerQuery),
+              );
+              if (categoryFiltered.length > 0) {
+                filtered[category] = categoryFiltered;
+              }
+            }
+          });
+
+          return filtered;
+        };
+
+        const filteredCategories = getFilteredCategories();
+
+        return (
+          <div
+            key={field.sys.id}
+            className={styles.tabbedForm__field}
+            {...inspectorMode({ entryId: field.sys.id, fieldId: 'formField' })}
+            ref={cityDropdownRef}
+          >
+            <div
+              className={`${styles.tabbedForm__inputWrapper} ${hasErrorDropdown ? styles.tabbedForm__inputWrapperError : ''}`}
+            >
+              <button
+                type="button"
+                className={`${styles.tabbedForm__dropdownButton} ${hasErrorDropdown ? styles.tabbedForm__dropdownButtonError : ''}`}
+                onClick={() => {
+                  setOpenCityDropdown(!openCityDropdown);
+                  setCitySearchQuery('');
+                }}
+              >
+                <span className={styles.tabbedForm__dropdownButtonText}>
+                  {selectedCity || 'Select a city'}
+                </span>
+                <Image
+                  src={chevronIcon}
+                  alt="chevron"
+                  className={`${styles.tabbedForm__dropdownChevron} ${openCityDropdown ? styles['tabbedForm__dropdownChevron--open'] : ''}`}
+                />
+              </button>
+              <label className={hasErrorDropdown ? styles.tabbedForm__fieldLabelError : ''}>
+                {field.label || 'City'}
+              </label>
+
+              {/* Dropdown Menu */}
+              {openCityDropdown && (
+                <div className={styles.tabbedForm__dropdownMenu}>
+                  {/* Search Input */}
+                  <div className={styles.tabbedForm__dropdownSearch}>
+                    <input
+                      type="text"
+                      placeholder="Search cities..."
+                      value={citySearchQuery}
+                      onChange={e => setCitySearchQuery(e.target.value)}
+                      className={styles.tabbedForm__dropdownSearchInput}
+                    />
+                  </div>
+
+                  {/* Dropdown Options with Categories */}
+                  <div className={styles.tabbedForm__dropdownOptions}>
+                    {Object.entries(filteredCategories).length > 0 ? (
+                      Object.entries(filteredCategories).map(([category, cities]) => (
+                        <div key={category} className={styles.tabbedForm__dropdownCategory}>
+                          <div className={styles.tabbedForm__dropdownCategoryHeader}>
+                            {category}
+                          </div>
+                          {cities.map(city => (
+                            <button
+                              key={city}
+                              type="button"
+                              className={`${styles.tabbedForm__dropdownOption} ${
+                                selectedCity === city
+                                  ? styles['tabbedForm__dropdownOption--selected']
+                                  : ''
+                              }`}
+                              onClick={() => {
+                                handleInputChange(dropdownFieldName, city);
+                                setOpenCityDropdown(false);
+                                setCitySearchQuery('');
+                                // Validate the field
+                                validateSingleField(
+                                  dropdownFieldName,
+                                  'Dropdown',
+                                  city,
+                                  field.required === true,
+                                );
+                              }}
+                            >
+                              {city}
+                            </button>
+                          ))}
+                        </div>
+                      ))
+                    ) : (
+                      <div className={styles.tabbedForm__dropdownNoResults}>No cities found</div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+            {hasErrorDropdown && (
+              <span className={styles.tabbedForm__errorMessage}>{errors[dropdownFieldName]}</span>
+            )}
+          </div>
+        );
 
       default:
         return null;
@@ -1299,7 +1744,7 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
       <Box
         className={`${containerClass} ${styles.tabbedForm__wrapper} ${
           isInModal ? styles['tabbedForm__wrapper--modal'] : ''
-        } ${formType === 'quote' ? styles['tabbedForm__wrapper--quote'] : ''}`}
+        } ${formType === 'quote' ? styles['tabbedForm__wrapper--quote'] : ''} ${formType === 'rider' ? styles['tabbedForm__wrapper--rider'] : ''}`}
         {...(inspectorModeId &&
           inspectorMode({ entryId: inspectorModeId, fieldId: 'tabbedFormContainer' }))}
       >
@@ -1307,8 +1752,43 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
         <Box
           className={`${styles.tabbedForm__content} ${isInModal ? styles['tabbedForm__content--modal'] : ''}`}
         >
+          {/* Title with Back Button for Eligibility and Rider Forms */}
           {title && layoutType !== 'HomePageLayout' && !isInModal && (
-            <div className={styles.tabbedForm__title}>
+            <div
+              className={`${styles.tabbedForm__title} ${['eligibility', 'rider'].includes(formType) ? styles['tabbedForm__title--withBack'] : ''}`}
+            >
+              {formType === 'eligibility' && (
+                <button
+                  type="button"
+                  className={styles.tabbedForm__backButton}
+                  onClick={() => {
+                    router.push(
+                      { pathname: router.pathname, query: { ...router.query, stage: 'rider' } },
+                      undefined,
+                      { shallow: true },
+                    );
+                  }}
+                  title="Go back to rider form"
+                >
+                  ←
+                </button>
+              )}
+              {formType === 'rider' && (
+                <button
+                  type="button"
+                  className={styles.tabbedForm__backButton}
+                  onClick={() => {
+                    router.push(
+                      { pathname: router.pathname, query: { ...router.query, stage: 'quote' } },
+                      undefined,
+                      { shallow: true },
+                    );
+                  }}
+                  title="Go back to quote form"
+                >
+                  ←
+                </button>
+              )}
               <h3>{title}</h3>
             </div>
           )}
@@ -1348,7 +1828,7 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
           )}
 
           {/* Description/Benefits */}
-          {description && (
+          {description && formType !== 'eligibility' && (
             <div className={styles.tabbedForm__benefits}>
               <CtfRichtext disableContainer={true} {...description} />
             </div>
@@ -1357,6 +1837,29 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
           {/* Form */}
           {formType === 'quote' ? (
             renderQuoteForm()
+          ) : formType === 'rider' ? (
+            <form
+              className={`${styles.tabbedForm__form} ${styles['tabbedForm__form--rider']}`}
+              onSubmit={handleSubmit}
+            >
+              <div className={styles['tabbedForm__cardCheckboxGrid']}>
+                {fields.map(field => renderField(field))}
+              </div>
+
+              <div className={styles.tabbedForm__footer}>
+                {submitButton && (
+                  <button
+                    type="submit"
+                    className={styles.tabbedForm__submit}
+                    {...inspectorMode({ entryId: submitButton.sys.id, fieldId: 'link' })}
+                  >
+                    {submitButton.linkHeading}
+                  </button>
+                )}
+              </div>
+            </form>
+          ) : formType === 'eligibility' ? (
+            renderEligibilityForm()
           ) : (
             <form className={styles.tabbedForm__form} onSubmit={handleSubmit}>
               <div className={styles.tabbedForm__formGrid}>

@@ -7,22 +7,47 @@ export const CtfJourney = (props: JourneyFieldsFragment) => {
   const router = useRouter();
   const [hasLeadId, setHasLeadId] = useState(false);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+
+  console.log('Journey props:', props);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const leadId = localStorage.getItem('lead_id');
       setHasLeadId(!!leadId);
-      // Get the current step from localStorage, default to 1 (step 0 "Premium Calculated" is already completed)
-      const savedStep = localStorage.getItem('current_step');
-      setCurrentStepIndex(savedStep ? parseInt(savedStep, 10) : 1);
+
+      // Determine completed steps and current step
+      const completed: number[] = [];
+      let currentStep = 0;
+
+      // Step 1: Premium Calculated - completed if lead_id exists
+      if (leadId) {
+        completed.push(0);
+        currentStep = 1; // Move to step 2
+      }
+
+      // Step 2: Quote Created - completed if quote_step_1/4 data exists in localStorage
+      const quoteStepData = localStorage.getItem('quote_step_1/4');
+      if (quoteStepData) {
+        completed.push(1);
+        currentStep = 2; // Move to step 3
+      }
+
+      // Step 3: Personal Details - completed if eligibility form data exists in localStorage
+      const eligibilityFormData = localStorage.getItem('eligibility_form_data');
+      if (eligibilityFormData) {
+        completed.push(2);
+        currentStep = 3; // Move to step 4
+      }
+
+      setCompletedSteps(completed);
+      setCurrentStepIndex(currentStep);
     }
   }, []);
 
-  const isQuoteStage = router.query.stage === 'quote';
-
-  // Hide journey when there is no lead OR when we are on the quote stage
-  if (!hasLeadId || isQuoteStage) {
-    return null; // Don't render journey if no lead_id
+  // Hide journey if no lead_id or if there's a stage query param
+  if (!hasLeadId || router.query.stage) {
+    return null;
   }
 
   const steps = props?.steps || [];
@@ -37,87 +62,68 @@ export const CtfJourney = (props: JourneyFieldsFragment) => {
 
   const handleContinueClick = () => {
     if (button?.pageLink?.slug) {
-      // Save the next step (current + 1) to localStorage
-      const nextStep = currentStepIndex + 1;
-      localStorage.setItem('current_step', nextStep.toString());
       router.push(`/${button.pageLink.slug}`);
     }
   };
 
   return (
-    <div className={styles.journey}>
-      <div className={styles.journey__container}>
-        {/* Progress Section */}
-        <div className={styles.journey__progressSection}>
-          {/* Header Inside Progress Box */}
-          <div className={styles.journey__header}>
-            <h2 className={styles.journey__title}>{title}</h2>
+    <div className={styles['step-counter-container']}>
+      <div className={styles['step-main-container']}>
+        {/* Header Section */}
+        <div className={styles['header-section']}>
+          <p className={styles.title}>{title}</p>
+        </div>
+
+        {/* Main Content Row */}
+        <div className={styles['content-row']}>
+          {/* Stepper Timeline - Left Side */}
+          <div className={styles['stepper-container']}>
+            <ul className={styles.timeline}>
+              {steps.map((step, index) => {
+                const isCompleted = completedSteps.includes(index);
+                const isActive = index === currentStepIndex;
+
+                return (
+                  <li
+                    key={`step-${index}`}
+                    className={`${styles['timeline-item']} ${
+                      isCompleted ? styles['completed-stage'] : ''
+                    } ${isActive ? styles['current-stage'] : ''}`}
+                  >
+                    <div className={styles['step-circle']}>
+                      <span className={styles['step-indicator']}>
+                        {isCompleted && <span className={styles['step-tick']}>✓</span>}
+                      </span>
+                    </div>
+                    <label className={styles['step-label']}>{step}</label>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
 
-          {/* Content Row: Steps on left, Details on right */}
-          <div className={styles.journey__contentRow}>
-            {/* Steps Container - Left Side */}
-            <div className={styles.journey__stepsContainer}>
-              {/* Step Circles */}
-              <div className={styles.journey__progressBar}>
-                {steps.map((step, index) => {
-                  const isCompleted = index < currentStepIndex;
-                  const isActive = index === currentStepIndex;
+          {/* Divider Line */}
+          <div className={styles['divider-line']}></div>
 
-                  return (
-                    <React.Fragment key={`step-${index}`}>
-                      {/* Step Circle */}
-                      <div
-                        className={`${styles.journey__step} ${
-                          isActive ? styles['journey__step--active'] : ''
-                        } ${isCompleted ? styles['journey__step--completed'] : ''}`}
-                        title={step || ''}
-                      >
-                        {isCompleted && <span className={styles.journey__stepTick}>✓</span>}
-                      </div>
-
-                      {/* Connector Line */}
-                      {index < steps.length - 1 && (
-                        <div
-                          className={`${styles.journey__connector} ${
-                            index < currentStepIndex ? styles['journey__connector--completed'] : ''
-                          }`}
-                        />
-                      )}
-                    </React.Fragment>
-                  );
-                })}
+          {/* Quote Summary - Right Side */}
+          <div className={styles['quote-summary-wrapper']}>
+            <div className={styles['quote-summary']}>
+              <div className={styles['summary-item']}>
+                <span className={styles['summary-label']}>{lifeCoverLabel}</span>
+                <span className={styles['summary-value']}>{lifeCover}</span>
               </div>
-
-              {/* Step Labels */}
-              <div className={styles.journey__stepLabels}>
-                {steps.map((step, index) => (
-                  <div
-                    key={`label-${index}`}
-                    className={`${styles.journey__stepLabel} ${
-                      index <= currentStepIndex ? styles['journey__stepLabel--active'] : ''
-                    }`}
-                  >
-                    {step}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Policy Details Section */}
-            <div className={styles.journey__policyDetails}>
-              <div className={styles.journey__detailItem}>
-                <span className={styles.journey__detailLabel}>{lifeCoverLabel}</span>
-                <span className={styles.journey__detailValue}>{lifeCover}</span>
-              </div>
-              <div className={styles.journey__detailItem}>
-                <span className={styles.journey__detailLabel}>{premiumLabel}</span>
-                <span className={styles.journey__detailValue}>{premium}</span>
+              <div className={styles['summary-item']}>
+                <span className={styles['summary-label']}>{premiumLabel}</span>
+                <span className={styles['summary-value']}>{premium}</span>
               </div>
 
               {/* Continue Button */}
               {button && (
-                <button className={styles.journey__continueButton} onClick={handleContinueClick}>
+                <button
+                  className={styles['continue-button']}
+                  onClick={handleContinueClick}
+                  type="button"
+                >
                   {button.linkHeading || 'Continue'}
                 </button>
               )}

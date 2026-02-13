@@ -1,10 +1,11 @@
+import React, { useEffect } from 'react';
+
 import { Container } from '@mui/material';
-import { useRouter } from 'next/router';
-import React, { useState, useEffect } from 'react';
 
 import { ComponentResolver } from '@src/components/shared/component-resolver';
 import { PageContainer } from '@src/components/templates/page-container';
 import LayoutContext, { defaultLayout } from '@src/layout-context';
+
 import { CtfPageFieldsFragment } from './__generated/ctf-page.generated';
 
 const CtfPage = (props: CtfPageFieldsFragment) => {
@@ -29,16 +30,10 @@ const CtfPage = (props: CtfPageFieldsFragment) => {
     layoutType: props.pageLayout || 'DefaultLayout',
     containerWidth: config.containerWidth,
   };
-  const [isMenuOpen, setMenuOpen] = useState(false);
-
-  const router = useRouter();
 
   useEffect(() => {
-    router.events.on('routeChangeStart', () => {
-      setMenuOpen(false);
-    });
-
-    router.events.on('routeChangeComplete', () => {
+    if (typeof window === 'undefined') return;
+    const handleRouteChangeComplete = () => {
       if (document.activeElement === null) {
         return;
       }
@@ -46,8 +41,13 @@ const CtfPage = (props: CtfPageFieldsFragment) => {
       if (document.activeElement instanceof HTMLElement) {
         document.activeElement.blur();
       }
-    });
-  }, [router.events]);
+    };
+
+    window.addEventListener('routeChangeComplete', handleRouteChangeComplete);
+    return () => {
+      window.removeEventListener('routeChangeComplete', handleRouteChangeComplete);
+    };
+  }, []);
 
   return (
     <PageContainer>

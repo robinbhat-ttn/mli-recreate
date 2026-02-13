@@ -1,6 +1,7 @@
 import React from 'react';
-import { HomePageBannerComponent } from './HomePageBannerComponent';
+
 import { DefaultBannerComponent } from './DefaultBannerComponent';
+import { HomePageBannerComponent } from './HomePageBannerComponent';
 import { useLayoutContext } from '@src/layout-context';
 
 type Props = any;
