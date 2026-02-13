@@ -71,7 +71,7 @@
     background: $white;
     border-radius: $radius-16;
     box-shadow: 0px 5px 35px rgba(0, 0, 0, 0.06);
-    border: 1px solid #e8eaed;
+    border: 1px solid $border-light;
   }
 
   &__quoteField {
@@ -90,7 +90,7 @@
 
   &__quoteFieldLabel {
     font-size: $fs-16;
-    @include font-apply($font-noto, $fw-bold);
+    @include font-apply($font-noto, $fw-semi-bold);
     color: $text-primary;
     display: flex;
     align-items: center;
@@ -129,8 +129,9 @@
 
   &__quoteSubLabel {
     font-size: $fs-14;
-    color: $success;
-    @include font-apply($font-noto, $fw-semi-bold);
+    color: $text-primary;
+    @include font-apply($font-noto, $fw-regular);
+    margin-top: $space-4;
   }
 
   &__quoteDropdown {
@@ -140,7 +141,7 @@
 
   &__quoteDropdownButton {
     width: 100%;
-    padding: $space-20 $space-24;
+    padding: $space-20 $space-16;
     border-radius: $radius-12;
     border: 1px solid $border-light;
     background: $white;
@@ -149,13 +150,13 @@
     justify-content: space-between;
     gap: $space-12;
     cursor: pointer;
-    font-size: $fs-16;
+    font-size: $fs-14;
     @include font-apply($font-noto, $fw-semi-bold);
     color: $text-primary;
     transition: all $transition-fast;
     
     &:hover {
-      border-color: $primary;
+      border-color: $accent;
       background: $bg-very-light;
     }
   }
@@ -317,13 +318,12 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: $space-4 $space-8;
-    border-radius: $radius-4;
-    background: rgba($success, 0.15);
-    color: $success;
+    padding: $space-6 $space-8;
+    border-radius: $radius-6;
+    background: #10b981;
+    color: $white;
     font-size: $fs-12;
     @include font-apply($font-noto, $fw-semi-bold);
-    margin-right: $space-8;
   }
 
   &__quoteSavingBadge {
@@ -332,8 +332,8 @@
     justify-content: center;
     padding: $space-4 $space-8;
     border-radius: $radius-4;
-    background: rgba($success, 0.1);
-    color: $success;
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
     font-size: $fs-12;
     @include font-apply($font-noto, $fw-semi-bold);
     white-space: nowrap;
@@ -414,7 +414,7 @@
   &__quoteCoverCard {
     flex: 1;
     min-width: 0;
-    padding: $space-16 $space-12;
+    padding: $space-16;
     border-radius: 0;
     border: 1px solid $border-light;
     background: $white;
@@ -426,70 +426,72 @@
     cursor: pointer;
     text-align: center;
     transition: all $transition-fast;
-    //margin-right: -1px;
+    margin-right: -1px;
+    position: relative;
+    z-index: 1;
 
     &:first-child {
       border-radius: $radius-12 0 0 $radius-12;
     }
 
-    &:last-child:not(:first-child) {
+    &:last-child {
       border-radius: 0 $radius-12 $radius-12 0;
     }
 
     &:hover {
-      border-color: $primary;
+      border-color: $accent;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-      position: relative;
-      z-index: 1;
+      z-index: 2;
     }
   }
 
   &__quoteCoverCardSelected {
-    border-color: $primary;
+    border-color: $accent;
     background: $bg-light-blue;
+    position: relative;
+    z-index: 2;
   }
 
   &__quoteCoverDuration {
     font-size: $fs-14;
-    @include font-apply($font-noto, $fw-bold);
+    @include font-apply($font-noto, $fw-semi-bold);
     color: $text-primary;
     width: 100%;
     line-height: 1.2;
   }
 
   &__quoteCoverPremium {
-    font-size: $fs-12;
-    @include font-apply($font-noto, $fw-semi-bold);
-    color: $text-primary;
+    font-size: $fs-13;
+    @include font-apply($font-noto, $fw-regular);
+    color: $text-secondary;
     width: 100%;
   }
 
   &__quoteMoreButton {
-    min-width: $space-56;
-    padding: $space-12;
+    min-width: 80px;
+    padding: $space-16;
     border-radius: 0 $radius-12 $radius-12 0;
     border: 1px solid $border-light;
     background: $white;
     cursor: pointer;
-    font-size: $fs-14;
-    color: $text-primary;
+    font-size: $fs-13;
+    color: $text-secondary;
     display: flex;
     align-items: center;
     justify-content: center;
     height: auto;
     transition: all $transition-fast;
     @include font-apply($font-noto, $fw-semi-bold);
-    flex: 0 0 auto;
-    display: flex;
-    justify-content: center;
     flex-direction: column;
+    gap: $space-4;
     margin-left: -1px;
+    position: relative;
+    z-index: 1;
 
     &:hover:not(:disabled) {
-      border-color: $primary;
+      border-color: $accent;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-      position: relative;
-      z-index: 1;
+      z-index: 2;
     }
 
     &:disabled {
