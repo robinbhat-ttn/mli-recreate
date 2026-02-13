@@ -45,8 +45,8 @@ export const CtfJourney = (props: JourneyFieldsFragment) => {
     }
   }, []);
 
-  // Hide journey if no lead_id
-  if (!hasLeadId) {
+  // Hide journey if no lead_id or if there's a stage query param
+  if (!hasLeadId || router.query.stage) {
     return null;
   }
 
