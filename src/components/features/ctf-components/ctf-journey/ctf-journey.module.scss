@@ -1,219 +1,262 @@
-.journey {
-  width: 100%;
-  padding: 0 $space-16;
-  top: 0;
-  z-index: 10;
+.step-counter-container {
+  width: 60%;
+  padding: $space-16;
+  margin: 0 auto;
+}
 
-  &__container {
-    max-width: 60%;
-    margin: 0 auto;
-    padding: 0 $space-44;
-  }
+.step-main-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: $space-20;
+  background: linear-gradient(135deg, rgba(196, 221, 254, 0.2) 0%, rgba(254, 216, 247, 0.2) 100%);
+  border-radius: 12px;
+}
 
-  &__header {
-    width: 100%;
-    text-align: center;
-    margin-bottom: $space-16;
-  }
+.header-section {
+  text-align: center;
+  margin-bottom: $space-16;
+}
 
-  &__title {
+.title {
+  font-weight: $fw-semi-bold;
+  font-size: $fs-16;
+  margin: 0;
+  text-align: center;
+  color: $text-primary;
+
+  @media (min-width: 768px) {
     font-size: $fs-18;
-    font-weight: $fw-bold;
-    color: $text-primary;
-    margin: 0;
-    font-family: $font-roboto;
   }
+}
 
-  &__progressSection {
-    display: flex;
+.content-row {
+  display: flex;
+  gap: $space-16;
+  align-items: center;
+
+  @media (max-width: 768px) {
     flex-direction: column;
-    gap: $space-16;
-    padding: $space-20 $space-24;
-    background: $white;
-    border-radius: $radius-12;
-    border: 1px solid $border-light;
-    background: linear-gradient(45deg, rgba(196, 221, 254, 0.32) -12.5%, rgba(254, 216, 247, 0.32) 112.5%);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    gap: $space-20;
+  }
+}
 
-    @media (max-width: 768px) {
-      padding: $space-16;
+.stepper-container {
+  flex: 1;
+  min-width: 0;
+}
+
+.timeline {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.timeline-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-8;
+  flex: 1;
+  position: relative;
+  text-align: center;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    width: 100%;
+    height: 2px;
+    background-color: $border-light;
+    z-index: 0;
+  }
+
+  &:last-child::after {
+    display: none;
+  }
+
+  // Completed state
+  &.completed-stage {
+    .step-circle {
+      z-index: 2;
     }
-  }
 
-  &__contentRow {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: $space-24;
-
-    @media (max-width: 768px) {
-      flex-direction: column;
-      gap: $space-16;
-    }
-  }
-
-  &__stepsContainer {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: $space-12;
-  }
-
-  &__progressBar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-  }
-
-  &__step {
-    width: $space-28;
-    height: $space-28;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: $fs-12;
-    font-weight: $fw-semi-bold;
-    background: $white;
-    color: $text-secondary;
-    border: 2px solid $border-light;
-    flex-shrink: 0;
-    transition: $transition-standard;
-    font-family: $font-roboto;
-    position: relative;
-    z-index: 1;
-
-    &--active {
-      background: $accent;
-      color: $white;
+    .step-indicator {
+      background-color: $accent;
       border-color: $accent;
-    }
-
-    &--completed {
-      background: $accent;
       color: $white;
-      border-color: $accent;
 
-      & .journey__stepTick {
+      .step-tick {
         display: block;
       }
     }
-  }
 
-  &__stepNumber {
-    display: none;
-  }
-
-  &__stepTick {
-    display: none;
-    line-height: 1;
-    font-size: $fs-14;
-  }
-
-  &__connector {
-    width: 12%;
-    height: 2px;
-    background: $border-light;
-    transition: background-color $transition-standard;
-    flex-shrink: 0;
-    margin: 0;
-
-    &--completed {
-      background: $accent;
+    &::after {
+      background-color: $accent;
     }
-  }
 
-  &__stepLabels {
-    display: flex;
-    justify-content: flex-start;
-    gap: 0;
-    flex-wrap: wrap;
-    align-items: flex-start;
-  }
-
-  &__stepLabel {
-    font-size: $fs-12;
-    color: $text-muted;
-    font-weight: $fw-regular;
-    line-height: 1.3;
-    transition: color $transition-standard;
-    font-family: $font-roboto;
-    text-align: center;
-    flex: 1;
-
-    &--active {
+    .step-label {
       color: $text-primary;
       font-weight: $fw-semi-bold;
     }
   }
 
-  &__policyDetails {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: $space-20;
-    padding: $space-12 $space-16;
-    border: 1px solid $gray-525;
-    border-radius: $radius-8;
+  // Current/active state
+  &.current-stage {
+    .step-circle {
+      z-index: 2;
+    }
 
-    @media (max-width: 768px) {
-      width: 100%;
-      justify-content: space-between;
-      gap: $space-12;
+    .step-indicator {
+      background-color: $white;
+      border-color: $accent;
+      color: $accent;
+    }
+
+    .step-label {
+      color: $text-primary;
+      font-weight: $fw-semi-bold;
     }
   }
+}
 
-  &__detailItem {
-    display: flex;
-    flex-direction: column;
-    gap: $space-4;
-  }
+.step-circle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
 
-  &__detailLabel {
-    font-size: $fs-12;
-    color: $text-muted;
-    font-weight: $fw-regular;
-    font-family: $font-roboto;
-    line-height: 1.2;
-  }
+.step-indicator {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $white;
+  border: 2px solid $border-light;
+  flex-shrink: 0;
+  font-size: $fs-12;
+  font-weight: $fw-semi-bold;
+  color: $text-secondary;
+  transition: all 0.3s ease;
+}
 
-  &__detailValue {
-    font-size: $fs-14;
-    font-weight: $fw-bold;
-    color: $text-primary;
-    font-family: $font-roboto;
-  }
+.step-tick {
+  display: none;
+  font-size: $fs-14;
+  line-height: 1;
+}
 
-  &__detailSeparator {
-    display: none;
-  }
+.step-label {
+  font-size: $fs-12;
+  color: $text-muted;
+  font-weight: $fw-regular;
+  line-height: 1.4;
+  word-break: break-word;
+  max-width: 70px;
 
-  &__continueButton {
-    padding: $space-8 $space-20;
-    background: $white;
-    color: $secondary;
-    border: 2px solid $secondary;
-    border-radius: $radius-6;
+  @media (min-width: 768px) {
     font-size: $fs-13;
-    font-weight: $fw-semi-bold;
-    cursor: pointer;
-    transition: $transition-standard;
-    white-space: nowrap;
-    font-family: $font-roboto;
-    min-width: fit-content;
+    max-width: 80px;
+  }
+}
 
-    &:hover {
-      background: $secondary;
-      color: $white;
-    }
+.divider-line {
+  width: 2px;
+  height: 140px;
+  background-color: $border-light;
+  margin: 0 $space-8;
+  flex-shrink: 0;
+  display: none;
 
-    &:active {
-      transform: scale(0.98);
-    }
+  @media (min-width: 768px) {
+    display: block;
+  }
+}
 
-    @media (max-width: 768px) {
-      width: 100%;
-    }
+.quote-summary-wrapper {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    width: auto;
+  }
+}
+
+.quote-summary {
+  display: flex;
+  gap: $space-16;
+  align-items: center;
+  padding: $space-16;
+  background-color: $white;
+  border-radius: 8px;
+  border: 1px solid $border-light;
+  min-width: fit-content;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  position: relative;
+
+  @media (min-width: 768px) {
+    flex-wrap: nowrap;
+    gap: $space-20;
+  }
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.summary-label {
+  font-size: $fs-12;
+  color: $text-muted;
+  font-weight: $fw-regular;
+  line-height: 1.2;
+}
+
+.summary-value {
+  font-size: $fs-14;
+  font-weight: $fw-semi-bold;
+  color: $text-primary;
+}
+
+.continue-button {
+  padding: $space-8 $space-16;
+  background-color: $secondary;
+  color: $white;
+  border: none;
+  border-radius: 6px;
+  font-size: $fs-12;
+  font-weight: $fw-semi-bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  min-width: 96px;
+  height: 36px;
+  font-family: $font-noto;
+
+  &:hover {
+    background-color: lighten($secondary, 10%);
+    box-shadow: 0px 4px 12px 0px rgba(151, 20, 77, 0.2);
+  }
+
+  &:active {
+    background-color: darken($secondary, 10%);
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
   }
 }
