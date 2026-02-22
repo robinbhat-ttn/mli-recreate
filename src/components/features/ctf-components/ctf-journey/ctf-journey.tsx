@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import React, { useState, useEffect } from 'react';
+
 import { JourneyFieldsFragment } from './__generated/ctf-journey.generated';
+
 import styles from './ctf-journey.module.scss';
 
 export const CtfJourney = (props: JourneyFieldsFragment) => {

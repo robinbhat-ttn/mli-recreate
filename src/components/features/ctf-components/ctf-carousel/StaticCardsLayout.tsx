@@ -1,9 +1,10 @@
-import Image from 'next/image';
-
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
 import { CarouselFieldsFragment } from './__generated/ctf-carousel.generated';
 import { CtfRichtext } from '../ctf-richtext/ctf-richtext';
+
+import Image from 'next/image';
+
 import styles from './StaticCardsLayout.module.scss';
 
 export const StaticCardsLayout = (props: CarouselFieldsFragment) => {
