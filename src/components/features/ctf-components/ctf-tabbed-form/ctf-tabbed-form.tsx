@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
-import { TabbedFormContainerFieldsFragment } from './__generated/ctf-tabbed-form.generated';
 import { CtfFormRenderer } from '@src/components/features/ctf-components/ctf-form/ctf-form-renderer';
+
+import { TabbedFormContainerFieldsFragment } from './__generated/ctf-tabbed-form.generated';
 
 type Props = TabbedFormContainerFieldsFragment;
 

@@ -1,14 +1,15 @@
-import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import { Tabs, Tab, Box } from '@mui/material';
 import { useContentfulInspectorMode } from '@contentful/live-preview/react';
 
-import { CardCheckbox } from './CardCheckbox';
-import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtext/ctf-richtext';
-import chevronIcon from '@src/icons/chevron_down_navigate_blue.webp';
 import { useLayoutContext } from '@src/layout-context';
+import chevronIcon from '@src/icons/chevron_down_navigate_blue.webp';
+import { CtfRichtext } from '@src/components/features/ctf-components/ctf-richtext/ctf-richtext';
+
+import { CardCheckbox } from './CardCheckbox';
 
 import styles from '../ctf-tabbed-form/ctf-tabbed-form.module.scss';
 

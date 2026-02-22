@@ -1,22 +1,23 @@
 import React, { useMemo, useCallback } from 'react';
 
-import { useContentfulLiveUpdates } from '@contentful/live-preview/react';
-import { documentToReactComponents, Options } from '@contentful/rich-text-react-renderer';
 import { Block as RichtextBlock, BLOCKS, INLINES } from '@contentful/rich-text-types';
-import { Theme, Typography, Container } from '@mui/material';
+import { documentToReactComponents, Options } from '@contentful/rich-text-react-renderer';
+import { useContentfulLiveUpdates } from '@contentful/live-preview/react';
+import clsx from 'clsx';
+import { Container, Theme, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Variant } from '@mui/material/styles/createTypography';
-import clsx from 'clsx';
 
+import { Variant as MUIVariant } from '@mui/material/styles/createTypography';
 import { AssetFieldsFragment } from '@src/components/features/ctf-components/ctf-asset/__generated/ctf-asset.generated';
 import { useCtfRichTextHyperlinkQuery } from '@src/components/features/ctf-components/ctf-richtext/__generated/ctf-richtext.generated';
 import { ComponentResolver } from '@src/components/shared/component-resolver';
+import { PageLink } from '@src/components/features/page-link';
 import { useContentfulContext } from '@src/contentful-context';
 import { useLayoutContext } from '@src/layout-context';
 import { OmitRecursive, tryget } from '@src/utils';
 
 import { CtfAsset } from '../ctf-asset/ctf-asset';
-import { PageLink } from '@src/components/features/page-link';
 
 const Root = styled('div')(({ theme }: { theme: Theme }) => ({
   '& > ol, > ul': {

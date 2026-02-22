@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
 
 import { useContentfulLiveUpdates } from '@contentful/live-preview/react';
 
 import { useCtfCardQuery } from '../ctf-card/__generated/ctf-card.generated';
+
 import styles from '../ctf-tabbed-form/ctf-tabbed-form.module.scss';
 
 export const CardCheckbox = (props: any) => {

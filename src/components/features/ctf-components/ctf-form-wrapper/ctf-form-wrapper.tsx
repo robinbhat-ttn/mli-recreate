@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import { FormWrapperFieldsFragment } from './__generated/ctf-form-wrapper.generated';
 import { CtfFormRenderer } from '@src/components/features/ctf-components/ctf-form/ctf-form-renderer';
+
+import { FormWrapperFieldsFragment } from './__generated/ctf-form-wrapper.generated';
 
 import styles from './ctf-form-wrapper.module.scss';
 

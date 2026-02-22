@@ -2,11 +2,10 @@ import React, { useEffect } from 'react';
 
 import { Container } from '@mui/material';
 
+import { CtfPageFieldsFragment } from './__generated/ctf-page.generated';
 import { ComponentResolver } from '@src/components/shared/component-resolver';
 import { PageContainer } from '@src/components/templates/page-container';
 import LayoutContext, { defaultLayout } from '@src/layout-context';
-
-import { CtfPageFieldsFragment } from './__generated/ctf-page.generated';
 
 const CtfPage = (props: CtfPageFieldsFragment) => {
   const content = props.contentCollection && props.contentCollection.items.filter(it => !!it);
