@@ -18,9 +18,10 @@ import { SocialLinks } from './SocialLinks';
 
 export const CtfFooter = (props: FooterFieldsFragment) => {
   const inspectorMode = useContentfulInspectorMode();
+  const isHomePageFooter = props.footerType === 'Home Page Footer';
   return (
     <div
-      className={styles.footerContainer}
+      className={`${styles.footerContainer} ${!isHomePageFooter ? styles['footerContainer--default'] : ''}`}
       {...inspectorMode({ entryId: props.sys.id, fieldId: 'footer' })}
     >
       {props.footerLinksCollection?.items && props.footerLinksCollection?.items.length > 0 && (

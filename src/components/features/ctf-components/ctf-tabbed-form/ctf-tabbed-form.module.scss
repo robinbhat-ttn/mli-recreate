@@ -26,9 +26,12 @@
     border: 1px solid #c2c7d1;
 
     &.form-container--default {
-      width: 60%;
+      width: 100%;
       border: 0;
       box-shadow: none;
+      @include min-width('md') {
+        width: 60%;
+      }
     }
 
     &.form-container--default.tabbedForm__wrapper--rider {
@@ -66,19 +69,28 @@
   &__quoteForm {
     display: flex;
     flex-wrap: wrap;
-    gap: $space-24;
-    padding: $space-32;
+    gap: $space-16;
+    padding: $space-16;
     background: $white;
     border-radius: $radius-16;
     box-shadow: 0px 5px 35px rgba(0, 0, 0, 0.06);
     border: 1px solid $border-light;
+
+    @include min-width('md') {
+      gap: $space-24;
+      padding: $space-32;
+    }
   }
 
   &__quoteField {
     display: flex;
     flex-direction: column;
     gap: $space-16;
-    width: calc(50% - $space-12);
+    width: 100%;
+
+    @include min-width('md') {
+      width: calc(50% - $space-12);
+    }
   }
 
   &__quoteFieldHeader {
@@ -608,15 +620,19 @@
 
     &.tabbedForm__title--withBack {
       display: flex;
-      align-items: center;
+      align-items: start;
       justify-content: center;
       text-align: left;
+      @include min-width('md') {
+        align-items: center;
+      }
     }
 
     h3 {
       @include font-apply($font-noto, $fw-semi-bold);
       font-size: $fs-18;
       line-height: $lh-xl;
+      margin: 0;
     }
 
     h1 {
@@ -699,13 +715,12 @@
   &__field {
     display: flex;
     flex-direction: column;
-    flex: 1 1 calc(50% - $space-24);
-    //min-width: 200px;
     position: relative;
-    padding-bottom: 24px; // Reserve space for error message
+    padding-bottom: 24px;
+    flex: 1 1 100%;
 
-    @media (max-width: 639px) {
-      flex: 1 1 100%;
+    @include min-width('md') {
+      flex: 1 1 calc(50% - $space-24);
     }
   }
 
@@ -733,6 +748,19 @@
       border-color: $accent;
       // padding-bottom: 1px;
       transition: all 0.2s ease;
+    }
+
+    /* Remove spinner arrows from number inputs */
+    &[type='number'] {
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      /* Firefox */
+      -moz-appearance: textfield;
+      appearance: textfield;
     }
   }
 
@@ -1058,6 +1086,7 @@
     position: relative;
     flex: 1 1 calc(50% - 10px);
     min-width: 200px;
+    z-index: 100;
 
     @media (max-width: 639px) {
       flex: 1 1 100%;
@@ -1133,11 +1162,20 @@
   }
 
   &__dropdownOptions {
-    flex: 1;
+    position: absolute;
+    top: calc(100% - 1px);
+    left: 0;
+    right: 0;
+    background: $white;
+    border: 1px solid $border-light;
+    border-radius: 0 0 $radius-8 $radius-8;
+    border-top: none;
+    max-height: 300px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    min-height: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   &__dropdownSearch {
@@ -1149,6 +1187,7 @@
     color: $text-primary;
     background: $white;
     flex-shrink: 0;
+    pointer-events: auto;
 
     input {
       width: 100%;
@@ -1183,6 +1222,8 @@
     color: $text-primary;
     text-align: left;
     transition: $transition-standard background-color;
+    flex-shrink: 0;
+    pointer-events: auto;
 
     &:hover {
       background: rgba($primary, 0.05);
@@ -1586,55 +1627,55 @@
   }
 
   &__inputError {
-    border-color: #ef5350 !important;
+    border-color: $error !important;
     //background-color: #ffebee;
 
     &::placeholder {
-      color: #ef5350;
+      color: $error;
     }
   }
 
   &__inputWrapperError {
     .tabbedForm__input {
-      border-color: #ef5350 !important;
+      border-color: $error !important;
       //background-color: #ffebee;
     }
 
     .tabbedForm__phoneInput {
-      border-color: #ef5350 !important;
+      border-color: $error !important;
       // background-color: #ffebee;
     }
 
     .tabbedForm__phoneInputFull {
-      border-color: #ef5350 !important;
+      border-color: $error !important;
       //background-color: #ffebee;
     }
   }
 
   &__phoneFieldError {
-    border-color: #ef5350 !important;
+    border-color: $error !important;
     //background-color: #ffebee;
   }
 
   &__phoneFieldFullError {
-    border-color: #ef5350 !important;
+    border-color: $error !important;
     //background-color: #ffebee;
   }
 
   &__phoneInputWrapperFullError {
     .tabbedForm__phoneInputFull {
-      border-color: #ef5350 !important;
+      border-color: $error !important;
       //background-color: #ffebee;
     }
   }
 
   &__phoneInputFullError {
-    border-color: #ef5350 !important;
+    border-color: $error !important;
     //background-color: #ffebee;
   }
 
   &__phoneInputError {
-    border-color: #ef5350 !important;
+    border-color: $error !important;
     //background-color: #ffebee;
   }
 
@@ -1699,7 +1740,7 @@
 
   &__errorMessage {
     display: block;
-    color: #ef5350;
+    color: $error;
     font-size: $fs-13;
     @include font-apply($font-noto, $fw-regular);
     position: absolute;
@@ -1707,15 +1748,19 @@
     left: 0;
     right: 0;
     line-height: 1.4;
+    animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
   }
 
   &__radioGroupError {
     .tabbedForm__fieldLabel {
-      color: #ef5350;
+      color: $error;
     }
 
     .tabbedForm__radioOptions {
-      border: 1px solid #ef5350;
+      border: 1px solid $error;
       border-radius: $radius-8;
       padding: $space-8;
       // background-color: #ffebee;
@@ -1723,7 +1768,7 @@
   }
 
   &__fieldLabelError {
-    color: #ef5350 !important;
+    color: $error !important;
   }
 
   // Rider form styles - Card Checkbox grid
@@ -2086,6 +2131,30 @@
         text-decoration: underline;
       }
     }
+  }
+}
+
+// Shake animation for error messages
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
   }
 }
 

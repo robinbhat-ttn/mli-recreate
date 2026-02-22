@@ -42,15 +42,15 @@ const settings: Settings = {
       settings: {
         slidesToShow: 2,
         arrows: false,
-        dots: true,
+        dots: false,
       },
     },
     {
-      breakpoint: 800,
+      breakpoint: 768,
       settings: {
-        slidesToShow: 2,
+        slidesToShow: 1,
         arrows: false,
-        dots: true,
+        dots: false,
       },
     },
     {
@@ -58,8 +58,7 @@ const settings: Settings = {
       settings: {
         slidesToShow: 1,
         arrows: false,
-        dots: true,
-        adaptiveHeight: true,
+        dots: false,
       },
     },
   ],

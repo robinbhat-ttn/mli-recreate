@@ -1,10 +1,14 @@
 .featureCardsLayoutContainer {
   width: 100%;
-  padding: 1.5rem;
+  padding: 1.5rem 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  @include min-width('md') {
+    padding: 1.5rem;
+  }
 
   &__title {
     text-align: center;
@@ -17,6 +21,13 @@
   &__container {
     max-width: 53.5rem;
     width: 100%;
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     &__wrapper {
       display: flex;

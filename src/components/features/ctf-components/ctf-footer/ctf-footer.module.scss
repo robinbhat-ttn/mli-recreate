@@ -2,6 +2,22 @@
 .footerContainer{
     background-color: $bg-muted;
     padding: 3rem 0;
+    background-color: $white;
+    &--default {
+        padding: 0;
+        .footerInformation {
+            background-color: $white;
+            padding: 0;
+
+            &Inner {
+                text-align: center;
+            }
+
+            .disclaimerSectionHeading {
+                display: none;
+            }
+        }   
+    }
 }
 .footerLinks{
     padding-left: $space-16;
