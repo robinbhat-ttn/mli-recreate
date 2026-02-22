@@ -1526,10 +1526,17 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
             >
               <input
                 type="number"
+                min="0"
                 name={numberFieldName}
                 placeholder={field.placeholder || ''}
                 className={`${styles.tabbedForm__input} ${hasErrorNumber ? styles.tabbedForm__inputError : ''}`}
-                onChange={e => handleInputChange(numberFieldName, e.target.value)}
+                onChange={e => {
+                  const value = e.target.value;
+                  // Prevent negative numbers
+                  if (value === '' || parseFloat(value) >= 0) {
+                    handleInputChange(numberFieldName, value);
+                  }
+                }}
                 onFocus={() => {
                   setFocusedField(numberFieldName);
                 }}
@@ -1801,7 +1808,6 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
               className={styles.tabbedForm__tabs}
               variant="standard"
               scrollButtons={false}
-              disableRipple={true}
               TabIndicatorProps={{
                 className: styles.tabbedForm__tabIndicator,
               }}
@@ -1812,7 +1818,6 @@ export const CtfFormRenderer = (props: CtfFormRendererProps) => {
                   <Tab
                     key={tab.sys.id}
                     className={styles.tabbedForm__tab}
-                    disableRipple={true}
                     label={
                       tab.tabLabel?.json ? (
                         <CtfRichtext disableContainer={true} {...tab.tabLabel} />

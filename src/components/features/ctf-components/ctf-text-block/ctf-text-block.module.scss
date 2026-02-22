@@ -59,10 +59,14 @@
 }
 
 .agreement-wrapper {
-  margin: 0;
-  padding: 0;
-  width: 60%;
+  padding: 0 $space-24;
+  width: 100%;
   margin: 0 auto;
+
+  @include min-width('md') {
+    width: 60%;
+    padding: 0;
+  }
 
   div {
     text-align: center;
