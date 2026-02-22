@@ -1538,7 +1538,11 @@
     font-size: $fs-16;
     font-weight: $fw-bold;
     transition: $transition-standard background-color;
-    width: 20.438rem;
+    width: 100%;
+
+    @include min-width('md') {
+      width: 20.438rem;
+    }
 
     &:hover:not(:disabled) {
       background: #E51264;
